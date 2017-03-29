@@ -1,1 +1,17 @@
 /* CSS declarations go here */
+
+html{
+	font-family: Avenir Next;
+}
+
+.balance_main{
+	color: #6495ed;
+	font-size: 100px;
+	/*font-family: "Open Sans", serif;*/
+}
+
+.currency_main{
+	color: #6495ed;
+	font-size: 20px;
+	/*font-family: "Open Sans", serif;*/
+}

@@ -6,15 +6,17 @@
 		    <a href="/"><img class="logo brand-logo" src="/images/new_logo.png" alt="Logo"></a>
 		    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 		    <ul id="nav-mobile" class="right valign-wrapper hide-on-med-and-down">
-					 <li><a href="about">About</a></li>
 					 <!-- if user logged in show logout button otherwise login button -->
 					 {{#if currentUser }}
+  						<li><a href="profile">Profile</a></li>
+
   						<li><a class="logout waves-effect waves-light">Logout</a></li>
   						{{else}}
   						<li><a class="waves-effect waves-light" href="#login">Login</a></li>
 						{{/if}}
 						
 				</ul>
+
 		  </div>
 		</nav>
 	</div>
@@ -45,6 +47,7 @@
     <input type="number" name="signupNumber" placeholder="Phone Number">
     <input type="email" name="signupEmail" placeholder="Email">
     <input type="password" name="signupPassword" placeholder="Password">
+    <input type="text" name="signupPilot" placeholder="Pilot Code">
     <center><a class="waves-effect waves-light btn"><input type="submit" value="Signup"></a></center>
   </form>
 </template>

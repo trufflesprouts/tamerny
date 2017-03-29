@@ -16,3 +16,13 @@ Accounts.onCreateUser(function(options, user) {
     return user;
 
 });
+
+Meteor.methods({
+
+updateBalance: function(amount){
+
+	UserProfiles.update({userId: Meteor.userId()}, {$set: {balance: amount}});
+},
+
+})
+
