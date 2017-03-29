@@ -1,22 +1,64 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import { UserProfiles } from '../collections/userProfiles.js'
 
-import './main.html';
+window.UserProfiles = UserProfiles
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
+
+Template.Navbar.onRendered(function () {
+  $(document).ready(function(){
+    $('.modal').modal();
+    $('ul.tabs').tabs();
+  });
 });
 
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
+Template.signup.events({
+    'submit form': function(event) {
+      event.preventDefault();
+      var emailVar = event.target.signupEmail.value;
+      var passwordVar = event.target.signupPassword.value;
+      // Creat userprofile with this data
+      var nameVar = event.target.signupName.value;
+      var numberVar = event.target.signupNumber.value;
+      $('#login').modal('close');
+      
+      Accounts.createUser({
+        email: emailVar,
+        password: passwordVar,
+        nameVar,
+        numberVar
+      });
+
+
+    }
+  });
+
+  Template.login.events({
+    'submit form': function(event) {
+      event.preventDefault();
+      var emailVar = event.target.loginEmail.value;
+      var passwordVar = event.target.loginPassword.value;
+      Meteor.loginWithPassword(emailVar, passwordVar);
+      $('#login').modal('close');
+    }
+  });
+
+Template.Navbar.events({
+    'click .logout': function(event) {
+      event.preventDefault();
+      Meteor.logout();
+    }
+  });
+
+Template.Navbar.helpers({
+  loginstate(state){
+    if (state == "login"){
+      return true;
+    }else {
+      return false;
+    }
+  }
 });
 
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
-});
+
+
+// For Debugging
+ SimpleSchema.debug = true;

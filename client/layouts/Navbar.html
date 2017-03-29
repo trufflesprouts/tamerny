@@ -1,0 +1,67 @@
+	
+<template name="Navbar">
+	<div class="navbar-fixed ">
+		<nav class="#9fa8da indigo lighten-3 z-depth-0">
+		  <div class="nav-wrapper">
+		    <a href="/"><img class="logo brand-logo" src="/images/new_logo.png" alt="Logo"></a>
+		    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+		    <ul id="nav-mobile" class="right valign-wrapper hide-on-med-and-down">
+					 <li><a href="about">About</a></li>
+					 <!-- if user logged in show logout button otherwise login button -->
+					 {{#if currentUser }}
+  						<li><a class="logout waves-effect waves-light">Logout</a></li>
+  						{{else}}
+  						<li><a class="waves-effect waves-light" href="#login">Login</a></li>
+						{{/if}}
+						
+				</ul>
+		  </div>
+		</nav>
+	</div>
+
+
+  <!-- Modal Structure -->
+  <div id="login" class="modal">
+    <div class="modal-content">
+		<div class="row">
+	    <div class="col s12">
+	      <ul class="tabs #f5f5f5 grey lighten-5">
+	        <li class="tab col s6"><a class="active"  href="#test1">Login</a></li>
+	        <li class="tab col s6"><a href="#test2">Register</a></li>
+	      </ul>
+	    </div>
+	    <div id="test1" class="col s12">{{> login}}</div>
+	    <div id="test2" class="col s12">{{> signup}}</div>
+  	</div>
+
+    </div>
+  </div>
+</template>
+
+<template name="signup">
+  <h2 class="center">Join Tamerny</h2>
+  <form>
+    <input type="text" name="signupName" placeholder="Name">
+    <input type="number" name="signupNumber" placeholder="Phone Number">
+    <input type="email" name="signupEmail" placeholder="Email">
+    <input type="password" name="signupPassword" placeholder="Password">
+    <center><a class="waves-effect waves-light btn"><input type="submit" value="Signup"></a></center>
+  </form>
+</template>
+
+<template name="login">
+  <center><h2>Login</h2></center>
+  <form>
+    <input type="email" name="loginEmail" placeholder="Email">
+    <input type="password" name="loginPassword" placeholder="Password">
+    <center><a class="waves-effect waves-light btn center"><input type="submit" value="Login"></a></center>
+  </form>
+</template>
+
+<!-- <template name="modalSignUp">
+  <a href="#signUpModal" class="waves-effect waves-light modal-signup-trigger modal-trigger">Sign Up</a>
+</template>
+
+<template name="modalLogin">
+  <a href="#loginModal"  class="waves-effect waves-light modal-login-trigger modal-trigger">Login</a>
+</template> -->
