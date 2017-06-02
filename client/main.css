@@ -10,8 +10,169 @@ html{
 	/*font-family: "Open Sans", serif;*/
 }
 
+.logo {
+  width: 90px;
+  height: auto;
+  margin-top:5px;
+  margin-left:5px;
+}
+
+.hidden {
+  display: none;
+}
+
+.workSettings {
+  display: none;
+}
+
+.eduEmp {
+  display: block;
+}
+
+.scrollable {
+  max-height:600px;
+  overflow: scroll;
+}
+
 .currency_main{
 	color: #6495ed;
 	font-size: 20px;
 	/*font-family: "Open Sans", serif;*/
+}
+
+.settings-background {
+  background-color: #c5cae9;
+  height: 250px;
+  width: 100%;
+}
+
+.settings-main-text {
+  padding-top: 50px;
+  color: white;
+  font-family: Avenir Next;
+  font-size: 20pt;
+}
+
+.settings-sub-text {
+  padding-top:60px;
+  color: white;
+  font-family: Avenir Next;
+  font-size: 13pt;
+}
+
+.float-over {
+  position: fixed;
+}
+
+.half-grey{
+  height:100vh;
+}
+
+.no-margins{
+  margin: 0;
+  padding: 0;
+}
+
+.color-test{
+  background-color: red;
+}
+
+.backNext {
+  position: absolute;
+  padding-bottom:30px;
+  bottom: 0px;
+  width:500px;
+  background-color: white;
+}
+
+.backNextSmall {
+  position: absolute;
+  padding-bottom:30px;
+  padding-left:5%;
+  bottom: 0px;
+  right: 5%;
+  width:95%;
+  background-color: white;
+}
+
+.containerLeft{
+  float: right;
+  margin-right: 10px;  
+  width:500px;
+}
+
+.containerLeftSmall{
+  margin-right: 5%; 
+  margin-left: 5%; 
+  width:90%;
+}
+
+.containerRight{
+  margin-right: 23%;
+  margin-top: 80px;
+  width:300px;
+}
+
+.step_number {
+  color: #D3D3D3;
+  margin:0 ;
+}
+
+.step_main {
+  font-size:150%;
+  margin-top:5px ;
+  margin-bottom:5px ;
+/*  font-weight:bold;
+*/
+}
+
+.step_info {
+  color: grey;
+   margin:0 ;
+}
+
+/* AddInfoLayout.html Style*/
+
+.formsTopMargin {
+  margin-top: 5%;
+}
+
+.edit {
+  color:#90caf9 ;
+  padding:0;
+  margin:0;
+}
+.advice {
+  width:38%;
+  overflow:hidden;
+  margin-left:62%;
+}
+
+.left-card {
+width: 60%;
+float:left;
+overflow:hidden;
+}
+
+.left-basic {
+width: 60%;
+float:left;
+overflow:hidden;
+}
+
+.centerIt {
+  margin-right:0;
+}
+
+.basic-advice {
+  width:38%;
+  margin-top:10%;
+  margin-left:62%;
+  overflow:hidden;
+}
+
+.newAccompPublish {
+
+  margin-top:50px;
+  overflow:hidden;
 }

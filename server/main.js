@@ -4,25 +4,17 @@ Meteor.startup(() => {
   // code to run on server at startup
 });
 
-Accounts.onCreateUser(function(options, user) {
-
-    var newUserProfile = {
-        userId: user._id,
-        name: options.nameVar,
-        phone: options.numberVar,
-        balance: 0
-      }
-    UserProfiles.insert(newUserProfile);
-    return user;
-
-});
 
 Meteor.methods({
 
-updateBalance: function(amount){
+  updateBalance: function(amount){
 
-	UserProfiles.update({userId: Meteor.userId()}, {$set: {balance: amount}});
-},
+  	UserProfiles.update({userId: Meteor.userId()}, {$set: {balance: amount}});
+  },
+  clearUser: function(userId){
+    // Accounts.removeEmail(userId, oldEmail)
+    Meteor.users.remove({_id: userId});
+    console.log("user cleared on server")
+  }
 
 })
-

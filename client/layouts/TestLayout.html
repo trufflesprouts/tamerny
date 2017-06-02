@@ -1,0 +1,88 @@
+  
+
+<template name="TestLayout">
+  <br>
+  <br>
+  <br>
+  <!-- {{> quickForm collection="OperatorProfile" id="updateBookForm" type="insert"}} -->
+
+
+  {{#autoForm collection="OperatorProfile" id="insertOperatorForm" type="insert"}}
+          
+          <div class="row">
+            <div class="col s3">
+              Education Level
+            </div>
+            <div class="input-field col s5">
+              {{>afFieldInput name="educationLevel" id="educationLevel" type="select"}}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s3">
+              Employment Status
+            </div>
+            <div class="input-field col s5">
+              {{>afFieldInput name="empStatus" type="select"}}
+            </div>
+          </div>
+
+           <div class="row">
+            <div class="col s3">
+              Affiliation
+            </div>
+            <div class="input-field col s5">
+              {{>afFieldInput name="affiliation" type="text"}}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s3">
+              Tamerny work plan
+            </div>
+            <div class="input-field col s5">
+              {{>afFieldInput name="operateTime" type="select"}}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class=" col s3">
+              Language Proficiency
+            </div>
+            <div class="input-field col s5">
+              {{>afFieldInput name="langs"  type="select-multiple"}}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s3">
+              Expertise/Experience
+            </div>
+            <div class="input-field col s5">
+              {{>afFieldInput name="expertise" type="select-multiple"}}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s3">
+              Location
+            </div>
+            <div class="col s5">
+              {{>afFieldInput name="location" type="text"}}
+            </div>
+          </div>
+
+          <div class="backNext">
+            {{#if shouldSubmit}}
+              <button type="submit" class="btn right btn-primary">Save</button>
+            {{else}}
+              <button  class="right waves-effect waves-light btn ">Next</button>
+            {{/if}}
+            {{#unless atStart }}
+              <a class="left waves-effect waves-light btn">Back</a>
+            {{/unless}}
+          </div>
+
+      {{/autoForm}}
+      </template>
+

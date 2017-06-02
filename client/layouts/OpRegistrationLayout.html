@@ -1,0 +1,146 @@
+
+<template name="OpRegistrationLayout">
+  <main>
+    <div class="row no-margins">
+
+        <div class="col l7 hide-on-med-and-down ">
+          <div class="containerLeft">
+            {{> NewOperator}}
+            {{> publishOperator}}
+          </div>
+        </div>
+
+        <div class="col s12 m12 hide-on-large-only ">
+          <div class="containerLeftSmall">
+            {{> NewOperator}}
+            {{> publishOperator}}
+          </div>
+        </div>
+
+        <div class="col l5 half-grey hide-on-med-and-down grey lighten-3">
+          <div class="containerRight">
+            {{> newOpAdvice}}
+          </div>
+        </div>
+        
+      </div>
+
+  </main>
+</template>
+
+<template name="NewOperator">
+  <br>
+  <h3>Become an Operator</h3>
+  <!-- <div class="left-card"> -->
+    <ul class="collection">
+        <li class="collection-item">
+          <div>
+            <p class="step_number"> STEP 1 </p>
+            {{#if basicInfoComplete}}
+            <i class="small material-icons secondary-content">check_circle</i>
+            {{/if}}
+            <p class="step_main">Let’s go over the basics</p>
+            <p class="step_info">Name, number, and more</p>
+            {{#unless basicInfoComplete}}
+              <a class="waves-effect waves-light btn" href="/op-registration/steps/1">
+                Continue
+              </a> 
+               {{else}}
+              <a href="/op-registration/steps/1">
+                <p class="edit">Edit</p>
+              </a>
+            {{/unless}}
+          </div>
+        </li>
+        <li class="collection-item">
+          <div>
+            <p class="step_number"> STEP 2 </p>
+            {{#if operatorProfileComplete}}
+            <i class="small material-icons secondary-content">check_circle</i> 
+            {{/if}}
+            <p class="step_main">Showcase yourself</p>
+            <p class="step_info">Credentials, Affiliations, and more</p>
+            {{#if basicInfoComplete}}
+              {{#unless operatorProfileComplete}}
+                {{#unless paymentComplete}}
+              
+                  <a href="/op-registration/steps/2" class=" waves-effect waves-light btn ">
+                    Continue
+                  </a>
+                {{/unless}}
+              {{else}}
+                <a href="/op-registration/steps/2">
+                  <p class="edit">Edit</p>
+                </a>
+              {{/unless}}
+            {{/if}}
+          </div>
+        </li>
+        <li class="collection-item">
+          <div>
+            <p class="step_number"> STEP 3 </p> 
+            {{#if paymentComplete}}
+              <i class="small material-icons secondary-content">check_circle</i>
+            {{/if}}
+            <p class="step_main">Get ready to work!</p>
+            <p class="step_info">Payment and more</p>
+            {{#if and basicInfoComplete operatorProfileComplete}}
+              {{#unless paymentComplete}}
+                <a href="/op-registration/steps/3" class="waves-effect waves-light btn">
+                  Continue
+                </a>
+                {{else}}
+                <a href="/op-registration/steps/3">
+                 <p class="edit">Edit</p>
+                </a>
+              {{/unless}}
+            {{/if}}
+          </div>
+        </li>
+      </ul>
+  <!-- </div> -->
+</template>
+
+<template name="newOpAdvice">
+  <!-- <div class=" advice"> -->
+    <br>
+    <br>
+    <div class="card grey lighten-5 z-depth-0">
+      <div class="card-content">
+        <i class="small left material-icons prefix blue-text text-darken-2">lightbulb_outline</i>
+        <br>
+        <br>
+           <h10>
+            Fill in all sections of your operator's profile to attract as many users as possible = make more $$. You will start receiving orders once you are logged in!
+          </h10>
+      </div>
+    </div>
+  <!-- </div> -->
+</template>
+
+<template name="publishOperator">
+  <div class=" newAccompPublish">
+    {{#if basicInfoComplete}}
+      {{#if operatorProfileComplete}}
+        {{#if paymentComplete}}
+          <div class="card z-depth-0">
+            <div class="card-content">
+              <h5>
+                Great, you are ready to be an Operator!
+              </h5>
+              <h10>
+                 Reply to your bookings, always keep your preferances updated, and most importantly enjoy!
+              </h10>
+              <br>
+              <br>
+              <center>
+                <a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Publish and View Profile</a>
+              </center>
+
+            </div>
+          </div>
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  </div>
+</template>

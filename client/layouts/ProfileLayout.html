@@ -1,9 +1,15 @@
 
 <template name="ProfileLayout">
   <main>
-    
     {{#if currentUser }}
-			edit prodile shit
+		<div class="row">
+			<div class="hide-on-small-only">
+				{{> SettingsTopCard}}
+			</div>
+      <div class="container">
+			 {{> SettingTabs}}
+      </div>
+		</div>
 
 		{{else}}
 			Wrong page :)
@@ -11,3 +17,135 @@
 
   </main>
 </template>
+
+
+<!-- TOP CARD -->
+<template name="SettingsTopCard">
+	<div class="settings-background">
+		<div class="container">
+  		<div class="center settings-main-text">
+  			{{basicInfo.name}}, configure your account as you wish
+  		</div>
+  		<div class="row settings-sub-text">
+  			<div class="col l6 m6 s6 ">
+  				<div class="row">
+    				<div class="col l10 m10 s10 ">
+	      			{{basicInfo.name}}
+	      			<br>
+	      			{{basicInfo.phone}}
+	      		</div>
+      		</div>
+    		</div>
+      	<div class="col l6 m6 s6 right-align">
+      		{{role}}
+      	</div>
+  		</div>
+		</div>
+  </div>
+</template>
+
+<template name="SettingTabs">
+	  <br>
+    <ul class="collapsible" data-collapsible="accordion">
+    <li>
+    <!-- Change Name -->
+      <div class="collapsible-header"><i class="material-icons">person_outline</i>Name  &nbsp;&nbsp; ({{basicInfo.name}}) <i class="material-icons right">mode_edit</i></div>
+      <div class="collapsible-body">
+        <div class="row">
+          {{#autoForm collection="UserProfiles" doc=basicInfo id="updateNameForm" type="update"}}
+            <div class="container center">
+              <div class="input-field col s12">
+                {{>afFieldInput name="name" id="name" type="text"}}
+                <label class="active">Name</label>
+              </div>
+
+              <div class="input-field col s6">
+                {{>afFieldInput name="phone" id="phone" type="hidden"}}
+              </div>
+              
+              <br>
+              <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+            </div>
+          {{/autoForm}}
+        </div>
+      </div>
+    </li>
+    <li>
+    <!-- Change Phone Number -->
+      <div class="collapsible-header"><i class="material-icons">perm_phone_msg</i>Phone Number  &nbsp;&nbsp; ({{basicInfo.phone}}) <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-body">
+          <div class="row">
+            {{#autoForm collection="UserProfiles" doc=basicInfo id="updateNameForm" type="update"}}
+            <div class="container center">
+              <div class="input-field col s12">
+                {{>afFieldInput name="phone" id="phone" type="number"}}
+                <label class="active">Phone Number</label>
+              </div>
+              <br>
+              <button type="submit" class=" col s12 btn center btn-primary  btn center btn-primary">Change</button>
+            </div>
+          {{/autoForm}}
+          </div>
+        </div>
+      </li>
+    <li>
+    <!-- Change Email -->
+      <div class="collapsible-header"><i class="material-icons">mail_outline</i>Change Email  &nbsp;&nbsp; ({{userEmail}}) <i class="material-icons right">mode_edit</i></div>
+      <div class="collapsible-body">
+        <div class="row">
+          <form class="changeEmail">
+            <div class="container center">
+              <div class="input-field col s12">
+                <input id="newEmail" name="newEmail" type="email" class="validate">
+                <label for="email">New Email</label>
+              </div>
+                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </li>
+    <li>
+    <!-- Change Password -->
+      <div class="collapsible-header"><i class="material-icons">fingerprint</i>Change Password <i class="material-icons right">mode_edit</i></div>
+      <div class="collapsible-body">
+        <div class="row">
+          <form class="changePassword">
+              <div class="container center">
+                <div class="input-field col s4">
+                  <input id="oldPass" name="oldPass" type="password" class="validate">
+                  <label for="password">Old Password</label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="newPass" name="newPass" type="password" class="validate">
+                  <label for="password">New Password</label>
+                </div>
+                <div class="input-field col s4">
+                  <button type="submit" class=" btn right btn-primary">Change</button>
+                </div>
+              </div>
+            </form>
+          
+        </div>
+      </div>
+    </li>
+    <li>
+    <!-- Deactivate Account -->
+      <div class="collapsible-header"><i class="material-icons">clear</i>Deactivate Account <i class="material-icons right">mode_edit</i></div>
+      <div class="collapsible-body">
+        <div class="row">
+          <form class="deactivateAccount">
+            <button type="submit" class=" col s12 extend_button btn btn-primary center">Click to deactivate your account and delete all your records</button>
+          </form>
+        </div>
+      </div>
+    </li>
+  </ul>
+</template>
+
+
+
+
+
+
+

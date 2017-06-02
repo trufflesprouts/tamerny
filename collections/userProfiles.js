@@ -27,16 +27,30 @@ UserProfilesSchema = new SimpleSchema({
   phone: {
     type: String,
     label: "Phone Number",
-    optional: false
+    optional: false,
+    unique: true
   },
 
   balance: {
     type: Number,
     label: "Balance",
-    optional: false
+    optional: true,
+    autoValue: function() {
+      return 0
+    }
   },
 
-  
+  roles: {
+    type: [String],
+    autoValue: function() {
+      // Should not be verified, add verified when you actually verify the bitch
+      return ["user"]
+    },
+    autoform: {
+      type: "hidden"
+    },
+  optional: true
+  }
 });
 
 UserProfiles.attachSchema(UserProfilesSchema);

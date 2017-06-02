@@ -1,10 +1,10 @@
 import { UserProfiles } from '../collections/userProfiles.js'
 import { TopUp } from '../collections/topup.js'
-import { Operators } from '../collections/operators.js'
+import { OperatorProfile } from '../collections/operatorProfile.js'
 
 window.UserProfiles = UserProfiles
 window.TopUp = TopUp
-window.Operators = Operators
+window.OperatorProfile = OperatorProfile
 
 // console.log(FlowRouter.current().route) -> use to do operator login
 
@@ -17,7 +17,13 @@ Template.Navbar.onRendered(function () {
   });
 });
 
+Template.SettingTabs.onRendered(function () {
+    $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+});
 
+// DO ERROR CHECKING AND VALIDATION CORRECTLYf!!!
 Template.signup.events({
     'submit form': function(event) {
       event.preventDefault();
@@ -27,15 +33,52 @@ Template.signup.events({
       var nameVar = event.target.signupName.value;
       var numberVar = event.target.signupNumber.value;
       var pilotVar = event.target.signupPilot.value;
-      
+
       if (pilotVar == "alrashidpilot"){
-        $('#login').modal('close');
         
+        
+        // Change this to a regular user creation bitch
         Accounts.createUser({
           email: emailVar,
-          password: passwordVar,
-          nameVar,
-          numberVar
+          password: passwordVar
+
+        }
+
+        // var newUser = {
+        //   email: emailVar,
+        //   password: passwordVar
+        // }
+
+        // Meteor.users.insert({email: emailVar, password: passwordVar}
+        , function(err){
+          if (err)
+            Materialize.toast(err.reason, 1000)
+          else {
+            var newUserProfile = {
+              userId: Meteor.userId(),
+              name: nameVar,
+              phone: numberVar,
+              balance: 0,
+            }
+            UserProfiles.insert(newUserProfile,function(err, result){
+              if (err){
+                Meteor.call('clearUser', Meteor.userId());
+                Materialize.toast(err, 1000)
+              }
+              else{
+                Meteor.loginWithPassword(emailVar, passwordVar, function (err){
+                if(err)
+                  Materialize.toast(err, 1000)
+                else{ 
+                  $('#login').modal('close');
+                  // Still working on it!!!
+                  Meteor.call('sendVerificationLink', Meteor.userId(), emailVar);
+                }
+              });
+
+              }
+            });
+          }
         });
       } else {
       Materialize.toast('Incorrect Pilot Code!', 1000)
@@ -76,9 +119,24 @@ AutoForm.hooks({
 
           setTimeout(updateTopUp(false, doc._id, false), 10000); // check again in a second
           return doc;
-      }      
       },
+      onError: function(formType, error) {
+        Materialize.toast(error, 1000)
+      },    
     },
+  },
+  
+  userUpdateForm: {
+    onError: function(formType, error) {
+      Materialize.toast(error, 1000)
+    }
+  },
+
+  upsertOperatorForm: {
+    onError: function(formType, error) {
+      Materialize.toast(error, 1000)
+    } 
+  }
 });
 
 function updateTopUp(status, id, amount){
@@ -97,15 +155,19 @@ function updateTopUp(status, id, amount){
 
 }
 
+  // DO ERROR CHECKING AND VALIDATION CORRECTLY!!!
+
   Template.login.events({
     'submit form': function(event) {
       event.preventDefault();
       var emailVar = event.target.loginEmail.value;
       var passwordVar = event.target.loginPassword.value;
-      Meteor.loginWithPassword(emailVar, passwordVar);
-
-      if (Meteor.user())
-      $('#login').modal('close');
+      Meteor.loginWithPassword(emailVar, passwordVar, function (err){
+        if(err)
+          Materialize.toast(err, 1000)
+        else
+          $('#login').modal('close');
+      });       
     }
   });
 
@@ -130,6 +192,20 @@ Template.Navbar.helpers({
     }else {
       return false;
     }
+  },
+  notOperator(){
+    var user = UserProfiles.findOne({userId: Meteor.userId()});
+    var numberRoles = user.roles.length
+    var roles = user.roles
+
+    var state = true
+    for (i = 0; i < numberRoles; i++) {
+      if (roles[i] == "operator")
+        state == false
+    }
+
+    return state
+    
   }
 });
 
@@ -140,7 +216,223 @@ Template.HomeLayout.helpers({
   }
 })
 
+Template.MainLayout.helpers({
+  emailNotVerified(){
+    var doc = Meteor.users.findOne({_id: Meteor.userId()});
+    var emailStatus = doc.emails[0].verified
+    return !emailStatus
+  },
+  emailVar(){
+    var doc = Meteor.users.findOne({_id: Meteor.userId()});
+    var email = doc.emails[0].address
+    return email
+  }
+})
 
+// Very inefficient, chnage to find with limit and make it not fetch info from DB 8 times... just once
+Template.registerHelper('basicInfoComplete', function(){
+  var doc = UserProfiles.findOne({userId: Meteor.userId()})
+
+  if(doc == undefined)
+    return false
+  else
+    return true
+});
+
+// Needs to actually check
+Template.registerHelper('operatorProfileComplete', function(){
+  var doc = OperatorProfile.findOne({userId: Meteor.userId()})
+
+  if(doc == undefined)
+    return false
+  else
+    return true
+});
+
+//Needs to actually check
+Template.registerHelper('paymentComplete', function(){
+  return false
+});
+
+Template.registerHelper('and',function(a,b){
+  return a && b ;
+});
+
+Template.registerHelper('or',function(a,b){
+  return a || b;
+});
+
+Template.SettingsTopCard.helpers({
+  role (){
+    var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
+    var roles = userProfileDoc.roles
+    var rolesLength = roles.length
+    var op = false;
+    
+    for (var i = 0; i < rolesLength; i++){
+      if (roles[i] == "Operator") {
+        op = true;
+      }
+    }
+
+    if (op == true){
+      return "Operator"
+    } else {
+      return "User"
+    }
+
+  },
+  basicInfo (){
+    var info = UserProfiles.findOne({userId: Meteor.userId()});
+    return info
+  }
+})
+
+//NOT DONE YOU LITTLE FUCK!!!!
+Template.OperatorRegistForms.helpers({
+  title(){
+    var step = FlowRouter.getParam("step")
+    var titles = ["Basic Information", "Education and Employment"]
+    return titles[step - 1]
+  },
+  currentForm(){
+    var step = FlowRouter.getParam("step")
+    var forms = ["BasicsInfo", "OperatorInfo", "PaymentInfo"]
+    return forms[step - 1]
+  }
+})
+
+Template.BasicsInfo.helpers({
+  basicInfo (){
+    var info = UserProfiles.findOne({userId: Meteor.userId()});
+    return info
+  }
+})
+
+Template.OperatorInfo.helpers({
+  upsert (){
+    var info = OperatorProfile.findOne({userId: Meteor.userId()});
+    console.log(info)
+    if (info == undefined)
+      return "insert"
+    else
+      return "update"
+  },
+  updoc(){
+    var info = OperatorProfile.findOne({userId: Meteor.userId()});
+    return info
+  }
+})
+
+Template.SettingTabs.helpers({
+   basicInfo (){
+    var info = UserProfiles.findOne({userId: Meteor.userId()});
+    return info
+  },
+  userEmail (){
+    return Meteor.user().emails[0].address;
+  },
+  user (){
+    return Meteor.user();
+  }
+})
+
+changePass = function(oldPass, newPass){
+  // Change password
+    Accounts.changePassword( oldPass, newPass, ( error ) =>{
+      if ( error ) {
+        //Bert.alert( "You have entered a wrong password", 'danger' );
+        Materialize.toast('You have entered a wrong password', 4000)
+      } else {
+        //Bert.alert( 'You have successfully changed your password.', 'success' );
+        Materialize.toast('You have successfully changed your password.', 4000)
+      }
+    });
+}
+
+Template.SettingTabs.events({
+  'submit .changePassword': function(){
+    event.preventDefault();
+    var oldPass = document.getElementById('oldPass').value
+    var newPass = document.getElementById('newPass').value
+    changePass(oldPass, newPass)
+  },
+  'submit .deactivateAccount': function(){
+    event.preventDefault();
+    var user = UserProfiles.findOne({userId: Meteor.userId()})
+
+    Meteor.call('clearUser', Meteor.userId()) 
+    UserProfiles.remove({_id: user._id})
+    
+  },
+  'submit .changeEmail': function(){
+    event.preventDefault();
+    var newEmail = document.getElementById('newEmail').value
+    var account = Meteor.users.findOne({_id: Meteor.userId()})
+
+    var oldEmail = account.emails[0].address
+    Meteor.call('removeEmail', Meteor.userId(), oldEmail)
+    Meteor.call('addEmail', Meteor.userId(), newEmail)
+    Meteor.call('sendVerificationLink', Meteor.userId(), newEmail);
+  }
+});
+
+Template.MainLayout.events({
+  'click .resend-email': function(){
+    event.preventDefault();
+    var emailVar = Meteor.users.findOne({_id: Meteor.userId()}).emails[0].address
+    Meteor.call('sendVerificationLink', Meteor.userId(), emailVar);
+    Materialize.toast('Verification email was sent to ' + emailVar , 4000)
+
+  }
+})
+
+Template.BasicsInfo.events({
+  'submit': function(){
+    event.preventDefault();
+    if (AutoForm.validateForm("userUpdateForm"))
+      FlowRouter.go('/op-registration');  
+  }
+})
+
+Template.OperatorInfo.events({
+  'submit': function(){
+    event.preventDefault();
+    if (AutoForm.validateForm("upsertOperatorForm"))
+      FlowRouter.go('/op-registration');     
+  },
+  'click .next':function(){
+    event.preventDefault();
+    $(".workSettings").css('display', 'block');
+    $(".eduEmp").css('display', 'none');
+    },
+  'click .back':function(){
+    event.preventDefault();
+    $(".eduEmp").css('display', 'block');
+    $(".workSettings").css('display', 'none');
+    },
+})
+
+Template.OperatorInfo.onRendered(function () {
+  $('select').material_select();
+});
+
+// THIS SECTION IS FOR TESTING
+
+Template.TestLayout.onRendered(function () {
+  $('select').material_select();
+});
+
+
+
+// THIS SECTION IS FOR TESTING
+
+AutoForm.debug();
 
 // For Debugging
- SimpleSchema.debug = true;
+SimpleSchema.debug = true;
+
+
+
+
+

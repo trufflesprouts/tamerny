@@ -1,0 +1,191 @@
+<template name="OpRegStepsLayout">
+  <main>
+    <div class="row">
+
+        <div class="col l7 hide-on-med-and-down ">
+          <div class="containerLeft">
+            {{> OperatorRegistForms}}
+          </div>
+        </div>
+
+        <div class="col s12 m12 hide-on-large-only ">
+          <div class="containerLeftSmall">
+            {{> OperatorRegistForms}}
+          </div>
+        </div>
+
+        <div class="col l5 half-grey hide-on-med-and-down grey lighten-3">
+          <div class="containerRight">
+            {{>StepAdvice}}
+          </div>
+        </div>
+        
+      </div>
+
+  </main>
+</template>
+
+<!-- Make unique one on each page by calling a helper and making that decide what gets written in the Advice and what icon shows up -->
+<template name="StepAdvice">
+    <br>
+    <br>
+    <div class="card grey lighten-5 z-depth-0">
+      <div class="card-content">
+        <i class="small left material-icons prefix blue-text text-darken-2">lightbulb_outline</i>
+        <br>
+        <br>
+           <h10>
+            Validating your name, phone number, and email ensures that we can contact if there are any new updates in our platform!
+          </h10>
+      </div>
+    </div>
+  <!-- </div> -->
+</template>
+
+<template name="OperatorRegistForms">
+  <!-- Title Goes here -->
+  <br><br><br>
+  <div>
+    <h5>{{title}}</h5>
+  </div>
+  <br>
+
+  <!-- Operator Registration Forms -->
+  <div class="scrollable">
+    
+    <!-- Update Basic information -->
+    <div class="row">
+      {{> Template.dynamic template=currentForm}}
+
+    </div>
+  </div>
+
+</template>
+
+<template name="BasicsInfo">
+  {{#autoForm collection="UserProfiles" doc=basicInfo id="userUpdateForm" type="update"}}
+          <div class="input-field col s12">
+            {{>afFieldInput name="name" id="name" type="text"}}
+            <label class="active">Name</label>
+            <br>
+          </div>
+
+          <div class="input-field col s12">
+            {{>afFieldInput name="phone" id="phone" type="number"}}
+            <label class="active">Phone Number</label>
+          </div>
+
+          <!-- Operator Registration Navigation -->
+          <div class="backNext">
+            <hr>
+            <button type="submit" class="btn right btn-primary">Save</button>
+          </div>
+
+      {{/autoForm}}
+  </template>
+
+  <template name="OperatorInfo">
+    {{#autoForm collection="OperatorProfile" doc= updoc id="upsertOperatorForm" type=upsert}}
+          
+      <div class="eduEmp" id="">
+        <div class="row">
+          <div class="col s5">            
+            <br>
+            Education Level
+          </div>
+          <div class="input-field col s7">
+            {{>afFieldInput name="educationLevel" id="educationLevel" type="select"}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s5">
+            <br>
+            Employment Status
+          </div>
+          <div class="input-field col s7">
+            {{>afFieldInput name="empStatus" type="select"}}
+          </div>
+        </div>
+
+         <div class="row">
+          <div class="col s5">
+            <br>
+            Affiliation
+          </div>
+          <div class="input-field col s7">
+            {{>afFieldInput name="affiliation" type="text"}}
+          </div>
+        </div>
+
+        <div class="backNext">
+          <hr>
+          <button  class="next right waves-effect waves-light btn ">Next</button>
+        </div>
+
+      </div>
+
+      <div class="workSettings">
+        <div class="row">
+          <div class="col s5">
+            <br>
+            Tamerny work plan
+          </div>
+          <div class="input-field col s7">
+            {{>afFieldInput name="operateTime" type="select"}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class=" col s5">
+            <br>
+            Language Proficiency
+          </div>
+          <div class="input-field col s7">
+            {{>afFieldInput name="langs"  type="select-multiple"}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s5">
+            <br>
+            Expertise
+          </div>
+          <div class="input-field col s7">
+            {{>afFieldInput name="expertise" type="select-multiple"}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s5">
+            <br>
+            Location
+          </div>
+          <div class="col s7">
+            {{>afFieldInput name="location" type="select"}}
+          </div>
+        </div>
+
+        <div class="backNext">
+          <hr>
+          <button type="submit" class="btn right btn-primary">Save</button>
+          <a class="back left waves-effect waves-light btn">Back</a>
+        </div>
+      
+      </div>
+
+      {{/autoForm}}
+  </template>
+
+
+
+
+
+
+
+
+
+
+
+
+
