@@ -36,7 +36,6 @@ Template.signup.events({
 
       if (pilotVar == "alrashidpilot"){
         
-        
         // Change this to a regular user creation bitch
         Accounts.createUser({
           email: emailVar,
@@ -44,15 +43,11 @@ Template.signup.events({
 
         }
 
-        // var newUser = {
-        //   email: emailVar,
-        //   password: passwordVar
-        // }
-
         // Meteor.users.insert({email: emailVar, password: passwordVar}
         , function(err){
           if (err)
-            Materialize.toast(err.reason, 1000)
+            {console.log(err)
+            Materialize.toast(err.reason, 1000)}
           else {
             var newUserProfile = {
               userId: Meteor.userId(),
@@ -136,7 +131,15 @@ AutoForm.hooks({
     onError: function(formType, error) {
       Materialize.toast(error, 1000)
     } 
-  }
+  },
+
+  updatePaymentForm: {
+    onError: function(formType, error) {
+      Materialize.toast(error, 1000)
+    } 
+  },
+
+
 });
 
 function updateTopUp(status, id, amount){
@@ -201,7 +204,7 @@ Template.Navbar.helpers({
     var state = true
     for (i = 0; i < numberRoles; i++) {
       if (roles[i] == "operator")
-        state == false
+        state = false
     }
 
     return state
@@ -251,7 +254,7 @@ Template.registerHelper('operatorProfileComplete', function(){
 
 //Needs to actually check
 Template.registerHelper('paymentComplete', function(){
-  return false
+  return true
 });
 
 Template.registerHelper('and',function(a,b){
@@ -270,13 +273,13 @@ Template.SettingsTopCard.helpers({
     var op = false;
     
     for (var i = 0; i < rolesLength; i++){
-      if (roles[i] == "Operator") {
+      if (roles[i] == "operator") {
         op = true;
       }
     }
 
     if (op == true){
-      return "Operator"
+      return "User and Operator"
     } else {
       return "User"
     }
@@ -286,6 +289,32 @@ Template.SettingsTopCard.helpers({
     var info = UserProfiles.findOne({userId: Meteor.userId()});
     return info
   }
+})
+
+Template.SettingTabs.helpers({
+  IsOperator (){
+    var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
+    var roles = userProfileDoc.roles
+    var rolesLength = roles.length
+    var status = false;
+    
+    for (var i = 0; i < rolesLength; i++){
+      if (roles[i] == "operator")
+        status = true;
+    }
+    return status
+  },
+})
+
+Template.StepAdvice.helpers({
+  advice (){
+    var step = FlowRouter.getParam("step")
+    var advice = [
+                "Validating your name, phone number, and email ensures that we can contact if there are any new updates in our platform!",
+                "Filling in your credentials and expertise helps us pair you with users that you can help the most which increases your ratings!"
+                ]
+    return (advice[step - 1])
+  },
 })
 
 //NOT DONE YOU LITTLE FUCK!!!!
@@ -301,6 +330,8 @@ Template.OperatorRegistForms.helpers({
     return forms[step - 1]
   }
 })
+
+
 
 Template.BasicsInfo.helpers({
   basicInfo (){
@@ -324,7 +355,14 @@ Template.OperatorInfo.helpers({
   }
 })
 
-Template.SettingTabs.helpers({
+// Template.PaymentInfo.helpers({
+//   updoc(){
+//     var info = OperatorProfile.findOne({userId: Meteor.userId()});
+//     return info
+//   }
+// })
+
+Template.SettingsCard.helpers({
    basicInfo (){
     var info = UserProfiles.findOne({userId: Meteor.userId()});
     return info
@@ -334,7 +372,23 @@ Template.SettingTabs.helpers({
   },
   user (){
     return Meteor.user();
-  }
+  },
+  operatorInfo (){
+    var info = OperatorProfile.findOne({userId: Meteor.userId()});
+    return info
+  },
+  IsOperator (){
+    var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
+    var roles = userProfileDoc.roles
+    var rolesLength = roles.length
+    var status = false;
+    
+    for (var i = 0; i < rolesLength; i++){
+      if (roles[i] == "operator")
+        status = true;
+    }
+    return status
+  },
 })
 
 changePass = function(oldPass, newPass){
@@ -413,6 +467,18 @@ Template.OperatorInfo.events({
     },
 })
 
+Template.publishOperator.events({
+  'click .publish':function(){
+    event.preventDefault();
+    Meteor.call('addRoll', Meteor.userId(), "operator");
+    FlowRouter.go('/');
+    // Add Operator role
+
+    // Publish and Activate account
+  },
+})
+
+
 Template.OperatorInfo.onRendered(function () {
   $('select').material_select();
 });
@@ -423,9 +489,23 @@ Template.TestLayout.onRendered(function () {
   $('select').material_select();
 });
 
+Template.SettingsCard.onRendered(function () {
+  $(document).ready(function(){
+    $('ul.tabs').tabs();
+    $('select').material_select();
+  });
+});
+
+Template.SettingTabs.onRendered(function () {
+  $(document).ready(function(){
+    $('ul.tabs').tabs();
+    $('select').material_select();
+  });
+});
 
 
-// THIS SECTION IS FOR TESTING
+
+
 
 AutoForm.debug();
 

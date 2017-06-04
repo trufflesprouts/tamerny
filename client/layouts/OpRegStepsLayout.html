@@ -35,7 +35,7 @@
         <br>
         <br>
            <h10>
-            Validating your name, phone number, and email ensures that we can contact if there are any new updates in our platform!
+            {{advice}}
           </h10>
       </div>
     </div>
@@ -176,6 +176,32 @@
 
       {{/autoForm}}
   </template>
+
+ <!--   <template name="PaymentInfo">
+    {{#autoForm collection="OperatorProfile" doc= updoc id="updatePaymentForm" type="update"}}
+    
+      {{>afFieldInput name="educationLevel" id="educationLevel" type="hidden"}}
+      {{>afFieldInput name="empStatus" type="hidden"}}
+      {{>afFieldInput name="affiliation" type="hidden"}}
+      {{>afFieldInput name="operateTime" type="hidden"}}
+      {{>afFieldInput name="langs"  type="hidden"}}
+      {{>afFieldInput name="expertise" type="hidden"}}
+      {{>afFieldInput name="location" type="hidden"}}
+
+      Agree on payment stuff:
+
+      {{>afFieldInput name="payment" type="boolean-radio"}}
+          
+
+        <div class="backNext">
+          <hr>
+          <button type="submit" class="btn right btn-primary">Save</button>
+      </div>
+
+      {{/autoForm}}
+  </template> -->
+
+
 
 
 

@@ -23,7 +23,7 @@ insecure@1.0.7                # Allow all DB writes from clients (for prototypin
 materialize:materialize
 
 kadira:flow-router
-# If included signups become forbidden because forbidClientAccountCreation: true by default... I should change this later on and make things work
+
 # useraccounts:flow-routing
 kadira:blaze-layout
 
@@ -44,3 +44,6 @@ juliancwirko:s-alert-jelly
 juliancwirko:s-alert-flip
 juliancwirko:s-alert-bouncyflip
 juliancwirko:s-alert-stackslide
+anti:methods
+
+matb33:collection-hooks

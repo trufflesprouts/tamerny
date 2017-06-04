@@ -19,14 +19,14 @@ OperatorProfileSchema = new SimpleSchema({
   },
 
   educationLevel: {
-    type: Number,
+    type: String,
     autoform: {
           options: [
-            {label: "Primary School", value: 1},
-            {label: "Secondary School", value: 2},
-            {label: "Undergraduate Degree", value: 3},
-            {label: "Graduate Degree", value: 4},
-            {label: "PhD", value: 5}
+            {label: "Primary School", value: "Primary School"},
+            {label: "Secondary School", value: "Secondary School"},
+            {label: "Undergraduate Degree", value: "Undergraduate Degree"},
+            {label: "Graduate Degree", value: "Graduate Degree"},
+            {label: "PhD", value: "PhD"}
           ]
       },
     optional: false
@@ -36,10 +36,10 @@ OperatorProfileSchema = new SimpleSchema({
     type: String,
     autoform: {
           options: [
-            {label: "Full-Time", value: "Full"},
-            {label: "Part-Time", value: "Part"},
-            {label: "Unemployed", value: "Unemp"},
-            {label: "Student", value: "Stu"},
+            {label: "Full-Time", value: "Full-Time"},
+            {label: "Part-Time", value: "Part-Time"},
+            {label: "Unemployed", value: "Unemployed"},
+            {label: "Student", value: "Student"},
             {label: "Other", value: "Other"},
 
           ]
@@ -58,8 +58,8 @@ OperatorProfileSchema = new SimpleSchema({
     type: String,
     autoform: {
           options: [
-            {label: "Full-Time", value: "Full"},
-            {label: "Part-Time", value: "Part"},
+            {label: "Full-Time", value: "Full-Time"},
+            {label: "Part-Time", value: "Part-Time"},
           ]
       },
     optional: false
@@ -105,7 +105,30 @@ OperatorProfileSchema = new SimpleSchema({
           ]
       },
     optional: false
-  }
+  },
+
+  payment: {
+    type: Boolean,
+    label: "Payment Agreement",
+    autoform: {
+          options: [
+            {label: "Agree", value: true},
+            {label: "Disagree", value: false},
+          ]
+      },
+    optional: true
+  },
+
+  Active: {
+    type: Boolean,
+    label: "Operator Active Status",
+     autoform: {
+      type: "hidden"
+    },
+    autoValue: function() {
+      return false
+    }
+  },
 
 });
 

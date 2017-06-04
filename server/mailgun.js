@@ -31,7 +31,7 @@ Meteor.startup(function() {
             return emailBody;
           }
         };
-
+        // Uncomment when MAILGUN bitch fixes everything
         Accounts.sendVerificationEmail(userId, email)
         console.log("Email should have been sent")
       },

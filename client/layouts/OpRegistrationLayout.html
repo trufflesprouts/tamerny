@@ -62,12 +62,12 @@
             <p class="step_info">Credentials, Affiliations, and more</p>
             {{#if basicInfoComplete}}
               {{#unless operatorProfileComplete}}
-                {{#unless paymentComplete}}
+                <!-- {{#unless paymentComplete}} -->
               
                   <a href="/op-registration/steps/2" class=" waves-effect waves-light btn ">
                     Continue
                   </a>
-                {{/unless}}
+                <!-- {{/unless}} -->
               {{else}}
                 <a href="/op-registration/steps/2">
                   <p class="edit">Edit</p>
@@ -79,19 +79,19 @@
         <li class="collection-item">
           <div>
             <p class="step_number"> STEP 3 </p> 
-            {{#if paymentComplete}}
+            {{#if operatorProfileComplete}}
               <i class="small material-icons secondary-content">check_circle</i>
             {{/if}}
             <p class="step_main">Get ready to work!</p>
             <p class="step_info">Payment and more</p>
             {{#if and basicInfoComplete operatorProfileComplete}}
               {{#unless paymentComplete}}
-                <a href="/op-registration/steps/3" class="waves-effect waves-light btn">
+                <!-- <a href="/op-registration/steps/3" class="waves-effect waves-light btn">
                   Continue
-                </a>
+                </a> -->
                 {{else}}
                 <a href="/op-registration/steps/3">
-                 <p class="edit">Edit</p>
+                 <!-- <p class="edit">Edit</p> -->
                 </a>
               {{/unless}}
             {{/if}}
@@ -129,12 +129,12 @@
                 Great, you are ready to be an Operator!
               </h5>
               <h10>
-                 Reply to your bookings, always keep your preferances updated, and most importantly enjoy!
+                 Accept workorders, make sure users are, always keep your preferances updated, and most importantly enjoy!
               </h10>
               <br>
               <br>
               <center>
-                <a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Publish and View Profile</a>
+                <a class=" publish waves-effect waves-light btn"><i class="material-icons left">cloud</i>Publish and Start Operating</a>
               </center>
 
             </div>

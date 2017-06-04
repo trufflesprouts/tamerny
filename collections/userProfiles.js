@@ -42,10 +42,6 @@ UserProfilesSchema = new SimpleSchema({
 
   roles: {
     type: [String],
-    autoValue: function() {
-      // Should not be verified, add verified when you actually verify the bitch
-      return ["user"]
-    },
     autoform: {
       type: "hidden"
     },

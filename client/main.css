@@ -4,6 +4,10 @@ html{
 	font-family: Avenir Next;
 }
 
+body {
+  height: 100%;
+}
+
 .balance_main{
 	color: #6495ed;
 	font-size: 100px;
@@ -38,6 +42,27 @@ html{
 	color: #6495ed;
 	font-size: 20px;
 	/*font-family: "Open Sans", serif;*/
+}
+
+.current-email {
+  color: grey;
+  font-size: 5pt;
+}
+
+.icon-valign {
+  display: inline-flex;
+  vertical-align: middle;
+  padding-bottom: 8px;
+}
+
+.soon {
+  font-size: 40px;
+}
+
+.white-tabs-cover {
+  background-color: black;
+  width: 100%;
+  height: 48px;
 }
 
 .settings-background {

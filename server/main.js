@@ -2,6 +2,7 @@ import { UserProfiles } from '../collections/userProfiles.js'
 
 Meteor.startup(() => {
   // code to run on server at startup
+
 });
 
 
@@ -15,6 +16,15 @@ Meteor.methods({
     // Accounts.removeEmail(userId, oldEmail)
     Meteor.users.remove({_id: userId});
     console.log("user cleared on server")
+  },
+  addRoll: function(userId, roll){
+    UserProfiles.update({userId: userId}, {$push: {roles: roll}}) 
   }
 
 })
+
+// Add user role if user profile has been created
+UserProfiles.before.insert(function (userId, doc) {
+  doc.roles = ["user"];
+});
+

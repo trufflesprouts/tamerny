@@ -45,8 +45,31 @@
 </template>
 
 <template name="SettingTabs">
-	  <br>
-    <ul class="collapsible" data-collapsible="accordion">
+  <div class="row">
+    <!-- <div class=""> -->
+      <div class="col s12">
+          <ul class="tabs">
+            {{#if IsOperator }}
+              <li class="tab col s4"><a class="active" href="#account"><i class="material-icons icon-valign">perm_identity</i> Account</a></li> 
+              <li class="tab col s4"><a href="#operator"><i class="material-icons icon-valign">assignment</i> Operator </a></li>
+              <li class="tab col s4"><a href="#payment"><i class="material-icons icon-valign">attach_money</i> Payment</a></li>
+            {{else}}
+              <li class="tab col s6"><a class="active" href="#account"><i class="material-icons icon-valign">perm_identity</i> Account</a></li> 
+              <li class="tab col s6"><a href="#payment"><i class="material-icons icon-valign">attach_money</i> Payment</a></li>
+
+            {{/if}}
+          </ul>
+      </div>
+    <!-- </div> -->
+      {{> SettingsCard}}
+  </div>
+</template>
+
+<template name="SettingsCard">
+	 <br><br><br>
+    <!-- ACCOUNT TAB -->
+  <div id="account" class="col s12">
+    <ul class="collapsible z-depth-0" data-collapsible="accordion">
     <li>
     <!-- Change Name -->
       <div class="collapsible-header"><i class="material-icons">person_outline</i>Name  &nbsp;&nbsp; ({{basicInfo.name}}) <i class="material-icons right">mode_edit</i></div>
@@ -141,6 +164,169 @@
       </div>
     </li>
   </ul>
+</div>
+
+<!-- OPERATOR TAB -->
+  {{#if IsOperator }}
+  <div id="operator" class="col s12">
+    <ul class="collapsible z-depth-0" data-collapsible="accordion">
+      <!-- Change Education Level -->
+      <li>
+        <div class="collapsible-header"><i class="material-icons">school</i>Education Level  &nbsp;&nbsp; ({{operatorInfo.educationLevel}}) <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-body">
+          <div class="row">
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+              <div class="container center">
+                <div class="input-field col s12">
+                  {{>afFieldInput name="educationLevel" type="select"}}
+                  <label class="active">Education Level</label>
+                </div>
+                <br>
+                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+              </div>
+            {{/autoForm}}
+          </div>
+        </div>
+      </li>
+      <!-- Change Employment Status -->
+      <li>
+        <div class="collapsible-header"><i class="material-icons">business_center</i>Employment Status  &nbsp;&nbsp; ({{operatorInfo.empStatus}}) <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-body">
+          <div class="row">
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+              <div class="container center">
+                <div class="input-field col s12">
+                  {{>afFieldInput name="empStatus" type="select"}}
+                  <label class="active">Employment Status</label>
+                </div>
+                <br>
+                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+              </div>
+            {{/autoForm}}
+          </div>
+        </div>
+      </li>
+      <!-- Change Affiliation -->
+      <li>
+        <div class="collapsible-header"><i class="material-icons">domain</i>Affiliation  &nbsp;&nbsp; ({{operatorInfo.affiliation}}) <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-body">
+          <div class="row">
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+              <div class="container center">
+                <div class="input-field col s12">
+                  {{>afFieldInput name="affiliation" type="text"}}
+                  <label class="active">Affiliation</label>
+                </div>
+                <br>
+                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+              </div>
+            {{/autoForm}}
+          </div>
+        </div>
+      </li>
+      <!-- Change Operator time Commitement -->
+      <li>
+        <div class="collapsible-header"><i class="material-icons">alarm</i>Time Commitment  &nbsp;&nbsp; ({{operatorInfo.operateTime}}) <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-body">
+          <div class="row">
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+              <div class="container center">
+                <div class="input-field col s12">
+                  {{>afFieldInput name="operateTime" type="select"}}
+                  <label class="active">Time Commitment</label>
+                </div>
+                <br>
+                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+              </div>
+            {{/autoForm}}
+          </div>
+        </div>
+      </li>
+      <!-- Change Languages -->
+      <li>
+        <div class="collapsible-header"><i class="material-icons">language</i>Language Proficiency  &nbsp;&nbsp; 
+          ({{#each lang in operatorInfo.langs}}
+            {{lang }}
+          {{/each}}) 
+          <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-body">
+          <div class="row">
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+              <div class="container center">
+                <div class="input-field col s12">
+                  {{>afFieldInput name="langs" type="select-multiple"}}
+                  <label class="active">Language Proficiency</label>
+                </div>
+                <br>
+                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+              </div>
+            {{/autoForm}}
+          </div>
+        </div>
+      </li>
+      <!-- Change Expertise -->
+      <li>
+        <div class="collapsible-header"><i class="material-icons">lightbulb_outline</i>Expertise &nbsp;&nbsp; 
+        ({{#each exp in operatorInfo.expertise}}
+            {{exp }}
+          {{/each}}) 
+           <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-body">
+          <div class="row">
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+              <div class="container center">
+                <div class="input-field col s12">
+                  {{>afFieldInput name="expertise" type="select-multiple"}}
+                  <label class="active">Expertise</label>
+                </div>
+                <br>
+                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+              </div>
+            {{/autoForm}}
+          </div>
+        </div>
+      </li>
+      <!-- Change Location-->
+      <li>
+        <div class="collapsible-header"><i class="material-icons">location_on</i>Location  &nbsp;&nbsp; ({{operatorInfo.location}}) <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-body">
+          <div class="row">
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+              <div class="container center">
+                <div class="input-field col s12">
+                  {{>afFieldInput name="location" type="select"}}
+                  <label class="active">Location</label>
+                </div>
+                <br>
+                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+              </div>
+            {{/autoForm}}
+          </div>
+        </div>
+      </li>
+  </ul>
+</div>
+  {{/if}}
+
+<!-- PAYMENT TAB -->
+  <div id="payment" class="col s12">
+    <ul class="collapsible z-depth-0" data-collapsible="accordion">
+      <li>
+        <!-- Change Name -->
+        <div class="collapsible-header">
+          <div class="row">
+            <div class="center soon col s12">
+              <br><br><br>
+              Coming Soon.
+              <br><br><br>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+
 </template>
 
 
