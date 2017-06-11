@@ -1,0 +1,77 @@
+<template name="OperatorDashboardLayout">
+  <div class="row">
+    <div class=" col s6 no-right-pad">
+      <div class="operator-half card-border z-depth-0 card ">
+        <span class="black-text">{{> userInfoCard}}
+        </span>
+      </div>
+      <div class="operator-chat card-border z-depth-0 card ">
+        <span class="black-text">{{> userChatCard}}
+        </span>
+      </div>
+    </div>
+    <div class="col s6">
+      <div class="operator-api card-border z-depth-0 card ">
+        <span class="black-text">{{> apiCard}}
+        </span>
+      </div>
+      <div class="operator-status card-border z-depth-0 card ">
+        <span class="black-text">{{> statusCard}}
+        </span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="userInfoCard">
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s4"><a class="active" href="#account">Account</a></li>
+        <li class="tab col s4"><a href="#info">Information</a></li>
+        <li class="tab col s4"><a href="#hist"> History</a></li>
+      </ul>
+    </div>
+    <div id="account" class="col s12">Account</div>
+    <div id="info" class="col s12">Information</div>
+    <div id="hist" class="col s12">History</div>
+  </div>
+</template>
+
+<template name="userChatCard">
+  <!-- Display texts -->
+  <div class="scrollable chat-prev col s12">
+    <!-- {{> Template.dynamic template=textFrom}} -->
+
+    Chat past info goes here
+  </div>
+
+  <div class="col s12 divider"></div>
+
+  <div class="chat-send input-field col s12">
+    <div class="row">
+      <div class="col s10">
+        <input id="input_text" placeholder="Text Message..." type="text" class="validate" data-length="160">
+      </div>
+      <div class="col s2 ">
+        <a class="send-txt vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">send</i></a>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- <template name="textUser">
+  User
+</template>
+
+<template name="textOperator">
+  Api Card
+</template> -->
+
+<template name="apiCard">
+  Api Card
+</template>
+
+<template name="statusCard">
+  Status Card
+</template>

@@ -6,6 +6,47 @@ html{
 
 body {
   height: 100%;
+  /*background-color: #eeeeee;*/
+}
+
+.no-right-pad{
+  padding-right: 0;
+}
+
+.operator-half{
+  height: 300px;
+}
+
+.operator-chat{
+  min-height: 300px;
+}
+
+.chat-prev{
+  height: 250px; 
+  /*background-color: green;*/
+} 
+
+.chat-send{
+  height: 50px;
+  /*background-color: red;*/
+  margin-top: 0;
+} 
+
+.vertical-center{
+  margin-top: 3px;
+}
+
+.operator-api{
+  height: 530px;
+}
+
+.card-border{
+   border:0.5px solid;
+   border-color: #E0DBDA;
+}
+
+.operator-status{
+  height: 70px;
 }
 
 .balance_main{

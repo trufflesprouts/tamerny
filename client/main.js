@@ -1,21 +1,16 @@
 import { UserProfiles } from '../collections/userProfiles.js'
 import { TopUp } from '../collections/topup.js'
 import { OperatorProfile } from '../collections/operatorProfile.js'
+import { Chats } from '../collections/chats.js'
 
 window.UserProfiles = UserProfiles
 window.TopUp = TopUp
 window.OperatorProfile = OperatorProfile
+window.Chats = Chats
 
 // console.log(FlowRouter.current().route) -> use to do operator login
 
 var moyasar = new (require('moyasar'))('pk_test_aFqrpMm9qbzf7WxwvWfToDYiBJMt8foU5aDnGSWH');
-
-Template.Navbar.onRendered(function () {
-  $(document).ready(function(){
-    $('.modal').modal();
-    $('ul.tabs').tabs();
-  });
-});
 
 Template.SettingTabs.onRendered(function () {
     $(document).ready(function(){
@@ -30,7 +25,12 @@ Template.signup.events({
       var emailVar = event.target.signupEmail.value;
       var passwordVar = event.target.signupPassword.value;
       // Creat userprofile with this data
-      var nameVar = event.target.signupName.value;
+      var firstNameVar = event.target.signupFirstName.value;
+      var lastNameVar = event.target.signupLastName.value;
+
+      console.log(firstNameVar)
+      console.log(lastNameVar)
+      // var nameVar = event.target.signupName.value;
       var numberVar = event.target.signupNumber.value;
       var pilotVar = event.target.signupPilot.value;
 
@@ -51,7 +51,9 @@ Template.signup.events({
           else {
             var newUserProfile = {
               userId: Meteor.userId(),
-              name: nameVar,
+              // name: nameVar,
+              firstName: firstNameVar,
+              lastName: lastNameVar,
               phone: numberVar,
               balance: 0,
             }
@@ -139,6 +141,36 @@ AutoForm.hooks({
     } 
   },
 
+  profileOperatorUpdate: {
+    // Called when any submit operation succeeds
+    // inefficient solution for the Materialize select init bug...Fix when I have time to scrach my ass
+    onSuccess: function(formType, result) {
+      Materialize.toast("Perfect, your information was updated!", 1000)
+    },
+
+    onError: function(formType, error) {
+      Materialize.toast(error, 1000)
+    } ,
+  
+  },
+
+  updateOperatorForm: {
+    onError: function(formType, error) {
+      Materialize.toast(error, 1000)
+    },
+    onSuccess: function(formType, result) {
+      Materialize.toast("Perfect, your information was updated!", 1000)
+    },
+  },
+
+  updateNameForm: {
+    onError: function(formType, error) {
+      Materialize.toast(error, 1000)
+    },
+    onSuccess: function(formType, result) {
+      Materialize.toast("Perfect, your information was updated!", 1000)
+    },
+  },
 
 });
 
@@ -181,12 +213,21 @@ function updateTopUp(status, id, amount){
     }
   });
 
-Template.Navbar.events({
+Template.navbarAccount.events({
     'click .logout': function(event) {
       event.preventDefault();
       Meteor.logout();
     }
   });
+
+Template.Navbar.events({
+  'click .open-modal': function(event) {
+    event.preventDefault();
+    console.log("open modal")
+    FlowRouter.go('/op-registration');
+    $('#login').modal('open');
+  }
+});
 
 Template.Navbar.helpers({
   loginstate(state){
@@ -331,7 +372,12 @@ Template.OperatorRegistForms.helpers({
   }
 })
 
-
+Template.navbarAccount.helpers({
+  name (){
+    var doc = UserProfiles.findOne({userId: Meteor.userId()});
+    return doc.firstName
+  }
+})
 
 Template.BasicsInfo.helpers({
   basicInfo (){
@@ -422,12 +468,16 @@ Template.SettingTabs.events({
   'submit .changeEmail': function(){
     event.preventDefault();
     var newEmail = document.getElementById('newEmail').value
-    var account = Meteor.users.findOne({_id: Meteor.userId()})
-
-    var oldEmail = account.emails[0].address
-    Meteor.call('removeEmail', Meteor.userId(), oldEmail)
-    Meteor.call('addEmail', Meteor.userId(), newEmail)
-    Meteor.call('sendVerificationLink', Meteor.userId(), newEmail);
+    if(newEmail != "")
+    {
+      var account = Meteor.users.findOne({_id: Meteor.userId()})
+      var oldEmail = account.emails[0].address
+      Meteor.call('removeEmail', Meteor.userId(), oldEmail)
+      Meteor.call('addEmail', Meteor.userId(), newEmail)
+      Meteor.call('sendVerificationLink', Meteor.userId(), newEmail);
+    } else
+    Materialize.toast("Email can't be empty!"  , 4000)
+    
   }
 });
 
@@ -471,46 +521,107 @@ Template.publishOperator.events({
   'click .publish':function(){
     event.preventDefault();
     Meteor.call('addRoll', Meteor.userId(), "operator");
-    FlowRouter.go('/');
-    // Add Operator role
-
-    // Publish and Activate account
+    FlowRouter.go('/operatorDashboard');
   },
 })
-
 
 Template.OperatorInfo.onRendered(function () {
   $('select').material_select();
 });
 
-// THIS SECTION IS FOR TESTING
-
-Template.TestLayout.onRendered(function () {
+Template.SettingTabs.onRendered(function () {
+  $('ul.tabs').tabs();
   $('select').material_select();
 });
 
-Template.SettingsCard.onRendered(function () {
+Template.userInfoCard.onRendered(function () {
+  $('ul.tabs').tabs();
+});
+
+Template.Navbar.onRendered(function () {
   $(document).ready(function(){
+    $('.modal').modal();
     $('ul.tabs').tabs();
-    $('select').material_select();
   });
 });
 
-Template.SettingTabs.onRendered(function () {
+Template.navbarAccount.onRendered(function () {
   $(document).ready(function(){
-    $('ul.tabs').tabs();
-    $('select').material_select();
+    $(".dropdown-button").dropdown({});
   });
 });
+ 
 
+// THIS SECTION IS FOR TESTING
 
+Template.TestLayout.onRendered(function () {
+  $( document ).ready(function(){
+    $(".dropdown-button").dropdown({});
+  })
+});
 
+Template.userChatCard.onRendered(function () {
+  $(document).ready(function() {
+    $('input#input_text').characterCounter();
+  });
 
+});
+
+Template.TestLayout.helpers({
+  operatorInfo (){
+    var info = OperatorProfile.findOne({userId: Meteor.userId()});
+    return info
+  },  
+})
+
+// Called when any submit operation succeeds
+// inefficient solution for the Materialize select init bug...Fix when I have time to scrach my ass
+   
+Template.SettingsCard.events({
+  'submit .operator':function(){
+    event.preventDefault();
+    FlowRouter.go('/')
+    FlowRouter.go('/profile');
+    console.log("Rerout from events submit")
+  },
+})
+
+Template.userChatCard.events({
+  'click .send-txt':function(){
+    event.preventDefault();
+    console.log("Button to send txt has been clicked")
+    var txt = document.getElementById('input_text').value
+    console.log("Text:")
+    console.log(txt)
+    // Change this number to the user the opearto is serving's phone number when i work on the distribution system
+    Meteor.call('sendTxt',966504522999, 'y3W4RYKtRmZmvMPie', txt, (Meteor.userId()));
+    //Recipient number, recipient user Id, txt message,  operator ID
+  },
+  'click .get-texts':function(){
+    event.preventDefault();
+    console.log("Button to send txt has been clicked")
+    var txt = document.getElementById('input_text').value
+    console.log("Text:")
+    console.log(txt)
+    // Change this number to the user the opearto is serving's phone number when i work on the distribution system
+    Meteor.call('sendTxt',966504522999, 'y3W4RYKtRmZmvMPie', txt, (Meteor.userId()));
+    //Recipient number, recipient user Id, txt message,  operator ID
+  },
+
+})
 
 AutoForm.debug();
 
 // For Debugging
 SimpleSchema.debug = true;
+
+// Meteor.call('sendTxt');
+// window.setInterval(function(){
+  Meteor.call('TextInbox');
+//   console.log("Fetching inbox has been called")
+// }, 5000);
+
+
 
 
 

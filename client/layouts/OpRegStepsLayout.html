@@ -65,8 +65,14 @@
 <template name="BasicsInfo">
   {{#autoForm collection="UserProfiles" doc=basicInfo id="userUpdateForm" type="update"}}
           <div class="input-field col s12">
-            {{>afFieldInput name="name" id="name" type="text"}}
-            <label class="active">Name</label>
+            {{>afFieldInput name="firstName" id="firstName" type="text"}}
+            <label class="active">First Name</label>
+            <br>
+          </div>
+
+          <div class="input-field col s12">
+            {{>afFieldInput name="lastName" id="lastName" type="text"}}
+            <label class="active">Last Name</label>
             <br>
           </div>
 

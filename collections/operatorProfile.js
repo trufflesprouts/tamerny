@@ -84,7 +84,7 @@ OperatorProfileSchema = new SimpleSchema({
             {label: "Booking Flights", value: "Flights"},
             {label: "Arranging Trips", value: "Trips"},
             {label: "Food Orders", value: "Food"},
-            {label: "Social Media", value: "Med"},
+            {label: "Social Media", value: "Soc Med"},
             {label: "Sports", value: "Sports"},
             {label: "Events", value: "Events"},
             {label: "News", value: "News"},
@@ -127,7 +127,8 @@ OperatorProfileSchema = new SimpleSchema({
     },
     autoValue: function() {
       return false
-    }
+    },
+    optional: true
   },
 
 });

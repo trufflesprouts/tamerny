@@ -1,5 +1,5 @@
 
-<template name="ProfileLayout">
+<template name="SettingsLayout">
   <main>
     {{#if currentUser }}
 		<div class="row">
@@ -24,13 +24,13 @@
 	<div class="settings-background">
 		<div class="container">
   		<div class="center settings-main-text">
-  			{{basicInfo.name}}, configure your account as you wish
+  			{{basicInfo.firstName}}, configure your account as you wish
   		</div>
   		<div class="row settings-sub-text">
   			<div class="col l6 m6 s6 ">
   				<div class="row">
     				<div class="col l10 m10 s10 ">
-	      			{{basicInfo.name}}
+	      			{{basicInfo.firstName}} {{basicInfo.lastName}}
 	      			<br>
 	      			{{basicInfo.phone}}
 	      		</div>
@@ -50,11 +50,11 @@
       <div class="col s12">
           <ul class="tabs">
             {{#if IsOperator }}
-              <li class="tab col s4"><a class="active" href="#account"><i class="material-icons icon-valign">perm_identity</i> Account</a></li> 
-              <li class="tab col s4"><a href="#operator"><i class="material-icons icon-valign">assignment</i> Operator </a></li>
+              <li class="tab col s4"><a  href="#account"><i class="material-icons icon-valign">perm_identity</i> Account</a></li> 
+              <li class="tab col s4"><a class="active" href="#operator"><i class="material-icons icon-valign">assignment</i> Operator </a></li>
               <li class="tab col s4"><a href="#payment"><i class="material-icons icon-valign">attach_money</i> Payment</a></li>
             {{else}}
-              <li class="tab col s6"><a class="active" href="#account"><i class="material-icons icon-valign">perm_identity</i> Account</a></li> 
+              <li class="tab col s6"><a href="#account"><i class="material-icons icon-valign">perm_identity</i> Account</a></li> 
               <li class="tab col s6"><a href="#payment"><i class="material-icons icon-valign">attach_money</i> Payment</a></li>
 
             {{/if}}
@@ -72,14 +72,18 @@
     <ul class="collapsible z-depth-0" data-collapsible="accordion">
     <li>
     <!-- Change Name -->
-      <div class="collapsible-header"><i class="material-icons">person_outline</i>Name  &nbsp;&nbsp; ({{basicInfo.name}}) <i class="material-icons right">mode_edit</i></div>
+      <div class="collapsible-header"><i class="material-icons">person_outline</i>Name  &nbsp;&nbsp; ({{basicInfo.firstName}} {{basicInfo.lastName}}) <i class="material-icons right">mode_edit</i></div>
       <div class="collapsible-body">
         <div class="row">
           {{#autoForm collection="UserProfiles" doc=basicInfo id="updateNameForm" type="update"}}
             <div class="container center">
               <div class="input-field col s12">
-                {{>afFieldInput name="name" id="name" type="text"}}
-                <label class="active">Name</label>
+                {{>afFieldInput name="firstName" id="firstName" type="text"}}
+                <label class="active">First Name</label>
+              </div>
+              <div class="input-field col s12">
+                {{>afFieldInput name="lastName" id="lastName" type="text"}}
+                <label class="active">Last Name</label>
               </div>
 
               <div class="input-field col s6">
@@ -175,14 +179,16 @@
         <div class="collapsible-header"><i class="material-icons">school</i>Education Level  &nbsp;&nbsp; ({{operatorInfo.educationLevel}}) <i class="material-icons right">mode_edit</i></div>
         <div class="collapsible-body">
           <div class="row">
-            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" class="operator" type="update"}}
               <div class="container center">
                 <div class="input-field col s12">
                   {{>afFieldInput name="educationLevel" type="select"}}
                   <label class="active">Education Level</label>
                 </div>
                 <br>
-                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+                <!-- <a class="operator"> -->
+                  <button type="submit" class="col s12 btn center btn-primary ">Change</button>
+                <!-- </a>  --> 
               </div>
             {{/autoForm}}
           </div>
@@ -193,14 +199,14 @@
         <div class="collapsible-header"><i class="material-icons">business_center</i>Employment Status  &nbsp;&nbsp; ({{operatorInfo.empStatus}}) <i class="material-icons right">mode_edit</i></div>
         <div class="collapsible-body">
           <div class="row">
-            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" class="operator" type="update"}}
               <div class="container center">
                 <div class="input-field col s12">
                   {{>afFieldInput name="empStatus" type="select"}}
                   <label class="active">Employment Status</label>
                 </div>
                 <br>
-                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>  
               </div>
             {{/autoForm}}
           </div>
@@ -211,14 +217,14 @@
         <div class="collapsible-header"><i class="material-icons">domain</i>Affiliation  &nbsp;&nbsp; ({{operatorInfo.affiliation}}) <i class="material-icons right">mode_edit</i></div>
         <div class="collapsible-body">
           <div class="row">
-            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" type="update"}}
               <div class="container center">
                 <div class="input-field col s12">
                   {{>afFieldInput name="affiliation" type="text"}}
                   <label class="active">Affiliation</label>
                 </div>
                 <br>
-                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>  
               </div>
             {{/autoForm}}
           </div>
@@ -229,14 +235,14 @@
         <div class="collapsible-header"><i class="material-icons">alarm</i>Time Commitment  &nbsp;&nbsp; ({{operatorInfo.operateTime}}) <i class="material-icons right">mode_edit</i></div>
         <div class="collapsible-body">
           <div class="row">
-            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" class="operator" type="update"}}
               <div class="container center">
                 <div class="input-field col s12">
                   {{>afFieldInput name="operateTime" type="select"}}
                   <label class="active">Time Commitment</label>
                 </div>
                 <br>
-                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>  
               </div>
             {{/autoForm}}
           </div>
@@ -251,14 +257,14 @@
           <i class="material-icons right">mode_edit</i></div>
         <div class="collapsible-body">
           <div class="row">
-            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" class="operator" type="update"}}
               <div class="container center">
                 <div class="input-field col s12">
                   {{>afFieldInput name="langs" type="select-multiple"}}
                   <label class="active">Language Proficiency</label>
                 </div>
                 <br>
-                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>  
               </div>
             {{/autoForm}}
           </div>
@@ -273,14 +279,14 @@
            <i class="material-icons right">mode_edit</i></div>
         <div class="collapsible-body">
           <div class="row">
-            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" class="operator" type="update"}}
               <div class="container center">
                 <div class="input-field col s12">
                   {{>afFieldInput name="expertise" type="select-multiple"}}
                   <label class="active">Expertise</label>
                 </div>
                 <br>
-                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>  
               </div>
             {{/autoForm}}
           </div>
@@ -291,14 +297,14 @@
         <div class="collapsible-header"><i class="material-icons">location_on</i>Location  &nbsp;&nbsp; ({{operatorInfo.location}}) <i class="material-icons right">mode_edit</i></div>
         <div class="collapsible-body">
           <div class="row">
-            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="updateOperatorForm" type="update"}}
+            {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" class="operator" type="update"}}
               <div class="container center">
                 <div class="input-field col s12">
                   {{>afFieldInput name="location" type="select"}}
                   <label class="active">Location</label>
                 </div>
                 <br>
-                <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>  
               </div>
             {{/autoForm}}
           </div>

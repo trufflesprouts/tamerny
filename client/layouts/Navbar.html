@@ -1,32 +1,45 @@
 	
 <template name="Navbar">
 	<div class="navbar-fixed ">
-		<nav class="#9fa8da indigo lighten-3 z-depth-0">
+  	<!-- Dropdown Structure -->
+    <ul id='dropdown1' class='dropdown-content'>
+      <li><a href="#!">two</a></li>
+      <li class="divider"></li>
+      <li><a href="#!">three</a></li>
+      <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+      <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+    </ul>
+
+    <nav class="#9fa8da indigo lighten-3 z-depth-0">
 		  <div class="nav-wrapper">
 		    <a href="/"><img class="logo brand-logo" height="80%" width="80" src="/images/logo.png" alt="Logo"></a>
 		    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 		    <ul id="nav-mobile" class="right valign-wrapper hide-on-med-and-down">
-					 <!-- if user logged in show logout button otherwise login button -->
-					 {{#if currentUser }}
-              {{#if notOperator }}
-  						  <li><a class="waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
-              {{/if}}
-              <li><a href="/profile">Profile</a></li>
+				  <!-- if user logged in show logout button otherwise login button -->
+				  {{#if currentUser }}
+            {{#if notOperator }}
+						  <li><a class="waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
+              {{else}}
+              <li><a href="/operatorDashboard">Dashboard</a></li>
+            {{/if}}
 
-  						<li><a href="/" class="logout waves-effect waves-light">Logout</a>
+            <li><a href="/">Profile</a></li>
+
+
+            {{> navbarAccount}}
+
+						{{else}}
+              <li><a class=" open-modal waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
+
+              <!-- Now open login modal automatically  -->
+  						<li><a class="waves-effect waves-light" href="#login">Login</a>
               </li>
-  						{{else}}
-                <li><a class="waves-effect waves-light btn" href="#login">Become an Operator</a></li>
-    						<li><a class="waves-effect waves-light" href="#login">Login</a>
-                </li>
-						{{/if}}
-						
+					{{/if}}		
 				</ul>
-
 		  </div>
 		</nav>
-	</div>
 
+	</div>
 
   <!-- Modal Structure -->
   <div id="login" class="modal">
@@ -41,15 +54,26 @@
 	    <div id="test1" class="col s12">{{> login}}</div>
 	    <div id="test2" class="col s12">{{> signup}}</div>
   	</div>
-
     </div>
   </div>
+</template>
+
+
+<template name="navbarAccount">
+    <a class="dropdown-button valign-wrapper" data-hover="true" data-beloworigin="true" data-activates="accountDropdown">{{name}}</a>
+
+    <ul id="accountDropdown" class="dropdown-content" style='width: auto !important;'>
+      <li><a href="/settings">Settings</a></li>
+      <li class="divider"></li>
+      <li><a href="/" class="logout waves-effect waves-light">Logout</a></li>
+    </ul>
 </template>
 
 <template name="signup">
   <h2 class="center">Join Tamerny</h2>
   <form>
-    <input type="text" name="signupName" placeholder="Name">
+    <input type="text" name="signupFirstName" placeholder="First Name">
+    <input type="text" name="signupLastName" placeholder="Last Name">
     <input type="number" name="signupNumber" placeholder="Phone Number">
     <input type="email" name="signupEmail" placeholder="Email">
     <input type="password" name="signupPassword" placeholder="Password">

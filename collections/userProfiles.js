@@ -18,9 +18,15 @@ UserProfilesSchema = new SimpleSchema({
     }
   },
 
-  name: {
+   firstName: {
     type: String,
-    label: "Name",
+    label: "First Name",
+    optional: false
+  },
+
+   lastName: {
+    type: String,
+    label: "Last Name",
     optional: false
   },
 
