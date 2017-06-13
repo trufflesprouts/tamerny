@@ -83,54 +83,53 @@ Meteor.methods({
         }  
     }));
   },
-  TextInbox: function(){
-    var request = require('request');
+  // USE ONLY FOR BACKUP TO FETCH TEXTS IF API STOPPED WORKING
+  // TextInbox: function(){
+  //   var request = require('request');
 
-    request({
-      method: 'POST',
-      url: 'http://api.unifonic.com/rest/Messages/Inbox',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: "AppSid=KsH1cs6qIn3agrr3BeFIPS1200pojL&Number=966508009295"
-    },  Meteor.bindEnvironment( function (error, response, body) {
-      // console.log('Status:', response.statusCode);
-      // console.log('Headers:', JSON.stringify(response.headers));
-      // console.log('Response:', body);
-      obj = JSON.parse(body);
+  //   request({
+  //     method: 'POST',
+  //     url: 'http://api.unifonic.com/rest/Messages/Inbox',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded'
+  //     },
+  //     body: "AppSid=KsH1cs6qIn3agrr3BeFIPS1200pojL&Number=966508009295"
+  //   },  Meteor.bindEnvironment( function (error, response, body) {
+  //     // console.log('Status:', response.statusCode);
+  //     // console.log('Headers:', JSON.stringify(response.headers));
+  //     // console.log('Response:', body);
+  //     obj = JSON.parse(body);
 
-      if(obj.success == "true" && obj.data.Message != "No messages found;"){
-        console.log("Got TXT")
-        //If registered insert in correct place
-        //If not registered send a link back
-        var messages = obj.data.Messages // array of all messages
-        var numMessages = obj.data.NumberOfMessages // number of messages
+  //     if(obj.success == "true" && obj.data.Message != "No messages found;"){
+  //       console.log("Got TXT")
+  //       //If registered insert in correct place
+  //       //If not registered send a link back
+  //       var messages = obj.data.Messages // array of all messages
+  //       var numMessages = obj.data.NumberOfMessages // number of messages
 
-        for (var i = 0; i < numMessages; i++) {
-          messageDoc = messages[i]
-          var userPhone = messageDoc.MessageFrom
-          var profileDoc = UserProfiles.findOne({phone:userPhone })
-          if(profileDoc == undefined){
-            //unregistered = send registration link to number
-            console.log("SEND REGISTRATION LINK, Number is not registered")
-            sendTextRegistrationLink(userPhone)
-          } else{ //registeered
-            console.log("USER IS REGISTERED")
-            Chats.update(
-            {userId: profileDoc.userId}, 
-            {
-              $push: {
-                chat: 
-                  {"from":'user',"createdAt":(new Date()),"txt":messageDoc.Message,"success":true}
-                }})
-          }
-        }
+  //       for (var i = 0; i < numMessages; i++) {
+  //         messageDoc = messages[i]
+  //         var userPhone = messageDoc.MessageFrom
+  //         var profileDoc = UserProfiles.findOne({phone:userPhone })
+  //         if(profileDoc == undefined){
+  //           //unregistered = send registration link to number
+  //           console.log("SEND REGISTRATION LINK, Number is not registered")
+  //           sendTextRegistrationLink(userPhone)
+  //         } else{ //registeered
+  //           console.log("USER IS REGISTERED")
+  //           Chats.update(
+  //           {userId: profileDoc.userId}, 
+  //           {
+  //             $push: {
+  //               chat: 
+  //                 {"from":'user',"createdAt":(new Date()),"txt":messageDoc.Message,"success":true}
+  //               }})
+  //         }
+  //       }
+  //     }
+  //   }));
 
-      }
- 
-    }));
-
-  },
+  // },
 // Add more server functions here
 })
 
@@ -144,6 +143,8 @@ UserProfiles.after.insert(function (userId, doc) {
   console.log("Created new Chats user")
   Chats.insert({userId: userId});
 });
+
+// Emergency fetch Inbox data
 
 // setInterval(function(){
 //  TextInbox()

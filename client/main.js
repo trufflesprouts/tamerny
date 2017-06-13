@@ -581,7 +581,7 @@ Template.SettingsCard.events({
   'submit .operator':function(){
     event.preventDefault();
     FlowRouter.go('/')
-    FlowRouter.go('/profile');
+    FlowRouter.go('/settings');
     console.log("Rerout from events submit")
   },
 })
@@ -615,11 +615,10 @@ AutoForm.debug();
 // For Debugging
 SimpleSchema.debug = true;
 
-// Meteor.call('sendTxt');
-// window.setInterval(function(){
-  Meteor.call('TextInbox');
-//   console.log("Fetching inbox has been called")
-// }, 5000);
+// Call Inboc
+
+  //Meteor.call('TextInbox');
+
 
 
 
