@@ -122,6 +122,7 @@ AutoForm.hooks({
       },    
     },
   },
+
   
   userUpdateForm: {
     onError: function(formType, error) {
@@ -132,7 +133,7 @@ AutoForm.hooks({
   upsertOperatorForm: {
     onError: function(formType, error) {
       Materialize.toast(error, 1000)
-    } 
+    }
   },
 
   updatePaymentForm: {
@@ -386,6 +387,14 @@ Template.BasicsInfo.helpers({
   }
 })
 
+Template.getUser.helpers({
+  searching (){
+    var doc = OperatorProfile.findOne({userId: Meteor.userId()});
+    var state = doc.seeking
+    return state
+  }
+})
+
 Template.OperatorInfo.helpers({
   upsert (){
     var info = OperatorProfile.findOne({userId: Meteor.userId()});
@@ -609,6 +618,15 @@ Template.userChatCard.events({
   },
 
 })
+
+Template.getUser.events({
+    'click .getUser': function(event) {
+      event.preventDefault();
+      console.log("GET USER HAS BEEN CLICKED")
+      Meteor.call('operatorSeeking', Meteor.userId());
+ 
+    }
+  });
 
 AutoForm.debug();
 

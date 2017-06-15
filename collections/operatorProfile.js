@@ -119,16 +119,25 @@ OperatorProfileSchema = new SimpleSchema({
     optional: true
   },
 
-  Active: {
+  // Active: {
+  //   type: Boolean,
+  //   label: "Operator Active Status",
+  //    autoform: {
+  //     type: "hidden"
+  //   },
+  //   autoValue: function() {
+  //     return false
+  //   },
+  //   optional: true
+  // },
+
+    seeking: {
     type: Boolean,
-    label: "Operator Active Status",
-     autoform: {
+    label: "Operator seeking status",
+    optional: false,
+       autoform: {
       type: "hidden"
     },
-    autoValue: function() {
-      return false
-    },
-    optional: true
   },
 
 });

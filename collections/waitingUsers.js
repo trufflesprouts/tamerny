@@ -13,8 +13,7 @@ WaitingUsersSchema = new SimpleSchema({
     type: Date,
     optional:false
   },
-  
+
 });
 
 WaitingUsers.attachSchema(WaitingUsersSchema);
-
