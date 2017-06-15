@@ -1,2 +1,2 @@
 # tamerny
-Platform that aggregates all the on-demand services in one place
+a text-based platform that optimizes on-demand services
