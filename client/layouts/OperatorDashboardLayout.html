@@ -1,4 +1,7 @@
 <template name="OperatorDashboardLayout">
+  
+  {{> getUser}}
+
   <div class="row">
     <div class=" col s6 no-right-pad">
       <div class="operator-half card-border z-depth-0 card ">
@@ -21,6 +24,27 @@
       </div>
     </div>
   </div>
+</template>
+
+<template name="getUser">
+  {{#if searching}}
+           
+   <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+  {{else}}
+  <a class=" getUser btn-floating btn-large waves-effect waves-light orange"><i class=" material-icons">add</i></a>
+   
+  {{/if}}
+
 </template>
 
 <template name="userInfoCard">

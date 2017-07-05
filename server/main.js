@@ -1,33 +1,35 @@
 import { UserProfiles } from '../collections/userProfiles.js'
 import { Chats } from '../collections/chats.js'
+import { OperatorProfile } from '../collections/operatorProfile.js'
 
 Meteor.startup(() => {
   // code to run on server at startup
 });
 
 // Send registration Link
-var sendTextRegistrationLink = function(recipientPhone){
-  var request = require('request');
+// var sendTextRegistrationLink = function(recipientPhone){
+//   var request = require('request');
 
-    var txt = "To start  using Tamerny please activate your number by registering through this link (LINK)"
-    request({
-      method: 'POST',
-      url: 'http://api.unifonic.com/rest/Messages/Send',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: "AppSid=KsH1cs6qIn3agrr3BeFIPS1200pojL&Recipient="+recipientPhone+"&Body="+txt
-    }, function (error, response, body) {
-      // console.log('Status:', response.statusCode);
-      // console.log('Headers:', JSON.stringify(response.headers));
-      // console.log('Response:', body);
-    })
-}
+//     var txt = "To start  using Tamerny please activate your number by registering through this link (LINK)"
+//     request({
+//       method: 'POST',
+//       url: 'http://api.unifonic.com/rest/Messages/Send',
+//       headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded'
+//       },
+//       body: "AppSid=KsH1cs6qIn3agrr3BeFIPS1200pojL&Recipient="+recipientPhone+"&Body="+txt
+//     }, function (error, response, body) {
+//     })
+// }
 
 Meteor.methods({
 
   updateBalance: function(amount){
   	UserProfiles.update({userId: Meteor.userId()}, {$set: {balance: amount}});
+  },
+  operatorSeeking: function(userId){
+    console.log("Operator is now seeking")
+    OperatorProfile.update({userId: userId}, {$set: {seeking: true}});
   },
   clearUser: function(userId){
     // Accounts.removeEmail(userId, oldEmail)
