@@ -624,7 +624,7 @@ Template.getUser.events({
       event.preventDefault();
       console.log("GET USER HAS BEEN CLICKED")
       Meteor.call('operatorSeeking', Meteor.userId());
- 
+      // Pop-up with buttons and finish procedures
     }
   });
 
