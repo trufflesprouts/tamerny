@@ -1,5 +1,5 @@
 <template name="OperatorDashboardLayout">
-  
+
   {{> getUser}}
 
   <div class="row">
@@ -28,7 +28,7 @@
 
 <template name="getUser">
   {{#if searching}}
-           
+
    <div class="preloader-wrapper big active">
     <div class="spinner-layer spinner-blue-only">
       <div class="circle-clipper left">
@@ -42,7 +42,7 @@
   </div>
   {{else}}
   <a class=" getUser btn-floating btn-large waves-effect waves-light orange"><i class=" material-icons">add</i></a>
-   
+
   {{/if}}
 
 </template>
@@ -52,14 +52,29 @@
     <div class="col s12">
       <ul class="tabs">
         <li class="tab col s4"><a class="active" href="#account">Account</a></li>
-        <li class="tab col s4"><a href="#info">Information</a></li>
+        <li class="tab col s4"><a href="#info">Info</a></li>
         <li class="tab col s4"><a href="#hist"> History</a></li>
       </ul>
     </div>
-    <div id="account" class="col s12">Account</div>
-    <div id="info" class="col s12">Information</div>
-    <div id="hist" class="col s12">History</div>
+    <div id="account" class="col s12">
+      <p>Name : {{firstName}} {{lastName}}</p>
+      <p>Phone: {{phone}}</p>
+    </div>
+    <div id="info" class="col s12">
+      <span>Information</span>
+    </div>
+    <div id="hist" class="col s12">
+      <ul>
+        {{> transaction}}
+      </ul>
+    </div>
   </div>
+</template>
+
+<template name="transaction">
+  <li>
+    <span>{{timeStamp}} - {{text}}</span>
+  </li>
 </template>
 
 <template name="userChatCard">

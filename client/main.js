@@ -35,7 +35,7 @@ Template.signup.events({
       var pilotVar = event.target.signupPilot.value;
 
       if (pilotVar == "alrashidpilot"){
-        
+
         // Change this to a regular user creation bitch
         Accounts.createUser({
           email: emailVar,
@@ -66,7 +66,7 @@ Template.signup.events({
                 Meteor.loginWithPassword(emailVar, passwordVar, function (err){
                 if(err)
                   Materialize.toast(err, 1000)
-                else{ 
+                else{
                   $('#login').modal('close');
                   // Still working on it!!!
                   Meteor.call('sendVerificationLink', Meteor.userId(), emailVar);
@@ -80,7 +80,7 @@ Template.signup.events({
       } else {
       Materialize.toast('Incorrect Pilot Code!', 1000)
     }
-    } 
+    }
   });
 
 var correct = false;
@@ -104,10 +104,10 @@ AutoForm.hooks({
           }
           })
         .then( function(payment){
-          
+
           console.log("payment status")
           console.log(payment)
-          if (payment.status == "paid"){ 
+          if (payment.status == "paid"){
             console.log("accepted")
              correct = true;
              updateTopUp(true, doc._id, doc.amount)
@@ -119,11 +119,11 @@ AutoForm.hooks({
       },
       onError: function(formType, error) {
         Materialize.toast(error, 1000)
-      },    
+      },
     },
   },
 
-  
+
   userUpdateForm: {
     onError: function(formType, error) {
       Materialize.toast(error, 1000)
@@ -139,7 +139,7 @@ AutoForm.hooks({
   updatePaymentForm: {
     onError: function(formType, error) {
       Materialize.toast(error, 1000)
-    } 
+    }
   },
 
   profileOperatorUpdate: {
@@ -152,7 +152,7 @@ AutoForm.hooks({
     onError: function(formType, error) {
       Materialize.toast(error, 1000)
     } ,
-  
+
   },
 
   updateOperatorForm: {
@@ -203,14 +203,14 @@ function updateTopUp(status, id, amount){
           Materialize.toast(err, 1000)
         else
           $('#login').modal('close');
-      });       
+      });
     }
   });
 
   Template.HomeLayout.events({
     'submit form': function(event) {
       event.preventDefault();
-      
+
     }
   });
 
@@ -250,7 +250,7 @@ Template.Navbar.helpers({
     }
 
     return state
-    
+
   }
 });
 
@@ -313,7 +313,7 @@ Template.SettingsTopCard.helpers({
     var roles = userProfileDoc.roles
     var rolesLength = roles.length
     var op = false;
-    
+
     for (var i = 0; i < rolesLength; i++){
       if (roles[i] == "operator") {
         op = true;
@@ -339,7 +339,7 @@ Template.SettingTabs.helpers({
     var roles = userProfileDoc.roles
     var rolesLength = roles.length
     var status = false;
-    
+
     for (var i = 0; i < rolesLength; i++){
       if (roles[i] == "operator")
         status = true;
@@ -395,6 +395,13 @@ Template.getUser.helpers({
   }
 })
 
+Template.userInfoCard.helpers({
+  userProfiles(){
+    var userProfileDoc = UserProfiles.findOne({userId: WWcY9at5u6zFxMHR5});
+    return userProfileDoc.seeking
+  }
+});
+
 Template.OperatorInfo.helpers({
   upsert (){
     var info = OperatorProfile.findOne({userId: Meteor.userId()});
@@ -437,7 +444,7 @@ Template.SettingsCard.helpers({
     var roles = userProfileDoc.roles
     var rolesLength = roles.length
     var status = false;
-    
+
     for (var i = 0; i < rolesLength; i++){
       if (roles[i] == "operator")
         status = true;
@@ -470,9 +477,9 @@ Template.SettingTabs.events({
     event.preventDefault();
     var user = UserProfiles.findOne({userId: Meteor.userId()})
 
-    Meteor.call('clearUser', Meteor.userId()) 
+    Meteor.call('clearUser', Meteor.userId())
     UserProfiles.remove({_id: user._id})
-    
+
   },
   'submit .changeEmail': function(){
     event.preventDefault();
@@ -486,7 +493,7 @@ Template.SettingTabs.events({
       Meteor.call('sendVerificationLink', Meteor.userId(), newEmail);
     } else
     Materialize.toast("Email can't be empty!"  , 4000)
-    
+
   }
 });
 
@@ -504,7 +511,7 @@ Template.BasicsInfo.events({
   'submit': function(){
     event.preventDefault();
     if (AutoForm.validateForm("userUpdateForm"))
-      FlowRouter.go('/op-registration');  
+      FlowRouter.go('/op-registration');
   }
 })
 
@@ -512,7 +519,7 @@ Template.OperatorInfo.events({
   'submit': function(){
     event.preventDefault();
     if (AutoForm.validateForm("upsertOperatorForm"))
-      FlowRouter.go('/op-registration');     
+      FlowRouter.go('/op-registration');
   },
   'click .next':function(){
     event.preventDefault();
@@ -559,7 +566,7 @@ Template.navbarAccount.onRendered(function () {
     $(".dropdown-button").dropdown({});
   });
 });
- 
+
 
 // THIS SECTION IS FOR TESTING
 
@@ -580,12 +587,12 @@ Template.TestLayout.helpers({
   operatorInfo (){
     var info = OperatorProfile.findOne({userId: Meteor.userId()});
     return info
-  },  
+  },
 })
 
 // Called when any submit operation succeeds
 // inefficient solution for the Materialize select init bug...Fix when I have time to scrach my ass
-   
+
 Template.SettingsCard.events({
   'submit .operator':function(){
     event.preventDefault();
@@ -636,11 +643,3 @@ SimpleSchema.debug = true;
 // Call Inboc
 
   //Meteor.call('TextInbox');
-
-
-
-
-
-
-
-
