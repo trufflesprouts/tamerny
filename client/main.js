@@ -2,6 +2,7 @@ import { UserProfiles } from '../collections/userProfiles.js'
 import { TopUp } from '../collections/topup.js'
 import { OperatorProfile } from '../collections/operatorProfile.js'
 import { Chats } from '../collections/chats.js'
+import { Transactions } from '../collections/transactions.js'
 
 window.UserProfiles = UserProfiles
 window.TopUp = TopUp
@@ -395,10 +396,15 @@ Template.getUser.helpers({
   }
 })
 
+// Important! Change ID to a variable
 Template.userInfoCard.helpers({
-  userProfiles(){
-    var userProfileDoc = UserProfiles.findOne({userId: WWcY9at5u6zFxMHR5});
-    return userProfileDoc.seeking
+  userInfo (){
+    var userProfileDoc = UserProfiles.findOne({userId: "4Apm6zxjciCQKtgqo"});
+    return userProfileDoc
+  },
+  transactions (){
+    var userTransactions = Transactions.find({"userID": "4Apm6zxjciCQKtgqo"});
+    return userTransactions
   }
 });
 

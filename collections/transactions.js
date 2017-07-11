@@ -1,18 +1,23 @@
 import { Mongo } from 'meteor/mongo';
 
-export const Transactions = new Mongo.Collection('Transactions');
+export const Transactions = new Mongo.Collection('transactions');
 
-TansactionsSchema = new SimpleSchema({
-  timeStamp: {
-    type: Time,
-    label: "Time",
-    optional: false
-  },
-  text: {
-    type: String,
-    label: "Time",
-    optional: false
-  }
-});
-
-Transactions.attachSchema(TansactionsSchema);
+// TansactionsSchema = new SimpleSchema({
+//   userId: {
+//     type: String,
+//     label: "userId",
+//     optional: false
+//   },
+//   time: {
+//     type: Date,
+//     label: "time",
+//     optional: false
+//   },
+//   text: {
+//     type: String,
+//     label: "text",
+//     optional: false
+//   }
+// });
+//
+// Transactions.attachSchema(TansactionsSchema);

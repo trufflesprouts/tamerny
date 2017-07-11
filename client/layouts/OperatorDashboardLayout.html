@@ -57,15 +57,17 @@
       </ul>
     </div>
     <div id="account" class="col s12">
-      <p>Name : {{firstName}} {{lastName}}</p>
-      <p>Phone: {{phone}}</p>
+      <p>Name : {{userInfo.firstName}} {{userInfo.lastName}}</p>
+      <p>Phone: {{userInfo.phone}}</p>
     </div>
     <div id="info" class="col s12">
       <span>Information</span>
     </div>
     <div id="hist" class="col s12">
       <ul>
-        {{> transaction}}
+        {{#each transactions}}
+           {{> transaction}}
+        {{/each}}
       </ul>
     </div>
   </div>
@@ -73,7 +75,7 @@
 
 <template name="transaction">
   <li>
-    <span>{{timeStamp}} - {{text}}</span>
+    <span>{{time}} - {{text}}</span>
   </li>
 </template>
 
