@@ -2,6 +2,7 @@ import { UserProfiles } from '../collections/userProfiles.js'
 import { Chats } from '../collections/chats.js'
 import { OperatorProfile } from '../collections/operatorProfile.js'
 import { Transactions } from '../collections/transactions.js'
+import { UserTransactions } from '../collections/userTransactions.js'
 
 Meteor.startup(() => {
   // code to run on server at startup
@@ -26,7 +27,11 @@ Meteor.startup(() => {
 Meteor.methods({
 
   updateBalance: function(amount){
-  	UserProfiles.update({userId: Meteor.userId()}, {$set: {balance: amount}});
+    var uId = Meteor.userId();
+    //var oId = access generated orderId?
+  	UserProfiles.update({userId: uId}, {$set: {balance: amount}});
+    //Transactions.insert({orderId: oId, time: new Date()}, {$set: {price: amount}});
+    //UserTransactions.insert({userId: uId, orderId: oId});
   },
   operatorSeeking: function(userId){
     console.log("Operator is now seeking")

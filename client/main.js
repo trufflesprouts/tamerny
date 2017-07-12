@@ -403,7 +403,7 @@ Template.userInfoCard.helpers({
     return userProfileDoc
   },
   transactions (){
-    var userTransactions = Transactions.find({"userID": "4Apm6zxjciCQKtgqo"});
+    var userTransactions = Transactions.find({orderId: "123123123"});
     return userTransactions
   }
 });

@@ -57,26 +57,38 @@
       </ul>
     </div>
     <div id="account" class="col s12">
-      <p>Name : {{userInfo.firstName}} {{userInfo.lastName}}</p>
-      <p>Phone: {{userInfo.phone}}</p>
+      <table>
+        <tr>
+          <td>Name :</td>
+          <td>{{userInfo.firstName}} {{userInfo.lastName}}</td>
+        </tr>
+        <tr>
+          <td>Phone:</td>
+          <td>{{userInfo.phone}}</td>
+        </tr>
+      </table>
     </div>
     <div id="info" class="col s12">
       <span>Information</span>
     </div>
     <div id="hist" class="col s12">
-      <ul>
+      <table>
         {{#each transactions}}
            {{> transaction}}
         {{/each}}
-      </ul>
+    </table>
     </div>
   </div>
 </template>
 
 <template name="transaction">
-  <li>
-    <span>{{time}} - {{text}}</span>
-  </li>
+  <tr>
+    <td>{{orderId}}</td>
+    <td>{{title}}</td>
+    <td>{{time}}</td>
+    <td>{{price}}</td>
+    <td>{{status}}</td>
+  </tr>
 </template>
 
 <template name="userChatCard">
