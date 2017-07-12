@@ -69,7 +69,14 @@
       </table>
     </div>
     <div id="info" class="col s12">
-      <span>Information</span>
+      <table>
+          {{#each information}}
+              {{> info}}
+          {{/each}}
+      </table>
+      <form>
+          <center><a class="waves-effect waves-light btn"><input type="submit" value="Add Note"></a></center>
+      </form>
     </div>
     <div id="hist" class="col s12">
       <table>
@@ -79,6 +86,14 @@
     </table>
     </div>
   </div>
+</template>
+
+<template name="info">
+  <tr>
+    <td>{{keyWord}}</td>
+    <td>{{text}}</td>
+    <td>{{time}}</td>
+  </tr>
 </template>
 
 <template name="transaction">

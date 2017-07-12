@@ -3,6 +3,7 @@ import { TopUp } from '../collections/topup.js'
 import { OperatorProfile } from '../collections/operatorProfile.js'
 import { Chats } from '../collections/chats.js'
 import { Transactions } from '../collections/transactions.js'
+import { Info } from '../collections/info.js'
 
 window.UserProfiles = UserProfiles
 window.TopUp = TopUp
@@ -405,6 +406,10 @@ Template.userInfoCard.helpers({
   transactions (){
     var userTransactions = Transactions.find({orderId: "123123123"});
     return userTransactions
+  },
+  information (){
+    var info = Info.find({userId: "4Apm6zxjciCQKtgqo", operatorId: Meteor.userId()});
+    return info
   }
 });
 
@@ -518,6 +523,12 @@ Template.BasicsInfo.events({
     event.preventDefault();
     if (AutoForm.validateForm("userUpdateForm"))
       FlowRouter.go('/op-registration');
+  }
+})
+
+Template.userInfoCard.events({
+  'submit form': function(){
+    event.preventDefault();
   }
 })
 

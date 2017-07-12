@@ -3,6 +3,7 @@ import { Chats } from '../collections/chats.js'
 import { OperatorProfile } from '../collections/operatorProfile.js'
 import { Transactions } from '../collections/transactions.js'
 import { UserTransactions } from '../collections/userTransactions.js'
+import { Info } from '../collections/info.js'
 
 Meteor.startup(() => {
   // code to run on server at startup
