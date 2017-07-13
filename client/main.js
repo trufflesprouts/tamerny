@@ -532,8 +532,10 @@ Template.BasicsInfo.events({
 })
 
 Template.userInfoCard.events({
-  'submit form': function(){
+  'click .fave-add':function(){
     event.preventDefault();
+    var txt = document.getElementById('input_text').value;
+    Favorites.update({userId : "4Apm6zxjciCQKtgqo"},{$set: {key: [{keyWord: txt, time: new Date()}]}});
   }
 })
 

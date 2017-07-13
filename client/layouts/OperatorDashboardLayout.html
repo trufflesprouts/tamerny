@@ -51,32 +51,53 @@
   <div class="row">
     <div class="col s12">
       <ul class="tabs">
-        <li class="tab col s4"><a class="active" href="#account">Account</a></li>
-        <li class="tab col s4"><a href="#info">Info</a></li>
-        <li class="tab col s4"><a href="#hist"> History</a></li>
+        <li class="tab col s6"><a href="#info">Info</a></li>
+        <li class="tab col s6"><a href="#hist"> History</a></li>
       </ul>
     </div>
-    <div id="account" class="col s12">
-      <table>
-        <tr>
-          <td>Name :</td>
-          <td>{{userInfo.firstName}} {{userInfo.lastName}}</td>
-        </tr>
-        <tr>
-          <td>Phone:</td>
-          <td>{{userInfo.phone}}</td>
-        </tr>
-      </table>
-    </div>
     <div id="info" class="col s12">
-      <table>
-          {{#each favorites}}
-              {{> key}}
-          {{/each}}
-      </table>
-      <form>
-          <center><a class="waves-effect waves-light btn"><input type="submit" value="Add Note"></a></center>
-      </form>
+      <ul class="tabs">
+        <li class="tab col s4"><a class="active" href="#account">Account</a></li>
+        <li class="tab col s4"><a href="#favorites">Favorites</a></li>
+        <li class="tab col s4"><a href="#addresses">Addresses</a></li>
+      </ul>
+      <div id="account" class="col s12">
+        <table>
+          <tr>
+            <td>Name :</td>
+            <td>{{userInfo.firstName}} {{userInfo.lastName}}</td>
+          </tr>
+          <tr>
+            <td>Phone:</td>
+            <td>{{userInfo.phone}}</td>
+          </tr>
+        </table>
+      </div>
+      <div id="favorites" class="scrollable col s12">
+          <table>
+              {{#each favorites}}
+                  {{> key}}
+              {{/each}}
+          </table>
+
+          <div class="fave-add input-field col s12">
+            <div class="row">
+              <div class="col s10">
+                <input id="input_text" placeholder="New Entry ..." type="text" class="validate" data-length="60">
+              </div>
+              <div class="col s2 ">
+                <a class="fave-add vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">playlist_add</i></a>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div id="addresses" class="scrollable col s12">
+          <table>
+              {{#each addresses}}
+                  {{> address}}
+              {{/each}}
+          </table>
+      </div>
     </div>
     <div id="hist" class="col s12">
       <table>
@@ -89,10 +110,18 @@
 </template>
 
 <template name="key">
-  <tr>
-    <td>{{keyWord}}</td>
-    <td>{{time}}</td>
-  </tr>
+    <tr>
+      <td>{{keyWord}}</td>
+      <td>{{time}}</td>
+    </tr>
+</template>
+
+<template name="address">
+    <tr>
+        <td>{{line1}}</td>
+        <td>{{line2}}</td>
+        <td>{{city}}, {{province}} {{zipCode}}</td>
+    </tr>
 </template>
 
 <template name="transaction">
