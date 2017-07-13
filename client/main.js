@@ -2,8 +2,9 @@ import { UserProfiles } from '../collections/userProfiles.js'
 import { TopUp } from '../collections/topup.js'
 import { OperatorProfile } from '../collections/operatorProfile.js'
 import { Chats } from '../collections/chats.js'
-import { Transactions } from '../collections/transactions.js'
-import { Info } from '../collections/info.js'
+import { History } from '../collections/history.js'
+import { Favorites } from '../collections/favorites.js'
+import { Addresses } from '../collections/addresses.js'
 
 window.UserProfiles = UserProfiles
 window.TopUp = TopUp
@@ -403,13 +404,17 @@ Template.userInfoCard.helpers({
     var userProfileDoc = UserProfiles.findOne({userId: "4Apm6zxjciCQKtgqo"});
     return userProfileDoc
   },
-  transactions (){
-    var userTransactions = Transactions.find({orderId: "123123123"});
-    return userTransactions
+  history (){
+    var userHistory = History.find({userId: "4Apm6zxjciCQKtgqo"});
+    return userHistory
   },
-  information (){
-    var info = Info.find({userId: "4Apm6zxjciCQKtgqo", operatorId: Meteor.userId()});
-    return info
+  favorites (){
+    var userFavorites = favorites.find({userId: "4Apm6zxjciCQKtgqo"});
+    return userFavorites
+  },
+  addresses (){
+    var userAddresses = Addresses.find({userId: "4Apm6zxjciCQKtgqo"});
+    return userAddresses
   }
 });
 

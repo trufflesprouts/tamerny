@@ -1,9 +1,9 @@
 import { UserProfiles } from '../collections/userProfiles.js'
 import { Chats } from '../collections/chats.js'
 import { OperatorProfile } from '../collections/operatorProfile.js'
-import { Transactions } from '../collections/transactions.js'
-import { UserTransactions } from '../collections/userTransactions.js'
-import { Info } from '../collections/info.js'
+import { History } from '../collections/history.js'
+import { Favorites } from '../collections/favorites.js'
+import { Addresses } from '../collections/addresses.js'
 
 Meteor.startup(() => {
   // code to run on server at startup
@@ -151,6 +151,9 @@ UserProfiles.before.insert(function (userId, doc) {
 UserProfiles.after.insert(function (userId, doc) {
   console.log("Created new Chats user")
   Chats.insert({userId: userId});
+  History.insert({userId: userId});
+  Favorites.insert({userId: userId});
+  Addresses.insert({userId: userId});
 });
 
 // Emergency fetch Inbox data

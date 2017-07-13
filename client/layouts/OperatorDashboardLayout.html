@@ -70,8 +70,8 @@
     </div>
     <div id="info" class="col s12">
       <table>
-          {{#each information}}
-              {{> info}}
+          {{#each favorites}}
+              {{> key}}
           {{/each}}
       </table>
       <form>
@@ -80,7 +80,7 @@
     </div>
     <div id="hist" class="col s12">
       <table>
-        {{#each transactions}}
+        {{#each history}}
            {{> transaction}}
         {{/each}}
     </table>
@@ -88,10 +88,9 @@
   </div>
 </template>
 
-<template name="info">
+<template name="key">
   <tr>
     <td>{{keyWord}}</td>
-    <td>{{text}}</td>
     <td>{{time}}</td>
   </tr>
 </template>
@@ -100,6 +99,7 @@
   <tr>
     <td>{{orderId}}</td>
     <td>{{title}}</td>
+    <td>{{description}}</td>
     <td>{{time}}</td>
     <td>{{price}}</td>
     <td>{{status}}</td>
