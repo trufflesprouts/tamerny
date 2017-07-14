@@ -401,19 +401,19 @@ Template.getUser.helpers({
 // Important! Change ID to a variable
 Template.userInfoCard.helpers({
   userInfo (){
-    var userProfileDoc = UserProfiles.findOne({userId: "4Apm6zxjciCQKtgqo"});
+    var userProfileDoc = UserProfiles.findOne({userId: "fLsHPFSbBhxGAYA3t"});
     return userProfileDoc
   },
   history (){
-    var userHistory = History.find({userId: "4Apm6zxjciCQKtgqo"});
+    var userHistory = History.find({userId: "fLsHPFSbBhxGAYA3t"})[0].transactions;
     return userHistory
   },
   favorites (){
-    var userFavorites = favorites.find({userId: "4Apm6zxjciCQKtgqo"});
+    var userFavorites = Favorites.find({userId: "fLsHPFSbBhxGAYA3t"},{key: 1})[0].key;
     return userFavorites
   },
   addresses (){
-    var userAddresses = Addresses.find({userId: "4Apm6zxjciCQKtgqo"});
+    var userAddresses = Addresses.find({userId: "fLsHPFSbBhxGAYA3t"},{address: 1})[0].address;
     return userAddresses
   }
 });
@@ -535,7 +535,7 @@ Template.userInfoCard.events({
   'click .fave-add':function(){
     event.preventDefault();
     var txt = document.getElementById('input_text').value;
-    Favorites.update({userId : "4Apm6zxjciCQKtgqo"},{$set: {key: [{keyWord: txt, time: new Date()}]}});
+    Favorites.update({userId : "fLsHPFSbBhxGAYA3t"},{$push: {key: {keyWord: txt, time: new Date()}}});
   }
 })
 
@@ -576,6 +576,9 @@ Template.SettingTabs.onRendered(function () {
 
 Template.userInfoCard.onRendered(function () {
   $('ul.tabs').tabs();
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
 });
 
 Template.Navbar.onRendered(function () {

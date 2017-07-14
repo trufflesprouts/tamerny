@@ -62,24 +62,43 @@
         <li class="tab col s4"><a href="#addresses">Addresses</a></li>
       </ul>
       <div id="account" class="col s12">
-        <table>
-          <tr>
-            <td>Name :</td>
-            <td>{{userInfo.firstName}} {{userInfo.lastName}}</td>
-          </tr>
-          <tr>
-            <td>Phone:</td>
-            <td>{{userInfo.phone}}</td>
-          </tr>
-        </table>
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s6">
+                <input disabled value="{{userInfo.firstName}}" id="first_name" type="text" class="validate">
+                <label class="active" for="first_name">First Name</label>
+              </div>
+              <div class="input-field col s6">
+                <input disabled value="{{userInfo.lastName}}" id="last_name" type="text" class="validate">
+                <label class="active" for="last_name">Last Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input disabled value="{{userInfo.phone}}" id="phone" type="text" class="validate">
+                <label class="active" for="phone">Phone</label>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="input-field col s12">
+                <input id="email" type="email" class="validate">
+                <label for="email">Email</label>
+              </div>
+            </div> -->
+          </form>
+        </div>
       </div>
-      <div id="favorites" class="scrollable col s12">
-          <table>
-              {{#each favorites}}
-                  {{> key}}
-              {{/each}}
-          </table>
-
+      <div id="favorites" class="col s12">
+          <ul class="collapsible" data-collapsible="accordion">
+            {{#each favorites}}
+                {{> key}}
+            {{/each}}
+            <li>
+              <div class="collapsible-header">Example <i class="material-icons right">mode_edit</i></div>
+              <div class="collapsible-body"><span>Edit goes here</span></div>
+            </li>
+          </ul>
           <div class="fave-add input-field col s12">
             <div class="row">
               <div class="col s10">
@@ -92,47 +111,62 @@
           </div>
       </div>
       <div id="addresses" class="scrollable col s12">
-          <table>
-              {{#each addresses}}
-                  {{> address}}
-              {{/each}}
-          </table>
+          <ul class="collapsible" data-collapsible="accordion">
+            {{#each addresses}}
+                {{> address}}
+            {{/each}}
+            <li>
+              <div class="collapsible-header">US</div>
+              <div class="collapsible-body">
+                <span>1401 College Ave.</span>
+                <span>Apt. E304</span>
+                <span>Manhattan, KS 66502</span>
+              </div>
+            </li>
+          </ul>
       </div>
     </div>
     <div id="hist" class="col s12">
-      <table>
+      <ul class="collapsible" data-collapsible="accordion">
         {{#each history}}
            {{> transaction}}
         {{/each}}
-    </table>
+        <li>
+          <div class="collapsible-header">Al Baik - 3 days ago</div>
+          <div class="collapsible-body">
+            <span>2 Spicy مسحب - 24 - cancelled</span>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <template name="key">
-    <tr>
-      <td>{{keyWord}}</td>
-      <td>{{time}}</td>
-    </tr>
+    <li>
+      <div class="collapsible-header">{{keyWord}} - {{time}} <i class="material-icons right">mode_edit</i></div>
+      <div class="collapsible-body"><span>Edit Favorite Here</span></div>
+    </li>
 </template>
 
 <template name="address">
-    <tr>
-        <td>{{line1}}</td>
-        <td>{{line2}}</td>
-        <td>{{city}}, {{province}} {{zipCode}}</td>
-    </tr>
+    <li>
+      <div class="collapsible-header">{{title}}</div>
+      <div class="collapsible-body">
+        <span>{{line1}}</span>
+        <span>{{line2}}</span>
+        <span>{{city}}, {{province}} {{zipCode}}</span>
+      </div>
+    </li>
 </template>
 
 <template name="transaction">
-  <tr>
-    <td>{{orderId}}</td>
-    <td>{{title}}</td>
-    <td>{{description}}</td>
-    <td>{{time}}</td>
-    <td>{{price}}</td>
-    <td>{{status}}</td>
-  </tr>
+  <li>
+    <div class="collapsible-header">{{title}} - {{time}}</div>
+    <div class="collapsible-body">
+      <span>{{description}} - {{price}} - {{status}}</span>
+    </div>
+  </li>
 </template>
 
 <template name="userChatCard">
