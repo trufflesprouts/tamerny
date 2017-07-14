@@ -95,8 +95,28 @@
                 {{> key}}
             {{/each}}
             <li>
-              <div class="collapsible-header">Example <i class="material-icons right">mode_edit</i></div>
-              <div class="collapsible-body"><span>Edit goes here</span></div>
+              <div class="collapsible-header">
+                <span class="left">Example</span>
+                <span class="right">5 days ago</span>
+                <i class="material-icons right">mode_edit</i>
+              </div>
+              <div class="collapsible-body">
+                <div class="row">
+                  <!-- {{#autoForm collection="Favorites" doc=favorites id="updateKeyForm" type="update"}} -->
+                    <div class="container center">
+                      <div class="input-field col s12">
+                        <!-- {{>afFieldInput name="keyWord" id="keyWord" type="text"}} -->
+                        <input value="example" id="key_word" type="text" class="validate">
+                        <label class="active">Key Word</label>
+                      </div>
+
+                      <br>
+                      <button type="submit" class=" col s4 btn left btn-primary ">Change</button>
+                      <button type="submit" class=" col s4 btn right btn-primary ">Delete</button>
+                    </div>
+                  <!-- {{/autoForm}} -->
+                </div>
+              </div>
             </li>
           </ul>
           <div class="fave-add input-field col s12">
@@ -118,33 +138,44 @@
             <li>
               <div class="collapsible-header">US</div>
               <div class="collapsible-body">
-                <span>1401 College Ave.</span>
-                <span>Apt. E304</span>
-                <span>Manhattan, KS 66502</span>
+                <span class="left">1401 College Ave.</span><br>
+                <span class="left">Apt. E304</span><br>
+                <span class="left">Manhattan, KS 66502</span>
               </div>
             </li>
           </ul>
       </div>
     </div>
     <div id="hist" class="col s12">
-      <ul class="collapsible" data-collapsible="accordion">
-        {{#each history}}
-           {{> transaction}}
-        {{/each}}
-        <li>
-          <div class="collapsible-header">Al Baik - 3 days ago</div>
-          <div class="collapsible-body">
-            <span>2 Spicy مسحب - 24 - cancelled</span>
-          </div>
-        </li>
-      </ul>
+      <div class="container col s12">
+        <ul class="collapsible" data-collapsible="accordion">
+          {{#each history}}
+             {{> transaction}}
+          {{/each}}
+          <li>
+            <div class="collapsible-header">
+              <span class="left">Al Baik</span>
+              <span class="right">3 days ago</span>
+            </div>
+            <div class="collapsible-body">
+              <span class="left">٢ مسحب حراق</span>
+              <span class="right">SAR23.00</span>
+              <span> (cancelled)</span>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <template name="key">
     <li>
-      <div class="collapsible-header">{{keyWord}} - {{time}} <i class="material-icons right">mode_edit</i></div>
+      <div class="collapsible-header">
+        <span class="left">{{keyWord}}</span>
+        <span class="right">{{time}}</span>
+        <i class="material-icons right">mode_edit</i>
+      </div>
       <div class="collapsible-body"><span>Edit Favorite Here</span></div>
     </li>
 </template>
@@ -153,18 +184,23 @@
     <li>
       <div class="collapsible-header">{{title}}</div>
       <div class="collapsible-body">
-        <span>{{line1}}</span>
-        <span>{{line2}}</span>
-        <span>{{city}}, {{province}} {{zipCode}}</span>
+        <span class="left">{{line1}}</span><br>
+        <span class="left">{{line2}}</span><br>
+        <span class="left">{{city}}, {{province}} {{zipCode}}</span>
       </div>
     </li>
 </template>
 
 <template name="transaction">
   <li>
-    <div class="collapsible-header">{{title}} - {{time}}</div>
+    <div class="collapsible-header">
+      <span class="left">{{title}}</span>
+      <span class="right">{{time}}</span>
+    </div>
     <div class="collapsible-body">
-      <span>{{description}} - {{price}} - {{status}}</span>
+      <span class="left">{{description}}</span>
+      <span class="right">{{price}}</span>
+      <span> ({{status}})</span>
     </div>
   </li>
 </template>
