@@ -76,6 +76,10 @@ body {
   margin-top: 0;
 }
 
+.userStatus-margins{
+  margin-top:5px;
+}
+
 .vertical-center{
   margin-top: 3px;
 }

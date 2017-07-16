@@ -46,7 +46,9 @@
 
   <div class="scrollable-serving ">
     <!-- for each user do dis hoe -->
-    {{> userStatus}}
+    <div class="col s12 userStatus-margins">
+      {{> userStatus}}
+    </div>
   </div>
 
 <div class="col s12 divider"></div>
@@ -60,8 +62,10 @@
 </template>
 
 <template name="userStatus">
-  <!-- Add colored circle + if on this user then make that clear + ellipsis -->
-  User name
+  <div class="ellipsis">
+    <span class="new badge green right " data-badge-caption=" "> 4 </span>
+    Abdulrahman Jamjoom
+  </div>
 </template>
 
 <template name="getUser">
