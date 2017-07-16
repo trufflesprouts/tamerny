@@ -2,6 +2,7 @@
 
 html{
 	font-family: Avenir Next;
+  height: 100%;
 }
 
 body {
@@ -13,12 +14,55 @@ body {
   padding-right: 0;
 }
 
-.operator-half{
-  height: 300px;
+.operator-customers{
+  height:calc(100vh - 80px);
+  min-height: 515px;
+}
+
+.no-bottom-margin{
+  margin-bottom: 0px;
+}
+
+.operator-dash-title{
+  margin-bottom: 0px;
+  height: 45px;
+  color: #e57373;
+}
+
+/*.tooltip {
+  
+  background-color: transparent;
+  
+}
+*/
+.operator-info{
+  /*height: 300px;*/
+  height:calc(100vh - 445px);
+  min-height: 150px;
+  max-height: 300px;
+}
+
+.message-padding{
+  padding: 5px;
+  color: white;
+}
+
+.chat-size{
+  font-size: 12px;
+}
+
+.message-margins{
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.chat-start{
+  font-size: 12px;
 }
 
 .operator-chat{
-  min-height: 300px;
+  height:calc(100vh - 95px - (100vh - 445px));
+  /*min-height: 300px;*/
 }
 
 .chat-prev{
@@ -36,8 +80,13 @@ body {
   margin-top: 3px;
 }
 
+.auto-width{
+  width: 100%
+}
+
 .operator-api{
-  height: 530px;
+  height:calc(100vh - 170px);
+  min-height: 425px;
 }
 
 .card-border{
@@ -46,7 +95,7 @@ body {
 }
 
 .operator-status{
-  height: 70px;
+  height: 75px;
 }
 
 .balance_main{
@@ -66,6 +115,18 @@ body {
   display: none;
 }
 
+.line-margin{
+  padding-top: 10px;
+}
+
+.no-padding{
+  padding: 0px;
+}
+
+.chat-title-hieght{
+  margin-top: 10px;
+}
+
 .workSettings {
   display: none;
 }
@@ -74,14 +135,33 @@ body {
   display: block;
 }
 
+.ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .scrollable {
   max-height:600px;
   overflow: scroll;
 }
 
+
 .card-scrollable {
 	max-height: 200px;
   overflow: scroll;
+
+.scrollable-serving {
+  height:calc(100vh - 200px);
+  overflow: scroll;
+  min-height: 395px;
+}
+
+.scrollable-chat {
+  height:calc(100vh - 215px - (100vh - 445px));
+  overflow: scroll;
+  min-height: 130px;
+
 }
 
 .currency_main{
@@ -164,6 +244,21 @@ body {
   right: 5%;
   width:95%;
   background-color: white;
+}
+
+.find-customer-button{
+  margin-left: 5px;  
+  height: 100%;
+}
+
+
+.add-design{
+  color: grey;
+}
+
+.find-user-box{
+  height: 70px;
+  margin-left: 5px;  
 }
 
 .containerLeft{

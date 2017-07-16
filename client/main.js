@@ -21,6 +21,21 @@ Template.SettingTabs.onRendered(function () {
   });
 });
 
+Template.textUser.onRendered(function () {
+    $(document).ready(function(){
+    $('.tooltipped').tooltip({delay: 50});
+  });
+});
+
+Template.textOperator.onRendered(function () {
+    $(document).ready(function(){
+    $('.tooltipped').tooltip({delay: 50});
+  });
+});
+
+
+
+
 // DO ERROR CHECKING AND VALIDATION CORRECTLYf!!!
 Template.signup.events({
     'submit form': function(event) {
