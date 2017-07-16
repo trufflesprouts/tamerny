@@ -1,10 +1,17 @@
 <template name="OperatorDashboardLayout">
-  
-  {{> getUser}}
 
   <div class="row">
-    <div class=" col s6 no-right-pad">
-      <div class="operator-half card-border z-depth-0 card ">
+    
+    <div class=" col s12 m2 no-right-pad">
+      <div class="operator-customers card-border z-depth-0 card ">
+        <!-- FORCE SPAN TO BE RESTRICTED BY WEB-BROWSER AUTOSIZE -->
+        <span class="black-text">{{> usersTab }}
+        </span>
+      </div>
+    </div>
+
+    <div class=" col s12 m5 no-right-pad">
+      <div class="operator-info card-border z-depth-0 card ">
         <span class="black-text">{{> userInfoCard}}
         </span>
       </div>
@@ -13,7 +20,8 @@
         </span>
       </div>
     </div>
-    <div class="col s6">
+
+    <div class="col s12 m5">
       <div class="operator-api card-border z-depth-0 card ">
         <span class="black-text">{{> apiCard}}
         </span>
@@ -23,7 +31,37 @@
         </span>
       </div>
     </div>
+
   </div>
+</template>
+
+<template name="usersTab">
+
+   <div class="row no-bottom-margin">
+    <div class="col s12 operator-dash-title valign-wrapper">
+      <div class="auto-width center-align ellipsis">CUSTOMERS</div>
+    </div>
+    <div class="col s12 divider "></div>
+  </div>
+
+  <div class="scrollable-serving ">
+    <!-- for each user do dis hoe -->
+    {{> userStatus}}
+  </div>
+
+<div class="col s12 divider"></div>
+
+<div class="line-margin find-user-box ">
+  <div class="find-customer-button ellipsis">
+    {{> getUser}}
+    New Customer 
+  </div>
+</div>
+</template>
+
+<template name="userStatus">
+  <!-- Add colored circle + if on this user then make that clear + ellipsis -->
+  User name
 </template>
 
 <template name="getUser">
@@ -64,36 +102,72 @@
 
 <template name="userChatCard">
   <!-- Display texts -->
-  <div class="scrollable chat-prev col s12">
-    <!-- {{> Template.dynamic template=textFrom}} -->
+  <div class="row no-bottom-margin">
+    <div class="col s12 operator-dash-title valign-wrapper">
+      <div class="auto-width center-align ellipsis">Live Chat with (username)</div>
+    </div>
+    <div class="col s12 divider "></div>
+  </div>
 
-    Chat past info goes here
+  <div class="scrollable-chat ">
+    <center class="chat-start"> --- Beginning of Chat --- </center>
+     <br>
+    <div class="col s12 ">
+      
+      <!-- for loop to add 10 texts and scroll to the bottom -->
+      <!-- If from user this, else other one -->
+      {{> textUser}}
+
+      {{> textOperator}}
+    </div>
   </div>
 
   <div class="col s12 divider"></div>
 
   <div class="chat-send input-field col s12">
     <div class="row">
+      
       <div class="col s10">
         <input id="input_text" placeholder="Text Message..." type="text" class="validate" data-length="160">
       </div>
+      
       <div class="col s2 ">
         <a class="send-txt vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">send</i></a>
+      </div>
+
+    </div>
+  </div>
+
+</template>
+
+<template name="textUser">
+  <div class="col s7">
+    <div class="card message-margins grey lighten-1 z-depth-0">
+      
+      <div class="tooltipped message-padding chat-size" data-position="right" data-delay="50" data-tooltip="date,time">
+            User Message should be printed here
       </div>
     </div>
   </div>
 </template>
 
-<!-- <template name="textUser">
-  User
+<template name="textOperator">
+  <div class="col s7 right">
+    <div class="card message-margins blue darken-1 z-depth-0">
+      <div class="tooltipped message-padding chat-size" data-position="left" data-delay="50" data-tooltip="date,time, opID">
+        Operator Message should be printed here
+      </div>
+    </div>
+  </div>
 </template>
 
-<template name="textOperator">
-  Api Card
-</template> -->
-
 <template name="apiCard">
-  Api Card
+  <div class="row no-bottom-margin">
+    <div class="col s12 operator-dash-title valign-wrapper">
+      <div class="auto-width center-align ellipsis">SERVICES</div>
+    </div>
+    <div class="col s12 divider "></div>
+  </div>
 </template>
 
 <template name="statusCard">
