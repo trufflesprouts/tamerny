@@ -16,7 +16,7 @@ body {
 
 .operator-customers{
   height:calc(100vh - 80px);
-  min-height: 515px;
+  min-height: 565px;
 }
 
 .no-bottom-margin{
@@ -38,7 +38,7 @@ body {
 .operator-info{
   /*height: 300px;*/
   height:calc(100vh - 445px);
-  min-height: 150px;
+  min-height: 200px;
   max-height: 300px;
 }
 
@@ -86,7 +86,7 @@ body {
 
 .operator-api{
   height:calc(100vh - 170px);
-  min-height: 425px;
+  min-height: 475px;
 }
 
 .card-border{
@@ -148,14 +148,20 @@ body {
 
 
 .card-scrollable {
-	max-height: 200px;
+	/*max-height: 200px;*/
   overflow: scroll;
+}
+
+.scrollable-info {
+  height:calc(100vh - 540px);
+  overflow: scroll;
+  min-height: 100px;
 }
 
 .scrollable-serving {
   height:calc(100vh - 200px);
   overflow: scroll;
-  min-height: 395px;
+  min-height: 445px;
 }
 
 .scrollable-chat {
