@@ -19,8 +19,13 @@ body {
   min-height: 565px;
 }
 
+
 .no-bottom-margin{
   margin-bottom: 0px;
+}
+
+.status-size{
+  height: 100%;
 }
 
 .operator-dash-title{

@@ -26,8 +26,11 @@
         <span class="black-text">{{> apiCard}}
         </span>
       </div>
-      <div class="operator-status card-border z-depth-0 card ">
-        <span class="black-text">{{> statusCard}}
+      <div class="operator-status card-border z-depth-0 card">
+        <span class="black-text ">
+          <div class="col s12 status-size">
+            {{> statusCard}}
+          </div>
         </span>
       </div>
     </div>
@@ -279,5 +282,29 @@
 </template>
 
 <template name="statusCard">
-  Status Card
+  
+  <div class="row no-bottom-margin status-size valign-wrapper">
+
+    <a class="col s3 waves-effect waves-light green btn ellipsis tooltipped " data-position="top" data-delay="50" data-tooltip="You've completed all what the user has asked for. This will disconnect you from the user!">
+      <i class="material-icons left">done</i>
+      done
+    </a>
+
+    <div class="col s1"></div>
+
+    <a class="col s4 waves-effect waves-light orange btn ellipsis tooltipped " data-position="top" data-delay="50" data-tooltip="you've order something for the user and you are waiting for the service provider's reply.">
+      <i class="material-icons left">extension</i>
+      pending
+    </a>
+
+    <div class="col s1"></div>
+
+    <a class=" col s3 waves-effect waves-light red btn ellipsis tooltipped" data-position="top" data-delay="50" data-tooltip="You won't be able to serve this user for some reason. This will disconnect you from the user!">
+      <i class="material-icons left">error</i>
+      Cancel
+    </a>
+
+
+  </div>
+
 </template>
