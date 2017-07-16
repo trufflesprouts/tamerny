@@ -405,16 +405,57 @@ Template.userInfoCard.helpers({
     return userProfileDoc
   },
   history (){
-    var userHistory = History.find({userId: "fLsHPFSbBhxGAYA3t"})[0].transactions;
-    return userHistory
+    var userHistory = History.findOne({userId: "fLsHPFSbBhxGAYA3t"}).transaction;
+    console.log(userHistory)
+    var transactions = document.getElementById("transaction");
+    userHistory.forEach(
+      function(transaction) {
+        var item = "<li><div class=\"collapsible-header\"><span class=\"left\">"
+                 + transaction.title
+                 + "</span><span class=\"right\">"
+                 + transaction.time
+                 + "</span></div><div class=\"collapsible-body\"><span class=\"left\">"
+                 + transaction.description
+                 + "</span><span class=\"right\">"
+                 + transaction.price
+                 + "</span><span> ("
+                 + transaction.status
+                 + ")</span></div></li>";
+        transactions.innerHTML = transactions.innerHTML + item;
+      }
+    )
   },
   favorites (){
-    var userFavorites = Favorites.find({userId: "fLsHPFSbBhxGAYA3t"},{key: 1})[0].key;
-    return userFavorites
+    var userFavorites = Favorites.findOne({userId: "fLsHPFSbBhxGAYA3t"}).key;
+    var keys = document.getElementById("key");
+    userFavorites.forEach(
+      function(key) {
+        var item = "<li><div class=\"collapsible-header\"><span class=\"left\">"
+                 + key.keyWord
+                 + "</span><span class=\"right\">"
+                //  + key.time
+                 + "</span><i class=\"material-icons right\">mode_edit</i></div><div class=\"collapsible-body\"><span>Edit Favorite Here</span></div></li>";
+        keys.innerHTML = keys.innerHTML + item;
+      }
+    );
   },
   addresses (){
-    var userAddresses = Addresses.find({userId: "fLsHPFSbBhxGAYA3t"},{address: 1})[0].address;
-    return userAddresses
+    var userAddresses = Addresses.findOne({userId: "fLsHPFSbBhxGAYA3t"}).address;
+    var addresses = document.getElementById('address');
+    userAddresses.forEach(
+      function(address){
+        var item = "<li><div class=\"collapsible-header\">"
+                 + address.title
+                 + "</div><div class=\"collapsible-body\"><span class=\"left\">"
+                 + address.line1
+                 + "</span><br><span class=\"left\">"
+                 + address.line2
+                 + "</span><br><span class=\"left\">"
+                 + address.city + ',' + address.province + ' ' + address.zipCode
+                 + "</span></div></li>";
+        addresses.innerHTML = addresses.innerHTML + item;
+      }
+    );
   }
 });
 
@@ -531,11 +572,13 @@ Template.BasicsInfo.events({
   }
 })
 
+// Changing anything must be done through _id of the subcollection not userId
 Template.userInfoCard.events({
-  'click .fave-add':function(){
+  'click .addFavorite' (){
     event.preventDefault();
-    var txt = document.getElementById('input_text').value;
-    Favorites.update({userId : "fLsHPFSbBhxGAYA3t"},{$push: {key: {keyWord: txt, time: new Date()}}});
+    var txt = document.getElementById('favorite').value;
+    var id = Favorites.findOne({userId : "fLsHPFSbBhxGAYA3t"})._id;
+    Favorites.update({_id : id},{$push: {key: {keyWord: txt, time: new Date()}}});
   }
 })
 
