@@ -150,6 +150,7 @@ body {
 .card-scrollable {
 	max-height: 200px;
   overflow: scroll;
+}
 
 .scrollable-serving {
   height:calc(100vh - 200px);
