@@ -2,6 +2,9 @@ import { UserProfiles } from '../collections/userProfiles.js'
 import { TopUp } from '../collections/topup.js'
 import { OperatorProfile } from '../collections/operatorProfile.js'
 import { Chats } from '../collections/chats.js'
+import { History } from '../collections/history.js'
+import { Favorites } from '../collections/favorites.js'
+import { Addresses } from '../collections/addresses.js'
 
 window.UserProfiles = UserProfiles
 window.TopUp = TopUp
@@ -50,7 +53,7 @@ Template.signup.events({
       var pilotVar = event.target.signupPilot.value;
 
       if (pilotVar == "alrashidpilot"){
-        
+
         // Change this to a regular user creation bitch
         Accounts.createUser({
           email: emailVar,
@@ -81,7 +84,7 @@ Template.signup.events({
                 Meteor.loginWithPassword(emailVar, passwordVar, function (err){
                 if(err)
                   Materialize.toast(err, 1000)
-                else{ 
+                else{
                   $('#login').modal('close');
                   // Still working on it!!!
                   Meteor.call('sendVerificationLink', Meteor.userId(), emailVar);
@@ -95,7 +98,7 @@ Template.signup.events({
       } else {
       Materialize.toast('Incorrect Pilot Code!', 1000)
     }
-    } 
+    }
   });
 
 var correct = false;
@@ -119,10 +122,10 @@ AutoForm.hooks({
           }
           })
         .then( function(payment){
-          
+
           console.log("payment status")
           console.log(payment)
-          if (payment.status == "paid"){ 
+          if (payment.status == "paid"){
             console.log("accepted")
              correct = true;
              updateTopUp(true, doc._id, doc.amount)
@@ -134,11 +137,11 @@ AutoForm.hooks({
       },
       onError: function(formType, error) {
         Materialize.toast(error, 1000)
-      },    
+      },
     },
   },
 
-  
+
   userUpdateForm: {
     onError: function(formType, error) {
       Materialize.toast(error, 1000)
@@ -154,7 +157,7 @@ AutoForm.hooks({
   updatePaymentForm: {
     onError: function(formType, error) {
       Materialize.toast(error, 1000)
-    } 
+    }
   },
 
   profileOperatorUpdate: {
@@ -167,7 +170,7 @@ AutoForm.hooks({
     onError: function(formType, error) {
       Materialize.toast(error, 1000)
     } ,
-  
+
   },
 
   updateOperatorForm: {
@@ -218,14 +221,14 @@ function updateTopUp(status, id, amount){
           Materialize.toast(err, 1000)
         else
           $('#login').modal('close');
-      });       
+      });
     }
   });
 
   Template.HomeLayout.events({
     'submit form': function(event) {
       event.preventDefault();
-      
+
     }
   });
 
@@ -265,6 +268,7 @@ Template.Navbar.helpers({
     }
 
     return state
+
   }
 });
 
@@ -272,6 +276,26 @@ Template.HomeLayout.helpers({
   balance(){
     var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
     return userProfileDoc.balance;
+  },
+  userhistory (){
+    var userHistory = History.findOne({userId: Meteor.userId()}).transaction.reverse();
+    var transactions = document.getElementById("transaction");
+    userHistory.forEach(
+      function(transaction) {
+        var item = "<li><div class=\"collapsible-header\"><span class=\"left\">"
+                 + transaction.title
+                 + "</span><span class=\"right\">"
+                 + since(transaction.time)
+                 + "</span></div><div class=\"collapsible-body\"><span class=\"left\">"
+                 + transaction.description
+                 + "</span><span class=\"right\">"
+                 + transaction.price
+                 + "</span><span> ("
+                 + transaction.status
+                 + ")</span></div></li>";
+        transactions.innerHTML = transactions.innerHTML + item;
+      }
+    )
   }
 })
 
@@ -327,7 +351,7 @@ Template.SettingsTopCard.helpers({
     var roles = userProfileDoc.roles
     var rolesLength = roles.length
     var op = false;
-    
+
     for (var i = 0; i < rolesLength; i++){
       if (roles[i] == "operator") {
         op = true;
@@ -353,7 +377,7 @@ Template.SettingTabs.helpers({
     var roles = userProfileDoc.roles
     var rolesLength = roles.length
     var status = false;
-    
+
     for (var i = 0; i < rolesLength; i++){
       if (roles[i] == "operator")
         status = true;
@@ -409,6 +433,89 @@ Template.getUser.helpers({
   }
 })
 
+function since (then){
+  var then = then.getTime();
+  var now = (new Date()).getTime();
+
+  diff = now - then;
+  if (diff/1000 < 1) {
+    var difference = "Now"
+  } else if (diff/(1000*60) < 1) {
+    var difference = parseInt(diff/(1000)) + " Seconds"
+  } else if (diff/(1000*60*60) < 1) {
+    var difference = parseInt(diff/(1000*60)) + " Minutes"
+  } else if (diff/(1000*60*60*24) < 1) {
+    var difference = parseInt(diff/(1000*60*60)) + " Hours"
+  } else if (diff/(1000*60*60*24*30) < 1) {
+    var difference = parseInt(diff/(1000*60*60*24)) + " Days"
+  } else if (diff/(1000*60*60*24*365) < 1) {
+    var difference = parseInt(diff/(1000*60*60*24*30)) + " Months"
+  } else {
+    var difference = parseInt(diff/(1000*60*60*24*365)) + " Years"
+  }
+  return difference
+}
+
+// Important! Change ID to a variable
+Template.userInfoCard.helpers({
+  userInfo (){
+    var userProfileDoc = UserProfiles.findOne({userId: "fLsHPFSbBhxGAYA3t"});
+    return userProfileDoc
+  },
+  history (){
+    var userHistory = History.findOne({userId: "fLsHPFSbBhxGAYA3t"}).transaction.reverse();
+    var transactions = document.getElementById("transaction");
+    userHistory.forEach(
+      function(transaction) {
+        var item = "<li><div class=\"collapsible-header\"><span class=\"left\">"
+                 + transaction.title
+                 + "</span><span class=\"right\">"
+                 + since(transaction.time)
+                 + "</span></div><div class=\"collapsible-body\"><span class=\"left\">"
+                 + transaction.description
+                 + "</span><span class=\"right\">"
+                 + transaction.price
+                 + "</span><span> ("
+                 + transaction.status
+                 + ")</span></div></li>";
+        transactions.innerHTML = transactions.innerHTML + item;
+      }
+    )
+  },
+  favorites (){
+    var userFavorites = Favorites.findOne({userId: "fLsHPFSbBhxGAYA3t"}).key.reverse();
+    var keys = document.getElementById("key");
+    userFavorites.forEach(
+      function(key) {
+        var item = "<li><div class=\"collapsible-header\"><span class=\"left\">"
+                 + key.keyWord
+                 + "</span><span class=\"right\">"
+                 + since(key.time)
+                 + "</span><i class=\"material-icons right\">mode_edit</i></div><div class=\"collapsible-body\"><span>Edit Favorite Here</span></div></li>";
+        keys.innerHTML = keys.innerHTML + item;
+      }
+    );
+  },
+  addresses (){
+    var userAddresses = Addresses.findOne({userId: "fLsHPFSbBhxGAYA3t"}).address.reverse();
+    var addresses = document.getElementById('address');
+    userAddresses.forEach(
+      function(address){
+        var item = "<li><div class=\"collapsible-header\">"
+                 + address.title
+                 + "</div><div class=\"collapsible-body\"><span class=\"left\">"
+                 + address.line1
+                 + "</span><br><span class=\"left\">"
+                 + address.line2
+                 + "</span><br><span class=\"left\">"
+                 + address.city + ',' + address.province + ' ' + address.zipCode
+                 + "</span></div></li>";
+        addresses.innerHTML = addresses.innerHTML + item;
+      }
+    );
+  }
+});
+
 Template.OperatorInfo.helpers({
   upsert (){
     var info = OperatorProfile.findOne({userId: Meteor.userId()});
@@ -451,7 +558,7 @@ Template.SettingsCard.helpers({
     var roles = userProfileDoc.roles
     var rolesLength = roles.length
     var status = false;
-    
+
     for (var i = 0; i < rolesLength; i++){
       if (roles[i] == "operator")
         status = true;
@@ -484,9 +591,9 @@ Template.SettingTabs.events({
     event.preventDefault();
     var user = UserProfiles.findOne({userId: Meteor.userId()})
 
-    Meteor.call('clearUser', Meteor.userId()) 
+    Meteor.call('clearUser', Meteor.userId())
     UserProfiles.remove({_id: user._id})
-    
+
   },
   'submit .changeEmail': function(){
     event.preventDefault();
@@ -500,7 +607,7 @@ Template.SettingTabs.events({
       Meteor.call('sendVerificationLink', Meteor.userId(), newEmail);
     } else
     Materialize.toast("Email can't be empty!"  , 4000)
-    
+
   }
 });
 
@@ -518,7 +625,17 @@ Template.BasicsInfo.events({
   'submit': function(){
     event.preventDefault();
     if (AutoForm.validateForm("userUpdateForm"))
-      FlowRouter.go('/op-registration');  
+      FlowRouter.go('/op-registration');
+  }
+})
+
+// Changing anything must be done through _id of the subcollection not userId
+Template.userInfoCard.events({
+  'click .addFavorite' (){
+    event.preventDefault();
+    var txt = document.getElementById('favorite').value;
+    var id = Favorites.findOne({userId : "fLsHPFSbBhxGAYA3t"})._id;
+    Favorites.update({_id : id},{$push: {key: {keyWord: txt, time: new Date()}}});
   }
 })
 
@@ -526,7 +643,7 @@ Template.OperatorInfo.events({
   'submit': function(){
     event.preventDefault();
     if (AutoForm.validateForm("upsertOperatorForm"))
-      FlowRouter.go('/op-registration');     
+      FlowRouter.go('/op-registration');
   },
   'click .next':function(){
     event.preventDefault();
@@ -559,7 +676,17 @@ Template.SettingTabs.onRendered(function () {
 
 Template.userInfoCard.onRendered(function () {
   $('ul.tabs').tabs();
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
 });
+
+Template.HomeLayout.onRendered(function () {
+  $('ul.tabs').tabs();
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+})
 
 Template.Navbar.onRendered(function () {
   $(document).ready(function(){
@@ -573,7 +700,7 @@ Template.navbarAccount.onRendered(function () {
     $(".dropdown-button").dropdown({});
   });
 });
- 
+
 
 // THIS SECTION IS FOR TESTING
 
@@ -594,12 +721,12 @@ Template.TestLayout.helpers({
   operatorInfo (){
     var info = OperatorProfile.findOne({userId: Meteor.userId()});
     return info
-  },  
+  },
 })
 
 // Called when any submit operation succeeds
 // inefficient solution for the Materialize select init bug...Fix when I have time to scrach my ass
-   
+
 Template.SettingsCard.events({
   'submit .operator':function(){
     event.preventDefault();
@@ -650,11 +777,3 @@ SimpleSchema.debug = true;
 // Call Inboc
 
   //Meteor.call('TextInbox');
-
-
-
-
-
-
-
-

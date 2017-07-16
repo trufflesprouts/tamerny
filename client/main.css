@@ -66,15 +66,15 @@ body {
 }
 
 .chat-prev{
-  height: 250px; 
+  height: 250px;
   /*background-color: green;*/
-} 
+}
 
 .chat-send{
   height: 50px;
   /*background-color: red;*/
   margin-top: 0;
-} 
+}
 
 .vertical-center{
   margin-top: 3px;
@@ -146,6 +146,11 @@ body {
   overflow: scroll;
 }
 
+
+.card-scrollable {
+	max-height: 200px;
+  overflow: scroll;
+
 .scrollable-serving {
   height:calc(100vh - 200px);
   overflow: scroll;
@@ -156,6 +161,7 @@ body {
   height:calc(100vh - 215px - (100vh - 445px));
   overflow: scroll;
   min-height: 130px;
+
 }
 
 .currency_main{
@@ -257,13 +263,13 @@ body {
 
 .containerLeft{
   float: right;
-  margin-right: 10px;  
+  margin-right: 10px;
   width:500px;
 }
 
 .containerLeftSmall{
-  margin-right: 5%; 
-  margin-left: 5%; 
+  margin-right: 5%;
+  margin-left: 5%;
   width:90%;
 }
 

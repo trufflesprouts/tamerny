@@ -66,7 +66,7 @@
 
 <template name="getUser">
   {{#if searching}}
-           
+
    <div class="preloader-wrapper big active">
     <div class="spinner-layer spinner-blue-only">
       <div class="circle-clipper left">
@@ -80,7 +80,7 @@
   </div>
   {{else}}
   <a class=" getUser btn-floating btn-large waves-effect waves-light orange"><i class=" material-icons">add</i></a>
-   
+
   {{/if}}
 
 </template>
@@ -89,14 +89,116 @@
   <div class="row">
     <div class="col s12">
       <ul class="tabs">
-        <li class="tab col s4"><a class="active" href="#account">Account</a></li>
-        <li class="tab col s4"><a href="#info">Information</a></li>
-        <li class="tab col s4"><a href="#hist"> History</a></li>
+        <li class="tab col s6"><a href="#info">Information</a></li>
+        <li class="tab col s6"><a href="#hist">History</a></li>
       </ul>
     </div>
-    <div id="account" class="col s12">Account</div>
-    <div id="info" class="col s12">Information</div>
-    <div id="hist" class="col s12">History</div>
+    <div id="info" class="col s12">
+      <ul class="tabs">
+        <li class="tab col s4"><a class="active" href="#account">Account</a></li>
+        <li class="tab col s4"><a href="#favorites">Favorites</a></li>
+        <li class="tab col s4"><a href="#addresses">Addresses</a></li>
+      </ul>
+      <div id="account" class="col s12">
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s6">
+                <input disabled value="{{userInfo.firstName}}" id="first_name" type="text" class="validate">
+                <label class="active" for="first_name">First Name</label>
+              </div>
+              <div class="input-field col s6">
+                <input disabled value="{{userInfo.lastName}}" id="last_name" type="text" class="validate">
+                <label class="active" for="last_name">Last Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input disabled value="{{userInfo.phone}}" id="phone" type="text" class="validate">
+                <label class="active" for="phone">Phone</label>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="input-field col s12">
+                <input id="email" type="email" class="validate">
+                <label for="email">Email</label>
+              </div>
+            </div> -->
+          </form>
+        </div>
+      </div>
+      <div id="favorites" class="card-scrollable col s12">
+          <ul class="collapsible" data-collapsible="accordion">
+            <div id="key">{{favorites}}</div>
+            <li>
+              <div class="collapsible-header">
+                <span class="left">Example</span>
+                <span class="right">5 days ago</span>
+                <i class="material-icons right">mode_edit</i>
+              </div>
+              <div class="collapsible-body">
+                <div class="row">
+                  <!-- {{#autoForm collection="Favorites" doc=favorites id="updateKeyForm" type="update"}} -->
+                    <div class="container center">
+                      <div class="input-field col s12">
+                        <!-- {{>afFieldInput name="keyWord" id="keyWord" type="text"}} -->
+                        <input value="example" id="key_word" type="text" class="validate">
+                        <label class="active">Key Word</label>
+                      </div>
+
+                      <br>
+                      <button type="submit" class=" col s4 btn left btn-primary ">Change</button>
+                      <button type="submit" class=" col s4 btn right btn-primary ">Delete</button>
+                    </div>
+                  <!-- {{/autoForm}} -->
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s10">
+                <input id="favorite" placeholder="New Entry ..." type="text" class="validate" data-length="60">
+              </div>
+              <div class="col s2 ">
+                <!-- <button type="submit" class=" col s12 btn center btn-primary "></button> -->
+                <a class="addFavorite vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">playlist_add</i></a>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div id="addresses" class="card-scrollable col s12">
+          <ul class="collapsible" data-collapsible="accordion">
+            <div id="address">{{addresses}}</div>
+            <li>
+              <div class="collapsible-header">US</div>
+              <div class="collapsible-body">
+                <span class="left">1401 College Ave.</span><br>
+                <span class="left">Apt. E304</span><br>
+                <span class="left">Manhattan, KS 66502</span>
+              </div>
+            </li>
+          </ul>
+      </div>
+    </div>
+    <div id="hist" class="card-scrollable col s12">
+      <div class="container col s12">
+        <ul class="collapsible" data-collapsible="accordion">
+          <div id="transaction">{{history}}</div>
+          <li>
+            <div class="collapsible-header">
+              <span class="left">Al Baik</span>
+              <span class="right">3 days ago</span>
+            </div>
+            <div class="collapsible-body">
+              <span class="left">٢ مسحب حراق</span>
+              <span class="right">SAR23.00</span>
+              <span> (cancelled)</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 

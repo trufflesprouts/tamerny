@@ -1,6 +1,9 @@
 import { UserProfiles } from '../collections/userProfiles.js'
 import { Chats } from '../collections/chats.js'
 import { OperatorProfile } from '../collections/operatorProfile.js'
+import { History } from '../collections/history.js'
+import { Favorites } from '../collections/favorites.js'
+import { Addresses } from '../collections/addresses.js'
 
 Meteor.startup(() => {
   // code to run on server at startup
@@ -25,7 +28,11 @@ Meteor.startup(() => {
 Meteor.methods({
 
   updateBalance: function(amount){
-  	UserProfiles.update({userId: Meteor.userId()}, {$set: {balance: amount}});
+    var uId = Meteor.userId();
+    //var oId = access generated orderId?
+  	UserProfiles.update({userId: uId}, {$set: {balance: amount}});
+    //Transactions.insert({orderId: oId, time: new Date()}, {$set: {price: amount}});
+    //UserTransactions.insert({userId: uId, orderId: oId});
   },
   operatorSeeking: function(userId){
     console.log("Operator is now seeking")
@@ -37,11 +44,11 @@ Meteor.methods({
     // console.log("user cleared on server")
   },
   addRoll: function(userId, roll){
-    UserProfiles.update({userId: userId}, {$push: {roles: roll}}) 
+    UserProfiles.update({userId: userId}, {$push: {roles: roll}})
   },
   // sendTxt: function(userId, userPhone, operatorId){
   sendTxt: function(recipientPhone, recipientId, txt, operatorId){
-    
+
     // console.log("Message should be sent from the user!")
     var request = require('request');
 
@@ -56,7 +63,7 @@ Meteor.methods({
       // console.log('Status:', response.statusCode);
       // console.log('Headers:', JSON.stringify(response.headers));
       // console.log('Response:', body);
-      
+
       obj = JSON.parse(body);
 
       if(obj.success == "true")
@@ -69,20 +76,20 @@ Meteor.methods({
         // Time is dependant on when the server recieved it, not when the user actually sent it
         if(success){
           Chats.update(
-            {userId: recipientId}, 
+            {userId: recipientId},
             {
               $push: {
-                chat: 
+                chat:
                   {"from":'operator',"operatorId":operatorId,"createdAt":(new Date()),"txt":txt,"success":success,"MessageId":MessageId}
                 }})
         }
         else{
           Chats.update(
-            {userId: recipientId}, 
+            {userId: recipientId},
             {$push: {
               chat: {"from":'operator',"operatorId":operatorId,"createdAt":(new Date()),"success":success}
             }})
-        }  
+        }
     }));
   },
   // USE ONLY FOR BACKUP TO FETCH TEXTS IF API STOPPED WORKING
@@ -120,10 +127,10 @@ Meteor.methods({
   //         } else{ //registeered
   //           console.log("USER IS REGISTERED")
   //           Chats.update(
-  //           {userId: profileDoc.userId}, 
+  //           {userId: profileDoc.userId},
   //           {
   //             $push: {
-  //               chat: 
+  //               chat:
   //                 {"from":'user',"createdAt":(new Date()),"txt":messageDoc.Message,"success":true}
   //               }})
   //         }
@@ -144,6 +151,9 @@ UserProfiles.before.insert(function (userId, doc) {
 UserProfiles.after.insert(function (userId, doc) {
   console.log("Created new Chats user")
   Chats.insert({userId: userId});
+  History.insert({userId: userId});
+  Favorites.insert({userId: userId});
+  Addresses.insert({userId: userId});
 });
 
 // Emergency fetch Inbox data
@@ -152,4 +162,3 @@ UserProfiles.after.insert(function (userId, doc) {
 //  TextInbox()
 //   console.log("Fetching inbox has been called")
 // }, 5000);
-
