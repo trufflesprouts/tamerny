@@ -261,6 +261,26 @@ Template.HomeLayout.helpers({
   balance(){
     var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
     return userProfileDoc.balance;
+  },
+  userhistory (){
+    var userHistory = History.findOne({userId: Meteor.userId()}).transaction.reverse();
+    var transactions = document.getElementById("transaction");
+    userHistory.forEach(
+      function(transaction) {
+        var item = "<li><div class=\"collapsible-header\"><span class=\"left\">"
+                 + transaction.title
+                 + "</span><span class=\"right\">"
+                 + since(transaction.time)
+                 + "</span></div><div class=\"collapsible-body\"><span class=\"left\">"
+                 + transaction.description
+                 + "</span><span class=\"right\">"
+                 + transaction.price
+                 + "</span><span> ("
+                 + transaction.status
+                 + ")</span></div></li>";
+        transactions.innerHTML = transactions.innerHTML + item;
+      }
+    )
   }
 })
 
@@ -398,6 +418,29 @@ Template.getUser.helpers({
   }
 })
 
+function since (then){
+  var then = then.getTime();
+  var now = (new Date()).getTime();
+
+  diff = now - then;
+  if (diff/1000 < 1) {
+    var difference = "Now"
+  } else if (diff/(1000*60) < 1) {
+    var difference = parseInt(diff/(1000)) + " Seconds"
+  } else if (diff/(1000*60*60) < 1) {
+    var difference = parseInt(diff/(1000*60)) + " Minutes"
+  } else if (diff/(1000*60*60*24) < 1) {
+    var difference = parseInt(diff/(1000*60*60)) + " Hours"
+  } else if (diff/(1000*60*60*24*30) < 1) {
+    var difference = parseInt(diff/(1000*60*60*24)) + " Days"
+  } else if (diff/(1000*60*60*24*365) < 1) {
+    var difference = parseInt(diff/(1000*60*60*24*30)) + " Months"
+  } else {
+    var difference = parseInt(diff/(1000*60*60*24*365)) + " Years"
+  }
+  return difference
+}
+
 // Important! Change ID to a variable
 Template.userInfoCard.helpers({
   userInfo (){
@@ -405,15 +448,14 @@ Template.userInfoCard.helpers({
     return userProfileDoc
   },
   history (){
-    var userHistory = History.findOne({userId: "fLsHPFSbBhxGAYA3t"}).transaction;
-    console.log(userHistory)
+    var userHistory = History.findOne({userId: "fLsHPFSbBhxGAYA3t"}).transaction.reverse();
     var transactions = document.getElementById("transaction");
     userHistory.forEach(
       function(transaction) {
         var item = "<li><div class=\"collapsible-header\"><span class=\"left\">"
                  + transaction.title
                  + "</span><span class=\"right\">"
-                 + transaction.time
+                 + since(transaction.time)
                  + "</span></div><div class=\"collapsible-body\"><span class=\"left\">"
                  + transaction.description
                  + "</span><span class=\"right\">"
@@ -426,21 +468,21 @@ Template.userInfoCard.helpers({
     )
   },
   favorites (){
-    var userFavorites = Favorites.findOne({userId: "fLsHPFSbBhxGAYA3t"}).key;
+    var userFavorites = Favorites.findOne({userId: "fLsHPFSbBhxGAYA3t"}).key.reverse();
     var keys = document.getElementById("key");
     userFavorites.forEach(
       function(key) {
         var item = "<li><div class=\"collapsible-header\"><span class=\"left\">"
                  + key.keyWord
                  + "</span><span class=\"right\">"
-                //  + key.time
+                 + since(key.time)
                  + "</span><i class=\"material-icons right\">mode_edit</i></div><div class=\"collapsible-body\"><span>Edit Favorite Here</span></div></li>";
         keys.innerHTML = keys.innerHTML + item;
       }
     );
   },
   addresses (){
-    var userAddresses = Addresses.findOne({userId: "fLsHPFSbBhxGAYA3t"}).address;
+    var userAddresses = Addresses.findOne({userId: "fLsHPFSbBhxGAYA3t"}).address.reverse();
     var addresses = document.getElementById('address');
     userAddresses.forEach(
       function(address){
@@ -623,6 +665,13 @@ Template.userInfoCard.onRendered(function () {
     $('.collapsible').collapsible();
   });
 });
+
+Template.HomeLayout.onRendered(function () {
+  $('ul.tabs').tabs();
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+})
 
 Template.Navbar.onRendered(function () {
   $(document).ready(function(){
