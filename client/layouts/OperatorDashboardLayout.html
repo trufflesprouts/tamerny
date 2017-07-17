@@ -26,8 +26,11 @@
         <span class="black-text">{{> apiCard}}
         </span>
       </div>
-      <div class="operator-status card-border z-depth-0 card ">
-        <span class="black-text">{{> statusCard}}
+      <div class="operator-status card-border z-depth-0 card">
+        <span class="black-text ">
+          <div class="col s12 status-size">
+            {{> statusCard}}
+          </div>
         </span>
       </div>
     </div>
@@ -46,28 +49,41 @@
 
   <div class="scrollable-serving ">
     <!-- for each user do dis hoe -->
-    {{> userStatus}}
+    <div class="col s12 userStatus-margins">
+      {{> userStatus}}
+    </div>
   </div>
 
 <div class="col s12 divider"></div>
 
 <div class="line-margin find-user-box ">
-  <div class="find-customer-button ellipsis">
+  <div class="find-user-box ellipsis">
     {{> getUser}}
-    New Customer 
   </div>
 </div>
 </template>
 
 <template name="userStatus">
-  <!-- Add colored circle + if on this user then make that clear + ellipsis -->
-  User name
+  <div class="ellipsis customer-names">
+     
+    <span class="new badge green right" data-badge-caption=" "> 4 </span>
+     Abdulrahman Jamjoom
+  </div>
+  <div class="ellipsis customer-names">
+    <span class="new badge green right" data-badge-caption=" "> 4 </span>
+        Saleem Dejani
+  </div>
+  <div class="ellipsis customer-names">
+    
+    <span class="new badge orange right" data-badge-caption=" "> 4 </span>
+    Motasim Zawawi
+  </div>
 </template>
 
 <template name="getUser">
   {{#if searching}}
 
-   <div class="preloader-wrapper big active">
+   <div class="preloader-wrapper big active loader-margins">
     <div class="spinner-layer spinner-blue-only">
       <div class="circle-clipper left">
         <div class="circle"></div>
@@ -78,10 +94,15 @@
       </div>
     </div>
   </div>
+    
+    Searching...
+  
+  
   {{else}}
   <a class=" getUser btn-floating btn-large waves-effect waves-light orange"><i class=" material-icons">add</i></a>
-
+  New Customer 
   {{/if}}
+
 
 </template>
 
@@ -99,91 +120,93 @@
         <li class="tab col s4"><a href="#favorites">Favorites</a></li>
         <li class="tab col s4"><a href="#addresses">Addresses</a></li>
       </ul>
-      <div id="account" class="col s12">
-        <div class="row">
-          <form class="col s12">
-            <div class="row">
-              <div class="input-field col s6">
-                <input disabled value="{{userInfo.firstName}}" id="first_name" type="text" class="validate">
-                <label class="active" for="first_name">First Name</label>
-              </div>
-              <div class="input-field col s6">
-                <input disabled value="{{userInfo.lastName}}" id="last_name" type="text" class="validate">
-                <label class="active" for="last_name">Last Name</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input disabled value="{{userInfo.phone}}" id="phone" type="text" class="validate">
-                <label class="active" for="phone">Phone</label>
-              </div>
-            </div>
-            <!-- <div class="row">
-              <div class="input-field col s12">
-                <input id="email" type="email" class="validate">
-                <label for="email">Email</label>
-              </div>
-            </div> -->
-          </form>
-        </div>
-      </div>
-      <div id="favorites" class="card-scrollable col s12">
-          <ul class="collapsible" data-collapsible="accordion">
-            <div id="key">{{favorites}}</div>
-            <li>
-              <div class="collapsible-header">
-                <span class="left">Example</span>
-                <span class="right">5 days ago</span>
-                <i class="material-icons right">mode_edit</i>
-              </div>
-              <div class="collapsible-body">
-                <div class="row">
-                  <!-- {{#autoForm collection="Favorites" doc=favorites id="updateKeyForm" type="update"}} -->
-                    <div class="container center">
-                      <div class="input-field col s12">
-                        <!-- {{>afFieldInput name="keyWord" id="keyWord" type="text"}} -->
-                        <input value="example" id="key_word" type="text" class="validate">
-                        <label class="active">Key Word</label>
-                      </div>
-
-                      <br>
-                      <button type="submit" class=" col s4 btn left btn-primary ">Change</button>
-                      <button type="submit" class=" col s4 btn right btn-primary ">Delete</button>
-                    </div>
-                  <!-- {{/autoForm}} -->
+      <div class="scrollable-info">
+        <div id="account" class="col s12">
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s6">
+                  <input disabled value="{{userInfo.firstName}}" id="first_name" type="text" class="validate">
+                  <label class="active" for="first_name">First Name</label>
+                </div>
+                <div class="input-field col s6">
+                  <input disabled value="{{userInfo.lastName}}" id="last_name" type="text" class="validate">
+                  <label class="active" for="last_name">Last Name</label>
                 </div>
               </div>
-            </li>
-          </ul>
-          <div class="col s12">
-            <div class="row">
-              <div class="input-field col s10">
-                <input id="favorite" placeholder="New Entry ..." type="text" class="validate" data-length="60">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input disabled value="{{userInfo.phone}}" id="phone" type="text" class="validate">
+                  <label class="active" for="phone">Phone</label>
+                </div>
               </div>
-              <div class="col s2 ">
-                <!-- <button type="submit" class=" col s12 btn center btn-primary "></button> -->
-                <a class="addFavorite vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">playlist_add</i></a>
+              <!-- <div class="row">
+                <div class="input-field col s12">
+                  <input id="email" type="email" class="validate">
+                  <label for="email">Email</label>
+                </div>
+              </div> -->
+            </form>
+          </div>
+        </div>
+        <div id="favorites" class="card-scrollable col s12">
+            <ul class="collapsible z-depth-0" data-collapsible="accordion">
+              <div id="key">{{favorites}}</div>
+              <li>
+                <div class="collapsible-header">
+                  <span class="left">Example</span>
+                  <i class="material-icons right">mode_edit</i>
+                  <span class="right">5 days ago</span>
+                </div>
+                <div class="collapsible-body">
+                  <div class="row">
+                    <!-- {{#autoForm collection="Favorites" doc=favorites id="updateKeyForm" type="update"}} -->
+                      <div class="container center">
+                        <div class="input-field col s12">
+                          <!-- {{>afFieldInput name="keyWord" id="keyWord" type="text"}} -->
+                          <input value="example" id="key_word" type="text" class="validate">
+                          <label class="active">Key Word</label>
+                        </div>
+
+                        <br>
+                        <button type="submit" class=" col s4 btn left btn-primary ">Change</button>
+                        <button type="submit" class=" col s4 btn right btn-primary ">Delete</button>
+                      </div>
+                    <!-- {{/autoForm}} -->
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="col s12">
+              <div class="row">
+                <div class="input-field col s10">
+                  <input id="favorite" placeholder="New Entry ..." type="text" class="validate" data-length="60">
+                </div>
+                <div class="col s2 ">
+                  <!-- <button type="submit" class=" col s12 btn center btn-primary "></button> -->
+                  <a class="addFavorite vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">playlist_add</i></a>
+                </div>
               </div>
             </div>
-          </div>
-      </div>
-      <div id="addresses" class="card-scrollable col s12">
-          <ul class="collapsible" data-collapsible="accordion">
-            <div id="address">{{addresses}}</div>
-            <li>
-              <div class="collapsible-header">US</div>
-              <div class="collapsible-body">
-                <span class="left">1401 College Ave.</span><br>
-                <span class="left">Apt. E304</span><br>
-                <span class="left">Manhattan, KS 66502</span>
-              </div>
-            </li>
-          </ul>
+        </div>
+        <div id="addresses" class="scrollable-info col s12">
+            <ul class="collapsible z-depth-0" data-collapsible="accordion">
+              <div id="address">{{addresses}}</div>
+              <li>
+                <div class="collapsible-header">US</div>
+                <div class="collapsible-body">
+                  <span class="left">1401 College Ave.</span><br>
+                  <span class="left">Apt. E304</span><br>
+                  <span class="left">Manhattan, KS 66502</span>
+                </div>
+              </li>
+            </ul>
+        </div>
       </div>
     </div>
     <div id="hist" class="card-scrollable col s12">
       <div class="container col s12">
-        <ul class="collapsible" data-collapsible="accordion">
+        <ul class="collapsible z-depth-0" data-collapsible="accordion">
           <div id="transaction">{{history}}</div>
           <li>
             <div class="collapsible-header">
@@ -273,5 +296,29 @@
 </template>
 
 <template name="statusCard">
-  Status Card
+  
+  <div class="row no-bottom-margin status-size valign-wrapper">
+
+    <a class="col s3 waves-effect waves-light green btn ellipsis tooltipped " data-position="top" data-delay="50" data-tooltip="You've completed all what the user has asked for. This will disconnect you from the user!">
+      <i class="material-icons left">done</i>
+      done
+    </a>
+
+    <div class="col s1"></div>
+
+    <a class="col s4 waves-effect waves-light orange btn ellipsis tooltipped " data-position="top" data-delay="50" data-tooltip="you've order something for the user and you are waiting for the service provider's reply.">
+      <i class="material-icons left">extension</i>
+      pending
+    </a>
+
+    <div class="col s1"></div>
+
+    <a class=" col s3 waves-effect waves-light red btn ellipsis tooltipped" data-position="top" data-delay="50" data-tooltip="You won't be able to serve this user for some reason. This will disconnect you from the user!">
+      <i class="material-icons left">error</i>
+      Cancel
+    </a>
+
+
+  </div>
+
 </template>
