@@ -57,24 +57,33 @@
 <div class="col s12 divider"></div>
 
 <div class="line-margin find-user-box ">
-  <div class="find-customer-button ellipsis">
+  <div class="find-user-box ellipsis">
     {{> getUser}}
-    New Customer 
   </div>
 </div>
 </template>
 
 <template name="userStatus">
-  <div class="ellipsis">
-    <span class="new badge green right " data-badge-caption=" "> 4 </span>
-    Abdulrahman Jamjoom
+  <div class="ellipsis customer-names">
+     
+    <span class="new badge green right" data-badge-caption=" "> 4 </span>
+     Abdulrahman Jamjoom
+  </div>
+  <div class="ellipsis customer-names">
+    <span class="new badge green right" data-badge-caption=" "> 4 </span>
+        Saleem Dejani
+  </div>
+  <div class="ellipsis customer-names">
+    
+    <span class="new badge orange right" data-badge-caption=" "> 4 </span>
+    Motasim Zawawi
   </div>
 </template>
 
 <template name="getUser">
   {{#if searching}}
 
-   <div class="preloader-wrapper big active">
+   <div class="preloader-wrapper big active loader-margins">
     <div class="spinner-layer spinner-blue-only">
       <div class="circle-clipper left">
         <div class="circle"></div>
@@ -85,10 +94,15 @@
       </div>
     </div>
   </div>
+    
+    Searching...
+  
+  
   {{else}}
   <a class=" getUser btn-floating btn-large waves-effect waves-light orange"><i class=" material-icons">add</i></a>
-
+  New Customer 
   {{/if}}
+
 
 </template>
 

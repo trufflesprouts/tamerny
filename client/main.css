@@ -15,7 +15,7 @@ body {
 }
 
 .operator-customers{
-  height:calc(100vh - 80px);
+  height:calc(100vh - 75px);
   min-height: 565px;
 }
 
@@ -34,17 +34,14 @@ body {
   color: #e57373;
 }
 
-/*.tooltip {
-  
-  background-color: transparent;
-  
+.loader-margins{
+  margin-right: 10px;
 }
-*/
+
 .operator-info{
-  /*height: 300px;*/
-  height:calc(100vh - 445px);
-  min-height: 200px;
-  max-height: 300px;
+  /*height:calc(100vh - 445px);*/
+  height: 250px;
+  /*max-height: 300px;*/
 }
 
 .message-padding{
@@ -65,10 +62,7 @@ body {
   font-size: 12px;
 }
 
-.operator-chat{
-  height:calc(100vh - 95px - (100vh - 445px));
-  /*min-height: 300px;*/
-}
+
 
 .chat-prev{
   height: 250px;
@@ -95,7 +89,7 @@ body {
 
 .operator-api{
   height:calc(100vh - 170px);
-  min-height: 475px;
+  min-height: 471px;
 }
 
 .card-border{
@@ -104,7 +98,7 @@ body {
 }
 
 .operator-status{
-  height: 75px;
+  height: 80px;
 }
 
 .balance_main{
@@ -155,14 +149,12 @@ body {
   overflow: scroll;
 }
 
-
 .card-scrollable {
-	/*max-height: 200px;*/
   overflow: scroll;
 }
 
 .scrollable-info {
-  height:calc(100vh - 540px);
+  height:150px;
   overflow: scroll;
   min-height: 100px;
 }
@@ -174,16 +166,20 @@ body {
 }
 
 .scrollable-chat {
-  height:calc(100vh - 215px - (100vh - 445px));
+  height:calc(100vh - 215px - 250px);
   overflow: scroll;
-  min-height: 130px;
+  min-height: 180px;
 
+}
+
+.operator-chat{
+  height:calc(100vh - 90px - 250px);
+  min-height: 300px;
 }
 
 .currency_main{
 	color: #6495ed;
 	font-size: 20px;
-	/*font-family: "Open Sans", serif;*/
 }
 
 .current-email {
@@ -262,18 +258,17 @@ body {
   background-color: white;
 }
 
-.find-customer-button{
-  margin-left: 5px;  
-  height: 100%;
-}
-
-
 .add-design{
   color: grey;
 }
 
+.customer-names{
+  margin-top: 10px;
+  width: 100%;
+}
+
 .find-user-box{
-  height: 70px;
+  height: 75px;
   margin-left: 5px;  
 }
 
