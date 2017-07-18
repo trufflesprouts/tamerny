@@ -10,30 +10,42 @@
       </div>
     </div>
 
-    <div class=" col s12 m5 no-right-pad">
-      <div class="operator-info card-border z-depth-0 card ">
-        <span class="black-text">{{> userInfoCard}}
-        </span>
-      </div>
-      <div class="operator-chat card-border z-depth-0 card ">
-        <span class="black-text">{{> userChatCard}}
-        </span>
-      </div>
-    </div>
+    {{#with SecureDashboardLink}}
+      {{#if CorrectCustomerId this}}
+          
+          <div class=" col s12 m5 no-right-pad">
+           
+            <div class="operator-info card-border z-depth-0 card ">
+              <span class="black-text">{{> userInfoCard customerId=this}}
+              </span>
+            </div>
 
-    <div class="col s12 m5">
-      <div class="operator-api card-border z-depth-0 card ">
-        <span class="black-text">{{> apiCard}}
-        </span>
-      </div>
-      <div class="operator-status card-border z-depth-0 card">
-        <span class="black-text ">
-          <div class="col s12 status-size">
-            {{> statusCard}}
+            <div class="operator-chat card-border z-depth-0 card ">
+              <span class="black-text">{{> userChatCard customerId=this}}
+              </span>
+            </div>
+
           </div>
-        </span>
-      </div>
-    </div>
+
+          <div class="col s12 m5">
+            
+            <div class="operator-api card-border z-depth-0 card ">
+              <span class="black-text">{{> apiCard customerId=this}}
+              </span>
+            </div>
+
+            <div class="operator-status card-border z-depth-0 card">
+              <span class="black-text ">
+                <div class="col s12 status-size">
+                  {{> statusCard customerId=this}}
+                </div>
+              </span>
+            </div>
+
+          </div>
+        
+    {{/if}}
+  {{/with}}
 
   </div>
 </template>
@@ -48,10 +60,7 @@
   </div>
 
   <div class="scrollable-serving ">
-    <!-- for each user do dis hoe -->
-    <!-- <div class="col s12"> -->
-      {{> userStatus}}
-    <!-- </div> -->
+    {{> userStatus}}
   </div>
 
 <div class="col s12 divider"></div>
@@ -60,8 +69,6 @@
     {{> getUser}}
   </div>
 </template>
-
-
 
 <template name="userStatus">
   <div class="customer-names">
@@ -116,6 +123,8 @@
 
 
 </template>
+
+<!-- Use {{customerId}} to rerieve the ID of the customer the operator is currently serving -->
 
 <template name="userInfoCard">
   <div class="row">
@@ -238,59 +247,66 @@
 
 <template name="userChatCard">
   <!-- Display texts -->
-  <div class="row no-bottom-margin">
-    <div class="col s12 operator-dash-title valign-wrapper">
-      <div class="auto-width center-align ellipsis">Live Chat with (username)</div>
-    </div>
-    <div class="col s12 divider "></div>
-  </div>
-
-  <div class="scrollable-chat ">
-    <center class="chat-start"> --- Beginning of Chat --- </center>
-     <br>
-    <div class="col s12 ">
-      {{SecureDashboardLink}}
-      
-      {{> textUser}}
-
-      {{> textOperator}}
-    </div>
-  </div>
-
-  <div class="col s12 divider"></div>
-
-  <div class="chat-send input-field col s12">
-    <div class="row">
-      
-      <div class="col s10">
-        <input id="input_text" placeholder="Text Message..." type="text" class="validate" data-length="160">
+  {{#with customerProfile customerId}}
+    <div class="row no-bottom-margin">
+      <div class="col s12 operator-dash-title valign-wrapper">
+        <div class="auto-width center-align ellipsis">Live Chat with ({{this.firstName}} {{this.lastName}})</div>
       </div>
-      
-      <div class="col s2 ">
-        <a class="send-txt vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">send</i></a>
-      </div>
-
+      <div class="col s12 divider "></div>
     </div>
-  </div>
+    
+      <div class="scrollable-chat ">
+        <center class="chat-start"> --- Beginning of Chat --- </center>
+         <br>
+        <div class="col s12 ">
+          {{#with activeChat ../customerId}}
+            {{#each mssg in this}}
+              <!-- {{mssg.txt}}
+              {{mssg.from}} -->
+            {{> Template.dynamic template=mssg.from data=mssg}}
 
+              <!-- {{> textUser}}
+
+              {{> textOperator}} -->
+            {{/each}}
+          {{/with}}
+        </div>
+      </div>
+    
+
+    <div class="col s12 divider"></div>
+
+    <div class="chat-send input-field col s12">
+      <div class="row">
+        
+        <div class="col s10">
+          <input id="input_text" placeholder="Text Message..." type="text" class="validate" data-length="160">
+        </div>
+        
+        <div class="col s2 ">
+          <a class="send-txt vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">send</i></a>
+        </div>
+
+      </div>
+    </div>
+  {{/with}}
 </template>
 
-<template name="textUser">
+<template name="user">
   <div class="col s7">
     <div class="card message-margins grey lighten-1 z-depth-0">
-      
-      <div class="tooltipped message-padding chat-size" data-position="right" data-delay="50" data-tooltip="date,time">
-            User Message should be printed here
+      <div class="tooltipped message-padding chat-size" data-position="right" data-delay="50" data-tooltip={{formatDateTime this.createdAt}}>
+            {{this.txt}}
       </div>
     </div>
   </div>
 </template>
 
-<template name="textOperator">
+<template name="operator">
   <div class="col s7 right">
     <div class="card message-margins blue darken-1 z-depth-0">
-      <div class="tooltipped message-padding chat-size" data-position="left" data-delay="50" data-tooltip="date,time, opID">
-        Operator Message should be printed here
+      <div class="tooltipped message-padding chat-size" data-position="left" data-delay="50" data-tooltip={{formatDateTime this.createdAt}}>
+        {{this.txt}}
       </div>
     </div>
   </div>
