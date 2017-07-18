@@ -4,6 +4,8 @@ import { OperatorProfile } from '../collections/operatorProfile.js'
 import { History } from '../collections/history.js'
 import { Favorites } from '../collections/favorites.js'
 import { Addresses } from '../collections/addresses.js'
+import { Pairings } from '../collections/pairedUsers.js'
+import { WaitingUsers } from '../collections/waitingUsers.js'
 
 Meteor.startup(() => {
   // code to run on server at startup
@@ -25,6 +27,44 @@ Meteor.startup(() => {
 //     })
 // }
 
+
+function findCutomer (operatorId){
+  console.log("searching for user to connect")
+  // check in which order we are assigning order and make sure it's in correct order
+  var usersWaiting = WaitingUsers.find({},{limit: 20}).fetch()
+  console.log("Users Waiting:")
+  console.log(usersWaiting)
+
+  if (usersWaiting.length > 0){
+    for (var i = usersWaiting.length - 1; i >= 0; i--) {
+      var status = WaitingUsers.remove({_id: usersWaiting[i]._id});
+      console.log("remove status:")
+      console.log(status)
+      if (status == 1){
+        Pairings.update({operatorId: operatorId}, {$push: {userIds: usersWaiting[i].userId}})
+        OperatorProfile.update({userId: operatorId}, {$set: {seeking: false}});
+        Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast', ['[New User] You got assined a new customer to serve !', 4000], function(error, result) {
+        console.log('CALLBACK', result);
+      });
+        // Trigger modal to notify operator and send auto generated text to the user!
+        break;
+      } 
+      
+      OperatorProfile.update({userId: operatorId}, {$set: {seeking: false}});
+      Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast', ['System is congested, try again in a bit', 4000], function(error, result) {
+        console.log('CALLBACK', result);
+      });
+
+    };
+  }  else {
+
+    OperatorProfile.update({userId: operatorId}, {$set: {seeking: false}});
+    Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast', ['There are currently no users waiting to be served, try again in a bit', 4000], function(error, result) {
+        console.log('CALLBACK', result);
+      });
+  }
+}
+
 Meteor.methods({
 
   updateBalance: function(amount){
@@ -37,14 +77,25 @@ Meteor.methods({
   operatorSeeking: function(userId){
     console.log("Operator is now seeking")
     OperatorProfile.update({userId: userId}, {$set: {seeking: true}});
+
+    findCutomer(userId); //find user to connect to 
+
+  },
+  operatorNotSeeking: function(userId){
+    console.log("Operator cancelled seeking = is not seeking")
+    OperatorProfile.update({userId: userId}, {$set: {seeking: false}});
   },
   clearUser: function(userId){
     // Accounts.removeEmail(userId, oldEmail)
     Meteor.users.remove({_id: userId});
     // console.log("user cleared on server")
   },
-  addRoll: function(userId, roll){
+  addRoll: function(userId, roll){ 
     UserProfiles.update({userId: userId}, {$push: {roles: roll}})
+  },
+  insertPairings: function(userId){ 
+    console.log("Created paring hoe")
+    Pairings.insert({operatorId: userId})
   },
   // sendTxt: function(userId, userPhone, operatorId){
   sendTxt: function(recipientPhone, recipientId, txt, operatorId){
@@ -155,6 +206,8 @@ UserProfiles.after.insert(function (userId, doc) {
   Favorites.insert({userId: userId});
   Addresses.insert({userId: userId});
 });
+
+
 
 // Emergency fetch Inbox data
 

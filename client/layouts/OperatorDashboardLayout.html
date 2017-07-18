@@ -49,58 +49,69 @@
 
   <div class="scrollable-serving ">
     <!-- for each user do dis hoe -->
-    <div class="col s12 userStatus-margins">
+    <!-- <div class="col s12"> -->
       {{> userStatus}}
-    </div>
+    <!-- </div> -->
   </div>
 
 <div class="col s12 divider"></div>
 
-<div class="line-margin find-user-box ">
   <div class="find-user-box ellipsis">
     {{> getUser}}
   </div>
-</div>
 </template>
 
+
+
 <template name="userStatus">
-  <div class="ellipsis customer-names">
-     
-    <span class="new badge green right" data-badge-caption=" "> 4 </span>
-     Abdulrahman Jamjoom
-  </div>
-  <div class="ellipsis customer-names">
-    <span class="new badge green right" data-badge-caption=" "> 4 </span>
-        Saleem Dejani
-  </div>
-  <div class="ellipsis customer-names">
-    
-    <span class="new badge orange right" data-badge-caption=" "> 4 </span>
-    Motasim Zawawi
+  <div class="customer-names">
+    <table class="highlight">  
+      <tbody>     
+       {{#each customer in customers}}
+          <tr class="highlight-size">
+            <a href={{customerPageLink customer.userId}}>
+              <div class="names-padding ellipsis">
+                <span class="highlight new badge green right" data-badge-caption=" "> 4 </span>
+               {{customer.firstName}}  
+               {{customer.lastName}}
+             </div>
+            </a>
+          </tr>
+       {{/each}}
+      </tbody>
+    </table>
   </div>
 </template>
 
 <template name="getUser">
   {{#if searching}}
-
-   <div class="preloader-wrapper big active loader-margins">
-    <div class="spinner-layer spinner-blue-only">
-      <div class="circle-clipper left">
-        <div class="circle"></div>
-      </div><div class="gap-patch">
-        <div class="circle"></div>
-      </div><div class="circle-clipper right">
-        <div class="circle"></div>
+    <a class="notSeeking">
+       <div class="preloader-wrapper big active loader-margins">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-    
+    </a>
+
     Searching...
   
-  
   {{else}}
-  <a class=" getUser btn-floating btn-large waves-effect waves-light orange"><i class=" material-icons">add</i></a>
-  New Customer 
+
+    {{#if notServing}}
+      <a class=" getUser pulse btn-floating btn-large waves-effect waves-light orange"><i class=" material-icons">add</i></a>
+    {{else}}
+
+      <a class=" getUser btn-floating btn-large waves-effect waves-light orange"><i class=" material-icons">add</i></a>
+    {{/if}}
+  
+  Find Customer 
+  
   {{/if}}
 
 
@@ -238,9 +249,8 @@
     <center class="chat-start"> --- Beginning of Chat --- </center>
      <br>
     <div class="col s12 ">
+      {{SecureDashboardLink}}
       
-      <!-- for loop to add 10 texts and scroll to the bottom -->
-      <!-- If from user this, else other one -->
       {{> textUser}}
 
       {{> textOperator}}

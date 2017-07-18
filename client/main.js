@@ -5,11 +5,16 @@ import { Chats } from '../collections/chats.js'
 import { History } from '../collections/history.js'
 import { Favorites } from '../collections/favorites.js'
 import { Addresses } from '../collections/addresses.js'
+import { Pairings } from '../collections/pairedUsers.js'
+import { WaitingUsers } from '../collections/waitingUsers.js'
+
 
 window.UserProfiles = UserProfiles
 window.TopUp = TopUp
 window.OperatorProfile = OperatorProfile
 window.Chats = Chats
+window.Pairings = Pairings
+window.WaitingUsers = WaitingUsers
 
 // console.log(FlowRouter.current().route) -> use to do operator login
 
@@ -22,6 +27,13 @@ Template.SettingTabs.onRendered(function () {
 });
 
 Template.textUser.onRendered(function () {
+    $(document).ready(function(){
+    $('.tooltipped').tooltip({delay: 50});
+  });
+});
+
+
+Template.statusCard.onRendered(function () {
     $(document).ready(function(){
     $('.tooltipped').tooltip({delay: 50});
   });
@@ -269,7 +281,39 @@ Template.Navbar.helpers({
 
     return state
 
+  },
+  dashboardLink(){
+    var doc = Pairings.findOne({operatorId: Meteor.userId()})
+
+    if (doc != undefined)
+      var link = '/operatorDashboard/' + doc.userIds[0]
+    else
+        var link = '/operatorDashboard/noCustomer'
+    
+    return link
   }
+});
+
+Template.registerHelper( 'SecureDashboardLink', () => {
+  console.log("Sending secure dashboard link")
+  var doc = Pairings.findOne({operatorId: Meteor.userId()});
+  var operatorCustomers = doc.userIds
+  var customerId = FlowRouter.getParam("customer")
+
+  var safe = false;
+
+  for (var i = operatorCustomers.length - 1; i >= 0; i--) {
+    if (operatorCustomers[i] == customerId){
+      safe = true
+      break;
+    }
+  };
+
+  if(safe == true)
+    return customerId
+  else
+    return "Incorrect Customer ID"
+ 
 });
 
 Template.HomeLayout.helpers({
@@ -425,13 +469,43 @@ Template.BasicsInfo.helpers({
   }
 })
 
+
+
+Template.userStatus.helpers({
+  customers (){
+    var doc = Pairings.findOne({operatorId: Meteor.userId()});
+    console.log("your pairings")
+    console.log(doc)
+    if(doc == undefined)
+      return []
+    else {
+      var users = doc.userIds
+      var userNames = UserProfiles.find({userId:{$in: users} }).fetch()
+      return userNames
+    }  
+  },
+  customerPageLink (userId){
+    var link = "/operatorDashboard/" + userId
+    return link
+  }
+})
+
 Template.getUser.helpers({
   searching (){
     var doc = OperatorProfile.findOne({userId: Meteor.userId()});
     var state = doc.seeking
     return state
+  },
+  notServing (){
+    var doc = Pairings.findOne({operatorId: Meteor.userId()});
+    if(doc == undefined)
+      return true
+    else
+      return false
   }
 })
+
+
 
 function since (then){
   var then = then.getTime();
@@ -661,6 +735,7 @@ Template.publishOperator.events({
   'click .publish':function(){
     event.preventDefault();
     Meteor.call('addRoll', Meteor.userId(), "operator");
+    Meteor.call('insertPairings', Meteor.userId());
     FlowRouter.go('/operatorDashboard');
   },
 })
@@ -699,6 +774,12 @@ Template.navbarAccount.onRendered(function () {
   $(document).ready(function(){
     $(".dropdown-button").dropdown({});
   });
+});
+
+Template.OperatorDashboardLayout.onRendered(function () {
+  console.log("Dash is rendered")
+  var customerId = FlowRouter.getParam('customer');
+  console.log(customerId)
 });
 
 
@@ -766,8 +847,27 @@ Template.getUser.events({
       console.log("GET USER HAS BEEN CLICKED")
       Meteor.call('operatorSeeking', Meteor.userId());
       // Pop-up with buttons and finish procedures
+    },
+    'click .notSeeking': function(event) {
+      event.preventDefault();
+      console.log("GET USER HAS CANCELLED")
+      Meteor.call('operatorNotSeeking', Meteor.userId());
     }
   });
+
+// Init for calling a clinet method from server
+Meteor.ClientCall.setClientId(Meteor.userId());
+
+Meteor.ClientCall.methods({
+
+  'materializeToast': function(message, time) {
+    Materialize.toast(message, time)
+    console.log("TOAST SHOULD SHOW")
+  },
+
+});
+
+
 
 AutoForm.debug();
 
