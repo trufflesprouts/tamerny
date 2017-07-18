@@ -26,7 +26,7 @@ Template.SettingTabs.onRendered(function () {
   });
 });
 
-Template.textUser.onRendered(function () {
+Template.user.onRendered(function () {
     $(document).ready(function(){
     $('.tooltipped').tooltip({delay: 50});
   });
@@ -39,7 +39,7 @@ Template.statusCard.onRendered(function () {
   });
 });
 
-Template.textOperator.onRendered(function () {
+Template.operator.onRendered(function () {
     $(document).ready(function(){
     $('.tooltipped').tooltip({delay: 50});
   });
@@ -295,7 +295,6 @@ Template.Navbar.helpers({
 });
 
 Template.registerHelper( 'SecureDashboardLink', () => {
-  console.log("Sending secure dashboard link")
   var doc = Pairings.findOne({operatorId: Meteor.userId()});
   var operatorCustomers = doc.userIds
   var customerId = FlowRouter.getParam("customer")
@@ -503,6 +502,14 @@ Template.getUser.helpers({
     else
       return false
   }
+})
+
+Template.user.helpers({
+  formatDateTime (dateTime){
+    var formatted = moment(dateTime).calendar(); 
+    return formatted
+  },
+  
 })
 
 
@@ -804,6 +811,31 @@ Template.TestLayout.helpers({
     return info
   },
 })
+
+Template.userChatCard.helpers({
+  customerProfile(customerId){
+    var doc = UserProfiles.findOne({userId: customerId})
+    return doc
+  },
+  activeChat(customerId){
+    console.log("in active chat ")
+    console.log(customerId)
+    var doc = Chats.findOne({userId: customerId})
+    var chatHist = doc.chat
+    return chatHist
+  }
+})
+
+Template.OperatorDashboardLayout.helpers({
+  CorrectCustomerId (customerId){
+    if (customerId == "Incorrect Customer ID")
+      return false
+    else 
+      return true
+  }
+})
+
+
 
 // Called when any submit operation succeeds
 // inefficient solution for the Materialize select init bug...Fix when I have time to scrach my ass

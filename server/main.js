@@ -100,7 +100,16 @@ Meteor.methods({
   // sendTxt: function(userId, userPhone, operatorId){
   sendTxt: function(recipientPhone, recipientId, txt, operatorId){
 
-    // console.log("Message should be sent from the user!")
+    console.log("Message should be sent to the user!")
+    console.log("recipientPhone")
+    console.log(recipientPhone)
+    console.log("recipientId")
+    console.log(recipientId)
+    console.log("txt")
+    console.log(txt)
+    console.log("operatorId")
+    console.log(operatorId)
+
     var request = require('request');
 
     request({
@@ -138,7 +147,7 @@ Meteor.methods({
           Chats.update(
             {userId: recipientId},
             {$push: {
-              chat: {"from":'operator',"operatorId":operatorId,"createdAt":(new Date()),"success":success}
+              chat: {"from":'operator',"operatorId":operatorId,"createdAt":(new Date()),"success":no}
             }})
         }
     }));
