@@ -288,11 +288,32 @@ Template.Navbar.helpers({
     if (doc != undefined)
       var link = '/operatorDashboard/' + doc.userIds[0]
     else
-        var link = '/operatorDashboard/' + noCustomers
+        var link = '/operatorDashboard/noCustomer'
     
     return link
   }
+});
 
+Template.registerHelper( 'SecureDashboardLink', () => {
+  console.log("Sending secure dashboard link")
+  var doc = Pairings.findOne({operatorId: Meteor.userId()});
+  var operatorCustomers = doc.userIds
+  var customerId = FlowRouter.getParam("customer")
+
+  var safe = false;
+
+  for (var i = operatorCustomers.length - 1; i >= 0; i--) {
+    if (operatorCustomers[i] == customerId){
+      safe = true
+      break;
+    }
+  };
+
+  if(safe == true)
+    return customerId
+  else
+    return "Incorrect Customer ID"
+ 
 });
 
 Template.HomeLayout.helpers({
@@ -448,6 +469,8 @@ Template.BasicsInfo.helpers({
   }
 })
 
+
+
 Template.userStatus.helpers({
   customers (){
     var doc = Pairings.findOne({operatorId: Meteor.userId()});
@@ -481,6 +504,8 @@ Template.getUser.helpers({
       return false
   }
 })
+
+
 
 function since (then){
   var then = then.getTime();
@@ -749,6 +774,12 @@ Template.navbarAccount.onRendered(function () {
   $(document).ready(function(){
     $(".dropdown-button").dropdown({});
   });
+});
+
+Template.OperatorDashboardLayout.onRendered(function () {
+  console.log("Dash is rendered")
+  var customerId = FlowRouter.getParam('customer');
+  console.log(customerId)
 });
 
 
