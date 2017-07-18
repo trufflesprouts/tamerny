@@ -45,8 +45,23 @@ Template.operator.onRendered(function () {
   });
 });
 
+// Template.userChatCard.onRendered(function () {
+    
+//     console.log("userChatCard has been Rendered")
+//     var elmnt = document.getElementById("messageBody");
+//     elmnt.scrollTop = elmnt.scrollHeight;
+// });
 
-
+// Template.userChatCard.onRendered(function () {
+//   $(document).ready(function(){
+//     console.log("userChatCard has been Rendered")
+//     // Tracker.autorun(() => {
+//       console.log("Chat Autorun has been triggered")
+//       var elmnt = document.getElementById("messageBody");
+//       elmnt.scrollTop = elmnt.scrollHeight;
+//     // });    
+//   });
+// });
 
 // DO ERROR CHECKING AND VALIDATION CORRECTLYf!!!
 Template.signup.events({
@@ -512,6 +527,14 @@ Template.user.helpers({
   
 })
 
+Template.operator.helpers({
+  formatDateTime (dateTime){
+    var formatted = moment(dateTime).calendar(); 
+    return formatted
+  },
+  
+})
+
 
 
 function since (then){
@@ -802,7 +825,6 @@ Template.userChatCard.onRendered(function () {
   $(document).ready(function() {
     $('input#input_text').characterCounter();
   });
-
 });
 
 Template.TestLayout.helpers({
@@ -811,6 +833,28 @@ Template.TestLayout.helpers({
     return info
   },
 })
+
+// Inside a Meteor event callback
+Tracker.afterFlush(function () {
+
+  console.log("after flush")
+  var $someItem = $('messageBody');
+
+  $(window).scrollTop($someItem.offset().top);
+});
+
+$('.scrollable-chat').animate({scrollTop: 10});
+
+Template.userChatCard.onRendered(function () {
+  console.log("userChatCard has been Rendered")
+    this.autorun(function(){
+      console.log("Chat Autorun has been triggered")
+      var elmnt = document.getElementById("messageBody");
+      console.log("elmnt from rendered")
+      console.log(elmnt)
+      elmnt.scrollTop = elmnt.scrollHeight;
+    })    
+});
 
 Template.userChatCard.helpers({
   customerProfile(customerId){
@@ -835,8 +879,6 @@ Template.OperatorDashboardLayout.helpers({
   }
 })
 
-
-
 // Called when any submit operation succeeds
 // inefficient solution for the Materialize select init bug...Fix when I have time to scrach my ass
 
@@ -852,24 +894,22 @@ Template.SettingsCard.events({
 Template.userChatCard.events({
   'click .send-txt':function(){
     event.preventDefault();
-    console.log("Button to send txt has been clicked")
     var txt = document.getElementById('input_text').value
-    console.log("Text:")
-    console.log(txt)
-    // Change this number to the user the opearto is serving's phone number when i work on the distribution system
-    Meteor.call('sendTxt',966504522999, 'y3W4RYKtRmZmvMPie', txt, (Meteor.userId()));
-    //Recipient number, recipient user Id, txt message,  operator ID
+    var customerId = document.getElementById('customerId').value
+    var doc = UserProfiles.findOne({userId: customerId})
+    var phoneNumber = doc.phone
+    Meteor.call('sendTxt',phoneNumber, customerId, txt, (Meteor.userId()));
+    $('#input_text').val('')
   },
-  'click .get-texts':function(){
-    event.preventDefault();
-    console.log("Button to send txt has been clicked")
-    var txt = document.getElementById('input_text').value
-    console.log("Text:")
-    console.log(txt)
-    // Change this number to the user the opearto is serving's phone number when i work on the distribution system
-    Meteor.call('sendTxt',966504522999, 'y3W4RYKtRmZmvMPie', txt, (Meteor.userId()));
-    //Recipient number, recipient user Id, txt message,  operator ID
-  },
+
+  // 'click .get-texts':function(){
+  //   event.preventDefault();
+  //   console.log("Button to send txt has been clicked")
+  //   var txt = document.getElementById('input_text').value
+  //   console.log("Text:")
+  //   console.log(txt)
+  //   Meteor.call('sendTxt',966504522999, 'y3W4RYKtRmZmvMPie', txt, (Meteor.userId()));
+  // },
 
 })
 

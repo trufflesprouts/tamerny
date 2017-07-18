@@ -44,7 +44,7 @@
 
           </div>
         
-    {{/if}}
+    {{/if}} 
   {{/with}}
 
   </div>
@@ -246,6 +246,9 @@
 </template>
 
 <template name="userChatCard">
+
+
+
   <!-- Display texts -->
   {{#with customerProfile customerId}}
     <div class="row no-bottom-margin">
@@ -255,25 +258,17 @@
       <div class="col s12 divider "></div>
     </div>
     
-      <div class="scrollable-chat ">
-        <center class="chat-start"> --- Beginning of Chat --- </center>
-         <br>
-        <div class="col s12 ">
-          {{#with activeChat ../customerId}}
-            {{#each mssg in this}}
-              <!-- {{mssg.txt}}
-              {{mssg.from}} -->
+    <div class="scrollable-chat" id="messageBody">
+      <center class="chat-start"> --- Beginning of Chat --- </center>
+       <br>
+      <div class="col s12">
+        {{#with activeChat ../customerId}}
+          {{#each mssg in this}}
             {{> Template.dynamic template=mssg.from data=mssg}}
-
-              <!-- {{> textUser}}
-
-              {{> textOperator}} -->
-            {{/each}}
-          {{/with}}
-        </div>
+          {{/each}}
+        {{/with}}
       </div>
-    
-
+    </div>
     <div class="col s12 divider"></div>
 
     <div class="chat-send input-field col s12">
@@ -281,6 +276,8 @@
         
         <div class="col s10">
           <input id="input_text" placeholder="Text Message..." type="text" class="validate" data-length="160">
+          <!-- This might be insecure... need to investigate more -->
+          <input id="customerId" value={{../customerId}} type="hidden">
         </div>
         
         <div class="col s2 ">
@@ -290,11 +287,12 @@
       </div>
     </div>
   {{/with}}
-</template>
+<!--   <button onclick="scrollToBottom()">Scroll contents of div</button>
+ --></template>
 
 <template name="user">
   <div class="col s7">
-    <div class="card message-margins grey lighten-1 z-depth-0">
+    <div class="card card-size message-margins grey lighten-1 z-depth-0">
       <div class="tooltipped message-padding chat-size" data-position="right" data-delay="50" data-tooltip={{formatDateTime this.createdAt}}>
             {{this.txt}}
       </div>
