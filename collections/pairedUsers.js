@@ -12,7 +12,7 @@ PairingsSchema = new SimpleSchema({
 
   userIds: {
     type: [String],
-    optional:false,
+    optional:true,
     unique: true
   },
   
