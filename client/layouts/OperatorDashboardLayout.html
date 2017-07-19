@@ -92,10 +92,10 @@
     <table class="highlight">  
       <tbody>     
        {{#each customer in customers}}
-          <tr class="highlight-size">
+          <tr class="highlight-size" id={{servingColor customer.userId}}>
             <a href={{customerPageLink customer.userId}}>
-              <div class="names-padding ellipsis">
-                <span class="highlight new badge green right" data-badge-caption=" "> 4 </span>
+              <div class="names-padding ellipsis ">
+                <span class=" new badge green right" data-badge-caption=" "> 4 </span>
                {{customer.firstName}}  
                {{customer.lastName}}
              </div>

@@ -517,6 +517,12 @@ Template.userStatus.helpers({
   customerPageLink (userId){
     var link = "/operatorDashboard/" + userId
     return link
+  },
+  servingColor(customerId){
+    var parameter = FlowRouter.getParam('customer');
+    if(customerId == parameter)
+      return "serving"
+  
   }
 })
 

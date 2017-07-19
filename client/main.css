@@ -279,6 +279,11 @@ a { color: inherit; }
   padding-top: 7px;
   padding-left: 5px;
   padding-right: 5px;
+/*  background-color: grey;
+*/}
+
+#serving{
+  background-color: #f5f5f5  ;
 }
 
 .find-user-box{
