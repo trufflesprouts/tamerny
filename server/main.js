@@ -48,8 +48,8 @@ function findCutomer (operatorId){
       });
         // Trigger modal to notify operator and send auto generated text to the user!
         break;
-      } 
-      
+      }
+
       OperatorProfile.update({userId: operatorId}, {$set: {seeking: false}});
       Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast', ['System is congested, try again in a bit', 4000], function(error, result) {
         console.log('CALLBACK', result);
@@ -78,7 +78,7 @@ Meteor.methods({
     console.log("Operator is now seeking")
     OperatorProfile.update({userId: userId}, {$set: {seeking: true}});
 
-    findCutomer(userId); //find user to connect to 
+    findCutomer(userId); //find user to connect to
 
   },
   operatorNotSeeking: function(userId){
@@ -90,25 +90,19 @@ Meteor.methods({
     Meteor.users.remove({_id: userId});
     // console.log("user cleared on server")
   },
-  addRoll: function(userId, roll){ 
+  addRoll: function(userId, roll){
     UserProfiles.update({userId: userId}, {$push: {roles: roll}})
   },
-  insertPairings: function(userId){ 
+  insertPairings: function(userId){
     console.log("Created paring hoe")
     Pairings.insert({operatorId: userId})
+  },
+   endPairing: function(operatorId, customerId){
+    Pairings.update({operatorId: operatorId}, {$pull: {userIds: customerId}})
   },
   // sendTxt: function(userId, userPhone, operatorId){
   sendTxt: function(recipientPhone, recipientId, txt, operatorId){
 
-    console.log("Message should be sent to the user!")
-    console.log("recipientPhone")
-    console.log(recipientPhone)
-    console.log("recipientId")
-    console.log(recipientId)
-    console.log("txt")
-    console.log(txt)
-    console.log("operatorId")
-    console.log(operatorId)
 
     var request = require('request');
 

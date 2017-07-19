@@ -10,41 +10,58 @@
       </div>
     </div>
 
+    <!-- MAKE THIS MORE EFFICIENT BY HAVING A WITH STATEMENT FOR USERPROFILES AND THEN PASS IT DOWN...BECAUSE THERE ARE SOME MANY CALLS FROM THIS PAGE FOR IT -->
     {{#with SecureDashboardLink}}
-      {{#if CorrectCustomerId this}}
-
-          <div class=" col s12 m5 no-right-pad">
-
-            <div class="operator-info card-border z-depth-0 card ">
-              <span class="black-text">{{> userInfoCard customerId=this}}
-              </span>
+      <div class=" col s12 m5 no-right-pad">
+        <div class="operator-info card-border z-depth-0 card ">
+          <span class="black-text">{{> userInfoCard customerId=this}}
+          </span>
+        </div>
+        <div class="operator-chat card-border z-depth-0 card ">
+          <span class="black-text">{{> userChatCard customerId=this}}
+          </span>
+        </div>
+      </div>
+      <div class="col s12 m5">
+        <div class="operator-api card-border z-depth-0 card ">
+          <span class="black-text">{{> apiCard customerId=this}}
+          </span>
+        </div>
+        <div class="operator-status card-border z-depth-0 card">
+          <span class="black-text ">
+            <div class="col s12 status-size">
+              {{> statusCard customerId=this}}
             </div>
-
-            <div class="operator-chat card-border z-depth-0 card ">
-              <span class="black-text">{{> userChatCard customerId=this}}
-              </span>
+          </span>
+        </div>
+      </div>
+      {{else}}
+      <!-- No Customers biatchskaljs laksjalk s -->
+      <div class=" col s12 m5 no-right-pad">
+        <div class="operator-info card-border z-depth-0 card ">
+          <span class="black-text">
+            {{> userInfoCard}}
+          </span>
+        </div>
+        <div class="operator-chat card-border z-depth-0 card ">
+          <span class="black-text">
+            {{> userChatCard}}
+          </span>
+        </div>
+      </div>
+      <div class="col s12 m5">
+        <div class="operator-api card-border z-depth-0 card ">
+          <span class="black-text">{{> apiCard}}
+          </span>
+        </div>
+        <div class="operator-status card-border z-depth-0 card">
+          <span class="black-text ">
+            <div class="col s12 status-size">
+              {{> statusCard disable="disabled"}}
             </div>
-
-          </div>
-
-          <div class="col s12 m5">
-
-            <div class="operator-api card-border z-depth-0 card ">
-              <span class="black-text">{{> apiCard customerId=this}}
-              </span>
-            </div>
-
-            <div class="operator-status card-border z-depth-0 card">
-              <span class="black-text ">
-                <div class="col s12 status-size">
-                  {{> statusCard customerId=this}}
-                </div>
-              </span>
-            </div>
-
-          </div>
-
-    {{/if}}
+          </span>
+        </div>
+      </div>
   {{/with}}
 
   </div>
@@ -249,8 +266,6 @@
 
 <template name="userChatCard">
 
-
-
   <!-- Display texts -->
   {{#with customerProfile customerId}}
     <div class="row no-bottom-margin">
@@ -284,6 +299,34 @@
 
         <div class="col s2 ">
           <a class="send-txt vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">send</i></a>
+        </div>
+
+      </div>
+    </div>
+    {{else}}
+    <div class="row no-bottom-margin">
+      <div class="col s12 operator-dash-title valign-wrapper">
+        <div class="auto-width center-align ellipsis"> Chat</div>
+      </div>
+      <div class="col s12 divider "></div>
+    </div>
+
+    <div class="scrollable-chat" id="messageBody">
+      <center class="chat-start"> --- Beginning of Chat --- </center>
+    </div>
+    <div class="col s12 divider"></div>
+
+    <div class="chat-send input-field col s12">
+      <div class="row">
+
+        <div class="col s10">
+          <input id="input_text" placeholder="Text Message..." type="text" class="validate" data-length="160">
+          <!-- This might be insecure... need to investigate more -->
+          <input id="customerId" value={{../customerId}} type="hidden">
+        </div>
+
+        <div class="col s2 ">
+          <a disable class="disabled send-txt vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i disable class="disabled material-icons">send</i></a>
         </div>
 
       </div>
@@ -325,21 +368,21 @@
 
   <div class="row no-bottom-margin status-size valign-wrapper">
 
-    <a class="col s3 waves-effect waves-light green btn ellipsis tooltipped " data-position="top" data-delay="50" data-tooltip="You've completed all what the user has asked for. This will disconnect you from the user!">
+    <a {{disable}} class="done col s3 waves-effect waves-light green btn ellipsis tooltipped " data-position="top" data-delay="50" data-tooltip="Done! You've completed the user's ask. This will disconnect you from the user!" data={{customerId}}>
       <i class="material-icons left">done</i>
       done
     </a>
 
     <div class="col s1"></div>
 
-    <a class="col s4 waves-effect waves-light orange btn ellipsis tooltipped " data-position="top" data-delay="50" data-tooltip="you've order something for the user and you are waiting for the service provider's reply.">
+    <a {{disable}} class="pending col s4 waves-effect waves-light orange btn ellipsis tooltipped " data-position="top" data-delay="50" data-tooltip="Pending! You've order something for the user and you are waiting for the service provider's reply.">
       <i class="material-icons left">extension</i>
       pending
     </a>
 
     <div class="col s1"></div>
 
-    <a class=" col s3 waves-effect waves-light red btn ellipsis tooltipped" data-position="top" data-delay="50" data-tooltip="You won't be able to serve this user for some reason. This will disconnect you from the user!">
+    <a {{disable}} class="cancel col s3 waves-effect waves-light red btn ellipsis tooltipped" data-position="top" data-delay="50" data-tooltip="Cancel! You were unable to serve this user. This will disconnect you from the user!">
       <i class="material-icons left">error</i>
       Cancel
     </a>

@@ -300,11 +300,16 @@ Template.Navbar.helpers({
   dashboardLink(){
     var doc = Pairings.findOne({operatorId: Meteor.userId()})
 
-    if (doc != undefined)
+    if (doc.userIds.length != 0)
       var link = '/operatorDashboard/' + doc.userIds[0]
     else
+<<<<<<< HEAD
         var link = '/operatorDashboard/noCustomer'
 
+=======
+        var link = '/operatorDashboard/noCustomers'
+
+>>>>>>> ajamjoom/master
     return link
   }
 });
@@ -313,14 +318,31 @@ Template.registerHelper( 'SecureDashboardLink', () => {
   var doc = Pairings.findOne({operatorId: Meteor.userId()});
   var operatorCustomers = doc.userIds
   var customerId = FlowRouter.getParam("customer")
+  var customersCount = operatorCustomers.length
 
-  var safe = false;
+  if (customersCount > 0)
+  {
 
-  for (var i = operatorCustomers.length - 1; i >= 0; i--) {
-    if (operatorCustomers[i] == customerId){
-      safe = true
-      break;
+    // got customers
+    console.log("Got Customers")
+    var safe = false;
+    for (var i = customersCount - 1; i >= 0; i--) {
+      if (operatorCustomers[i] == customerId){
+        safe = true
+        break;
+      }
+    };
+
+    console.log("Linke is safe?")
+    console.log(safe)
+
+    if (safe == true){
+      return customerId
+    } else {
+      console.log("Should go to divverent link")
+      FlowRouter.go('/operatorDashboard/'+ operatorCustomers[0]);
     }
+<<<<<<< HEAD
   };
 
   if(safe == true)
@@ -328,6 +350,15 @@ Template.registerHelper( 'SecureDashboardLink', () => {
   else
     return "Incorrect Customer ID"
 
+=======
+
+  } else {
+    // no customers
+    console.log("No Customers")
+    FlowRouter.go('/operatorDashboard/noCustomers');
+  }
+
+>>>>>>> ajamjoom/master
 });
 
 Template.HomeLayout.helpers({
@@ -870,14 +901,17 @@ Template.userChatCard.helpers({
   }
 })
 
-Template.OperatorDashboardLayout.helpers({
-  CorrectCustomerId (customerId){
-    if (customerId == "Incorrect Customer ID")
-      return false
-    else
-      return true
-  }
-})
+// Template.OperatorDashboardLayout.helpers({
+//   gotCustomers (customerId){
+//     console.log("inside gotCustomers")
+//     console.log(customerId)
+
+//     if (customerId == "noCustomers")
+//       return false
+//     else
+//       return true
+//   }
+// })
 
 // Called when any submit operation succeeds
 // inefficient solution for the Materialize select init bug...Fix when I have time to scrach my ass
@@ -912,6 +946,42 @@ Template.userChatCard.events({
   // },
 
 })
+
+
+Template.statusCard.events({
+    'click .done': function(event) {
+      event.preventDefault();
+      console.log("DONE")
+      var doc = UserProfiles.findOne({userId: this.customerId})
+      var phoneNumber = doc.phone
+      var name = doc.firstName +" "+ doc.lastName
+      Materialize.toast("Good Job, you've succesfully finished serving "+ name, 4000)
+      Meteor.call('sendTxt',phoneNumber, this.customerId, "Good stuff! Let me know if you need anything else.", (Meteor.userId()));
+      Meteor.call('endPairing', Meteor.userId(), this.customerId)
+      $('.tooltipped').tooltip('remove');
+    },
+    'click .pending': function(event) {
+      event.preventDefault();
+      console.log("PENDING")
+      var doc = UserProfiles.findOne({userId: this.customerId})
+      var phoneNumber = doc.phone
+      var name = doc.firstName +" "+ doc.lastName
+      Materialize.toast(name+" has been placed in pending mode ", 4000)
+      Meteor.call('sendTxt',phoneNumber, this.customerId, "I've just placed you some order. I'll get back to you shortly!", (Meteor.userId()));
+      // Change status to pending and thus change the color of the user in the CUSTOMERS Card
+    },
+    'click .cancel': function(event) {
+      event.preventDefault();
+      console.log("CANCEL")
+      var doc = UserProfiles.findOne({userId: this.customerId})
+      var phoneNumber = doc.phone
+      var name = doc.firstName +" "+ doc.lastName
+      Materialize.toast("Shoot! You've cancelled serving  "+ name, 4000)
+      Meteor.call('sendTxt',phoneNumber, this.customerId, "I'm so sorry, unfortunately I won't be able to help you with your order. Let me know if you need anything else!", (Meteor.userId()));
+      Meteor.call('endPairing', Meteor.userId(), this.customerId)
+      $('.tooltipped').tooltip('remove');
+    }
+  });
 
 Template.getUser.events({
     'click .getUser': function(event) {
