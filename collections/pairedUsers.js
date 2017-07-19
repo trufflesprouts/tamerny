@@ -15,8 +15,7 @@ PairingsSchema = new SimpleSchema({
     optional:true,
     unique: true
   },
-  
+
 });
 
 Pairings.attachSchema(PairingsSchema);
-
