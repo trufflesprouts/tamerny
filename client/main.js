@@ -46,7 +46,7 @@ Template.operator.onRendered(function () {
 });
 
 // Template.userChatCard.onRendered(function () {
-    
+
 //     console.log("userChatCard has been Rendered")
 //     var elmnt = document.getElementById("messageBody");
 //     elmnt.scrollTop = elmnt.scrollHeight;
@@ -59,7 +59,7 @@ Template.operator.onRendered(function () {
 //       console.log("Chat Autorun has been triggered")
 //       var elmnt = document.getElementById("messageBody");
 //       elmnt.scrollTop = elmnt.scrollHeight;
-//     // });    
+//     // });
 //   });
 // });
 
@@ -304,7 +304,7 @@ Template.Navbar.helpers({
       var link = '/operatorDashboard/' + doc.userIds[0]
     else
         var link = '/operatorDashboard/noCustomer'
-    
+
     return link
   }
 });
@@ -327,7 +327,7 @@ Template.registerHelper( 'SecureDashboardLink', () => {
     return customerId
   else
     return "Incorrect Customer ID"
- 
+
 });
 
 Template.HomeLayout.helpers({
@@ -496,7 +496,7 @@ Template.userStatus.helpers({
       var users = doc.userIds
       var userNames = UserProfiles.find({userId:{$in: users} }).fetch()
       return userNames
-    }  
+    }
   },
   customerPageLink (userId){
     var link = "/operatorDashboard/" + userId
@@ -521,18 +521,18 @@ Template.getUser.helpers({
 
 Template.user.helpers({
   formatDateTime (dateTime){
-    var formatted = moment(dateTime).calendar(); 
+    var formatted = moment(dateTime).calendar();
     return formatted
   },
-  
+
 })
 
 Template.operator.helpers({
   formatDateTime (dateTime){
-    var formatted = moment(dateTime).calendar(); 
+    var formatted = moment(dateTime).calendar();
     return formatted
   },
-  
+
 })
 
 
@@ -562,12 +562,12 @@ function since (then){
 
 // Important! Change ID to a variable
 Template.userInfoCard.helpers({
-  userInfo (){
-    var userProfileDoc = UserProfiles.findOne({userId: "fLsHPFSbBhxGAYA3t"});
+  userInfo (customerId){
+    var userProfileDoc = UserProfiles.findOne({userId: customerId});
     return userProfileDoc
   },
-  history (){
-    var userHistory = History.findOne({userId: "fLsHPFSbBhxGAYA3t"}).transaction.reverse();
+  history (customerId){
+    var userHistory = History.findOne({userId: customerId}).transaction.reverse();
     var transactions = document.getElementById("transaction");
     userHistory.forEach(
       function(transaction) {
@@ -586,8 +586,8 @@ Template.userInfoCard.helpers({
       }
     )
   },
-  favorites (){
-    var userFavorites = Favorites.findOne({userId: "fLsHPFSbBhxGAYA3t"}).key.reverse();
+  favorites (customerId){
+    var userFavorites = Favorites.findOne({userId: customerId}).key.reverse();
     var keys = document.getElementById("key");
     userFavorites.forEach(
       function(key) {
@@ -600,8 +600,8 @@ Template.userInfoCard.helpers({
       }
     );
   },
-  addresses (){
-    var userAddresses = Addresses.findOne({userId: "fLsHPFSbBhxGAYA3t"}).address.reverse();
+  addresses (customerId){
+    var userAddresses = Addresses.findOne({userId: customerId}).address.reverse();
     var addresses = document.getElementById('address');
     userAddresses.forEach(
       function(address){
@@ -853,7 +853,7 @@ Template.userChatCard.onRendered(function () {
       console.log("elmnt from rendered")
       console.log(elmnt)
       elmnt.scrollTop = elmnt.scrollHeight;
-    })    
+    })
 });
 
 Template.userChatCard.helpers({
@@ -874,7 +874,7 @@ Template.OperatorDashboardLayout.helpers({
   CorrectCustomerId (customerId){
     if (customerId == "Incorrect Customer ID")
       return false
-    else 
+    else
       return true
   }
 })
