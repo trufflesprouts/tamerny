@@ -303,13 +303,8 @@ Template.Navbar.helpers({
     if (doc.userIds.length != 0)
       var link = '/operatorDashboard/' + doc.userIds[0]
     else
-<<<<<<< HEAD
-        var link = '/operatorDashboard/noCustomer'
-
-=======
         var link = '/operatorDashboard/noCustomers'
 
->>>>>>> ajamjoom/master
     return link
   }
 });
@@ -342,15 +337,6 @@ Template.registerHelper( 'SecureDashboardLink', () => {
       console.log("Should go to divverent link")
       FlowRouter.go('/operatorDashboard/'+ operatorCustomers[0]);
     }
-<<<<<<< HEAD
-  };
-
-  if(safe == true)
-    return customerId
-  else
-    return "Incorrect Customer ID"
-
-=======
 
   } else {
     // no customers
@@ -358,7 +344,6 @@ Template.registerHelper( 'SecureDashboardLink', () => {
     FlowRouter.go('/operatorDashboard/noCustomers');
   }
 
->>>>>>> ajamjoom/master
 });
 
 Template.HomeLayout.helpers({
