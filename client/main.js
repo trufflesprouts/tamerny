@@ -532,9 +532,10 @@ Template.getUser.helpers({
     var state = doc.seeking
     return state
   },
-  notServing (){
-    var doc = Pairings.findOne({operatorId: Meteor.userId()});
-    if(doc == undefined)
+  // This doesn't work properly (Need Autorun...)
+  customersWaiting (){
+    var doc = WaitingUsers.findOne({});
+    if(docs.length > 0)
       return true
     else
       return false
