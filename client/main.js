@@ -272,7 +272,17 @@ Template.Navbar.events({
     console.log("open modal")
     FlowRouter.go('/op-registration');
     $('#login').modal('open');
-  }
+  },
+  // 'click .dashboardLink': function(event){
+    
+  //   var doc = Pairings.findOne({operatorId: Meteor.userId()})
+
+  //   if (doc.userIds.length != 0)
+  //     FlowRouter.go('/operatorDashboard/'+doc.userIds[0]);
+  //   else
+  //     FlowRouter.go('/operatorDashboard/noCustomers');
+
+  // }
 });
 
 Template.Navbar.helpers({
@@ -299,13 +309,17 @@ Template.Navbar.helpers({
   },
   dashboardLink(){
     var doc = Pairings.findOne({operatorId: Meteor.userId()})
+    var size = Object.keys(doc).length;
 
-    if (doc.userIds.length != 0)
-      var link = '/operatorDashboard/' + doc.userIds[0]
-    else
+    if (size > 2){
+      if (doc.userIds.length != 0)
+        var link = '/operatorDashboard/' + doc.userIds[0]
+      else
         var link = '/operatorDashboard/noCustomers'
-
-    return link
+      return link
+    } else {
+      return '/operatorDashboard/noCustomers'
+    }
   }
 });
 
@@ -789,7 +803,7 @@ Template.publishOperator.events({
     event.preventDefault();
     Meteor.call('addRoll', Meteor.userId(), "operator");
     Meteor.call('insertPairings', Meteor.userId());
-    FlowRouter.go('/operatorDashboard');
+    FlowRouter.go('/operatorDashboard/noCustomers');
   },
 })
 
@@ -886,6 +900,8 @@ Template.userChatCard.helpers({
   },
   activeChat(customerId){
     console.log("in active chat ")
+    // var elmnt = document.getElementById("messageBody");
+    // elmnt.scrollTop = elmnt.scrollHeight;
     console.log(customerId)
     var doc = Chats.findOne({userId: customerId})
     var chatHist = doc.chat
@@ -980,7 +996,6 @@ Template.getUser.events({
       event.preventDefault();
       console.log("GET USER HAS BEEN CLICKED")
       Meteor.call('operatorSeeking', Meteor.userId());
-      // Pop-up with buttons and finish procedures
     },
     'click .notSeeking': function(event) {
       event.preventDefault();

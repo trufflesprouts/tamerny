@@ -97,7 +97,7 @@
             <a href={{customerPageLink customer.userId}}>
 
               <div class="names-padding ellipsis">
-                
+
                 <span class=" new badge green right" data-badge-caption=" "> 4 </span>
                {{customer.firstName}}  
                {{customer.lastName}}
@@ -294,6 +294,9 @@
       <center class="chat-start"> --- Beginning of Chat --- </center>
        <br>
       <div class="col s12">
+        <!-- I think the bug is here.. oo because customerId is undefined? -->
+        <!-- CustomerId: {{../customerId}} <br>
+        Arracy of Texts: {{ activeChat ../customerId}} <br> -->
         {{#with activeChat ../customerId}}
           {{#each mssg in this}}
             {{> Template.dynamic template=mssg.from data=mssg}}
