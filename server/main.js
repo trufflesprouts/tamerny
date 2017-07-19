@@ -98,11 +98,7 @@ Meteor.methods({
     Pairings.insert({operatorId: userId})
   },
    endPairing: function(operatorId, customerId){ 
-    console.log("End Pairing")
-    console.log(operatorId)
-    console.log(customerId)
     Pairings.update({operatorId: operatorId}, {$pull: {userIds: customerId}})
-    //UserProfiles.update({userId: customerId}, {$push: {roles: "tester2"}})
   },
   // sendTxt: function(userId, userPhone, operatorId){
   sendTxt: function(recipientPhone, recipientId, txt, operatorId){
