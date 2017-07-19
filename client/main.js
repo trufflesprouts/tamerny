@@ -46,7 +46,7 @@ Template.operator.onRendered(function () {
 });
 
 // Template.userChatCard.onRendered(function () {
-    
+
 //     console.log("userChatCard has been Rendered")
 //     var elmnt = document.getElementById("messageBody");
 //     elmnt.scrollTop = elmnt.scrollHeight;
@@ -59,7 +59,7 @@ Template.operator.onRendered(function () {
 //       console.log("Chat Autorun has been triggered")
 //       var elmnt = document.getElementById("messageBody");
 //       elmnt.scrollTop = elmnt.scrollHeight;
-//     // });    
+//     // });
 //   });
 // });
 
@@ -304,7 +304,7 @@ Template.Navbar.helpers({
       var link = '/operatorDashboard/' + doc.userIds[0]
     else
         var link = '/operatorDashboard/noCustomers'
-    
+
     return link
   }
 });
@@ -314,7 +314,7 @@ Template.registerHelper( 'SecureDashboardLink', () => {
   var operatorCustomers = doc.userIds
   var customerId = FlowRouter.getParam("customer")
   var customersCount = operatorCustomers.length
-  
+
   if (customersCount > 0)
   {
 
@@ -337,13 +337,13 @@ Template.registerHelper( 'SecureDashboardLink', () => {
       console.log("Should go to divverent link")
       FlowRouter.go('/operatorDashboard/'+ operatorCustomers[0]);
     }
-  
+
   } else {
     // no customers
     console.log("No Customers")
     FlowRouter.go('/operatorDashboard/noCustomers');
   }
- 
+
 });
 
 Template.HomeLayout.helpers({
@@ -512,7 +512,7 @@ Template.userStatus.helpers({
       var users = doc.userIds
       var userNames = UserProfiles.find({userId:{$in: users} }).fetch()
       return userNames
-    }  
+    }
   },
   customerPageLink (userId){
     var link = "/operatorDashboard/" + userId
@@ -537,18 +537,18 @@ Template.getUser.helpers({
 
 Template.user.helpers({
   formatDateTime (dateTime){
-    var formatted = moment(dateTime).calendar(); 
+    var formatted = moment(dateTime).calendar();
     return formatted
   },
-  
+
 })
 
 Template.operator.helpers({
   formatDateTime (dateTime){
-    var formatted = moment(dateTime).calendar(); 
+    var formatted = moment(dateTime).calendar();
     return formatted
   },
-  
+
 })
 
 
@@ -578,12 +578,12 @@ function since (then){
 
 // Important! Change ID to a variable
 Template.userInfoCard.helpers({
-  userInfo (){
-    var userProfileDoc = UserProfiles.findOne({userId: "fLsHPFSbBhxGAYA3t"});
+  userInfo (customerId){
+    var userProfileDoc = UserProfiles.findOne({userId: customerId});
     return userProfileDoc
   },
-  history (){
-    var userHistory = History.findOne({userId: "fLsHPFSbBhxGAYA3t"}).transaction.reverse();
+  history (customerId){
+    var userHistory = History.findOne({userId: customerId}).transaction.reverse();
     var transactions = document.getElementById("transaction");
     userHistory.forEach(
       function(transaction) {
@@ -602,8 +602,8 @@ Template.userInfoCard.helpers({
       }
     )
   },
-  favorites (){
-    var userFavorites = Favorites.findOne({userId: "fLsHPFSbBhxGAYA3t"}).key.reverse();
+  favorites (customerId){
+    var userFavorites = Favorites.findOne({userId: customerId}).key.reverse();
     var keys = document.getElementById("key");
     userFavorites.forEach(
       function(key) {
@@ -616,8 +616,8 @@ Template.userInfoCard.helpers({
       }
     );
   },
-  addresses (){
-    var userAddresses = Addresses.findOne({userId: "fLsHPFSbBhxGAYA3t"}).address.reverse();
+  addresses (customerId){
+    var userAddresses = Addresses.findOne({userId: customerId}).address.reverse();
     var addresses = document.getElementById('address');
     userAddresses.forEach(
       function(address){
@@ -869,7 +869,7 @@ Template.userChatCard.onRendered(function () {
       console.log("elmnt from rendered")
       console.log(elmnt)
       elmnt.scrollTop = elmnt.scrollHeight;
-    })    
+    })
 });
 
 Template.userChatCard.helpers({
@@ -893,7 +893,7 @@ Template.userChatCard.helpers({
 
 //     if (customerId == "noCustomers")
 //       return false
-//     else 
+//     else
 //       return true
 //   }
 // })
@@ -939,7 +939,7 @@ Template.statusCard.events({
       console.log("DONE")
       var doc = UserProfiles.findOne({userId: this.customerId})
       var phoneNumber = doc.phone
-      var name = doc.firstName +" "+ doc.lastName 
+      var name = doc.firstName +" "+ doc.lastName
       Materialize.toast("Good Job, you've succesfully finished serving "+ name, 4000)
       Meteor.call('sendTxt',phoneNumber, this.customerId, "Good stuff! Let me know if you need anything else.", (Meteor.userId()));
       Meteor.call('endPairing', Meteor.userId(), this.customerId)
@@ -950,7 +950,7 @@ Template.statusCard.events({
       console.log("PENDING")
       var doc = UserProfiles.findOne({userId: this.customerId})
       var phoneNumber = doc.phone
-      var name = doc.firstName +" "+ doc.lastName 
+      var name = doc.firstName +" "+ doc.lastName
       Materialize.toast(name+" has been placed in pending mode ", 4000)
       Meteor.call('sendTxt',phoneNumber, this.customerId, "I've just placed you some order. I'll get back to you shortly!", (Meteor.userId()));
       // Change status to pending and thus change the color of the user in the CUSTOMERS Card
@@ -960,7 +960,7 @@ Template.statusCard.events({
       console.log("CANCEL")
       var doc = UserProfiles.findOne({userId: this.customerId})
       var phoneNumber = doc.phone
-      var name = doc.firstName +" "+ doc.lastName 
+      var name = doc.firstName +" "+ doc.lastName
       Materialize.toast("Shoot! You've cancelled serving  "+ name, 4000)
       Meteor.call('sendTxt',phoneNumber, this.customerId, "I'm so sorry, unfortunately I won't be able to help you with your order. Let me know if you need anything else!", (Meteor.userId()));
       Meteor.call('endPairing', Meteor.userId(), this.customerId)

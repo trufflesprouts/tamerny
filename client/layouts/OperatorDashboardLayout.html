@@ -1,7 +1,7 @@
 <template name="OperatorDashboardLayout">
 
   <div class="row">
-    
+
     <div class=" col s12 m2 no-right-pad">
       <div class="operator-customers card-border z-depth-0 card ">
         <!-- FORCE SPAN TO BE RESTRICTED BY WEB-BROWSER AUTOSIZE -->
@@ -11,7 +11,7 @@
     </div>
 
     <!-- MAKE THIS MORE EFFICIENT BY HAVING A WITH STATEMENT FOR USERPROFILES AND THEN PASS IT DOWN...BECAUSE THERE ARE SOME MANY CALLS FROM THIS PAGE FOR IT -->
-    {{#with SecureDashboardLink}}    
+    {{#with SecureDashboardLink}}
       <div class=" col s12 m5 no-right-pad">
         <div class="operator-info card-border z-depth-0 card ">
           <span class="black-text">{{> userInfoCard customerId=this}}
@@ -89,14 +89,14 @@
 
 <template name="userStatus">
   <div class="customer-names">
-    <table class="highlight">  
-      <tbody>     
+    <table class="highlight">
+      <tbody>
        {{#each customer in customers}}
           <tr class="highlight-size">
             <a href={{customerPageLink customer.userId}}>
               <div class="names-padding ellipsis">
                 <span class="highlight new badge green right" data-badge-caption=" "> 4 </span>
-               {{customer.firstName}}  
+               {{customer.firstName}}
                {{customer.lastName}}
              </div>
             </a>
@@ -124,7 +124,7 @@
     </a>
 
     Searching...
-  
+
   {{else}}
 
     {{#if notServing}}
@@ -133,9 +133,9 @@
 
       <a class=" getUser btn-floating btn-large waves-effect waves-light orange"><i class=" material-icons">add</i></a>
     {{/if}}
-  
-  Find Customer 
-  
+
+  Find Customer
+
   {{/if}}
 
 
@@ -159,22 +159,33 @@
       </ul>
       <div class="scrollable-info">
         <div id="account" class="col s12">
+          {{#with userInfo customerId}}
           <div class="row">
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s6">
-                  <input disabled value="{{userInfo.firstName}}" id="first_name" type="text" class="validate">
+                  <input disabled value="{{this.firstName}}" id="first_name" type="text" class="validate">
                   <label class="active" for="first_name">First Name</label>
                 </div>
                 <div class="input-field col s6">
-                  <input disabled value="{{userInfo.lastName}}" id="last_name" type="text" class="validate">
+                  <input disabled value="{{this.lastName}}" id="last_name" type="text" class="validate">
                   <label class="active" for="last_name">Last Name</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input disabled value="{{userInfo.phone}}" id="phone" type="text" class="validate">
+                  <input disabled value="{{this.phone}}" id="phone" type="text" class="validate">
                   <label class="active" for="phone">Phone</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s6">
+                  <input disabled value="{{this.phone}}" id="phone" type="text" class="validate">
+                  <label class="active" for="phone">Phone</label>
+                </div>
+                <div class="input-field col s6">
+                  <input disabled value="{{this.balance}}" id="balance" type="text" class="validate">
+                  <label class="active" for="last_name">Balance</label>
                 </div>
               </div>
               <!-- <div class="row">
@@ -185,10 +196,11 @@
               </div> -->
             </form>
           </div>
+          {{/with}}
         </div>
         <div id="favorites" class="card-scrollable col s12">
             <ul class="collapsible z-depth-0" data-collapsible="accordion">
-              <div id="key">{{favorites}}</div>
+              <div id="key">{{favorites customerId}}</div>
               <li>
                 <div class="collapsible-header">
                   <span class="left">Example</span>
@@ -228,7 +240,7 @@
         </div>
         <div id="addresses" class="scrollable-info col s12">
             <ul class="collapsible z-depth-0" data-collapsible="accordion">
-              <div id="address">{{addresses}}</div>
+              <div id="address">{{addresses customerId}}</div>
               <li>
                 <div class="collapsible-header">US</div>
                 <div class="collapsible-body">
@@ -244,7 +256,7 @@
     <div id="hist" class="card-scrollable col s12">
       <div class="container col s12">
         <ul class="collapsible z-depth-0" data-collapsible="accordion">
-          <div id="transaction">{{history}}</div>
+          <div id="transaction">{{history customerId}}</div>
           <li>
             <div class="collapsible-header">
               <span class="left">Al Baik</span>
@@ -272,7 +284,7 @@
       </div>
       <div class="col s12 divider "></div>
     </div>
-    
+
     <div class="scrollable-chat" id="messageBody">
       <center class="chat-start"> --- Beginning of Chat --- </center>
        <br>
@@ -288,13 +300,13 @@
 
     <div class="chat-send input-field col s12">
       <div class="row">
-        
+
         <div class="col s10">
           <input id="input_text" placeholder="Text Message..." type="text" class="validate" data-length="160">
           <!-- This might be insecure... need to investigate more -->
           <input id="customerId" value={{../customerId}} type="hidden">
         </div>
-        
+
         <div class="col s2 ">
           <a class="send-txt vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">send</i></a>
         </div>
@@ -308,7 +320,7 @@
       </div>
       <div class="col s12 divider "></div>
     </div>
-    
+
     <div class="scrollable-chat" id="messageBody">
       <center class="chat-start"> --- Beginning of Chat --- </center>
     </div>
@@ -316,13 +328,13 @@
 
     <div class="chat-send input-field col s12">
       <div class="row">
-        
+
         <div class="col s10">
           <input id="input_text" placeholder="Text Message..." type="text" class="validate" data-length="160">
           <!-- This might be insecure... need to investigate more -->
           <input id="customerId" value={{../customerId}} type="hidden">
         </div>
-        
+
         <div class="col s2 ">
           <a disable class="disabled send-txt vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i disable class="disabled material-icons">send</i></a>
         </div>
@@ -363,7 +375,7 @@
 </template>
 
 <template name="statusCard">
-  
+
   <div class="row no-bottom-margin status-size valign-wrapper">
 
     <a {{disable}} class="done col s3 waves-effect waves-light green btn ellipsis tooltipped " data-position="top" data-delay="50" data-tooltip="Done! You've completed the user's ask. This will disconnect you from the user!" data={{customerId}}>
