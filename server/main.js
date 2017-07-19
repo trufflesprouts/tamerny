@@ -11,22 +11,6 @@ Meteor.startup(() => {
   // code to run on server at startup
 });
 
-// Send registration Link
-// var sendTextRegistrationLink = function(recipientPhone){
-//   var request = require('request');
-
-//     var txt = "To start  using Tamerny please activate your number by registering through this link (LINK)"
-//     request({
-//       method: 'POST',
-//       url: 'http://api.unifonic.com/rest/Messages/Send',
-//       headers: {
-//         'Content-Type': 'application/x-www-form-urlencoded'
-//       },
-//       body: "AppSid=KsH1cs6qIn3agrr3BeFIPS1200pojL&Recipient="+recipientPhone+"&Body="+txt
-//     }, function (error, response, body) {
-//     })
-// }
-
 
 function findCutomer (operatorId){
   console.log("searching for user to connect")
@@ -36,7 +20,7 @@ function findCutomer (operatorId){
   console.log(usersWaiting)
 
   if (usersWaiting.length > 0){
-    for (var i = usersWaiting.length - 1; i >= 0; i--) {
+    for (var i = 0; i <= usersWaiting.length - 1; i++) {
       var status = WaitingUsers.remove({_id: usersWaiting[i]._id});
       console.log("remove status:")
       console.log(status)

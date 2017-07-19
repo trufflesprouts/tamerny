@@ -7,13 +7,13 @@ PairingsSchema = new SimpleSchema({
     type: String,
     label: "User ID",
     optional:true,
-    unique: true
+    // unique: true
   },
 
   userIds: {
     type: [String],
     optional:true,
-    unique: true
+    // unique: true
   },
 
 });
