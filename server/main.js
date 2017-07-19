@@ -88,6 +88,7 @@ Meteor.methods({
   clearUser: function(userId){
     // Accounts.removeEmail(userId, oldEmail)
     Meteor.users.remove({_id: userId});
+    // remove user information from other collections
     // console.log("user cleared on server")
   },
   addRoll: function(userId, roll){
