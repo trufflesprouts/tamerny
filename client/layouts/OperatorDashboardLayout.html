@@ -92,13 +92,18 @@
     <table class="highlight">
       <tbody>
        {{#each customer in customers}}
-          <tr class="highlight-size">
+          <tr class="highlight-size" id={{servingColor customer.userId}} >
+
             <a href={{customerPageLink customer.userId}}>
+
               <div class="names-padding ellipsis">
-                <span class="highlight new badge green right" data-badge-caption=" "> 4 </span>
-               {{customer.firstName}}
+                
+                <span class=" new badge green right" data-badge-caption=" "> 4 </span>
+               {{customer.firstName}}  
                {{customer.lastName}}
+
              </div>
+
             </a>
           </tr>
        {{/each}}
@@ -127,7 +132,7 @@
 
   {{else}}
 
-    {{#if notServing}}
+    {{#if customersWaiting}}
       <a class=" getUser pulse btn-floating btn-large waves-effect waves-light orange"><i class=" material-icons">add</i></a>
     {{else}}
 
