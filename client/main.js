@@ -913,6 +913,38 @@ Template.userChatCard.events({
 
 })
 
+
+Template.statusCard.events({
+    'click .done': function(event) {
+      event.preventDefault();
+      console.log("DONE")
+      var doc = UserProfiles.findOne({userId: this.customerId})
+      var phoneNumber = doc.phone
+      Materialize.toast("Good Job, you've succesfully finished serving XYZ", 4000)
+      Meteor.call('sendTxt',phoneNumber, this.customerId, "Good stuff! Let me know if you need anything else.", (Meteor.userId()));
+      Meteor.call('endPairing', Meteor.userId(), this.customerId)
+    },
+    'click .pending': function(event) {
+      event.preventDefault();
+      console.log("PENDING")
+      var doc = UserProfiles.findOne({userId: this.customerId})
+      var phoneNumber = doc.phone
+      Materialize.toast("XYZ has been placed in pending mode", 4000)
+      Meteor.call('sendTxt',phoneNumber, this.customerId, "I've just placed you some order. I'll get back to you shortly!", (Meteor.userId()));
+      // Change status to pending and thus change the color of the user in the CUSTOMERS Card
+    },
+    'click .cancel': function(event) {
+      event.preventDefault();
+      console.log("CANCEL")
+      var doc = UserProfiles.findOne({userId: this.customerId})
+      var phoneNumber = doc.phone
+      Materialize.toast("Shoot! You've cancelled serving XYZ. ", 4000)
+      Meteor.call('sendTxt',phoneNumber, this.customerId, "I'm so sorry, unfortunately I won't be able to help you with your order. Let me know if you need anything else!", (Meteor.userId()));
+      Meteor.call('endPairing', Meteor.userId(), this.customerId)
+
+    }
+  });
+
 Template.getUser.events({
     'click .getUser': function(event) {
       event.preventDefault();

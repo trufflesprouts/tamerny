@@ -6,7 +6,7 @@ PairingsSchema = new SimpleSchema({
   operatorId: {
     type: String,
     label: "User ID",
-    optional:false,
+    optional:true,
     unique: true
   },
 

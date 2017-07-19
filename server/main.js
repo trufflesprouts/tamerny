@@ -97,19 +97,17 @@ Meteor.methods({
     console.log("Created paring hoe")
     Pairings.insert({operatorId: userId})
   },
+   endPairing: function(operatorId, customerId){ 
+    console.log("End Pairing")
+    console.log(operatorId)
+    console.log(customerId)
+    Pairings.update({operatorId: operatorId}, {$pull: {userIds: customerId}})
+    //UserProfiles.update({userId: customerId}, {$push: {roles: "tester2"}})
+  },
   // sendTxt: function(userId, userPhone, operatorId){
   sendTxt: function(recipientPhone, recipientId, txt, operatorId){
 
-    console.log("Message should be sent to the user!")
-    console.log("recipientPhone")
-    console.log(recipientPhone)
-    console.log("recipientId")
-    console.log(recipientId)
-    console.log("txt")
-    console.log(txt)
-    console.log("operatorId")
-    console.log(operatorId)
-
+  
     var request = require('request');
 
     request({
