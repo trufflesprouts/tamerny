@@ -8,7 +8,6 @@ import { Addresses } from '../collections/addresses.js'
 import { Pairings } from '../collections/pairedUsers.js'
 import { WaitingUsers } from '../collections/waitingUsers.js'
 
-
 window.UserProfiles = UserProfiles
 window.TopUp = TopUp
 window.OperatorProfile = OperatorProfile
@@ -274,7 +273,7 @@ Template.Navbar.events({
     $('#login').modal('open');
   },
   // 'click .dashboardLink': function(event){
-    
+
   //   var doc = Pairings.findOne({operatorId: Meteor.userId()})
 
   //   if (doc.userIds.length != 0)
@@ -323,6 +322,29 @@ Template.Navbar.helpers({
   }
 });
 
+Template.registerHelper( 'since', (then) => {
+  var then = then.getTime();
+  var now = (new Date()).getTime();
+
+  diff = now - then;
+  if (diff/1000 < 1) {
+    var difference = "Now"
+  } else if (diff/(1000*60) < 1) {
+    var difference = parseInt(diff/(1000)) + " Seconds"
+  } else if (diff/(1000*60*60) < 1) {
+    var difference = parseInt(diff/(1000*60)) + " Minutes"
+  } else if (diff/(1000*60*60*24) < 1) {
+    var difference = parseInt(diff/(1000*60*60)) + " Hours"
+  } else if (diff/(1000*60*60*24*30) < 1) {
+    var difference = parseInt(diff/(1000*60*60*24)) + " Days"
+  } else if (diff/(1000*60*60*24*365) < 1) {
+    var difference = parseInt(diff/(1000*60*60*24*30)) + " Months"
+  } else {
+    var difference = parseInt(diff/(1000*60*60*24*365)) + " Years"
+  }
+  return difference
+})
+
 Template.registerHelper( 'SecureDashboardLink', () => {
   var doc = Pairings.findOne({operatorId: Meteor.userId()});
   var operatorCustomers = doc.userIds
@@ -367,23 +389,7 @@ Template.HomeLayout.helpers({
   },
   userhistory (){
     var userHistory = History.findOne({userId: Meteor.userId()}).transaction.reverse();
-    var transactions = document.getElementById("transaction");
-    userHistory.forEach(
-      function(transaction) {
-        var item = "<li><div class=\"collapsible-header\"><span class=\"left\">"
-                 + transaction.title
-                 + "</span><span class=\"right\">"
-                 + since(transaction.time)
-                 + "</span></div><div class=\"collapsible-body\"><span class=\"left\">"
-                 + transaction.description
-                 + "</span><span class=\"right\">"
-                 + transaction.price
-                 + "</span><span> ("
-                 + transaction.status
-                 + ")</span></div></li>";
-        transactions.innerHTML = transactions.innerHTML + item;
-      }
-    )
+    return userHistory
   }
 })
 
@@ -536,7 +542,7 @@ Template.userStatus.helpers({
     var parameter = FlowRouter.getParam('customer');
     if(customerId == parameter)
       return "serving"
-  
+
   }
 })
 
@@ -572,31 +578,6 @@ Template.operator.helpers({
 
 })
 
-
-
-function since (then){
-  var then = then.getTime();
-  var now = (new Date()).getTime();
-
-  diff = now - then;
-  if (diff/1000 < 1) {
-    var difference = "Now"
-  } else if (diff/(1000*60) < 1) {
-    var difference = parseInt(diff/(1000)) + " Seconds"
-  } else if (diff/(1000*60*60) < 1) {
-    var difference = parseInt(diff/(1000*60)) + " Minutes"
-  } else if (diff/(1000*60*60*24) < 1) {
-    var difference = parseInt(diff/(1000*60*60)) + " Hours"
-  } else if (diff/(1000*60*60*24*30) < 1) {
-    var difference = parseInt(diff/(1000*60*60*24)) + " Days"
-  } else if (diff/(1000*60*60*24*365) < 1) {
-    var difference = parseInt(diff/(1000*60*60*24*30)) + " Months"
-  } else {
-    var difference = parseInt(diff/(1000*60*60*24*365)) + " Years"
-  }
-  return difference
-}
-
 // Important! Change ID to a variable
 Template.userInfoCard.helpers({
   userInfo (customerId){
@@ -605,55 +586,15 @@ Template.userInfoCard.helpers({
   },
   history (customerId){
     var userHistory = History.findOne({userId: customerId}).transaction.reverse();
-    var transactions = document.getElementById("transaction");
-    userHistory.forEach(
-      function(transaction) {
-        var item = "<li><div class=\"collapsible-header\"><span class=\"left\">"
-                 + transaction.title
-                 + "</span><span class=\"right\">"
-                 + since(transaction.time)
-                 + "</span></div><div class=\"collapsible-body\"><span class=\"left\">"
-                 + transaction.description
-                 + "</span><span class=\"right\">"
-                 + transaction.price
-                 + "</span><span> ("
-                 + transaction.status
-                 + ")</span></div></li>";
-        transactions.innerHTML = transactions.innerHTML + item;
-      }
-    )
+    return userHistory
   },
   favorites (customerId){
     var userFavorites = Favorites.findOne({userId: customerId}).key.reverse();
-    var keys = document.getElementById("key");
-    userFavorites.forEach(
-      function(key) {
-        var item = "<li><div class=\"collapsible-header\"><span class=\"left\">"
-                 + key.keyWord
-                 + "</span><span class=\"right\">"
-                 + since(key.time)
-                 + "</span><i class=\"material-icons right\">mode_edit</i></div><div class=\"collapsible-body\"><span>Edit Favorite Here</span></div></li>";
-        keys.innerHTML = keys.innerHTML + item;
-      }
-    );
+    return userFavorites
   },
   addresses (customerId){
     var userAddresses = Addresses.findOne({userId: customerId}).address.reverse();
-    var addresses = document.getElementById('address');
-    userAddresses.forEach(
-      function(address){
-        var item = "<li><div class=\"collapsible-header\">"
-                 + address.title
-                 + "</div><div class=\"collapsible-body\"><span class=\"left\">"
-                 + address.line1
-                 + "</span><br><span class=\"left\">"
-                 + address.line2
-                 + "</span><br><span class=\"left\">"
-                 + address.city + ',' + address.province + ' ' + address.zipCode
-                 + "</span></div></li>";
-        addresses.innerHTML = addresses.innerHTML + item;
-      }
-    );
+    return userAddresses;
   }
 });
 
@@ -775,8 +716,18 @@ Template.userInfoCard.events({
   'click .addFavorite' (){
     event.preventDefault();
     var txt = document.getElementById('favorite').value;
-    var id = Favorites.findOne({userId : "fLsHPFSbBhxGAYA3t"})._id;
+    var id = Favorites.findOne({userId : this.customerId})._id;
     Favorites.update({_id : id},{$push: {key: {keyWord: txt, time: new Date()}}});
+  },
+  'click .editFavorite' (){
+    console.log(this);
+    var id = Favorites.findOne({userId : this.customerId})._id;
+    Favorites.update({_id : id,"key.keyWord": "test"},{$set: {"key.$.keyWord": "test2"}},false,true);
+  },
+  'click .deleteFavorite' (){
+    console.log(this);
+    var id = Favorites.findOne({userId : this.customerId})._id;
+    Favorites.update({_id: id},{$pull: {"key" : {"keyWord": "test"}}});
   }
 })
 
@@ -818,6 +769,7 @@ Template.SettingTabs.onRendered(function () {
 
 Template.userInfoCard.onRendered(function () {
   $('ul.tabs').tabs();
+  $('.modal').modal();
   $(document).ready(function(){
     $('.collapsible').collapsible();
   });
