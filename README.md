@@ -8,11 +8,11 @@ Mac Download/Compile instructions:
 4. Clone ajamjoom/tamerny to your computer (Open "Terminal" then 'cd Desktop' then 'git clone [repository link]')
 5. Install Dependancies from your terminal.
   - cd to the tamerny directory from your terminal and install the following dependancies:
-      meteor npm install --save request
-      meteor npm install --save bcrypt  
-      meteor npm install --save moyasar
-      meteor npm install --save babel-runtime
-      meteor npm install --save meteor-node-stubs cls-bluebird
+      - meteor npm install --save request
+      - meteor npm install --save bcrypt  
+      - meteor npm install --save moyasar
+      - meteor npm install --save babel-runtime
+      - meteor npm install --save meteor-node-stubs cls-bluebird
 5. cd to the tamerny directory from your terminal and then type 'meteor' then press enter
   - If the code compiles and runs then all is set (go to your browser and enter the following URL [http://localhost:3000/])
   - If something doesn't work email abduljamjoom@gmail.com
