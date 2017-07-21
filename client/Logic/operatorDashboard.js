@@ -63,14 +63,14 @@ Template.userChatCard.onRendered(function () {
   $(document).ready(function() {
     $('input#input_text').characterCounter();
     var elmnt = document.getElementById("messageBody");
-      elmnt.scrollTop = elmnt.scrollHeight;
+    elmnt.scrollTop = elmnt.scrollHeight; // Scroll to bottom of page
   });
 });
 
 Template.userInfoCard.onRendered(function () {
-  $('ul.tabs').tabs();
   $(document).ready(function(){
     $('.collapsible').collapsible();
+    $('ul.tabs').tabs();
   });
 });
 
@@ -86,21 +86,20 @@ Template.userChatCard.events({
     var doc = UserProfiles.findOne({userId: customerId})
     var phoneNumber = doc.phone
     Meteor.call('sendTxt',phoneNumber, customerId, txt, (Meteor.userId()));
-    $('#input_text').val('')
+    $('#input_text').val('') // Clear texting form
   },
 })
 
 Template.statusCard.events({
     'click .done': function(event) {
       event.preventDefault();
-      console.log("DONE")
       var doc = UserProfiles.findOne({userId: this.customerId})
       var phoneNumber = doc.phone
       var name = doc.firstName +" "+ doc.lastName
       Materialize.toast("Good Job, you've succesfully finished serving "+ name, 4000)
       Meteor.call('sendTxt',phoneNumber, this.customerId, "Good stuff! Let me know if you need anything else.", (Meteor.userId()));
       Meteor.call('endPairing', Meteor.userId(), this.customerId)
-      $('.tooltipped').tooltip('remove');
+      $('.tooltipped').tooltip('remove'); // Resolves a bug that exists if you click done on the last customer you have
     },
     'click .pending': function(event) {
       event.preventDefault();
@@ -118,28 +117,26 @@ Template.statusCard.events({
       var doc = UserProfiles.findOne({userId: this.customerId})
       var phoneNumber = doc.phone
       var name = doc.firstName +" "+ doc.lastName
-      Materialize.toast("Shoot! You've cancelled serving  "+ name, 4000)
+      Materialize.toast("Shoot! You've cancelled serving "+ name, 4000)
       Meteor.call('sendTxt',phoneNumber, this.customerId, "I'm so sorry, unfortunately I won't be able to help you with your order. Let me know if you need anything else!", (Meteor.userId()));
       Meteor.call('endPairing', Meteor.userId(), this.customerId)
-      $('.tooltipped').tooltip('remove');
+      $('.tooltipped').tooltip('remove'); // Resolves a bug that exists if you click done on the last customer you have
     }
   });
 
 Template.getUser.events({
     'click .getUser': function(event) {
       event.preventDefault();
-      console.log("GET USER HAS BEEN CLICKED")
       Meteor.call('operatorSeeking', Meteor.userId());
     },
     'click .notSeeking': function(event) {
       event.preventDefault();
-      console.log("GET USER HAS CANCELLED")
       Meteor.call('operatorNotSeeking', Meteor.userId());
     }
   });
 
-
-// Changing anything must be done through _id of the subcollection not userId
+// Changing anything must be done through _id of the subcollection not userId @7mto
+// You can make updates with other fields than _id if you do it from the Server with Meteor.Call.. @Jamjoom
 Template.userInfoCard.events({
   'click .addFavorite' (){
     event.preventDefault();
@@ -153,6 +150,7 @@ Template.userInfoCard.events({
 
 // Section IIII: Functions
 
+// Sexy function. Check out "moment(dateTime).calendar();"... 
 function since (then){
   var then = then.getTime();
   var now = (new Date()).getTime();
@@ -191,7 +189,7 @@ Template.userStatus.helpers({
   customers (){
     var doc = Pairings.findOne({operatorId: Meteor.userId()});
     if(doc == undefined)
-      return []
+      return [] // no pairings
     else {
       var users = doc.userIds
       var userNames = UserProfiles.find({userId:{$in: users} }).fetch()
@@ -202,7 +200,7 @@ Template.userStatus.helpers({
     var link = "/operatorDashboard/" + userId
     return link
   },
-  servingColor(customerId){
+  servingColor(customerId){ // Highlights the customer who's currently being served
     var parameter = FlowRouter.getParam('customer');
     if(customerId == parameter)
       return "serving"
@@ -210,7 +208,7 @@ Template.userStatus.helpers({
 })
 
 Template.getUser.helpers({
-  searching (){
+  searching (){ // Checks if operator is seeking customers or not
     var doc = OperatorProfile.findOne({userId: Meteor.userId()});
     
     if (doc != undefined)
@@ -221,7 +219,7 @@ Template.getUser.helpers({
     return state
     
   },
-  customersWaiting (){
+  customersWaiting (){ // checks if there are customers waiting to be paired with operators = pulse to the add button
     var doc = WaitingUsers.find().count()
     if(doc > 0)
       return true

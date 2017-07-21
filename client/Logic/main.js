@@ -27,9 +27,8 @@ window.Pairings = Pairings
 
 // Section II: AutoForm Manual Validations
 
-// Payment system
+// Moyasar payment system init - the ID is only for testing and must be changed before production
 var moyasar = new (require('moyasar'))('pk_test_aFqrpMm9qbzf7WxwvWfToDYiBJMt8foU5aDnGSWH');
-
 
 var correct = false;
 
@@ -138,16 +137,24 @@ function updateTopUp(status, id, amount){
 
 // Section IIII: Global Helpers
 
+/* 
+This global helper returns the a secure CustomerID to be used in the operator dahsboard. 
+If the customerID is incorrect (if the specified customer is not paired to the operator), 
+then this helper will redirects the operator to a safe landing page 
+*/
+
 Template.registerHelper( 'SecureDashboardLink', () => {
   var doc = Pairings.findOne({operatorId: Meteor.userId()});
   var operatorCustomers = doc.userIds
-  var customerId = FlowRouter.getParam("customer")
-  var customersCount = operatorCustomers.length
+  var customerId = FlowRouter.getParam("customer") // From the URL
+  var customersCount = operatorCustomers.length // number of customers the operator is currently paired to
 
-  if (customersCount > 0)
+  if (customersCount > 0) // Checking if the operator is paired/serving any customers
   {
-    // got customers
+
     var safe = false;
+    /*  Checking if the CustomerID in the URL is that of a 
+    // Customer who is actually paired with the operator */
     for (var i = customersCount - 1; i >= 0; i--) {
       if (operatorCustomers[i] == customerId){
         safe = true
@@ -156,17 +163,17 @@ Template.registerHelper( 'SecureDashboardLink', () => {
     };
 
     if (safe == true){
-      return customerId
+      return customerId //URL is correct and secure = return CustomerID so that operator dahsboard can be populated with data
     } else {
-      FlowRouter.go('/operatorDashboard/'+ operatorCustomers[0]);
+      FlowRouter.go('/operatorDashboard/'+ operatorCustomers[0]); // CostumerID is not paired to the operator = redirect to another customer page
     }
 
   } else {
-    FlowRouter.go('/operatorDashboard/noCustomers');
+    FlowRouter.go('/operatorDashboard/noCustomers'); // wrong customerID and operator is not paired to any customers = empty dashboard page
   }
 });
 
-// Very inefficient, chnage to find with limit and make it not fetch info from DB 8 times... just once
+// [Very inefficient], change to find with limit and make it not fetch info from DB 8 times... just once
 Template.registerHelper('basicInfoComplete', function(){
   var doc = UserProfiles.findOne({userId: Meteor.userId()})
 
@@ -176,7 +183,7 @@ Template.registerHelper('basicInfoComplete', function(){
     return true
 });
 
-// Needs to actually check
+// This search is not exhaustive
 Template.registerHelper('operatorProfileComplete', function(){
   var doc = OperatorProfile.findOne({userId: Meteor.userId()})
 
@@ -186,7 +193,7 @@ Template.registerHelper('operatorProfileComplete', function(){
     return true
 });
 
-//Needs to actually check
+// This search is not exhaustive
 Template.registerHelper('paymentComplete', function(){
   return true
 });

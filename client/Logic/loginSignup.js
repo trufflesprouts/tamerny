@@ -22,6 +22,8 @@ window.UserProfiles = UserProfiles
 Template.login.events({
   'submit form': function(event) {
     event.preventDefault();
+    
+    // Variables retrieved from the login modal form
     var emailVar = event.target.loginEmail.value;
     var passwordVar = event.target.loginPassword.value;
     Meteor.loginWithPassword(emailVar, passwordVar, function (err){
@@ -36,6 +38,8 @@ Template.login.events({
 Template.signup.events({
   'submit form': function(event) {
     event.preventDefault();
+
+    // Variables retrieved from the signup modal form
     var emailVar = event.target.signupEmail.value;
     var passwordVar = event.target.signupPassword.value;
     var firstNameVar = event.target.signupFirstName.value;
@@ -43,9 +47,8 @@ Template.signup.events({
     var numberVar = event.target.signupNumber.value;
     var pilotVar = event.target.signupPilot.value;
 
+    // Checking if the pilot security code is correct
     if (pilotVar == "alrashidpilot"){
-
-      // Change this to  insert to disable autologin
       Accounts.createUser({
         email: emailVar,
         password: passwordVar
@@ -53,9 +56,11 @@ Template.signup.events({
       }
       ,function(err){
         if (err)
-          {console.log(err)
-          Materialize.toast(err.reason, 1000)}
+        {
+          Materialize.toast(err.reason, 1000)} // Signup was not successful
         else {
+          // signup was successful
+          // Create the user profile variable that will be inserted in UserProfiles collection
           var newUserProfile = {
             userId: Meteor.userId(),
             firstName: firstNameVar,
@@ -63,6 +68,7 @@ Template.signup.events({
             phone: numberVar,
             balance: 0,
           }
+          
           UserProfiles.insert(newUserProfile,function(err, result){
             if (err){
               Meteor.call('clearUser', Meteor.userId());
