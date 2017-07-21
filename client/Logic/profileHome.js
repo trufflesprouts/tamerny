@@ -44,7 +44,7 @@ Template.HomeLayout.helpers({
     var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
     return userProfileDoc.balance;
   },
-  userhistory (){
+  userHistory (){
     var userHistory = History.findOne({userId: Meteor.userId()}).transaction.reverse();
     var transactions = document.getElementById("transaction");
     userHistory.forEach(
