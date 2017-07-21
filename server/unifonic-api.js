@@ -1,7 +1,23 @@
+
+
+
+/*
+This server side JS file contains all the necessary logic 
+for sending and recieving texts through the Unifonic API.
+*/
+
+
+
+// Section I: Imported Collections from MongoDB
+
 import { UserProfiles } from '../collections/userProfiles.js'
 import { Chats } from '../collections/chats.js'
 import { Pairings } from '../collections/pairedUsers.js'
 import { WaitingUsers } from '../collections/waitingUsers.js'
+
+
+
+// Section II: Functions
 
 function getParameterByName(name, url) {
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -12,23 +28,24 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-// Send registration Link
 var sendTextRegistrationLink = function(recipientPhone){
   var request = require('request');
 
-    var txt = "To start  using Tamerny please activate your number by registering through this link (LINK)"
-    request({
-      method: 'POST',
-      url: 'http://api.unifonic.com/rest/Messages/Send',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: "AppSid=KsH1cs6qIn3agrr3BeFIPS1200pojL&Recipient="+recipientPhone+"&Body="+txt
-    }, function (error, response, body) {
-    })
+  var txt = "To start  using Tamerny please activate your number by registering through this link (LINK)"
+  request({
+    method: 'POST',
+    url: 'http://api.unifonic.com/rest/Messages/Send',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: "AppSid=KsH1cs6qIn3agrr3BeFIPS1200pojL&Recipient="+recipientPhone+"&Body="+txt
+  }, function (error, response, body) {
+  })
 }
 
-//Picker.middleware(bodyParser.json());
+
+
+// Section III: API retrieval link
 
 Picker.route('/api/webhooks/:provider', function(params, req, res, next) {
   
@@ -40,10 +57,8 @@ Picker.route('/api/webhooks/:provider', function(params, req, res, next) {
   var profileDoc = UserProfiles.findOne({phone:userPhone })
   if(profileDoc == undefined){
     //unregistered = send registration link to number
-    console.log("SEND REGISTRATION LINK, Number is not registered")
     sendTextRegistrationLink(userPhone)
   } else{ //registeered
-    console.log("USER IS REGISTERED")
     // Add text to user chat collection
     Chats.update(
     {userId: profileDoc.userId}, 
@@ -52,20 +67,13 @@ Picker.route('/api/webhooks/:provider', function(params, req, res, next) {
         chat: 
           {"from":'user',"createdAt":(new Date()),"txt":message,"success":true}
         }})
-
     //check if user is not paired
     var userPaired = Pairings.findOne( { userIds: { $in: [profileDoc.userId]} })
-    console.log("userPaired:")
-    console.log(userPaired)
     if (userPaired != undefined){
       // user is paired
-      console.log("User is paired, just chill")
       
     } else {
-      console.log("User is not paired")
       // user is not paired
-      // check if user is already in the waiting list or not
-      
       var userWaiting = WaitingUsers.findOne({ userId: profileDoc.userId })
 
       if(userWaiting == undefined)
@@ -79,5 +87,7 @@ Picker.route('/api/webhooks/:provider', function(params, req, res, next) {
   }
   
 
-res.end();
+  res.end();
 });
+
+
