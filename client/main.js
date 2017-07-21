@@ -716,18 +716,15 @@ Template.userInfoCard.events({
   'click .addFavorite' (){
     event.preventDefault();
     var txt = document.getElementById('favorite').value;
-    var id = Favorites.findOne({userId : this.customerId})._id;
-    Favorites.update({_id : id},{$push: {key: {keyWord: txt, time: new Date()}}});
+    Meteor.call('addFavorite', this.customerId, txt);
   },
-  'click .editFavorite' (){
+  'click .editFavorite': function (event){
     console.log(this);
-    var id = Favorites.findOne({userId : this.customerId})._id;
-    Favorites.update({_id : id,"key.keyWord": "test"},{$set: {"key.$.keyWord": "test2"}},false,true);
+    Meteor.call('editFavorite', this.customerId, "test", "test2");
   },
-  'click .deleteFavorite' (){
+  'click .deleteFavorite': function (event){
     console.log(this);
-    var id = Favorites.findOne({userId : this.customerId})._id;
-    Favorites.update({_id: id},{$pull: {"key" : {"keyWord": "test"}}});
+    Meteor.call('deleteFavorite', this.customerId, "test");
   }
 })
 

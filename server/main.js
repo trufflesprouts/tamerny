@@ -50,7 +50,18 @@ function findCutomer (operatorId){
 }
 
 Meteor.methods({
-
+  addFavorite: function(customerId, keyword){
+    console.log('addFavorite called from server to add' + keyword)
+    Favorites.update({userId : customerId},{$push: {key: {keyWord: keyword, time: new Date()}}});
+  },
+  editFavorite: function(customerId, oldKeyword, newKeyword){
+    console.log('editFavorite called from server to edit ' + oldKeyword + ' with ' + newKeyword);
+    Favorites.update({userId : customerId,"key.keyWord": oldKeyword},{$set: {"key.$.keyWord": newKeyword, time: new Date()}},false,true);
+  },
+  deleteFavorite: function(customerId, keyword){
+    console.log('deleteFavorite called from server to delete ' + keyword);
+    Favorites.update({userId : customerId},{$pull: {"key" : {"keyWord": keyword}}});
+  },
   updateBalance: function(amount){
     var uId = Meteor.userId();
     //var oId = access generated orderId?
