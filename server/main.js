@@ -188,7 +188,6 @@ UserProfiles.before.insert(function (userId, doc) {
 
 // Creat Chat History Collection
 UserProfiles.after.insert(function (userId, doc) {
-  console.log("Created new Chats user")
   Chats.insert({userId: userId});
   History.insert({userId: userId});
   Favorites.insert({userId: userId});

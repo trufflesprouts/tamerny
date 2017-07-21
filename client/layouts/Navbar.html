@@ -15,17 +15,15 @@
 		    <a href="/"><img class="logo brand-logo" height="80%" width="80" src="/images/logo.png" alt="Logo"></a>
 		    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 		    <ul id="nav-mobile" class="right valign-wrapper hide-on-med-and-down">
-				  <!-- if user logged in show logout button otherwise login button -->
+
 				  {{#if currentUser }}
             {{#if notOperator }}
 						  <li><a class="waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
               {{else}}
               <li><a href={{dashboardLink}}>Dashboard</a></li> 
-              <!-- EDIT THIS LING... -->
             {{/if}}
 
             <li><a href="/">Profile</a></li>
-
 
             {{> navbarAccount}}
 
@@ -59,7 +57,6 @@
   </div>
 </template>
 
-
 <template name="navbarAccount">
     <a class="dropdown-button valign-wrapper" data-hover="true" data-beloworigin="true" data-activates="accountDropdown">{{name}}</a>
 
@@ -91,11 +88,3 @@
     <center><a class="waves-effect waves-light btn center"><input type="submit" value="Login"></a></center>
   </form>
 </template>
-
-<!-- <template name="modalSignUp">
-  <a href="#signUpModal" class="waves-effect waves-light modal-signup-trigger modal-trigger">Sign Up</a>
-</template>
-
-<template name="modalLogin">
-  <a href="#loginModal"  class="waves-effect waves-light modal-login-trigger modal-trigger">Login</a>
-</template> -->
