@@ -720,7 +720,8 @@ Template.userInfoCard.events({
   },
   'click .editFavorite': function (event){
     console.log(this);
-    Meteor.call('editFavorite', this.customerId, "test", "test2");
+    var newkeyword = document.getElementById('key_word').value;
+    Meteor.call('editFavorite', this.customerId, "test", newkeyword);
   },
   'click .deleteFavorite': function (event){
     console.log(this);
