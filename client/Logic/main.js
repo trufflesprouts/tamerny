@@ -117,11 +117,67 @@ AutoForm.hooks({
     },
   },
 
+  updatePhoneForm: {
+    before: {
+      update: function (doc) {
+        console.log("geeting phone")
+        console.log(doc)
+        if (doc.$set != undefined){
+
+
+
+        var phone = doc.$set.phone
+
+        if (validPhone(phone)){
+          console.log("Valid Phone")
+          doc.$set.phone = formatNumber(phone)
+          return doc
+        } else {
+          Materialize.toast("The new phone number is incorrect. Please enter a Saudi number", 1000)
+          return false;
+        } 
+        } else{
+          Materialize.toast("Phone is made up of digits with no empty spaced", 1000)
+        } 
+      }
+    },
+    onError: function(formType, error) {
+      Materialize.toast(error, 1000)
+    },
+    onSuccess: function(formType, result) {
+      Materialize.toast("Perfect, your information was updated!", 1000)
+    },
+  },
+
 });
 
 
 
 // Section III: Functions
+
+function validPhone(phoneNumber){
+  var str = phoneNumber.toString();
+
+  var length = phoneNumber.length
+  if (length == 12 && str.substr(0, 4) == '9665'){
+    return true
+  } else if (length == 9 && str.charAt(0) == '5'){      
+    return true
+  } else {
+    return false
+  }
+}
+
+function formatNumber(phoneNumber){
+  var str = phoneNumber.toString();
+  var length = str.length
+  
+  if (length == 12 && str.substr(0, 4) == '9665'){
+    return parseInt(str.substr(0, 12))
+  } else if (length == 9 && str.charAt(0) == '5'){      
+    return parseInt('966' + str)
+  } 
+}
 
 function updateTopUp(status, id, amount){
 

@@ -19,13 +19,11 @@ window.UserProfiles = UserProfiles
 
 // Section II: Functions
 function validPhone(phoneNumber){
-  var str = phoneNumber.toString();
-  var length = str.length
-  if (length == 14 && str.substr(0, 6) == '009665'){
+  // var str = phoneNumber.toString();
+  var length = phoneNumber.length
+  if (length == 12 && str.substr(0, 4) == '9665'){
     return true
-  } else if (length == 12 && str.substr(0, 4) == '9665'){
-    return true
-  } else if (length == 10 && str.substr(0, 2) == '05'){      
+  } else if (length == 9 && str.charAt(0) == '5'){      
     return true
   } else {
     //Phone number is incorrect
@@ -34,15 +32,13 @@ function validPhone(phoneNumber){
 }
 
 function formatNumber(phoneNumber){
-  var str = phoneNumber.toString();
-  var length = str.length
+  // var str = phoneNumber.toString();
+  var length = phoneNumber.length
   
-  if (length == 14 && str.substr(0, 6) == '009665'){
-    return parseInt(str.substr(2, 12))
-  } else if (length == 12 && str.substr(0, 4) == '9665'){
+  if (length == 12 && str.substr(0, 4) == '9665'){
     return parseInt(str.substr(0, 12))
-  } else if (length == 10 && str.substr(0, 2) == '05'){      
-    return parseInt('966' + str.substr(1, 9))
+  } else if (length == 9 && str.charAt(0) == '5'){      
+    return parseInt('966' + str)
   } 
 }
 

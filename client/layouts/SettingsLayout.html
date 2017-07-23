@@ -102,7 +102,7 @@
       <div class="collapsible-header"><i class="material-icons">perm_phone_msg</i>Phone Number  &nbsp;&nbsp; ({{basicInfo.phone}}) <i class="material-icons right">mode_edit</i></div>
         <div class="collapsible-body">
           <div class="row">
-            {{#autoForm collection="UserProfiles" doc=basicInfo id="updateNameForm" type="update"}}
+            {{#autoForm collection="UserProfiles" doc=basicInfo id="updatePhoneForm" type="update"}}
             <div class="container center">
               <div class="input-field col s12">
                 {{>afFieldInput name="phone" id="phone" type="number"}}
