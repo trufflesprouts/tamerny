@@ -1,8 +1,8 @@
 
 /*
 This server side JS file contains Server methods that are called from the clients,
- functions that are called from the server methods, and general hooks that create 
- documents in collections once the user/operator signsup 
+ functions that are called from the server methods, and general hooks that create
+ documents in collections once the user/operator signsup
 
 */
 
@@ -33,14 +33,14 @@ function findCutomer (operatorId){
       if (status == 1){
         Pairings.update({operatorId: operatorId}, {$push: {userIds: usersWaiting[i].userId}})
         OperatorProfile.update({userId: operatorId}, {$set: {seeking: false}});
-        Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast', 
+        Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast',
           ['[New User] You got assined a new customer to serve !', 4000], function(error, result) {
       });
         break;
       }
 
       OperatorProfile.update({userId: operatorId}, {$set: {seeking: false}});
-      Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast', 
+      Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast',
         ['System is congested, try again in a bit', 4000], function(error, result) {
       });
 
@@ -48,7 +48,7 @@ function findCutomer (operatorId){
   }  else {
 
     OperatorProfile.update({userId: operatorId}, {$set: {seeking: false}});
-    Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast', 
+    Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast',
       ['There are currently no users waiting to be served, try again in a bit', 4000], function(error, result) {
       });
   }
@@ -70,6 +70,14 @@ Meteor.methods({
   deleteFavorite: function(customerId, keyword){
     console.log('deleteFavorite called from server to delete ' + keyword);
     Favorites.update({userId : customerId},{$pull: {"key" : {"keyWord": keyword}}});
+  },
+  addAddress: function(customerId, title, line1, line2, city, prov, zip){
+    console.log('addAddress called from server to add ' + title)
+    Addresses.update({userId : customerId},{$push: {address: {"title": title, "line1": line1, "line2": line2, "city": city, province: prov, zipCode: zip}}});
+  },
+  editAddress: function(customerId, oldtitle, oldzip, line1, line2, city, prov, zip){
+    console.log('addAddress called from server to edit ' + oldtitle)
+    Addresses.update({userId: customerId, "address.title": oldtitle, "address.zipCode": oldzip},{$set: {"address.$.title": oldtitle, "address.$.line1": line1, "address.$.line2": line2, "address.$.city": city, "address.$.province": prov, "address.$.zipCode": zip}},false,true);
   },
   updateBalance: function(amount){
     var uId = Meteor.userId();
@@ -163,4 +171,3 @@ UserProfiles.after.insert(function (userId, doc) {
   Favorites.insert({userId: userId});
   Addresses.insert({userId: userId});
 });
-

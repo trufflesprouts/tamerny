@@ -206,7 +206,7 @@
                   </div>
                   <div class="collapsible-body">
                     <div class="row">
-                      <!-- {{#autoForm collection="Favorites" doc=favorites id="updateKeyForm" type="update"}} -->
+                      <!-- {{#autoForm collection="Favorites" id="updateKeyForm" type="update"}} -->
                         <div class="container center">
                           <div class="input-field col s12">
                             <!-- {{>afFieldInput name="keyWord" id="keyWord" type="text"}} -->
@@ -270,9 +270,16 @@
                 </div>
               </li>
             </ul>
+            <div class="row">
+              <div class="col s12">
+                <a class="vertical-center btn btn-floating waves-effect waves-light z-depth-1" href="#addAddress"><i class="material-icons">playlist_add</i></a>
+              </div>
+            </div>
         </div>
       </div>
     </div>
+
+    <!-- Modals -->
     {{#each address in addresses customerId}}
     <div id="editAddress-1" class="modal">
       <div class="modal-content">
@@ -306,6 +313,7 @@
       </div>
     </div>
     {{/each}}
+
     <div id="editAddress" class="modal">
       <div class="modal-content">
         <div class="row">
@@ -337,6 +345,46 @@
         <center><a class="waves-effect waves-light btn"><input type="submit" value="Save"></a></center>
       </div>
     </div>
+
+    <!-- Add an Address -->
+    <div id="addAddress" class="modal">
+      <div class="modal-content">
+        <div class="row">
+          <div class="input-field col s5">
+            <input value="" id="addtitle" type="text" class="validate">
+            <label class="active" for="title">Title</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input value="Street Address" id="addline1" type="text" class="validate">
+            <label class="active" for="line1">Line 1</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input value="Neighborhood" id="addline2" type="text" class="validate">
+            <label class="active" for="line2">Line 2</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s5">
+            <input value="" id="addcity" type="text" class="validate">
+            <label class="active" for="city">City</label>
+          </div>
+          <div class="input-field col s5">
+            <input value="" id="addprovince" type="text" class="validate">
+            <label class="active" for="province">Province</label>
+          </div>
+          <div class="input-field col s2">
+            <input value="" id="addzipcode" type="text" class="validate">
+            <label class="active" for="zipcode">Zip Code</label>
+          </div>
+        </div>
+        <center><a class="addAddress waves-effect waves-light btn"><input type="submit" value="Add"></a></center>
+      </div>
+    </div>
+
     <div id="hist" class="card-scrollable col s12">
       <div class="container col s12">
         <ul class="collapsible z-depth-0" data-collapsible="accordion">

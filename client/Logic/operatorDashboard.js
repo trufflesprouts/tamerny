@@ -14,7 +14,7 @@ Templates:
 
 */
 
-
+// import '../layouts/OperatorDashboardLayout.html';
 
 // Section I: Import Collections from MongoDB
 
@@ -37,24 +37,34 @@ window.WaitingUsers = WaitingUsers
 
 // Section II: onRendered
 
+// AutoForm.hooks({
+//   updateKeyForm: {
+//     before: {
+//       update: function(doc) {
+//         var newkeyword = document.getElementById('key_word').value;
+//         Meteor.call('editFavorite', this.customerId, doc.keyWord, newkeyword);
+//     }
+//   }
+// });
+
 Template.OperatorDashboardLayout.onRendered(function () {
   var customerId = FlowRouter.getParam('customer');
 });
 
 Template.user.onRendered(function () {
-    $(document).ready(function(){
+  $(document).ready(function(){
     $('.tooltipped').tooltip({delay: 50});
   });
 });
 
 Template.statusCard.onRendered(function () {
-    $(document).ready(function(){
+  $(document).ready(function(){
     $('.tooltipped').tooltip({delay: 50});
   });
 });
 
 Template.operator.onRendered(function () {
-    $(document).ready(function(){
+  $(document).ready(function(){
     $('.tooltipped').tooltip({delay: 50});
   });
 });
@@ -71,6 +81,7 @@ Template.userInfoCard.onRendered(function () {
   $(document).ready(function(){
     $('.collapsible').collapsible();
     $('ul.tabs').tabs();
+    $('.modal').modal();
   });
 });
 
@@ -141,38 +152,46 @@ Template.userInfoCard.events({
   'click .addFavorite' (){
     event.preventDefault();
     var txt = document.getElementById('favorite').value;
-    var id = Favorites.findOne({userId : "fLsHPFSbBhxGAYA3t"})._id;
-    Favorites.update({_id : id},{$push: {key: {keyWord: txt, time: new Date()}}});
+    Meteor.call('addFavorite', this.customerId, txt);
+  },
+  'click .editFavorite' (){
+    var newkeyword = document.getElementById('key_word').value;
+    Meteor.call('editFavorite', this.customerId, "test", newkeyword);
+  },
+  'click .deleteFavorite' (){
+    Meteor.call('deleteFavorite', this.customerId, "test");
+  },
+  'click .addAddress' (){
+    event.preventDefault();
+    var title = document.getElementById('addtitle').value;
+    var line1 = document.getElementById('addline1').value;
+    var line2 = document.getElementById('addline2').value;
+    var city = document.getElementById('addcity').value;
+    var prov = document.getElementById('addprovince').value;
+    var zip = document.getElementById('addzipcode').value;
+    Meteor.call('addAddress', this.customerId, title, line1, line2, city, prov, zip);
+    $('#addAddress').modal('close');
+  },
+  'click .editAddress' (){
+    event.preventDefault();
+    //use AutoForm instead
+    var title = document.getElementById('title').value;
+    var line1 = document.getElementById('line1').value;
+    var line2 = document.getElementById('line2').value;
+    var city = document.getElementById('city').value;
+    var prov = document.getElementById('province').value;
+    var zip = document.getElementById('zipcode').value;
+    Meteor.call('editAddress', this.customerId, "test", 12345, line1, line2, city, prov, zip);
+    $('#editAddress-1').modal('close');
   }
 })
 
 
 
-// Section IIII: Functions
+// Section IV: Functions
 
-// Sexy function. Check out "moment(dateTime).calendar();"... 
-function since (then){
-  var then = then.getTime();
-  var now = (new Date()).getTime();
-
-  diff = now - then;
-  if (diff/1000 < 1) {
-    var difference = "Now"
-  } else if (diff/(1000*60) < 1) {
-    var difference = parseInt(diff/(1000)) + " Seconds"
-  } else if (diff/(1000*60*60) < 1) {
-    var difference = parseInt(diff/(1000*60)) + " Minutes"
-  } else if (diff/(1000*60*60*24) < 1) {
-    var difference = parseInt(diff/(1000*60*60)) + " Hours"
-  } else if (diff/(1000*60*60*24*30) < 1) {
-    var difference = parseInt(diff/(1000*60*60*24)) + " Days"
-  } else if (diff/(1000*60*60*24*365) < 1) {
-    var difference = parseInt(diff/(1000*60*60*24*30)) + " Months"
-  } else {
-    var difference = parseInt(diff/(1000*60*60*24*365)) + " Years"
-  }
-  return difference
-}
+// Sexy function. Check out "moment(dateTime).calendar();"...
+// since should be in Meteor.methods
 
 
 
@@ -210,14 +229,14 @@ Template.userStatus.helpers({
 Template.getUser.helpers({
   searching (){ // Checks if operator is seeking customers or not
     var doc = OperatorProfile.findOne({userId: Meteor.userId()});
-    
+
     if (doc != undefined)
       var state = doc.seeking
     else
       var state = false
-    
+
     return state
-    
+
   },
   customersWaiting (){ // checks if there are customers waiting to be paired with operators = pulse to the add button
     var doc = WaitingUsers.find().count()
@@ -236,55 +255,37 @@ Template.userInfoCard.helpers({
   },
   history (customerId){
     var userHistory = History.findOne({userId: customerId}).transaction.reverse();
-    var transactions = document.getElementById("transaction");
-    userHistory.forEach(
-      function(transaction) {
-        var item = "<li><div class=\"collapsible-header\"><span class=\"left\">"
-                 + transaction.title
-                 + "</span><span class=\"right\">"
-                 + since(transaction.time)
-                 + "</span></div><div class=\"collapsible-body\"><span class=\"left\">"
-                 + transaction.description
-                 + "</span><span class=\"right\">"
-                 + transaction.price
-                 + "</span><span> ("
-                 + transaction.status
-                 + ")</span></div></li>";
-        transactions.innerHTML = transactions.innerHTML + item;
-      }
-    )
+    return userHistory
   },
   favorites (customerId){
     var userFavorites = Favorites.findOne({userId: customerId}).key.reverse();
-    var keys = document.getElementById("key");
-    userFavorites.forEach(
-      function(key) {
-        var item = "<li><div class=\"collapsible-header\"><span class=\"left\">"
-                 + key.keyWord
-                 + "</span><span class=\"right\">"
-                 + since(key.time)
-                 + "</span><i class=\"material-icons right\">mode_edit</i></div><div class=\"collapsible-body\"><span>Edit Favorite Here</span></div></li>";
-        keys.innerHTML = keys.innerHTML + item;
-      }
-    );
+    return userFavorites
   },
   addresses (customerId){
     var userAddresses = Addresses.findOne({userId: customerId}).address.reverse();
-    var addresses = document.getElementById('address');
-    userAddresses.forEach(
-      function(address){
-        var item = "<li><div class=\"collapsible-header\">"
-                 + address.title
-                 + "</div><div class=\"collapsible-body\"><span class=\"left\">"
-                 + address.line1
-                 + "</span><br><span class=\"left\">"
-                 + address.line2
-                 + "</span><br><span class=\"left\">"
-                 + address.city + ',' + address.province + ' ' + address.zipCode
-                 + "</span></div></li>";
-        addresses.innerHTML = addresses.innerHTML + item;
-      }
-    );
+    return userAddresses
+  },
+  since (then){
+    var then = then.getTime();
+    var now = (new Date()).getTime();
+
+    diff = now - then;
+    if (diff/1000 < 1) {
+      var difference = "Now"
+    } else if (diff/(1000*60) < 1) {
+      var difference = parseInt(diff/(1000)) + "s"
+    } else if (diff/(1000*60*60) < 1) {
+      var difference = parseInt(diff/(1000*60)) + "min"
+    } else if (diff/(1000*60*60*24) < 1) {
+      var difference = parseInt(diff/(1000*60*60)) + "h"
+    } else if (diff/(1000*60*60*24*30) < 1) {
+      var difference = parseInt(diff/(1000*60*60*24)) + "d"
+    } else if (diff/(1000*60*60*24*365) < 1) {
+      var difference = parseInt(diff/(1000*60*60*24*30)) + "m"
+    } else {
+      var difference = parseInt(diff/(1000*60*60*24*365)) + "y"
+    }
+    return difference
   }
 });
 
@@ -306,4 +307,3 @@ Template.userChatCard.helpers({
     return chatHist
   }
 })
-
