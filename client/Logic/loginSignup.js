@@ -17,7 +17,38 @@ window.UserProfiles = UserProfiles
 
 
 
-//Section II: Events
+// Section II: Functions
+function validPhone(phoneNumber){
+  var str = phoneNumber.toString();
+  var length = str.length
+  if (length == 14 && str.substr(0, 6) == '009665'){
+    return true
+  } else if (length == 12 && str.substr(0, 4) == '9665'){
+    return true
+  } else if (length == 10 && str.substr(0, 2) == '05'){      
+    return true
+  } else {
+    //Phone number is incorrect
+    return false
+  }
+}
+
+function formatNumber(phoneNumber){
+  var str = phoneNumber.toString();
+  var length = str.length
+  
+  if (length == 14 && str.substr(0, 6) == '009665'){
+    return parseInt(str.substr(2, 12))
+  } else if (length == 12 && str.substr(0, 4) == '9665'){
+    return parseInt(str.substr(0, 12))
+  } else if (length == 10 && str.substr(0, 2) == '05'){      
+    return parseInt('966' + str.substr(1, 9))
+  } 
+}
+
+
+
+// Section III: Events
 
 Template.login.events({
   'submit form': function(event) {
@@ -47,8 +78,11 @@ Template.signup.events({
     var numberVar = event.target.signupNumber.value;
     // var pilotVar = event.target.signupPilot.value;
 
-    // Checking if the pilot security code is correct
-    // if (pilotVar == "alrashidpilot"){
+    // Checking if Phone number is valid
+    if (validPhone(numberVar)){
+      var number = formatNumber(numberVar)
+      console.log("number")
+      console.log(number)
       Accounts.createUser({
         email: emailVar,
         password: passwordVar
@@ -65,7 +99,7 @@ Template.signup.events({
             userId: Meteor.userId(),
             firstName: firstNameVar,
             lastName: lastNameVar,
-            phone: numberVar,
+            phone: number,
             balance: 0,
           }
           
@@ -88,8 +122,8 @@ Template.signup.events({
           });
         }
       });
-      // } else {
-      //   Materialize.toast('Incorrect Pilot Code!', 1000)
-      // }
+      } else {
+        Materialize.toast('Please input correct Saudi phone number. (Landlines are not included)', 1000)
+      }
     }
   });
