@@ -45,10 +45,10 @@ Template.signup.events({
     var firstNameVar = event.target.signupFirstName.value;
     var lastNameVar = event.target.signupLastName.value;
     var numberVar = event.target.signupNumber.value;
-    var pilotVar = event.target.signupPilot.value;
+    // var pilotVar = event.target.signupPilot.value;
 
     // Checking if the pilot security code is correct
-    if (pilotVar == "alrashidpilot"){
+    // if (pilotVar == "alrashidpilot"){
       Accounts.createUser({
         email: emailVar,
         password: passwordVar
@@ -88,8 +88,8 @@ Template.signup.events({
           });
         }
       });
-      } else {
-        Materialize.toast('Incorrect Pilot Code!', 1000)
-      }
+      // } else {
+      //   Materialize.toast('Incorrect Pilot Code!', 1000)
+      // }
     }
   });
