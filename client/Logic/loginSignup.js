@@ -17,7 +17,34 @@ window.UserProfiles = UserProfiles
 
 
 
-//Section II: Events
+// Section II: Functions
+function validPhone(phoneNumber){
+  // var str = phoneNumber.toString();
+  var length = phoneNumber.length
+  if (length == 12 && str.substr(0, 4) == '9665'){
+    return true
+  } else if (length == 9 && str.charAt(0) == '5'){      
+    return true
+  } else {
+    //Phone number is incorrect
+    return false
+  }
+}
+
+function formatNumber(phoneNumber){
+  // var str = phoneNumber.toString();
+  var length = phoneNumber.length
+  
+  if (length == 12 && str.substr(0, 4) == '9665'){
+    return parseInt(str.substr(0, 12))
+  } else if (length == 9 && str.charAt(0) == '5'){      
+    return parseInt('966' + str)
+  } 
+}
+
+
+
+// Section III: Events
 
 Template.login.events({
   'submit form': function(event) {
@@ -45,10 +72,13 @@ Template.signup.events({
     var firstNameVar = event.target.signupFirstName.value;
     var lastNameVar = event.target.signupLastName.value;
     var numberVar = event.target.signupNumber.value;
-    var pilotVar = event.target.signupPilot.value;
+    // var pilotVar = event.target.signupPilot.value;
 
-    // Checking if the pilot security code is correct
-    if (pilotVar == "alrashidpilot"){
+    // Checking if Phone number is valid
+    if (validPhone(numberVar)){
+      var number = formatNumber(numberVar)
+      console.log("number")
+      console.log(number)
       Accounts.createUser({
         email: emailVar,
         password: passwordVar
@@ -65,7 +95,7 @@ Template.signup.events({
             userId: Meteor.userId(),
             firstName: firstNameVar,
             lastName: lastNameVar,
-            phone: numberVar,
+            phone: number,
             balance: 0,
           }
           
@@ -89,7 +119,7 @@ Template.signup.events({
         }
       });
       } else {
-        Materialize.toast('Incorrect Pilot Code!', 1000)
+        Materialize.toast('Please input correct Saudi phone number. (Landlines are not included)', 1000)
       }
     }
   });

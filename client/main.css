@@ -104,11 +104,39 @@ a {
 }
 
 .logo {
-  width: 90px;
+  width: 60px;
   height: auto;
-  margin-top:5px;
-  margin-left:5px;
+  margin-top:10px;
+  margin-left:10px;
 }
+
+.landing-pic{
+  height:95vh;
+  width:auto;
+  min-height: 700px;
+}
+
+.landing-motto{
+  font-size: 40px;
+}
+
+.landing-info{
+  font-size: 20px;
+  color: grey;
+  
+}
+
+.landing-text{
+  margin-top: 10%;
+}
+
+/*.color-left{
+  background-color: red;
+}
+
+.color-right{
+  background-color: green;
+}*/
 
 .hidden {
   display: none;
