@@ -224,11 +224,11 @@
                 </li>
               {{/each}}
               <li>
-                <div class="collapsible-header">
+                <!-- <div class="collapsible-header">
                   <span class="left">Example</span>
                   <i class="material-icons right">mode_edit</i>
                   <span class="right">5 days</span>
-                </div>
+                </div> -->
                 <div class="collapsible-body">
                   <div class="row">
                     <!-- {{#autoForm collection="Favorites" doc=favorites id="updateKeyForm" type="update"}} -->
@@ -385,7 +385,7 @@
       </div>
     </div>
 
-    <div id="hist" class="card-scrollable col s12">
+    <div id="hist" class=" col scrollable-history s12">
       <div class="container col s12">
         <ul class="collapsible z-depth-0" data-collapsible="accordion">
           {{#each transaction in history customerId}}
@@ -402,16 +402,38 @@
               </li>
           {{/each}}
           <li>
-            <div class="collapsible-header">
-              <span class="left">Al Baik</span>
-              <span class="right">3 days ago</span>
-            </div>
-            <div class="collapsible-body">
-              <span class="left">٢ مسحب حراق</span>
-              <span class="right">SAR23.00</span>
-              <span> (cancelled)</span>
-            </div>
-          </li>
+                <div class="collapsible-header">
+                  <span class="left">Al Baik</span>
+                  <span class="right">3 days ago</span>
+                </div>
+                <div class="collapsible-body">
+                  <span class="left">٢ مسحب حراق</span>
+                  <span class="right">SAR23.00</span>
+                  <span> (cancelled)</span>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">
+                  <span class="left">Jarir Book Store</span>
+                  <span class="right">5 days ago</span>
+                </div>
+                <div class="collapsible-body">
+                  <span class="left">2 Five Star Grid Notebooks</span>
+                  <span class="right">SAR50.00</span>
+                  <span> (done)</span>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">
+                  <span class="left">Transportation: Careem</span>
+                  <span class="right">6 days ago</span>
+                </div>
+                <div class="collapsible-body">
+                  <span class="left">From your house to your office</span>
+                  <span class="right">SAR20.00</span>
+                  <span> (done)</span>
+                </div>
+              </li>
         </ul>
       </div>
     </div>
@@ -524,11 +546,87 @@
 </template>
 
 <template name="apiCard">
-  <div class="row no-bottom-margin">
+  <div class=" no-bottom-margin ellipsis">
     <div class="col s12 operator-dash-title valign-wrapper">
       <div class="auto-width center-align ellipsis">SERVICES</div>
     </div>
     <div class="col s12 divider "></div>
+    <div class="col s12">
+      <div class="scrollable-api ">
+        <div class="col s6 ">
+          <div class="card cyan lighten-3 z-depth-0 ">
+            <div class="card-content white-text hoverable row ">
+              <i class="material-icons small right">flight</i>
+              <span class="card-title ellipsis">  Flights</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card orange lighten-3 z-depth-0">
+            <div class="card-content white-text hoverable row">
+              <i class="material-icons small right">shopping_cart</i>
+              <span class="card-title ellipsis">Food Delivery</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card green lighten-3 z-depth-0 ">
+            <div class="card-content white-text hoverable row">
+              <i class="material-icons small right ">hotel</i>
+              <span class="card-title ellipsis ">Hotels</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card blue lighten-3 z-depth-0">
+            <div class="card-content white-text row hoverable">
+              <i class="material-icons small right">directions_car</i>
+              <span class="card-title ellipsis ">Transportation</span>
+            </div>
+          </div>
+        </div>
+         <div class="col s6 ">
+          <div class="card blue-grey lighten-3 z-depth-0">
+            <div class="card-content white-text hoverable row">
+              <i class="material-icons small right">local_shipping</i>
+              <span class="card-title ellipsis">Shipment</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card yellow lighten-3 darken-1 z-depth-0">
+            <div class="card-content white-text row hoverable">
+              <i class="material-icons small right">motorcycle</i>
+              <span class="card-title ellipsis">Delivery</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card purple lighten-3 z-depth-0">
+            <div class="card-content white-text hoverable row">
+              <i class="material-icons small right">event</i>
+              <span class="card-title ellipsis">Events/Tickets</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card indigo lighten-3 z-depth-0">
+            <div class="card-content white-text hoverable row">
+              <i class="material-icons small right">info_outline</i>
+              <span class="card-title ellipsis">General Info</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card deep-orange lighten-3 z-depth-0">
+            <div class="card-content white-text hoverable row">
+              <i class="material-icons small right">report_problem</i>
+              <span class="card-title ellipsis">Other/Issues</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
   </div>
 </template>
 

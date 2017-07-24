@@ -31,7 +31,7 @@ function getParameterByName(name, url) {
 var sendTextRegistrationLink = function(recipientPhone){
   var request = require('request');
 
-  var txt = "To start  using Tamerny please activate your number by registering through this link (LINK)"
+  var txt = "Hey there! To start using Tamerny please reply with your first name, last name, and email in this order or register through www.Tamerny.com"
   request({
     method: 'POST',
     url: 'http://api.unifonic.com/rest/Messages/Send',
