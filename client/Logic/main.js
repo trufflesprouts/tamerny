@@ -1,7 +1,7 @@
 
 /*
-This client side JS file contains Global Helpers/Functions along 
-with AutoForm manual validations and the logic for MainLayout.html which 
+This client side JS file contains Global Helpers/Functions along
+with AutoForm manual validations and the logic for MainLayout.html which
 is the mother of all other html pages
 
 Templates:
@@ -117,6 +117,15 @@ AutoForm.hooks({
     },
   },
 
+  favoritesUpdateForm: {
+    onError: function(formType, error) {
+      Materialize.toast(error, 1000)
+    },
+    onSuccess: function(formType,error) {
+      Materialize.toast('a favorite was successfully updated!', 1000)
+    }
+  }
+
 });
 
 
@@ -137,10 +146,10 @@ function updateTopUp(status, id, amount){
 
 // Section IIII: Global Helpers
 
-/* 
-This global helper returns the a secure CustomerID to be used in the operator dahsboard. 
-If the customerID is incorrect (if the specified customer is not paired to the operator), 
-then this helper will redirects the operator to a safe landing page 
+/*
+This global helper returns the a secure CustomerID to be used in the operator dahsboard.
+If the customerID is incorrect (if the specified customer is not paired to the operator),
+then this helper will redirects the operator to a safe landing page
 */
 
 Template.registerHelper( 'SecureDashboardLink', () => {
@@ -153,7 +162,7 @@ Template.registerHelper( 'SecureDashboardLink', () => {
   {
 
     var safe = false;
-    /*  Checking if the CustomerID in the URL is that of a 
+    /*  Checking if the CustomerID in the URL is that of a
     // Customer who is actually paired with the operator */
     for (var i = customersCount - 1; i >= 0; i--) {
       if (operatorCustomers[i] == customerId){
@@ -263,4 +272,3 @@ Meteor.ClientCall.methods({
 
 AutoForm.debug();
 SimpleSchema.debug = true;
-
