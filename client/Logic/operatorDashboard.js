@@ -155,11 +155,15 @@ Template.userInfoCard.events({
     Meteor.call('addFavorite', this.customerId, txt);
   },
   'click .editFavorite' (){
+    var oldkeyword = document.getElementById('key').getAttribute('value');
     var newkeyword = document.getElementById('key_word').value;
-    Meteor.call('editFavorite', this.customerId, "test", newkeyword);
+    console.log(oldkeyword + '-' + newkeyword)
+    Meteor.call('editFavorite', this.customerId, oldkeyword, newkeyword);
   },
   'click .deleteFavorite' (){
-    Meteor.call('deleteFavorite', this.customerId, "test");
+    var oldkeyword = document.getElementById('key').getAttribute('value');
+    console.log(oldkeyword)
+    Meteor.call('deleteFavorite', this.customerId, oldkeyword);
   },
   'click .addAddress' (){
     event.preventDefault();
@@ -175,14 +179,15 @@ Template.userInfoCard.events({
   'click .editAddress' (){
     event.preventDefault();
     //use AutoForm instead
-    var title = document.getElementById('title').value;
+    var title = document.getElementById('title').getAttribute('value');
     var line1 = document.getElementById('line1').value;
     var line2 = document.getElementById('line2').value;
     var city = document.getElementById('city').value;
     var prov = document.getElementById('province').value;
     var zip = document.getElementById('zipcode').value;
-    Meteor.call('editAddress', this.customerId, "test", 12345, line1, line2, city, prov, zip);
-    $('#editAddress-1').modal('close');
+    console.log(title)
+    Meteor.call('editAddress', this.customerId, title, line1, line2, city, prov, zip);
+    $('#editAddress-' + title).modal('close');
   }
 })
 
