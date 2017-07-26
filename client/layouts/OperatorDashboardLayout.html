@@ -201,12 +201,13 @@
                 <li>
                   <div class="collapsible-header">
                     <span class="left">{{favorite.keyWord}}</span>
-                    <i class="material-icons right">mode_edit</i>
+                    <a href="#key-{{favorite.keyWord}}"><i class="material-icons right">mode_edit</i></a>
                     <span class="right">{{since favorite.time}}</span>
                   </div>
-                  <div class="collapsible-body">
+                  <div id="key-{{favorite.keyWord}}" class="collapsible-body">
+                    <div id="key" value="{{favorite.keyWord}}"></div>
                     <div class="row">
-                      <!-- {{#autoForm collection="Favorites" id="updateKeyForm" type="update"}} -->
+                      <!-- {{#autoForm collection="Favorites" id="favoritesUpdateForm" type="update"}} -->
                         <div class="container center">
                           <div class="input-field col s12">
                             <!-- {{>afFieldInput name="keyWord" id="keyWord" type="text"}} -->
@@ -240,8 +241,8 @@
                         </div>
 
                         <br>
-                        <button type="submit" class=" col s4 btn left btn-primary ">Change</button>
-                        <button type="submit" class=" col s4 btn right btn-primary ">Delete</button>
+                        <button type="submit" class="editFavorite col s4 btn left btn-primary ">Change</button>
+                        <button type="submit" class="deleteFavorite col s4 btn right btn-primary ">Delete</button>
                       </div>
                     <!-- {{/autoForm}} -->
                   </div>
@@ -253,7 +254,7 @@
             <ul class="collapsible z-depth-0" data-collapsible="accordion">
               {{#each address in addresses customerId}}
                 <li>
-                  <div class="collapsible-header">{{address.title}}<span class="right"><a href="#editAddress-1"><i class="material-icons right">mode_edit</i></a></span></div>
+                  <div class="collapsible-header">{{address.title}}<span class="right"><a href="#editAddress-{{address.title}}"><i class="material-icons right">mode_edit</i></a></span></div>
                   <div class="collapsible-body">
                     <span class="left">{{address.line1}}</span><br>
                     <span class="left">{{address.line2}}</span><br>
@@ -262,7 +263,7 @@
                 </li>
               {{/each}}
               <li>
-                <div class="collapsible-header">US<span class="right"><a href="#editAddress"><i class="material-icons right">mode_edit</i></a></span></div>
+                <div class="collapsible-header">US<span class="right"><a href="#editAddress-example"><i class="material-icons right">mode_edit</i></a></span></div>
                 <div class="collapsible-body">
                   <span class="left">1401 College Ave.</span><br>
                   <span class="left">Apt. E304</span><br>
@@ -281,8 +282,11 @@
 
     <!-- Modals -->
     {{#each address in addresses customerId}}
-    <div id="editAddress-1" class="modal">
+    <div id="editAddress-{{address.title}}" class="modal">
       <div class="modal-content">
+        <div class="row">
+          <h4 id="title" value="{{address.title}}">{{address.title}}</h4>
+        </div>
         <div class="row">
           <div class="input-field col s12">
             <input value="{{address.line1}}" id="line1" type="text" class="validate">
@@ -309,12 +313,12 @@
             <label class="active" for="zipcode">Zip Code</label>
           </div>
         </div>
-        <center><a class="waves-effect waves-light btn"><input type="submit" value="Save"></a></center>
+        <center><a class="editAddress waves-effect waves-light btn"><input type="submit" value="Save"></a></center>
       </div>
     </div>
     {{/each}}
 
-    <div id="editAddress" class="modal">
+    <div id="editAddress-example" class="modal">
       <div class="modal-content">
         <div class="row">
           <div class="input-field col s12">
