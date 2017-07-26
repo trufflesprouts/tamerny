@@ -81,7 +81,7 @@ Meteor.methods({
   },
   updateBalance: function(amount){
     var uId = Meteor.userId();
-  	UserProfiles.update({userId: uId}, {$set: {balance: amount}});
+  	UserProfiles.update({userId: uId}, {$set: {balance: amount}},false,true);
   },
   fetchUsers: function(){
     var waitingUsers = WaitingUsers.find().limit(3);
@@ -162,6 +162,7 @@ Meteor.methods({
 // Add user role if user profile has been created
 UserProfiles.before.insert(function (userId, doc) {
   doc.roles = ["user"];
+  doc.balance = 0;
 });
 
 // Creat Chat History Collection
