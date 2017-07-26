@@ -83,6 +83,10 @@ Meteor.methods({
     var uId = Meteor.userId();
   	UserProfiles.update({userId: uId}, {$set: {balance: amount}},false,true);
   },
+  addTransaction: function(title, amount, desc, status){
+    var uId = Meteor.userId();
+    History.update({userId: uId},{$push: {transactions: {"title": title, "description": desc, time: new Date(), "price": amount, "status": status}}})
+  },
   fetchUsers: function(){
     var waitingUsers = WaitingUsers.find().limit(3);
     do {

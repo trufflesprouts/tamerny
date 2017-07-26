@@ -53,11 +53,10 @@ AutoForm.hooks({
         .then( function(payment){
 
           console.log("payment status")
-          console.log(payment)
           if (payment.status == "paid"){
             console.log("accepted")
              correct = true;
-             updateTopUp(true, doc.id, doc.amount)
+             updateTopUp(true, doc.id, doc.amount, payment.source.company + " " + payment.source.number)
            }
         });
 
@@ -179,7 +178,7 @@ function formatNumber(phoneNumber){
   }
 }
 
-function updateTopUp(status, id, amount){
+function updateTopUp(status, id, amount, desc){
   console.log('top up called at client (' + status + ',' + id + ',' + amount + ')')
   if (correct == false){
     TopUp.remove({_id: id});
@@ -187,6 +186,7 @@ function updateTopUp(status, id, amount){
     var user = UserProfiles.findOne({userId: Meteor.userId()});
     var newbalance = amount + user.balance;
     Meteor.call('updateBalance', newbalance);
+    Meteor.call('addTransaction', "Top Up", amount, desc, "accepted");
   }
 }
 
