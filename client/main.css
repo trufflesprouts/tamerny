@@ -13,6 +13,20 @@ a {
   color: inherit; 
 } 
 
+nav {
+  height: 50px;
+  line-height: 50px;
+}
+
+/*.tabs {
+  height: 35px;
+}*/
+
+.nav {
+  height: 50px;
+  line-height: 50px;
+}
+
 .no-right-pad{
   padding-right: 0;
 }
@@ -120,7 +134,7 @@ a {
 .logo {
   width: 60px;
   height: auto;
-  margin-top:10px;
+  margin-top:5px;
   margin-left:10px;
 }
 

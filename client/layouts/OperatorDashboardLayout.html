@@ -197,10 +197,11 @@
                 <li>
                   <div class="collapsible-header">
                     <span class="left">{{favorite.keyWord}}</span>
-                    <i class="material-icons right">mode_edit</i>
+                    <a href="#key-{{favorite.keyWord}}"><i class="material-icons right">mode_edit</i></a>
                     <span class="right">{{since favorite.time}}</span>
                   </div>
-                  <div class="collapsible-body">
+                  <div id="key-{{favorite.keyWord}}" class="collapsible-body">
+                    <div id="key" value="{{favorite.keyWord}}"></div>
                     <div class="row">
                         <div class="container center">
                           <div class="input-field col s12">
@@ -224,8 +225,8 @@
                           <label class="active">Key Word</label>
                         </div>
                         <br>
-                        <button type="submit" class=" col s4 btn left btn-primary ">Change</button>
-                        <button type="submit" class=" col s4 btn right btn-primary ">Delete</button>
+                        <button type="submit" class="editFavorite col s4 btn left btn-primary ">Change</button>
+                        <button type="submit" class="deleteFavorite col s4 btn right btn-primary ">Delete</button>
                       </div>
                   </div>
                 </div>
@@ -246,10 +247,11 @@
               {{#each address in addresses customerId}}
                 
                 <li>
-                  <div class="collapsible-header">{{address.title}}<i class="material-icons right">expand_more</i></div>
-                  <div class="collapsible-body">
-                    <a href="#editAddress"><i class="material-icons Small right">mode_edit</i></a>
-                    <!-- <a href={{correctAddress address.title}} title={{address.title}}><i class="material-icons Small right">mode_edit</i></a> -->
+                 <a href={{addquery address.title}} class="collapsible-header"> 
+                    {{address.title}}<i class="material-icons right">expand_more</i>
+                </a>
+                  <div class="collapsible-body">        
+                    <a href="#editAddress" ><i class="material-icons Small right">mode_edit</i></a>
                     <span class="left">{{address.line1}}</span><br>
                     {{# if notEmpty address.line2}}
                       <span class="left">{{address.line2}}</span><br>
@@ -260,12 +262,14 @@
               {{/each}}
             </ul>
         </div>
+
       </div>
     </div>
 
+    <!-- Edit an Address -->
     <div id="editAddress" class="modal">
       <div class="modal-content">
-        {{> editAddress}}
+        {{> editAddress }}
       </div>
     </div>
 
@@ -296,16 +300,16 @@
         </ul>
       </div>
     </div>
-
   </div>
 </template>
 
 <template name="addAddress">
   <div class="row">
-    <div class="input-field col s5">
+    <div class="input-field col s6">
       <input Placeholder="Ex. Jeddah Office" id="addtitle" type="text" class="validate">
       <label class="active" for="title">Title</label>
     </div>
+    <div class="input-field col s6"><i class="add-close-modal material-icons Small right">clear</i></div>
   </div>
   <div class="row">
     <div class="input-field col s12">
@@ -333,119 +337,64 @@
       <label class="active" for="zipcode">Zip Code</label>
     </div>
   </div>
+
   <center><a class="addAddress waves-effect waves-light btn"><input type="submit" value="Add"></a></center>
 </template>
 
 <template name="editAddress">
 
-        <!-- {{index}} -->
-        Edit Address Modal
-
-  {{#autoForm collection="Addresses" doc=addressEdit id="updateAddress" type="update" setArrayItems=true}}
-    {{> afArrayField name='address' template='customArrayField'}} 
-    <!-- <div class="row">
-      <div class="input-field col s12">
-        {{>afFieldInput name="address.0.title" id="title" type="text"}}
+{{#with addressEdit}}
+  {{#autoForm collection="Addresses" doc=this id="updateAddress" type="update" setArrayItems=true}}
+    {{#with specificAddress this editTitle}}
+    <div class="row">
+      <div class="input-field col s6">
+        {{>afFieldInput name=this.title id="title" type="text"}}
         <label class="active" for="title">Title</label>
       </div>
+      <div class="input-field col s6"><i class="edit-close-modal material-icons Small right">clear</i></div>
     </div>
 
     <div class="row">
       <div class="input-field col s12">
-        {{>afFieldInput name="address.0.line1" id="line1" type="text"}}
+        {{>afFieldInput name=this.line1 id="line1" type="text"}}
         <label class="active" for="line1">Line 1</label>
       </div>
     </div>
     
     <div class="row">
       <div class="input-field col s12">
-        {{>afFieldInput name="address.0.line2" id="line2" type="text"}}
+        {{>afFieldInput name=this.line2 id="line2" type="text"}}
         <label class="active" for="line2">Line 2</label>
       </div>
     </div>
     
     <div class="row">
       <div class="input-field col s5">
-        {{>afFieldInput name="address.0.city" id="city" type="text"}}
+        {{>afFieldInput name=this.city id="city" type="text"}}
         <label class="active" for="city">City</label>
       </div>
       <div class="input-field col s5">
-        {{>afFieldInput name="address.0.province" id="province" type="text"}}
+        {{>afFieldInput name=this.province id="province" type="text"}}
         <label class="active" for="province">Province</label>
       </div>
       <div class="input-field col s2">
-        {{>afFieldInput name="address.0.zipCode" id="zipCode" type="number"}}
+        {{>afFieldInput name=this.zipCode id="zipCode" type="number"}}
         <label class="active" for="zipcode">Zip Code</label>
       </div>
-    </div> -->
-
-      <button type="submit" class=" col s12 btn center btn-primary ">Change</button>
-
-    {{/autoForm}}
-</template>
-
-<template name="afArrayField_customArrayField">
-  {{#if afFieldIsInvalid name=atts.name}}
-    <span>{{{afFieldMessage name=atts.name}}}</span>
-  {{/if}}
-  <div class="card grey lighten-5 z-depth-0">
-    <div class="card-content">
-      {{#afEachArrayItem name=atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
-
-        {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
-          <span class="autoform-remove-item"><i class="material-icons right">close</i></span>
-        {{/if}}
-        {{> UI.dynamic template=../atts.name}}
-
-      {{/afEachArrayItem}}
-   </div>
-  {{#if afArrayFieldHasLessThanMaximum name=atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
-    <center>
-      <button
-        type="button"
-        class="add-btn autoform-add-item grey lighten-1"
-        data-autoform-field="{{atts.name}}"
-        data-autoform-minCount="{{atts.minCount}}"
-        data-autoform-maxCount="{{atts.maxCount}}">
-          Add {{add_title atts.name}}
-      </button>
-    </center>
-  {{/if}}
-  </div>
-</template>
-
-<!-- <template name="afArrayField_customArrayField">
-    <h3>{{afFieldLabelText name=this.atts.name}}</h3>
-
-    {{#if afFieldIsInvalid name=this.atts.name}}
-        <h4 class="text-danger">{{{afFieldMessage name=this.atts.name}}}</h4>
-    {{/if}}
-
-    {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
-
-        {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
-            <button type="button" class="btn btn-primary autoform-remove-item pull-left"><span class="glyphicon glyphicon-minus"></span></button>
-        {{/if}}
-
-        {{> afObjectField name=this.name label=false template='customObjectField'}}
-
-    {{/afEachArrayItem}}
-
-    {{#if afArrayFieldHasLessThanMaximum name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
-        <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="{{this.atts.name}}" data-autoform-minCount="{{this.atts.minCount}}" data-autoform-maxCount="{{this.atts.maxCount}}"><span class="glyphicon glyphicon-plus"></span></button>
-    {{/if}}
-</template> -->
-
-<template name="addressCollapsable">
-  <li>
-    <div class="collapsible-header">{{addressCollapsable.title}}<span class="right"><a href="#editAddress"><i class="material-icons right">mode_edit</i></a></span></div>
-    <div class="collapsible-body">
-      <span class="left">1401 College Ave.</span><br>
-      <span class="left">Apt. E304</span><br>
-      <span class="left">Manhattan, KS 66502</span>
     </div>
-  </li>
+
+    <center>
+      <div class="row">
+        <button type="submit" class="delete-address btn center btn-primary red lighten-1">Delete</button>
+        <button type="submit" class=" btn  btn-primary ">Change</button>
+      </div>
+    </center>
+
+{{/with}}
+    {{/autoForm}}
+    {{/with}}
 </template>
+
 
 <template name="userChatCard">
 
@@ -518,8 +467,7 @@
       </div>
     </div>
   {{/with}}
-<!--   <button onclick="scrollToBottom()">Scroll contents of div</button>
- --></template>
+</template>
 
 <template name="user">
   <div class="col s7">

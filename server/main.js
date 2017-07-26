@@ -75,9 +75,12 @@ Meteor.methods({
     console.log('addAddress called from server to add ' + title)
     Addresses.update({userId : customerId},{$push: {address: {"title": title, "line1": line1, "line2": line2, "city": city, province: prov, zipCode: zip}}});
   },
-  editAddress: function(customerId, oldtitle, oldzip, line1, line2, city, prov, zip){
-    console.log('addAddress called from server to edit ' + oldtitle)
-    Addresses.update({userId: customerId, "address.title": oldtitle, "address.zipCode": oldzip},{$set: {"address.$.title": oldtitle, "address.$.line1": line1, "address.$.line2": line2, "address.$.city": city, "address.$.province": prov, "address.$.zipCode": zip}},false,true);
+  editAddress: function(customerId, oldtitle, line1, line2, city, prov, zip){
+    Addresses.update({userId: customerId, "address.title": oldtitle}, {$set: {"address.$": {"title": oldtitle, "line1": line1, "line2": line2, "city":city, "province": prov, "zipCode":zip}}});
+  },
+  deleteAddress: function(customerId, title){
+    Addresses.update({userId : customerId},{$pull: {"address" : {"title": title}}});
+
   },
   updateBalance: function(amount){
     var uId = Meteor.userId();

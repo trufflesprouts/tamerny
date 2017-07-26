@@ -18,6 +18,7 @@ Templates:
 
 // Section I: Import Collections from MongoDB
 
+import { Session } from 'meteor/session'
 import { UserProfiles } from '../../collections/userProfiles.js'
 import { OperatorProfile } from '../../collections/operatorProfile.js'
 import { Chats } from '../../collections/chats.js'
@@ -80,6 +81,26 @@ Template.userInfoCard.onRendered(function () {
 
 
 // Section III: Events
+
+Template.editAddress.events({
+  'click .delete-address':function(){
+    event.preventDefault();
+    var title = FlowRouter.getQueryParam('editAddress');
+    var customerId = FlowRouter.getParam('customer');
+    Meteor.call('deleteAddress', customerId, title, 
+      function(error, result){
+        if (error == undefined){
+          $('#editAddress').modal('close');
+          Materialize.toast("You have deleted an address", 4000)
+        } else {
+          Materialize.toast("Shoot, couldn't delete the address", 4000)
+        }  
+      });
+  },
+  'click .edit-close-modal': function(){
+    $('#editAddress').modal('close');
+  }
+})
 
 Template.userChatCard.events({
   'click .send-txt':function(){
@@ -147,23 +168,27 @@ Template.userInfoCard.events({
     Meteor.call('addFavorite', this.customerId, txt);
   },
   'click .editFavorite' (){
+    var oldkeyword = document.getElementById('key').getAttribute('value');
     var newkeyword = document.getElementById('key_word').value;
-    Meteor.call('editFavorite', this.customerId, "test", newkeyword);
+    console.log(oldkeyword + '-' + newkeyword)
+    Meteor.call('editFavorite', this.customerId, oldkeyword, newkeyword);
   },
   'click .deleteFavorite' (){
-    Meteor.call('deleteFavorite', this.customerId, "test");
+    var oldkeyword = document.getElementById('key').getAttribute('value');
+    console.log(oldkeyword)
+    Meteor.call('deleteFavorite', this.customerId, oldkeyword);
   },
-  'click .editAddress' (){
-    event.preventDefault();
-    //use AutoForm instead
-    var title = document.getElementById('title').value;
-    var line1 = document.getElementById('line1').value;
-    var line2 = document.getElementById('line2').value;
-    var city = document.getElementById('city').value;
-    var prov = document.getElementById('province').value;
-    var zip = document.getElementById('zipcode').value;
-    Meteor.call('editAddress', this.customerId, "test", 12345, line1, line2, city, prov, zip);
-    $('#editAddress-1').modal('close');
+  'click .set_title_session' (){
+    var title = document.getElementById('address_to_edit').value;
+    console.log("title session to edit")
+    console.log(title)
+    
+    Session.set({
+      address_title: title
+    });
+
+    console.log("From session")
+    console.log(Session.get('address_title'))
   }
 })
 
@@ -184,6 +209,12 @@ Template.addAddress.events({
         function(error, result) {
           if (error == undefined) {
             $('#addAddress').modal('close');
+            $('#addline1').val('') // Clear texting form
+            $('#addline2').val('') // Clear texting form
+            $('#addcity').val('') // Clear texting form
+            $('#addprovince').val('') // Clear texting form
+            $('#addzipcode').val('') // Clear texting form
+            $('#addtitle').val('') // Clear texting form
             Materialize.toast("You've added a new address!", 4000)
           } 
           else {
@@ -192,6 +223,9 @@ Template.addAddress.events({
       })
     }    
   },
+  'click .add-close-modal': function(){
+    $('#addAddress').modal('close');
+  }
 })
 
 
@@ -301,18 +335,9 @@ Template.userInfoCard.helpers({
     else
       return false
   },
-  addressEdit(){
-    // console.log("Getting Address")
-    // console.log($(this).attr('data-value'))
-    var customerId = FlowRouter.getParam('customer');
-    var addresses = Addresses.findOne({userId: customerId})
-    return addresses
-  },
-  // correctAddress(title){
-
-  //   var link = "#editAddress" + title
-  //   return link
-  // }
+  addquery(title){
+    return "?editAddress="+title
+  }
 });
 
 Template.user.helpers({
@@ -333,3 +358,38 @@ Template.userChatCard.helpers({
     return chatHist
   }
 })
+
+Template.editAddress.helpers({
+    addressEdit(){
+    var customerId = FlowRouter.getParam('customer');
+    var address = Addresses.findOne({userId: customerId})
+    return address
+  },
+  specificAddress(doc, title){
+    var addresses = doc.address
+    for (var i = 0; i < addresses.length; i++) {
+      if (addresses[i].title == title){
+        var init = "address." + i +"."
+        var loc = { title: init+'title', line1: init+'line1', line2: init+'line2', city: init+'city', province: init+'province', zipCode: init+'zipCode'}
+        return loc
+        break;
+      }
+    }
+  },
+  editTitle(){
+    var title = FlowRouter.getQueryParam('editAddress');
+    return title
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+

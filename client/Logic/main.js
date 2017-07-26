@@ -1,7 +1,7 @@
 
 /*
-This client side JS file contains Global Helpers/Functions along 
-with AutoForm manual validations and the logic for MainLayout.html which 
+This client side JS file contains Global Helpers/Functions along
+with AutoForm manual validations and the logic for MainLayout.html which
 is the mother of all other html pages
 
 Templates:
@@ -17,11 +17,14 @@ import { UserProfiles } from '../../collections/userProfiles.js'
 import { TopUp } from '../../collections/topup.js'
 import { OperatorProfile } from '../../collections/operatorProfile.js'
 import { Pairings } from '../../collections/pairedUsers.js'
+import { Addresses } from '../../collections/addresses.js'
 
 window.UserProfiles = UserProfiles
 window.TopUp = TopUp
 window.OperatorProfile = OperatorProfile
 window.Pairings = Pairings
+window.Addresses = Addresses
+
 
 
 
@@ -65,46 +68,46 @@ AutoForm.hooks({
           return doc;
       },
       onError: function(formType, error) {
-        Materialize.toast(error, 1000)
+        Materialize.toast(error, 4000)
       },
     },
   },
 
   userUpdateForm: {
     onError: function(formType, error) {
-      Materialize.toast(error, 1000)
+      Materialize.toast(error, 4000)
     }
   },
 
   upsertOperatorForm: {
     onError: function(formType, error) {
-      Materialize.toast(error, 1000)
+      Materialize.toast(error, 4000)
     }
   },
 
   updatePaymentForm: {
     onError: function(formType, error) {
-      Materialize.toast(error, 1000)
+      Materialize.toast(error, 4000)
     }
   },
 
   profileOperatorUpdate: {
     onSuccess: function(formType, result) {
-      Materialize.toast("Perfect, your information was updated!", 1000)
+      Materialize.toast("Perfect, your information was updated!", 4000)
     },
 
     onError: function(formType, error) {
-      Materialize.toast(error, 1000)
+      Materialize.toast(error, 4000)
     } ,
 
   },
 
   updateOperatorForm: {
     onError: function(formType, error) {
-      Materialize.toast(error, 1000)
+      Materialize.toast(error, 4000)
     },
     onSuccess: function(formType, result) {
-      Materialize.toast("Perfect, your information was updated!", 1000)
+      Materialize.toast("Perfect, your information was updated!", 4000)
     },
   },
 
@@ -113,8 +116,31 @@ AutoForm.hooks({
       Materialize.toast(error, 1000)
     },
     onSuccess: function(formType, result) {
-      Materialize.toast("Perfect, your information was updated!", 1000)
+      Materialize.toast("Perfect, your information was updated!", 4000)
     },
+  },
+
+  updateAddress: {
+    onError: function(formType, error) {
+      Materialize.toast(error, 1000)
+    },
+    onSuccess: function(formType, result) {
+     Materialize.toast("Perfect, you've edited an address!", 4000)
+     $('#editAddress').modal('close');
+    },
+    /*  Ensures that edit button in the edit address 
+        collapsable opens the correct modal once the first 
+        update is done without a new page render  */
+    formToModifier: function(modifier) {      
+      var mod = modifier['$set'];
+      var arr = Object.values(mod);
+      
+      if (Object.keys(modifier).length == 1)
+        FlowRouter.setQueryParams({editAddress: arr[0]})
+
+      return modifier
+  },
+
   },
 
   updatePhoneForm: {
@@ -123,8 +149,6 @@ AutoForm.hooks({
         console.log("geeting phone")
         console.log(doc)
         if (doc.$set != undefined){
-
-
 
         var phone = doc.$set.phone
 
@@ -135,10 +159,10 @@ AutoForm.hooks({
         } else {
           Materialize.toast("The new phone number is incorrect. Please enter a Saudi number", 1000)
           return false;
-        } 
+        }
         } else{
           Materialize.toast("Phone is made up of digits with no empty spaced", 1000)
-        } 
+        }
       }
     },
     onError: function(formType, error) {
@@ -149,6 +173,14 @@ AutoForm.hooks({
     },
   },
 
+  favoritesUpdateForm: {
+    onError: function(formType, error) {
+      Materialize.toast(error, 1000)
+    },
+    onSuccess: function(formType,error) {
+      Materialize.toast('a favorite was successfully updated!', 1000)
+    }
+  }
 });
 
 
@@ -161,7 +193,7 @@ function validPhone(phoneNumber){
   var length = phoneNumber.length
   if (length == 12 && str.substr(0, 4) == '9665'){
     return true
-  } else if (length == 9 && str.charAt(0) == '5'){      
+  } else if (length == 9 && str.charAt(0) == '5'){
     return true
   } else {
     return false
@@ -171,12 +203,12 @@ function validPhone(phoneNumber){
 function formatNumber(phoneNumber){
   var str = phoneNumber.toString();
   var length = str.length
-  
+
   if (length == 12 && str.substr(0, 4) == '9665'){
     return parseInt(str.substr(0, 12))
-  } else if (length == 9 && str.charAt(0) == '5'){      
+  } else if (length == 9 && str.charAt(0) == '5'){
     return parseInt('966' + str)
-  } 
+  }
 }
 
 function updateTopUp(status, id, amount){
@@ -193,10 +225,10 @@ function updateTopUp(status, id, amount){
 
 // Section IIII: Global Helpers
 
-/* 
-This global helper returns the a secure CustomerID to be used in the operator dahsboard. 
-If the customerID is incorrect (if the specified customer is not paired to the operator), 
-then this helper will redirects the operator to a safe landing page 
+/*
+This global helper returns the a secure CustomerID to be used in the operator dahsboard.
+If the customerID is incorrect (if the specified customer is not paired to the operator),
+then this helper will redirects the operator to a safe landing page
 */
 
 Template.registerHelper( 'SecureDashboardLink', () => {
@@ -209,7 +241,7 @@ Template.registerHelper( 'SecureDashboardLink', () => {
   {
 
     var safe = false;
-    /*  Checking if the CustomerID in the URL is that of a 
+    /*  Checking if the CustomerID in the URL is that of a
     // Customer who is actually paired with the operator */
     for (var i = customersCount - 1; i >= 0; i--) {
       if (operatorCustomers[i] == customerId){
@@ -319,4 +351,3 @@ Meteor.ClientCall.methods({
 
 AutoForm.debug();
 SimpleSchema.debug = true;
-

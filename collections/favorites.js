@@ -12,7 +12,13 @@ KeySchema = new SimpleSchema({
   time: {
     type: Date,
     label: "Time",
-    optional: false
+    optional: false,
+    autoform: {
+      type: "hidden"
+    },
+    autoValue: function(){
+      return new Date();
+    }
   }
 });
 
@@ -20,7 +26,10 @@ FavoritesSchema = new SimpleSchema({
   userId: {
     type: String,
     label: "User ID",
-    optional: true
+    optional: true,
+    autoform: {
+      type: "hidden"
+    }
   },
 
   key: {
