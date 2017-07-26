@@ -5,8 +5,9 @@ export const Addresses = new Mongo.Collection('addresses');
 AddressSchema = new SimpleSchema({
   title: {
     type: String,
-    label: "Label",
-    optional: true
+    label: "Title",
+    optional: false,
+    unique: true
   },
 
   line1: {
@@ -44,7 +45,8 @@ AddressesSchema = new SimpleSchema({
   userId: {
     type: String,
     label: "User ID",
-    optional: true
+    optional: true,
+    unique: true
   },
 
   address: {

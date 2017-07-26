@@ -32,20 +32,12 @@ window.OperatorProfile = OperatorProfile
 window.Chats = Chats
 window.Pairings = Pairings
 window.WaitingUsers = WaitingUsers
+window.Addresses = Addresses
+
 
 
 
 // Section II: onRendered
-
-// AutoForm.hooks({
-//   updateKeyForm: {
-//     before: {
-//       update: function(doc) {
-//         var newkeyword = document.getElementById('key_word').value;
-//         Meteor.call('editFavorite', this.customerId, doc.keyWord, newkeyword);
-//     }
-//   }
-// });
 
 Template.OperatorDashboardLayout.onRendered(function () {
   var customerId = FlowRouter.getParam('customer');
@@ -161,17 +153,6 @@ Template.userInfoCard.events({
   'click .deleteFavorite' (){
     Meteor.call('deleteFavorite', this.customerId, "test");
   },
-  'click .addAddress' (){
-    event.preventDefault();
-    var title = document.getElementById('addtitle').value;
-    var line1 = document.getElementById('addline1').value;
-    var line2 = document.getElementById('addline2').value;
-    var city = document.getElementById('addcity').value;
-    var prov = document.getElementById('addprovince').value;
-    var zip = document.getElementById('addzipcode').value;
-    Meteor.call('addAddress', this.customerId, title, line1, line2, city, prov, zip);
-    $('#addAddress').modal('close');
-  },
   'click .editAddress' (){
     event.preventDefault();
     //use AutoForm instead
@@ -184,6 +165,33 @@ Template.userInfoCard.events({
     Meteor.call('editAddress', this.customerId, "test", 12345, line1, line2, city, prov, zip);
     $('#editAddress-1').modal('close');
   }
+})
+
+Template.addAddress.events({
+  'click .addAddress' (){
+    event.preventDefault();
+    var title = document.getElementById('addtitle').value;
+    var line1 = document.getElementById('addline1').value;
+    var line2 = document.getElementById('addline2').value;
+    var city = document.getElementById('addcity').value;
+    var prov = document.getElementById('addprovince').value;
+    var zip = document.getElementById('addzipcode').value;
+
+    if (!title || !line1 || !city || !prov){
+      Materialize.toast("Please fill in title, line1, city, province, and zip!", 4000) 
+    } else {
+        Meteor.call('addAddress', this.customerId, title, line1, line2, city, prov, zip, 
+        function(error, result) {
+          if (error == undefined) {
+            $('#addAddress').modal('close');
+            Materialize.toast("You've added a new address!", 4000)
+          } 
+          else {
+            Materialize.toast(error.reason, 4000)
+          }
+      })
+    }    
+  },
 })
 
 
@@ -286,7 +294,25 @@ Template.userInfoCard.helpers({
       var difference = parseInt(diff/(1000*60*60*24*365)) + "y"
     }
     return difference
-  }
+  },
+  notEmpty(variable){
+    if (variable != "")
+      return true
+    else
+      return false
+  },
+  addressEdit(){
+    // console.log("Getting Address")
+    // console.log($(this).attr('data-value'))
+    var customerId = FlowRouter.getParam('customer');
+    var addresses = Addresses.findOne({userId: customerId})
+    return addresses
+  },
+  // correctAddress(title){
+
+  //   var link = "#editAddress" + title
+  //   return link
+  // }
 });
 
 Template.user.helpers({

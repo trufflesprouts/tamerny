@@ -161,38 +161,34 @@
         <div id="account" class="col s12">
           {{#with userInfo customerId}}
           <div class="row">
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col s6">
-                  <input disabled value="{{this.firstName}}" id="first_name" type="text" class="validate">
-                  <label class="active" for="first_name">First Name</label>
-                </div>
-                <div class="input-field col s6">
-                  <input disabled value="{{this.lastName}}" id="last_name" type="text" class="validate">
-                  <label class="active" for="last_name">Last Name</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s6">
-                  <input disabled value="{{this.phone}}" id="phone" type="text" class="validate">
-                  <label class="active" for="phone">Phone</label>
-                </div>
-                <div class="input-field col s6">
-                  <input disabled value="{{this.balance}}" id="balance" type="text" class="validate">
-                  <label class="active" for="balance">Balance</label>
-                </div>
-              </div>
-            </form>
+            <div class="col s12">
+              <table class="bordered">
+                <tbody>
+                  <tr>
+                    <td>Name: </td>
+                    <td>{{this.firstName}} {{this.lastName}}</td>
+                  </tr>
+                  <tr>
+                    <td>Phone:</td>
+                    <td>{{this.phone}}</td>
+                  </tr>
+                  <tr>
+                    <td>Balance:</td>
+                    <td>{{this.balance}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           {{/with}}
         </div>
+
         <div id="favorites" class="card-scrollable col s12">
             <div class="row">
               <div class="input-field col s10">
                 <input id="favorite" placeholder="New Entry ..." type="text" class="validate" data-length="60">
               </div>
               <div class="col s2 ">
-                <!-- <button type="submit" class=" col s12 btn center btn-primary "></button> -->
                 <a class="addFavorite vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">playlist_add</i></a>
               </div>
             </div>
@@ -206,185 +202,81 @@
                   </div>
                   <div class="collapsible-body">
                     <div class="row">
-                      <!-- {{#autoForm collection="Favorites" id="updateKeyForm" type="update"}} -->
                         <div class="container center">
                           <div class="input-field col s12">
-                            <!-- {{>afFieldInput name="keyWord" id="keyWord" type="text"}} -->
                             <input value="{{favorite.keyWord}}" id="key_word" type="text" class="validate">
                             <label class="active">Key Word</label>
                           </div>
-
                           <br>
                           <button type="submit" class="editFavorite col s4 btn left btn-primary ">Change</button>
                           <button type="submit" class="deleteFavorite col s4 btn right btn-primary ">Delete</button>
                         </div>
-                      <!-- {{/autoForm}} -->
                     </div>
                   </div>
                 </li>
               {{/each}}
               <li>
-                <!-- <div class="collapsible-header">
-                  <span class="left">Example</span>
-                  <i class="material-icons right">mode_edit</i>
-                  <span class="right">5 days</span>
-                </div> -->
                 <div class="collapsible-body">
                   <div class="row">
-                    <!-- {{#autoForm collection="Favorites" doc=favorites id="updateKeyForm" type="update"}} -->
                       <div class="container center">
                         <div class="input-field col s12">
-                          <!-- {{>afFieldInput name="keyWord" id="keyWord" type="text"}} -->
                           <input value="example" id="key_word" type="text" class="validate">
                           <label class="active">Key Word</label>
                         </div>
-
                         <br>
                         <button type="submit" class=" col s4 btn left btn-primary ">Change</button>
                         <button type="submit" class=" col s4 btn right btn-primary ">Delete</button>
                       </div>
-                    <!-- {{/autoForm}} -->
                   </div>
                 </div>
               </li>
             </ul>
         </div>
+
         <div id="addresses" class="scrollable-info col s12">
+            <div class="row">
+              <div class="col s12 center-align">
+                <a class="vertical-center btn btn-floating waves-effect waves-light z-depth-1" href="#addAddress">
+                  <i class="material-icons">playlist_add</i>
+                </a>
+                Add an Address
+              </div>
+            </div>
             <ul class="collapsible z-depth-0" data-collapsible="accordion">
               {{#each address in addresses customerId}}
+                
                 <li>
-                  <div class="collapsible-header">{{address.title}}<span class="right"><a href="#editAddress-1"><i class="material-icons right">mode_edit</i></a></span></div>
+                  <div class="collapsible-header">{{address.title}}<i class="material-icons right">expand_more</i></div>
                   <div class="collapsible-body">
+                    <a href="#editAddress"><i class="material-icons Small right">mode_edit</i></a>
+                    <!-- <a href={{correctAddress address.title}} title={{address.title}}><i class="material-icons Small right">mode_edit</i></a> -->
                     <span class="left">{{address.line1}}</span><br>
-                    <span class="left">{{address.line2}}</span><br>
+                    {{# if notEmpty address.line2}}
+                      <span class="left">{{address.line2}}</span><br>
+                    {{/if}}
                     <span class="left">{{address.city}}, {{address.province}} {{address.zipCode}}</span>
                   </div>
                 </li>
               {{/each}}
-              <li>
-                <div class="collapsible-header">US<span class="right"><a href="#editAddress"><i class="material-icons right">mode_edit</i></a></span></div>
-                <div class="collapsible-body">
-                  <span class="left">1401 College Ave.</span><br>
-                  <span class="left">Apt. E304</span><br>
-                  <span class="left">Manhattan, KS 66502</span>
-                </div>
-              </li>
             </ul>
-            <div class="row">
-              <div class="col s12">
-                <a class="vertical-center btn btn-floating waves-effect waves-light z-depth-1" href="#addAddress"><i class="material-icons">playlist_add</i></a>
-              </div>
-            </div>
         </div>
       </div>
     </div>
-
-    <!-- Modals -->
-    {{#each address in addresses customerId}}
-    <div id="editAddress-1" class="modal">
-      <div class="modal-content">
-        <div class="row">
-          <div class="input-field col s12">
-            <input value="{{address.line1}}" id="line1" type="text" class="validate">
-            <label class="active" for="line1">Line 1</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input value="{{address.line2}}" id="line2" type="text" class="validate">
-            <label class="active" for="line2">Line 2</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s5">
-            <input value="{{address.city}}" id="city" type="text" class="validate">
-            <label class="active" for="city">City</label>
-          </div>
-          <div class="input-field col s5">
-            <input value="{{address.province}}" id="province" type="text" class="validate">
-            <label class="active" for="province">Province</label>
-          </div>
-          <div class="input-field col s2">
-            <input value="{{address.zipCode}}" id="zipcode" type="text" class="validate">
-            <label class="active" for="zipcode">Zip Code</label>
-          </div>
-        </div>
-        <center><a class="waves-effect waves-light btn"><input type="submit" value="Save"></a></center>
-      </div>
-    </div>
-    {{/each}}
 
     <div id="editAddress" class="modal">
       <div class="modal-content">
-        <div class="row">
-          <div class="input-field col s12">
-            <input value="1401 College Ave." id="line1" type="text" class="validate">
-            <label class="active" for="line1">Line 1</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input value="Apt. E304" id="line2" type="text" class="validate">
-            <label class="active" for="line2">Line 2</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s5">
-            <input value="Manhattan" id="city" type="text" class="validate">
-            <label class="active" for="city">City</label>
-          </div>
-          <div class="input-field col s5">
-            <input value="KS" id="province" type="text" class="validate">
-            <label class="active" for="province">Province</label>
-          </div>
-          <div class="input-field col s2">
-            <input value="66502" id="zipcode" type="text" class="validate">
-            <label class="active" for="zipcode">Zip Code</label>
-          </div>
-        </div>
-        <center><a class="waves-effect waves-light btn"><input type="submit" value="Save"></a></center>
+        {{> editAddress}}
       </div>
     </div>
 
     <!-- Add an Address -->
     <div id="addAddress" class="modal">
       <div class="modal-content">
-        <div class="row">
-          <div class="input-field col s5">
-            <input value="" id="addtitle" type="text" class="validate">
-            <label class="active" for="title">Title</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input value="Street Address" id="addline1" type="text" class="validate">
-            <label class="active" for="line1">Line 1</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input value="Neighborhood" id="addline2" type="text" class="validate">
-            <label class="active" for="line2">Line 2</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s5">
-            <input value="" id="addcity" type="text" class="validate">
-            <label class="active" for="city">City</label>
-          </div>
-          <div class="input-field col s5">
-            <input value="" id="addprovince" type="text" class="validate">
-            <label class="active" for="province">Province</label>
-          </div>
-          <div class="input-field col s2">
-            <input value="" id="addzipcode" type="text" class="validate">
-            <label class="active" for="zipcode">Zip Code</label>
-          </div>
-        </div>
-        <center><a class="addAddress waves-effect waves-light btn"><input type="submit" value="Add"></a></center>
+        {{> addAddress}}
       </div>
     </div>
 
+    <!-- Customer Transaction History -->
     <div id="hist" class=" col scrollable-history s12">
       <div class="container col s12">
         <ul class="collapsible z-depth-0" data-collapsible="accordion">
@@ -401,44 +293,148 @@
                 </div>
               </li>
           {{/each}}
-          <li>
-                <div class="collapsible-header">
-                  <span class="left">Al Baik</span>
-                  <span class="right">3 days ago</span>
-                </div>
-                <div class="collapsible-body">
-                  <span class="left">٢ مسحب حراق</span>
-                  <span class="right">SAR23.00</span>
-                  <span> (cancelled)</span>
-                </div>
-              </li>
-              <li>
-                <div class="collapsible-header">
-                  <span class="left">Jarir Book Store</span>
-                  <span class="right">5 days ago</span>
-                </div>
-                <div class="collapsible-body">
-                  <span class="left">2 Five Star Grid Notebooks</span>
-                  <span class="right">SAR50.00</span>
-                  <span> (done)</span>
-                </div>
-              </li>
-              <li>
-                <div class="collapsible-header">
-                  <span class="left">Transportation: Careem</span>
-                  <span class="right">6 days ago</span>
-                </div>
-                <div class="collapsible-body">
-                  <span class="left">From your house to your office</span>
-                  <span class="right">SAR20.00</span>
-                  <span> (done)</span>
-                </div>
-              </li>
         </ul>
       </div>
     </div>
+
   </div>
 </template>
+
+<template name="addAddress">
+  <div class="row">
+    <div class="input-field col s5">
+      <input Placeholder="Ex. Jeddah Office" id="addtitle" type="text" class="validate">
+      <label class="active" for="title">Title</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input Placeholder="Street Address" id="addline1" type="text" class="validate">
+      <label class="active" for="line1">Line 1</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input Placeholder="Neighborhood" id="addline2" type="text" class="validate">
+      <label class="active" for="line2">Line 2</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s5">
+      <input Placeholder="Ex. Jeddah" id="addcity" type="text" class="validate">
+      <label class="active" for="city">City</label>
+    </div>
+    <div class="input-field col s5">
+      <input Placeholder="Ex. Mekkah" id="addprovince" type="text" class="validate">
+      <label class="active" for="province">Province</label>
+    </div>
+    <div class="input-field col s2">
+      <input Placeholder="Ex. 02138" id="addzipcode" type="text" class="validate">
+      <label class="active" for="zipcode">Zip Code</label>
+    </div>
+  </div>
+  <center><a class="addAddress waves-effect waves-light btn"><input type="submit" value="Add"></a></center>
+</template>
+
+<template name="editAddress">
+
+        <!-- {{index}} -->
+        Edit Address Modal
+
+  {{#autoForm collection="Addresses" doc=addressEdit id="updateAddress" type="update" setArrayItems=true}}
+    {{> afArrayField name='address' template='customArrayField'}} 
+    <!-- <div class="row">
+      <div class="input-field col s12">
+        {{>afFieldInput name="address.0.title" id="title" type="text"}}
+        <label class="active" for="title">Title</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        {{>afFieldInput name="address.0.line1" id="line1" type="text"}}
+        <label class="active" for="line1">Line 1</label>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="input-field col s12">
+        {{>afFieldInput name="address.0.line2" id="line2" type="text"}}
+        <label class="active" for="line2">Line 2</label>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="input-field col s5">
+        {{>afFieldInput name="address.0.city" id="city" type="text"}}
+        <label class="active" for="city">City</label>
+      </div>
+      <div class="input-field col s5">
+        {{>afFieldInput name="address.0.province" id="province" type="text"}}
+        <label class="active" for="province">Province</label>
+      </div>
+      <div class="input-field col s2">
+        {{>afFieldInput name="address.0.zipCode" id="zipCode" type="number"}}
+        <label class="active" for="zipcode">Zip Code</label>
+      </div>
+    </div> -->
+
+      <button type="submit" class=" col s12 btn center btn-primary ">Change</button>
+
+    {{/autoForm}}
+</template>
+
+<template name="afArrayField_customArrayField">
+  {{#if afFieldIsInvalid name=atts.name}}
+    <span>{{{afFieldMessage name=atts.name}}}</span>
+  {{/if}}
+  <div class="card grey lighten-5 z-depth-0">
+    <div class="card-content">
+      {{#afEachArrayItem name=atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+
+        {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
+          <span class="autoform-remove-item"><i class="material-icons right">close</i></span>
+        {{/if}}
+        {{> UI.dynamic template=../atts.name}}
+
+      {{/afEachArrayItem}}
+   </div>
+  {{#if afArrayFieldHasLessThanMaximum name=atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+    <center>
+      <button
+        type="button"
+        class="add-btn autoform-add-item grey lighten-1"
+        data-autoform-field="{{atts.name}}"
+        data-autoform-minCount="{{atts.minCount}}"
+        data-autoform-maxCount="{{atts.maxCount}}">
+          Add {{add_title atts.name}}
+      </button>
+    </center>
+  {{/if}}
+  </div>
+</template>
+
+<!-- <template name="afArrayField_customArrayField">
+    <h3>{{afFieldLabelText name=this.atts.name}}</h3>
+
+    {{#if afFieldIsInvalid name=this.atts.name}}
+        <h4 class="text-danger">{{{afFieldMessage name=this.atts.name}}}</h4>
+    {{/if}}
+
+    {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+
+        {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
+            <button type="button" class="btn btn-primary autoform-remove-item pull-left"><span class="glyphicon glyphicon-minus"></span></button>
+        {{/if}}
+
+        {{> afObjectField name=this.name label=false template='customObjectField'}}
+
+    {{/afEachArrayItem}}
+
+    {{#if afArrayFieldHasLessThanMaximum name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+        <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="{{this.atts.name}}" data-autoform-minCount="{{this.atts.minCount}}" data-autoform-maxCount="{{this.atts.maxCount}}"><span class="glyphicon glyphicon-plus"></span></button>
+    {{/if}}
+</template> -->
 
 <template name="addressCollapsable">
   <li>
