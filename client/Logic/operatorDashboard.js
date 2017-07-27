@@ -202,26 +202,39 @@ Template.addAddress.events({
     var prov = document.getElementById('addprovince').value;
     var zip = document.getElementById('addzipcode').value;
 
-    if (!title || !line1 || !city || !prov){
-      Materialize.toast("Please fill in title, line1, city, province, and zip!", 4000) 
+    var unique = Addresses.findOne(
+      {'$and' :[ 
+        {"userId": this.customerId}, 
+        {"address": {$elemMatch: {title: title}}}
+      ]}
+    )
+
+    //console.log(title)
+    // Hack-around to make unique title work (simple schema unique isn't working)
+    if (unique == undefined){
+      if (!title || !line1 || !city || !prov){
+        Materialize.toast("Please fill in title, line1, city, province, and zip!", 4000) 
+      } else {
+          Meteor.call('addAddress', this.customerId, title, line1, line2, city, prov, zip, 
+          function(error, result) {
+            if (error == undefined) {
+              $('#addAddress').modal('close');
+              $('#addline1').val('') // Clear texting form
+              $('#addline2').val('') // Clear texting form
+              $('#addcity').val('') // Clear texting form
+              $('#addprovince').val('') // Clear texting form
+              $('#addzipcode').val('') // Clear texting form
+              $('#addtitle').val('') // Clear texting form
+              Materialize.toast("You've added a new address!", 4000)
+            } 
+            else {
+              Materialize.toast(error.reason, 4000)
+            }
+        })
+      } 
     } else {
-        Meteor.call('addAddress', this.customerId, title, line1, line2, city, prov, zip, 
-        function(error, result) {
-          if (error == undefined) {
-            $('#addAddress').modal('close');
-            $('#addline1').val('') // Clear texting form
-            $('#addline2').val('') // Clear texting form
-            $('#addcity').val('') // Clear texting form
-            $('#addprovince').val('') // Clear texting form
-            $('#addzipcode').val('') // Clear texting form
-            $('#addtitle').val('') // Clear texting form
-            Materialize.toast("You've added a new address!", 4000)
-          } 
-          else {
-            Materialize.toast(error.reason, 4000)
-          }
-      })
-    }    
+      Materialize.toast("Title must be unique", 4000)
+    }  
   },
   'click .add-close-modal': function(){
     $('#addAddress').modal('close');

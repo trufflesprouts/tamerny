@@ -11,6 +11,7 @@
     "cls-bluebird": "^2.0.1",
     "meteor-node-stubs": "^0.2.11",
     "moyasar": "^0.4.4",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "simpl-schema": "^0.3.1"
   }
 }

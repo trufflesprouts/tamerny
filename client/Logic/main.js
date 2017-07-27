@@ -139,7 +139,28 @@ AutoForm.hooks({
         FlowRouter.setQueryParams({editAddress: arr[0]})
 
       return modifier
-  },
+    },
+    before: {
+      update: function (doc) {
+        var customerId = FlowRouter.getParam('customer');
+        var parseMe = doc.$set
+        var arr = Object.values(parseMe);
+
+        var unique = Addresses.findOne(
+          {'$and' :[ 
+            {"userId": customerId}, 
+            {"address": {$elemMatch: {title: arr[0]}}}
+          ]}
+        )
+
+        if (unique == undefined)
+          return doc
+        else{
+          Materialize.toast("Title must be unique", 1000)
+          return false
+        }
+      }
+    },
 
   },
 
