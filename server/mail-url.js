@@ -1,6 +1,6 @@
 Meteor.startup(function(){
     Meteor.Mailgun.config({
-      username: 'postmaster@sandbox47aff26333624bb8b16b11df39bcae5c.mailgun.org',
-      password: '497f3e1c76032949cef09e164b9db0ad'
+      username: 'postmaster@sandbox5f36b1a0f7db41c6bcd9be8a0fc4a50a.mailgun.org',
+      password: '156ec2596133e7d6bccad827f683d721'
     });
   });

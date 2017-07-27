@@ -17,11 +17,14 @@ import { UserProfiles } from '../../collections/userProfiles.js'
 import { TopUp } from '../../collections/topup.js'
 import { OperatorProfile } from '../../collections/operatorProfile.js'
 import { Pairings } from '../../collections/pairedUsers.js'
+import { Addresses } from '../../collections/addresses.js'
 
 window.UserProfiles = UserProfiles
 window.TopUp = TopUp
 window.OperatorProfile = OperatorProfile
 window.Pairings = Pairings
+window.Addresses = Addresses
+
 
 
 
@@ -64,46 +67,46 @@ AutoForm.hooks({
           return doc;
       },
       onError: function(formType, error) {
-        Materialize.toast(error, 1000)
+        Materialize.toast(error, 4000)
       },
     },
   },
 
   userUpdateForm: {
     onError: function(formType, error) {
-      Materialize.toast(error, 1000)
+      Materialize.toast(error, 4000)
     }
   },
 
   upsertOperatorForm: {
     onError: function(formType, error) {
-      Materialize.toast(error, 1000)
+      Materialize.toast(error, 4000)
     }
   },
 
   updatePaymentForm: {
     onError: function(formType, error) {
-      Materialize.toast(error, 1000)
+      Materialize.toast(error, 4000)
     }
   },
 
   profileOperatorUpdate: {
     onSuccess: function(formType, result) {
-      Materialize.toast("Perfect, your information was updated!", 1000)
+      Materialize.toast("Perfect, your information was updated!", 4000)
     },
 
     onError: function(formType, error) {
-      Materialize.toast(error, 1000)
+      Materialize.toast(error, 4000)
     } ,
 
   },
 
   updateOperatorForm: {
     onError: function(formType, error) {
-      Materialize.toast(error, 1000)
+      Materialize.toast(error, 4000)
     },
     onSuccess: function(formType, result) {
-      Materialize.toast("Perfect, your information was updated!", 1000)
+      Materialize.toast("Perfect, your information was updated!", 4000)
     },
   },
 
@@ -112,8 +115,52 @@ AutoForm.hooks({
       Materialize.toast(error, 1000)
     },
     onSuccess: function(formType, result) {
-      Materialize.toast("Perfect, your information was updated!", 1000)
+      Materialize.toast("Perfect, your information was updated!", 4000)
     },
+  },
+
+  updateAddress: {
+    onError: function(formType, error) {
+      Materialize.toast(error, 1000)
+    },
+    onSuccess: function(formType, result) {
+     Materialize.toast("Perfect, you've edited an address!", 4000)
+     $('#editAddress').modal('close');
+    },
+    /*  Ensures that edit button in the edit address 
+        collapsable opens the correct modal once the first 
+        update is done without a new page render  */
+    formToModifier: function(modifier) {      
+      var mod = modifier['$set'];
+      var arr = Object.values(mod);
+      
+      if (Object.keys(modifier).length == 1)
+        FlowRouter.setQueryParams({editAddress: arr[0]})
+
+      return modifier
+    },
+    before: {
+      update: function (doc) {
+        var customerId = FlowRouter.getParam('customer');
+        var parseMe = doc.$set
+        var arr = Object.values(parseMe);
+
+        var unique = Addresses.findOne(
+          {'$and' :[ 
+            {"userId": customerId}, 
+            {"address": {$elemMatch: {title: arr[0]}}}
+          ]}
+        )
+
+        if (unique == undefined)
+          return doc
+        else{
+          Materialize.toast("Title must be unique", 1000)
+          return false
+        }
+      }
+    },
+
   },
 
   updatePhoneForm: {
@@ -122,8 +169,6 @@ AutoForm.hooks({
         console.log("geeting phone")
         console.log(doc)
         if (doc.$set != undefined){
-
-
 
         var phone = doc.$set.phone
 
@@ -148,6 +193,14 @@ AutoForm.hooks({
     },
   },
 
+  favoritesUpdateForm: {
+    onError: function(formType, error) {
+      Materialize.toast(error, 1000)
+    },
+    onSuccess: function(formType,error) {
+      Materialize.toast('a favorite was successfully updated!', 1000)
+    }
+  }
 });
 
 

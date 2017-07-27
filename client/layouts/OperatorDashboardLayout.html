@@ -161,38 +161,34 @@
         <div id="account" class="col s12">
           {{#with userInfo customerId}}
           <div class="row">
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col s6">
-                  <input disabled value="{{this.firstName}}" id="first_name" type="text" class="validate">
-                  <label class="active" for="first_name">First Name</label>
-                </div>
-                <div class="input-field col s6">
-                  <input disabled value="{{this.lastName}}" id="last_name" type="text" class="validate">
-                  <label class="active" for="last_name">Last Name</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s6">
-                  <input disabled value="{{this.phone}}" id="phone" type="text" class="validate">
-                  <label class="active" for="phone">Phone</label>
-                </div>
-                <div class="input-field col s6">
-                  <input disabled value="{{this.balance}}" id="balance" type="text" class="validate">
-                  <label class="active" for="balance">Balance</label>
-                </div>
-              </div>
-            </form>
+            <div class="col s12">
+              <table class="bordered">
+                <tbody>
+                  <tr>
+                    <td>Name: </td>
+                    <td>{{this.firstName}} {{this.lastName}}</td>
+                  </tr>
+                  <tr>
+                    <td>Phone:</td>
+                    <td>{{this.phone}}</td>
+                  </tr>
+                  <tr>
+                    <td>Balance:</td>
+                    <td>{{this.balance}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           {{/with}}
         </div>
+
         <div id="favorites" class="card-scrollable col s12">
             <div class="row">
               <div class="input-field col s10">
                 <input id="favorite" placeholder="New Entry ..." type="text" class="validate" data-length="60">
               </div>
               <div class="col s2 ">
-                <!-- <button type="submit" class=" col s12 btn center btn-primary "></button> -->
                 <a class="addFavorite vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">playlist_add</i></a>
               </div>
             </div>
@@ -201,191 +197,91 @@
                 <li>
                   <div class="collapsible-header">
                     <span class="left">{{favorite.keyWord}}</span>
-                    <i class="material-icons right">mode_edit</i>
+                    <a href="#key-{{favorite.keyWord}}"><i class="material-icons right">mode_edit</i></a>
                     <span class="right">{{since favorite.time}}</span>
                   </div>
-                  <div class="collapsible-body">
+                  <div id="key-{{favorite.keyWord}}" class="collapsible-body">
+                    <div id="key" value="{{favorite.keyWord}}"></div>
                     <div class="row">
-                      <!-- {{#autoForm collection="Favorites" id="updateKeyForm" type="update"}} -->
                         <div class="container center">
                           <div class="input-field col s12">
-                            <!-- {{>afFieldInput name="keyWord" id="keyWord" type="text"}} -->
                             <input value="{{favorite.keyWord}}" id="key_word" type="text" class="validate">
                             <label class="active">Key Word</label>
                           </div>
-
                           <br>
                           <button type="submit" class="editFavorite col s4 btn left btn-primary ">Change</button>
                           <button type="submit" class="deleteFavorite col s4 btn right btn-primary ">Delete</button>
                         </div>
-                      <!-- {{/autoForm}} -->
                     </div>
                   </div>
                 </li>
               {{/each}}
               <li>
-                <div class="collapsible-header">
-                  <span class="left">Example</span>
-                  <i class="material-icons right">mode_edit</i>
-                  <span class="right">5 days</span>
-                </div>
                 <div class="collapsible-body">
                   <div class="row">
-                    <!-- {{#autoForm collection="Favorites" doc=favorites id="updateKeyForm" type="update"}} -->
                       <div class="container center">
                         <div class="input-field col s12">
-                          <!-- {{>afFieldInput name="keyWord" id="keyWord" type="text"}} -->
                           <input value="example" id="key_word" type="text" class="validate">
                           <label class="active">Key Word</label>
                         </div>
-
                         <br>
-                        <button type="submit" class=" col s4 btn left btn-primary ">Change</button>
-                        <button type="submit" class=" col s4 btn right btn-primary ">Delete</button>
+                        <button type="submit" class="editFavorite col s4 btn left btn-primary ">Change</button>
+                        <button type="submit" class="deleteFavorite col s4 btn right btn-primary ">Delete</button>
                       </div>
-                    <!-- {{/autoForm}} -->
                   </div>
                 </div>
               </li>
             </ul>
         </div>
+
         <div id="addresses" class="scrollable-info col s12">
+            <div class="row">
+              <div class="col s12 center-align">
+                <a class="vertical-center btn btn-floating waves-effect waves-light z-depth-1" href="#addAddress">
+                  <i class="material-icons">playlist_add</i>
+                </a>
+                Add an Address
+              </div>
+            </div>
             <ul class="collapsible z-depth-0" data-collapsible="accordion">
               {{#each address in addresses customerId}}
+                
                 <li>
-                  <div class="collapsible-header">{{address.title}}<span class="right"><a href="#editAddress-1"><i class="material-icons right">mode_edit</i></a></span></div>
-                  <div class="collapsible-body">
+                 <a href={{addquery address.title}} class="collapsible-header"> 
+                    {{address.title}}<i class="material-icons right">expand_more</i>
+                </a>
+                  <div class="collapsible-body">        
+                    <a href="#editAddress" ><i class="material-icons Small right">mode_edit</i></a>
                     <span class="left">{{address.line1}}</span><br>
-                    <span class="left">{{address.line2}}</span><br>
+                    {{# if notEmpty address.line2}}
+                      <span class="left">{{address.line2}}</span><br>
+                    {{/if}}
                     <span class="left">{{address.city}}, {{address.province}} {{address.zipCode}}</span>
                   </div>
                 </li>
               {{/each}}
-              <li>
-                <div class="collapsible-header">US<span class="right"><a href="#editAddress"><i class="material-icons right">mode_edit</i></a></span></div>
-                <div class="collapsible-body">
-                  <span class="left">1401 College Ave.</span><br>
-                  <span class="left">Apt. E304</span><br>
-                  <span class="left">Manhattan, KS 66502</span>
-                </div>
-              </li>
             </ul>
-            <div class="row">
-              <div class="col s12">
-                <a class="vertical-center btn btn-floating waves-effect waves-light z-depth-1" href="#addAddress"><i class="material-icons">playlist_add</i></a>
-              </div>
-            </div>
         </div>
+
       </div>
     </div>
 
-    <!-- Modals -->
-    {{#each address in addresses customerId}}
-    <div id="editAddress-1" class="modal">
-      <div class="modal-content">
-        <div class="row">
-          <div class="input-field col s12">
-            <input value="{{address.line1}}" id="line1" type="text" class="validate">
-            <label class="active" for="line1">Line 1</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input value="{{address.line2}}" id="line2" type="text" class="validate">
-            <label class="active" for="line2">Line 2</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s5">
-            <input value="{{address.city}}" id="city" type="text" class="validate">
-            <label class="active" for="city">City</label>
-          </div>
-          <div class="input-field col s5">
-            <input value="{{address.province}}" id="province" type="text" class="validate">
-            <label class="active" for="province">Province</label>
-          </div>
-          <div class="input-field col s2">
-            <input value="{{address.zipCode}}" id="zipcode" type="text" class="validate">
-            <label class="active" for="zipcode">Zip Code</label>
-          </div>
-        </div>
-        <center><a class="waves-effect waves-light btn"><input type="submit" value="Save"></a></center>
-      </div>
-    </div>
-    {{/each}}
-
+    <!-- Edit an Address -->
     <div id="editAddress" class="modal">
       <div class="modal-content">
-        <div class="row">
-          <div class="input-field col s12">
-            <input value="1401 College Ave." id="line1" type="text" class="validate">
-            <label class="active" for="line1">Line 1</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input value="Apt. E304" id="line2" type="text" class="validate">
-            <label class="active" for="line2">Line 2</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s5">
-            <input value="Manhattan" id="city" type="text" class="validate">
-            <label class="active" for="city">City</label>
-          </div>
-          <div class="input-field col s5">
-            <input value="KS" id="province" type="text" class="validate">
-            <label class="active" for="province">Province</label>
-          </div>
-          <div class="input-field col s2">
-            <input value="66502" id="zipcode" type="text" class="validate">
-            <label class="active" for="zipcode">Zip Code</label>
-          </div>
-        </div>
-        <center><a class="waves-effect waves-light btn"><input type="submit" value="Save"></a></center>
+        {{> editAddress }}
       </div>
     </div>
 
     <!-- Add an Address -->
     <div id="addAddress" class="modal">
       <div class="modal-content">
-        <div class="row">
-          <div class="input-field col s5">
-            <input value="" id="addtitle" type="text" class="validate">
-            <label class="active" for="title">Title</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input value="Street Address" id="addline1" type="text" class="validate">
-            <label class="active" for="line1">Line 1</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input value="Neighborhood" id="addline2" type="text" class="validate">
-            <label class="active" for="line2">Line 2</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s5">
-            <input value="" id="addcity" type="text" class="validate">
-            <label class="active" for="city">City</label>
-          </div>
-          <div class="input-field col s5">
-            <input value="" id="addprovince" type="text" class="validate">
-            <label class="active" for="province">Province</label>
-          </div>
-          <div class="input-field col s2">
-            <input value="" id="addzipcode" type="text" class="validate">
-            <label class="active" for="zipcode">Zip Code</label>
-          </div>
-        </div>
-        <center><a class="addAddress waves-effect waves-light btn"><input type="submit" value="Add"></a></center>
+        {{> addAddress}}
       </div>
     </div>
 
-    <div id="hist" class="card-scrollable col s12">
+    <!-- Customer Transaction History -->
+    <div id="hist" class=" col scrollable-history s12">
       <div class="container col s12">
         <ul class="collapsible z-depth-0" data-collapsible="accordion">
           {{#each transaction in history customerId}}
@@ -401,33 +297,104 @@
                 </div>
               </li>
           {{/each}}
-          <li>
-            <div class="collapsible-header">
-              <span class="left">Al Baik</span>
-              <span class="right">3 days ago</span>
-            </div>
-            <div class="collapsible-body">
-              <span class="left">٢ مسحب حراق</span>
-              <span class="right">SAR23.00</span>
-              <span> (cancelled)</span>
-            </div>
-          </li>
         </ul>
       </div>
     </div>
   </div>
 </template>
 
-<template name="addressCollapsable">
-  <li>
-    <div class="collapsible-header">{{addressCollapsable.title}}<span class="right"><a href="#editAddress"><i class="material-icons right">mode_edit</i></a></span></div>
-    <div class="collapsible-body">
-      <span class="left">1401 College Ave.</span><br>
-      <span class="left">Apt. E304</span><br>
-      <span class="left">Manhattan, KS 66502</span>
+<template name="addAddress">
+  <div class="row">
+    <div class="input-field col s6">
+      <input Placeholder="Ex. Jeddah Office" id="addtitle" type="text" class="validate">
+      <label class="active" for="title">Title</label>
     </div>
-  </li>
+    <div class="input-field col s6"><i class="add-close-modal material-icons Small right">clear</i></div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input Placeholder="Street Address" id="addline1" type="text" class="validate">
+      <label class="active" for="line1">Line 1</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input Placeholder="Neighborhood" id="addline2" type="text" class="validate">
+      <label class="active" for="line2">Line 2</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s5">
+      <input Placeholder="Ex. Jeddah" id="addcity" type="text" class="validate">
+      <label class="active" for="city">City</label>
+    </div>
+    <div class="input-field col s5">
+      <input Placeholder="Ex. Mekkah" id="addprovince" type="text" class="validate">
+      <label class="active" for="province">Province</label>
+    </div>
+    <div class="input-field col s2">
+      <input Placeholder="Ex. 02138" id="addzipcode" type="text" class="validate">
+      <label class="active" for="zipcode">Zip Code</label>
+    </div>
+  </div>
+
+  <center><a class="addAddress waves-effect waves-light btn"><input type="submit" value="Add"></a></center>
 </template>
+
+<template name="editAddress">
+
+{{#with addressEdit}}
+  {{#autoForm collection="Addresses" doc=this id="updateAddress" type="update" setArrayItems=true}}
+    {{#with specificAddress this editTitle}}
+    <div class="row">
+      <div class="input-field col s6">
+        {{>afFieldInput name=this.title id="title" type="text"}}
+        <label class="active" for="title">Title</label>
+      </div>
+      <div class="input-field col s6"><i class="edit-close-modal material-icons Small right">clear</i></div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        {{>afFieldInput name=this.line1 id="line1" type="text"}}
+        <label class="active" for="line1">Line 1</label>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="input-field col s12">
+        {{>afFieldInput name=this.line2 id="line2" type="text"}}
+        <label class="active" for="line2">Line 2</label>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="input-field col s5">
+        {{>afFieldInput name=this.city id="city" type="text"}}
+        <label class="active" for="city">City</label>
+      </div>
+      <div class="input-field col s5">
+        {{>afFieldInput name=this.province id="province" type="text"}}
+        <label class="active" for="province">Province</label>
+      </div>
+      <div class="input-field col s2">
+        {{>afFieldInput name=this.zipCode id="zipCode" type="number"}}
+        <label class="active" for="zipcode">Zip Code</label>
+      </div>
+    </div>
+
+    <center>
+      <div class="row">
+        <button type="submit" class=" btn  btn-primary ">Change</button>
+        <button type="submit" class="delete-address btn center btn-primary red lighten-1">Delete</button>
+      </div>
+    </center>
+
+{{/with}}
+    {{/autoForm}}
+    {{/with}}
+</template>
+
 
 <template name="userChatCard">
 
@@ -500,8 +467,7 @@
       </div>
     </div>
   {{/with}}
-<!--   <button onclick="scrollToBottom()">Scroll contents of div</button>
- --></template>
+</template>
 
 <template name="user">
   <div class="col s7">
@@ -524,11 +490,87 @@
 </template>
 
 <template name="apiCard">
-  <div class="row no-bottom-margin">
+  <div class=" no-bottom-margin ellipsis">
     <div class="col s12 operator-dash-title valign-wrapper">
       <div class="auto-width center-align ellipsis">SERVICES</div>
     </div>
     <div class="col s12 divider "></div>
+    <div class="col s12">
+      <div class="scrollable-api ">
+        <div class="col s6 ">
+          <div class="card cyan lighten-3 z-depth-0 ">
+            <div class="card-content white-text hoverable row ">
+              <i class="material-icons small right">flight</i>
+              <span class="card-title ellipsis">  Flights</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card orange lighten-3 z-depth-0">
+            <div class="card-content white-text hoverable row">
+              <i class="material-icons small right">shopping_cart</i>
+              <span class="card-title ellipsis">Food Delivery</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card green lighten-3 z-depth-0 ">
+            <div class="card-content white-text hoverable row">
+              <i class="material-icons small right ">hotel</i>
+              <span class="card-title ellipsis ">Hotels</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card blue lighten-3 z-depth-0">
+            <div class="card-content white-text row hoverable">
+              <i class="material-icons small right">directions_car</i>
+              <span class="card-title ellipsis ">Transportation</span>
+            </div>
+          </div>
+        </div>
+         <div class="col s6 ">
+          <div class="card blue-grey lighten-3 z-depth-0">
+            <div class="card-content white-text hoverable row">
+              <i class="material-icons small right">local_shipping</i>
+              <span class="card-title ellipsis">Shipment</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card yellow lighten-3 darken-1 z-depth-0">
+            <div class="card-content white-text row hoverable">
+              <i class="material-icons small right">motorcycle</i>
+              <span class="card-title ellipsis">Delivery</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card purple lighten-3 z-depth-0">
+            <div class="card-content white-text hoverable row">
+              <i class="material-icons small right">event</i>
+              <span class="card-title ellipsis">Events/Tickets</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card indigo lighten-3 z-depth-0">
+            <div class="card-content white-text hoverable row">
+              <i class="material-icons small right">info_outline</i>
+              <span class="card-title ellipsis">General Info</span>
+            </div>
+          </div>
+        </div>
+        <div class="col s6 ">
+          <div class="card deep-orange lighten-3 z-depth-0">
+            <div class="card-content white-text hoverable row">
+              <i class="material-icons small right">report_problem</i>
+              <span class="card-title ellipsis">Other/Issues</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
   </div>
 </template>
 

@@ -13,6 +13,20 @@ a {
   color: inherit;
 }
 
+nav {
+  height: 50px;
+  line-height: 50px;
+}
+
+/*.tabs {
+  height: 35px;
+}*/
+
+.nav {
+  height: 50px;
+  line-height: 50px;
+}
+
 .no-right-pad{
   padding-right: 0;
 }
@@ -71,6 +85,14 @@ a {
   height: 250px;
 }
 
+.transparent{
+  opacity: 0.8;
+}
+
+.margs{
+  padding-right: 100px;
+}
+
 .chat-send{
   height: 50px;
   margin-top: 0;
@@ -84,18 +106,24 @@ a {
   width: 100%
 }
 
+.scrollable-api {
+  height:calc(100vh - 218px);
+  min-height: 423px;
+  overflow: scroll;
+}
+
 .operator-api{
   height:calc(100vh - 170px);
   min-height: 471px;
 }
 
+.operator-status{
+  height: 80px;
+}
+
 .card-border{
    border:0.5px solid;
    border-color: #E0DBDA;
-}
-
-.operator-status{
-  height: 80px;
 }
 
 .balance_main{
@@ -106,7 +134,7 @@ a {
 .logo {
   width: 60px;
   height: auto;
-  margin-top:10px;
+  margin-top:5px;
   margin-left:10px;
 }
 
@@ -123,11 +151,14 @@ a {
 .landing-info{
   font-size: 20px;
   color: grey;
-
 }
 
 .landing-text{
   margin-top: 10%;
+}
+
+.resend-email{
+  color: #64b5f6 ;
 }
 
 /*.color-left{
@@ -176,6 +207,11 @@ a {
 .scrollable-profile {
 	height: 445px;
   overflow: scroll;
+}
+
+.scrollable-history {
+  overflow: scroll;
+  height:200px;
 }
 
 .scrollable-info {
@@ -245,6 +281,10 @@ a {
   color: white;
   font-family: Avenir Next;
   font-size: 13pt;
+}
+
+.service-title{
+  font-size: 30px;
 }
 
 .float-over {
