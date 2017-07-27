@@ -99,7 +99,11 @@ Meteor.methods({
   },
   updateBalance: function(amount){
     var uId = Meteor.userId();
-  	UserProfiles.update({userId: uId}, {$set: {balance: amount}});
+  	UserProfiles.update({userId: uId}, {$set: {balance: amount}},false,true);
+  },
+  addTransaction: function(title, amount, desc, status){
+    var uId = Meteor.userId();
+    History.update({userId: uId},{$push: {transactions: {"title": title, "description": desc, time: new Date(), "price": amount, "status": status}}})
   },
   fetchUsers: function(){
     var waitingUsers = WaitingUsers.find().limit(3);
@@ -180,6 +184,7 @@ Meteor.methods({
 // Add user role if user profile has been created
 UserProfiles.before.insert(function (userId, doc) {
   doc.roles = ["user"];
+  doc.balance = 0;
 });
 
 // Creat Chat History Collection

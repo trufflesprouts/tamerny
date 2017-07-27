@@ -40,10 +40,7 @@ UserProfilesSchema = new SimpleSchema({
   balance: {
     type: Number,
     label: "Balance",
-    optional: true,
-    autoValue: function() {
-      return 0
-    }
+    optional: true
   },
 
   roles: {
@@ -56,4 +53,3 @@ UserProfilesSchema = new SimpleSchema({
 });
 
 UserProfiles.attachSchema(UserProfilesSchema);
-

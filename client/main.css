@@ -9,9 +9,9 @@ body {
   height: 100%;
 }
 
-a { 
-  color: inherit; 
-} 
+a {
+  color: inherit;
+}
 
 nav {
   height: 50px;
@@ -150,7 +150,7 @@ nav {
 
 .landing-info{
   font-size: 20px;
-  color: grey;  
+  color: grey;
 }
 
 .landing-text{
@@ -204,7 +204,8 @@ nav {
   overflow: scroll;
 }
 
-.card-scrollable {
+.scrollable-profile {
+	height: 445px;
   overflow: scroll;
 }
 
@@ -342,8 +343,8 @@ nav {
 
 .find-user-box{
   height: 75px;
-  padding-left: 5px; 
-  padding-top: 5px;  
+  padding-left: 5px;
+  padding-top: 5px;
 }
 
 .containerLeft{

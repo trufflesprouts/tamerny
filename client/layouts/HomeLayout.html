@@ -12,23 +12,13 @@
 			<br>
 
 			<div class="row">
-	      <div class="col s6 center">
+	      <div class=" col s6 center">
 	      	<!-- Print all transactions here -->
 	      	<h4>Transaction History</h4>
-          <div class="container col s12">
+          <div class="scrollable-profile container col s12">
             <ul class="collapsible" data-collapsible="accordion">
               {{#each transaction in userHistory customerId}}
-                  <li>
-                    <div class="collapsible-header">
-                      <span class="left">{{transaction.title}}</span>
-                      <span class="right">{{since transaction.time}}</span>
-                    </div>
-                    <div class="collapsible-body">
-                      <span class="left">{{favorite.description}}</span>
-                      <span class="right">SAR{{favorite.price}}</span>
-                      <span> ({{favorite.status}})</span>
-                    </div>
-                  </li>
+                  {{> transactions transaction}}
               {{/each}}
               <li>
                 <div class="collapsible-header">
@@ -38,7 +28,7 @@
                 <div class="collapsible-body">
                   <span class="left">٢ مسحب حراق</span>
                   <span class="right">SAR23.00</span>
-                  <span> (cancelled)</span>
+                  <span> (dummy)</span>
                 </div>
               </li>
               <li>
@@ -126,11 +116,16 @@
   </main>
 </template>
 
-
-
-
-
-
-
-
-
+<template name="transactions">
+  <li>
+    <div class="collapsible-header">
+      <span class="left">{{title}}</span>
+      <span class="right">{{since time}}</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="left">{{description}}</span>
+      <span> ({{status}})</span>
+      <span class="right">SAR{{price}}</span>
+    </div>
+  </li>
+</template>
