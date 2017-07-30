@@ -4,7 +4,143 @@
 
     {{#if currentUser }}
 			<!-- Logged in -->
-
+      {{#if isOperator}}
+        <div class="row">
+          <div class="col s12 m3 center no-right-pad">
+            <div class="card-border operator-balance card">
+              <h4>Balance</h4>
+              <div class="balance_side center">
+                {{balance}}
+                <a class="currency_side">(SAR)</a>
+              </div>
+            </div>
+            <div class="card-border operator-chat card">
+              <h4> I'm a operator. what is you? </h4>
+            </div>
+          </div>
+          <div class="col s12 m9 center">
+            <div class="card-border operator-profile card">
+              <div class="col s12">
+                <ul class="tabs tabs-fixed-width">
+                  <li class="tab"><a class="active" href="#home">Home</a></li>
+                  <li class="tab"><a href="#hist">History</a></li>
+                  <li class="tab"><a href="#topup">Top Up</a></li>
+                </ul>
+              </div>
+              <div id="home" class="col s12">
+                <div class="col s12 m4">
+                  <div class="card horizontal">
+                    <div class="card-stacked">
+                      <div class="card-content">
+                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m4">
+                  <div class="card horizontal">
+                    <div class="card-stacked">
+                      <div class="card-content">
+                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m4">
+                  <div class="card horizontal">
+                    <div class="card-stacked">
+                      <div class="card-content">
+                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m4">
+                  <div class="card horizontal">
+                    <div class="card-stacked">
+                      <div class="card-content">
+                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m4">
+                  <div class="card horizontal">
+                    <div class="card-stacked">
+                      <div class="card-content">
+                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m4">
+                  <div class="card horizontal">
+                    <div class="card-stacked">
+                      <div class="card-content">
+                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m4">
+                  <div class="card horizontal">
+                    <div class="card-stacked">
+                      <div class="card-content">
+                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div id="hist" class="col s12">
+                <div class="scrollable-profile container col s12">
+                  <ul class="collapsible" data-collapsible="accordion">
+                    {{#each transaction in userHistory customerId}}
+                        {{> transactions transaction}}
+                    {{/each}}
+                    <li>
+                      <div class="collapsible-header">
+                        <span class="left">Al Baik</span>
+                        <span class="right">3 days ago</span>
+                      </div>
+                      <div class="collapsible-body">
+                        <span class="left">٢ مسحب حراق</span>
+                        <span class="right">SAR23.00</span>
+                        <span> (dummy)</span>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="collapsible-header">
+                        <span class="left">Jarir Book Store</span>
+                        <span class="right">5 days ago</span>
+                      </div>
+                      <div class="collapsible-body">
+                        <span class="left">2 Five Star Grid Notebooks</span>
+                        <span class="right">SAR50.00</span>
+                        <span> (done)</span>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="collapsible-header">
+                        <span class="left">Transportation: Careem</span>
+                        <span class="right">6 days ago</span>
+                      </div>
+                      <div class="collapsible-body">
+                        <span class="left">From your house to your office</span>
+                        <span class="right">SAR20.00</span>
+                        <span> (done)</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div> -->
+              <!-- <div id="topup" class="tab col s12">
+                <span>I'm a top up</span>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      {{else}}
       <!-- Balance Updating is functional -->
 			<div class="balance_main center">{{balance}} <a class="currency_main">(SAR)</a></div>
 			<br>
@@ -96,7 +232,7 @@
 
 	      </div>
 	    </div>
-
+      {{/if}}
 		{{else}}
 			<!-- Not Logged in -->
       <div class="row">

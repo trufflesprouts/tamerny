@@ -18,27 +18,44 @@ import { History } from '../../collections/history.js'
 
 // Section II: onRendered
 
+Template.HomeLayout.onRendered(function () {
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+    $('ul.tabs').tabs();
+  });
+});
+
 Template.transactions.onRendered(function () {
   $(document).ready(function(){
     $('.collapsible').collapsible();
   });
 })
 
-
-
 // Section III: Events
 
 Template.HomeLayout.events({
-    'submit form': function(event) {
-      event.preventDefault();
-    }
-  });
+  'submit form': function(event) {
+    event.preventDefault();
+  }
+});
 
 
 
 // Section IIII: Helpers
 
 Template.HomeLayout.helpers({
+  isOperator (){
+    var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
+    var roles = userProfileDoc.roles
+    var rolesLength = roles.length
+    var status = false;
+
+    for (var i = 0; i < rolesLength; i++){
+      if (roles[i] == "operator")
+        status = true;
+    }
+    return status
+  },
   balance(){
     var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
     return userProfileDoc.balance;

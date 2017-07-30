@@ -63,6 +63,10 @@ nav {
   height: 250px;
 }
 
+.operator-balance{
+  height: 150px;
+}
+
 .message-padding{
   padding: 5px;
   color: white;
@@ -121,6 +125,10 @@ nav {
   height: 80px;
 }
 
+.operator-profile{
+  height: 650px;
+}
+
 .card-border{
    border:0.5px solid;
    border-color: #E0DBDA;
@@ -129,6 +137,11 @@ nav {
 .balance_main{
 	color: #6495ed;
 	font-size: 100px;
+}
+
+.balance_side{
+	color: #6495ed;
+	font-size: 48px;
 }
 
 .logo {
@@ -240,6 +253,11 @@ nav {
 .currency_main{
 	color: #6495ed;
 	font-size: 20px;
+}
+
+.currency_side{
+	color: #6495ed;
+	font-size: 12px;
 }
 
 .current-email {
