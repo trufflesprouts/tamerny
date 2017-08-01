@@ -20,14 +20,15 @@ import { History } from '../../collections/history.js'
 
 Template.HomeLayout.onRendered(function () {
   $(document).ready(function(){
-    $('.collapsible').collapsible();
     $('ul.tabs').tabs();
+    $('.collapsible').collapsible();
   });
 });
 
 Template.transactions.onRendered(function () {
   $(document).ready(function(){
     $('.collapsible').collapsible();
+    $('ul.tabs').tabs();
   });
 })
 

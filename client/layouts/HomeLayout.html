@@ -92,8 +92,8 @@
                   </div>
                 </div>
               </div>
-              <!-- <div id="hist" class="col s12">
-                <div class="scrollable-profile container col s12">
+              <div id="hist" class="col s12">
+                <div class="scrollable-operator-profile container col s12">
                   <ul class="collapsible" data-collapsible="accordion">
                     {{#each transaction in userHistory customerId}}
                         {{> transactions transaction}}
@@ -133,10 +133,49 @@
                     </li>
                   </ul>
                 </div>
-              </div> -->
-              <!-- <div id="topup" class="tab col s12">
-                <span>I'm a top up</span>
-              </div> -->
+              </div>
+              <div id="topup" class="tab col s12">
+                <div class="col s12 center">
+        	      	<h4>Add Money</h4>
+
+        	      	{{#autoForm collection="TopUp" id="insertTopUpForm" type="insert"}}
+
+        	          <div class="input-field col s12">
+        	            {{>afFieldInput name="amount" id="amount" type="number"}}
+        	            <label>Amount (SAR)</label>
+        	          </div>
+
+        	          <div class="input-field col s12">
+        	            {{>afFieldInput name="name" id="name" type="text"}}
+        	            <label>Name</label>
+        	          </div>
+
+        		        <div class="input-field col s12">
+        		            {{>afFieldInput name="number" id="number" type="number"}}
+        		          <label>Card Number</label>
+        		        </div>
+
+        		        <div class="input-field col s12">
+        		            {{>afFieldInput name="cvs" id="cvs" type="number"}}
+        		            <label>CVS</label>
+        		        </div>
+
+        		        <div class="input-field col s6">
+        		            {{>afFieldInput name="month" id="month" type="number"}}
+        		          <label>Expiration Month</label>
+        		        </div>
+
+        		        <div class="input-field col s6">
+        		            {{>afFieldInput name="year" id="year" type="number"}}
+        		          <label >Expiration Year</label>
+        		        </div>
+
+        		        <br>
+        		        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
+        		    	{{/autoForm}}
+
+        	      </div>
+              </div>
             </div>
           </div>
         </div>

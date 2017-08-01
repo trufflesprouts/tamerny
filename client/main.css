@@ -222,6 +222,11 @@ nav {
   overflow: scroll;
 }
 
+.scrollable-operator-profile {
+	height: 595px;
+  overflow: scroll;
+}
+
 .scrollable-history {
   overflow: scroll;
   height:200px;
