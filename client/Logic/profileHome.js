@@ -64,6 +64,10 @@ Template.HomeLayout.helpers({
   userHistory (){
     var userHistory = History.findOne({userId: Meteor.userId()}).transactions.reverse();
     return userHistory
+  },
+  user (){
+    var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
+    return userProfileDoc
   }
 })
 

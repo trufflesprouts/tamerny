@@ -14,8 +14,8 @@
                 <a class="currency_side">(SAR)</a>
               </div>
             </div>
-            <div class="card-border operator-chat card">
-              <h4> I'm a operator. what is you? </h4>
+            <div class="left card-border operator-chat card">
+              {{> userInfo user}}
             </div>
           </div>
           <div class="col s12 m9 center">
@@ -302,4 +302,10 @@
       <span class="right">SAR{{price}}</span>
     </div>
   </li>
+</template>
+
+<template name="userInfo">
+ <span class="left"> Hi {{firstName}} {{lastName}},</span>
+ <br>
+ <span class="left"> Your phone number is {{phone}}. If that's not true please change it in <a href="settings">settings</a>.</span>
 </template>
