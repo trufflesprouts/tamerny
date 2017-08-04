@@ -7,7 +7,6 @@ AddressSchema = new SimpleSchema({
     type: String,
     label: "Title",
     optional: false,
-    unique: true
   },
 
   line1: {

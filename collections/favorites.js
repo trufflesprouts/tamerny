@@ -6,7 +6,7 @@ KeySchema = new SimpleSchema({
   keyWord: {
     type: String,
     label: "Key Word",
-    optional: false
+    optional: false,
   },
 
   time: {

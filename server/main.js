@@ -1,4 +1,3 @@
-
 /*
 This server side JS file contains Server methods that are called from the clients,
  functions that are called from the server methods, and general hooks that create
@@ -59,6 +58,32 @@ function findCutomer (operatorId){
 // Section III: Methods (Called from Client)
 
 Meteor.methods({
+  newUser: function(email, pass){
+    console.log("Before Accounts.creatUser")
+    
+    try {
+          Accounts.createUser({
+            email: email,
+            password: pass
+          });
+        
+          if(response){
+            console.log("newUser response")
+            console.log(response)
+            return response;
+          }
+        }
+      catch(err){
+        console.log("newUser err")
+        console.log(err)
+        return err;
+      }
+  },
+  getUserIdWithEmail: function(email){
+    var doc = Accounts.findUserByEmail(email)
+    var userId = doc._id
+    return userId
+  },
   addFavorite: function(customerId, keyword){
     console.log('addFavorite called from server to add' + keyword)
     Favorites.update({userId : customerId},{$push: {key: {keyWord: keyword, time: new Date()}}});
@@ -99,7 +124,7 @@ Meteor.methods({
   },
   updateBalance: function(amount){
     var uId = Meteor.userId();
-  	UserProfiles.update({userId: uId}, {$set: {balance: amount}},false,true);
+    UserProfiles.update({userId: uId}, {$set: {balance: amount}},false,true);
   },
   addTransaction: function(title, amount, desc, status){
     var uId = Meteor.userId();
@@ -181,16 +206,17 @@ Meteor.methods({
 
 // Section IIII: Hooks
 
-// Add user role if user profile has been created
+// Add user role if user profile has been created and set Balance
 UserProfiles.before.insert(function (userId, doc) {
   doc.roles = ["user"];
   doc.balance = 0;
 });
 
-// Creat Chat History Collection
-UserProfiles.after.insert(function (userId, doc) {
-  Chats.insert({userId: userId});
-  History.insert({userId: userId});
-  Favorites.insert({userId: userId});
-  Addresses.insert({userId: userId});
+
+UserProfiles.after.insert(function (userId, doc) { 
+   var Id = doc.userId
+  Chats.insert({userId: Id});
+  History.insert({userId: Id});
+  Favorites.insert({userId: Id});
+  Addresses.insert({userId: Id}); 
 });
