@@ -258,7 +258,7 @@ Template.registerHelper( 'SecureDashboardLink', () => {
   var operatorCustomers = doc.userIds
   var customerId = FlowRouter.getParam("customer") // From the URL
   var customersCount = operatorCustomers.length // number of customers the operator is currently paired to
-
+  console.log("SecureDashboardLink")
   if (customersCount > 0) // Checking if the operator is paired/serving any customers
   {
 

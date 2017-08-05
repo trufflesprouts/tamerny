@@ -1,5 +1,5 @@
 <template name="OperatorDashboardLayout">
-
+  {{#if isOperator}}
   <div class="row">
 
     <div class=" col s12 m2 no-right-pad">
@@ -64,6 +64,7 @@
   {{/with}}
 
   </div>
+  {{/if}}
 </template>
 
 <template name="usersTab">
@@ -184,23 +185,29 @@
         </div>
 
         <div id="favorites" class="card-scrollable col s12">
+            
             <div class="row">
-              <div class="input-field col s10">
-                <input id="favorite" placeholder="New Entry ..." type="text" class="validate" data-length="60">
-              </div>
-              <div class="col s2 ">
-                <a class="addFavorite vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">playlist_add</i></a>
+              <div class="col s12 center-align">
+                <a class="vertical-center btn btn-floating waves-effect waves-light z-depth-1" href="#addFavorite">
+                  <i class="material-icons">playlist_add</i>
+                </a>
+                Add a comment
               </div>
             </div>
+
             <ul class="collapsible z-depth-0" data-collapsible="accordion">
               {{#each favorite in favorites customerId}}
                 <li>
+                  <a href={{addFavoriteQuery favorite.keyWord}}>
                   <div class="collapsible-header">
                     <span class="left">{{favorite.keyWord}}</span>
-                    <a href="#key-{{favorite.keyWord}}"><i class="material-icons right">mode_edit</i></a>
+                    <a href="#editFavorite">
+                      <i class="material-icons right">mode_edit</i>
+                    </a>
                     <span class="right">{{since favorite.time}}</span>
                   </div>
-                  <div id="key-{{favorite.keyWord}}" class="collapsible-body">
+                  </a>
+             <!--      <div id="key-{{favorite.keyWord}}" class="collapsible-body">
                     <div id="key" value="{{favorite.keyWord}}"></div>
                     <div class="row">
                         <div class="container center">
@@ -213,7 +220,7 @@
                           <button type="submit" class="deleteFavorite col s4 btn right btn-primary ">Delete</button>
                         </div>
                     </div>
-                  </div>
+                  </div> -->
                 </li>
               {{/each}}
               <li>
@@ -247,7 +254,7 @@
               {{#each address in addresses customerId}}
                 
                 <li>
-                 <a href={{addquery address.title}} class="collapsible-header"> 
+                 <a href={{addAddressQuery address.title}} class="collapsible-header"> 
                     {{address.title}}<i class="material-icons right">expand_more</i>
                 </a>
                   <div class="collapsible-body">        
@@ -273,10 +280,24 @@
       </div>
     </div>
 
+     <!-- editFavorite -->
+    <div id="editFavorite" class="modal">
+      <div class="modal-content">
+        {{> editFavorite }}
+      </div>
+    </div>
+
     <!-- Add an Address -->
     <div id="addAddress" class="modal">
       <div class="modal-content">
         {{> addAddress}}
+      </div>
+    </div>
+
+    <!-- Add a fav -->
+    <div id="addFavorite" class="modal">
+      <div class="modal-content">
+        {{> addFavorite}}
       </div>
     </div>
 
@@ -299,6 +320,21 @@
           {{/each}}
         </ul>
       </div>
+    </div>
+  </div>
+</template>
+
+<template name="editFavorite">
+  EDIT DEM HOES
+</template>
+
+<template name="addFavorite">
+  <div class="row">
+    <div class="input-field col s10">
+      <input id="favorite" placeholder="New Entry ..." type="text" class="validate" data-length="60">
+    </div>
+    <div class="col s2 ">
+      <a class="addFavorite vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">playlist_add</i></a>
     </div>
   </div>
 </template>
