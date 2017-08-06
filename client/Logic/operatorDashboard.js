@@ -34,6 +34,7 @@ window.Chats = Chats
 window.Pairings = Pairings
 window.WaitingUsers = WaitingUsers
 window.Addresses = Addresses
+window.Favorites = Favorites
 
 
 
@@ -91,6 +92,8 @@ Template.editAddress.events({
       function(error, result){
         if (error == undefined){
           $('#editAddress').modal('close');
+          $('.collapsible').collapsible('open', 0);
+          $('.collapsible').collapsible('close', 0);
           Materialize.toast("You have deleted an address", 4000)
         } else {
           Materialize.toast("Shoot, couldn't delete the address", 4000)
@@ -162,22 +165,17 @@ Template.getUser.events({
 // Changing anything must be done through _id of the subcollection not userId @7mto
 // You can make updates with other fields than _id if you do it from the Server with Meteor.Call.. @Jamjoom
 Template.userInfoCard.events({
-  'click .addFavorite' (){
-    event.preventDefault();
-    var txt = document.getElementById('favorite').value;
-    Meteor.call('addFavorite', this.customerId, txt);
-  },
-  'click .editFavorite' (){
-    var oldkeyword = document.getElementById('key').getAttribute('value');
-    var newkeyword = document.getElementById('key_word').value;
-    console.log(oldkeyword + '-' + newkeyword)
-    Meteor.call('editFavorite', this.customerId, oldkeyword, newkeyword);
-  },
-  'click .deleteFavorite' (){
-    var oldkeyword = document.getElementById('key').getAttribute('value');
-    console.log(oldkeyword)
-    Meteor.call('deleteFavorite', this.customerId, oldkeyword);
-  },
+  // 'click .editFavorite' (){
+  //   var oldkeyword = document.getElementById('key').getAttribute('value');
+  //   var newkeyword = document.getElementById('key_word').value;
+  //   console.log(oldkeyword + '-' + newkeyword)
+  //   Meteor.call('editFavorite', this.customerId, oldkeyword, newkeyword);
+  // },
+  // 'click .deleteFavorite' (){
+  //   var oldkeyword = document.getElementById('key').getAttribute('value');
+  //   console.log(oldkeyword)
+  //   Meteor.call('deleteFavorite', this.customerId, oldkeyword);
+  // },
   'click .set_title_session' (){
     var title = document.getElementById('address_to_edit').value;
     console.log("title session to edit")
@@ -189,7 +187,69 @@ Template.userInfoCard.events({
 
     console.log("From session")
     console.log(Session.get('address_title'))
+  },
+   'click .editFavorite'(){
+    console.log("EDIT FAV QUERY")
+    $('#editFavorite').modal('open');
   }
+})
+
+Template.addFavorite.events({
+  'click .addFavorite' (){
+    event.preventDefault();
+    var txt = document.getElementById('favorite').value;
+    
+    var doc = Favorites.findOne({
+      '$and' :[ 
+        {"userId": this.customerId}, 
+        {"key": {$elemMatch: {keyWord: txt}}}
+      ]})
+
+    if (txt == ""){
+      Materialize.toast("Favorite Can't be empty!", 4000)
+    } else if (doc != undefined){
+      Materialize.toast("Favorite must be unique!", 4000)
+    } else {
+      Meteor.call('addFavorite', this.customerId, txt, function(err, resp){
+      if (err)
+         Materialize.toast("Sorry couldn't add a favorite", 4000) 
+      else {
+        Materialize.toast("A new favorite has been added", 4000)
+        $('#addFavorite').modal('close');
+        $('#favorite').val('')
+      }
+    });
+    }
+  },
+  'click .add-close-modal': function(){
+    $('#addFavorite').modal('close');
+  }
+})
+
+Template.editFavorite.events({
+  'click .edit-close-modal' (){
+    $('#editFavorite').modal('close');
+  },
+  'click .change-fav'(){
+    $('#editFavorite').modal('close');
+     Materialize.toast("You have edited a comment", 4000)
+  },
+  'click .delete-favorite'(){
+    event.preventDefault();
+    var key = FlowRouter.getQueryParam('editFavorite');
+    var customerId = FlowRouter.getParam('customer');
+    Meteor.call('deleteFavorite', customerId, key, 
+      function(error, result){
+        console.log(error)
+        console.log(result)
+        if (error == undefined){
+          $('#editFavorite').modal('close');
+          Materialize.toast("You have deleted a comment", 4000)
+        } else {
+          Materialize.toast("Shoot, couldn't delete the comment", 4000)
+        }  
+      });
+  },
 })
 
 Template.addAddress.events({
@@ -348,8 +408,12 @@ Template.userInfoCard.helpers({
     else
       return false
   },
-  addquery(title){
+  addAddressQuery(title){
     return "?editAddress="+title
+  },
+  addFavoriteQuery(key){
+    // $('#editFavorite').modal('open');
+    return "?editFavorite="+key
   }
 });
 
@@ -393,6 +457,41 @@ Template.editAddress.helpers({
     var title = FlowRouter.getQueryParam('editAddress');
     return title
   }
+})
+
+Template.editFavorite.helpers({
+  favoriteCollection(){
+    var customerId = FlowRouter.getParam('customer');
+    var address = Favorites.findOne({userId: customerId})
+    console.log("FAV collection")
+    console.log(address)
+    return address
+  },
+  favoriteEdit(doc){
+    var key = FlowRouter.getQueryParam('editFavorite');
+    var keys = doc.key
+    for (var i = 0; i < keys.length; i++) {
+      if (keys[i].keyWord == key){
+        var init = "key." + i +".keyWord"
+        console.log("INIT")
+        console.log(init)
+        return init
+        break;
+      }
+    }
+  }
+})
+
+Template.OperatorDashboardLayout.helpers({
+  isOperator(){
+    var doc = UserProfiles.findOne({userId: Meteor.userId()})
+    var roles = doc.roles
+
+    if (roles.length > 1)
+      return true
+    else
+      FlowRouter.go('/'); // redirect, not an operator
+  },
 })
 
 
