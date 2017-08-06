@@ -21,6 +21,7 @@ import { History } from '../../collections/history.js'
 Template.HomeLayout.onRendered(function () {
   $(document).ready(function(){
     $('ul.tabs').tabs();
+    $(".button-collapse").sideNav();
     $('.collapsible').collapsible();
   });
 });

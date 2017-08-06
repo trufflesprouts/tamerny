@@ -5,6 +5,27 @@
     {{#if currentUser }}
 			<!-- Logged in -->
       {{#if isOperator}}
+        <ul id="slide-out" class="side-nav fixed side-color">
+          <li><div class="user-view center">
+            <div class="background">
+              <!-- <img src="images/office.jpg"> -->
+            </div>
+            {{> userInfo user}}
+          </div></li>
+          <li><div class="user-view center side-text-color"><a href="#!">
+            <i class="material-icons medium">equalizer</i>
+            <br>
+            SALES
+          </a></div></li>
+          <li><div class="user-view center side-text-color"><a href="#!">
+            <i class="material-icons medium">multiline_chart</i>
+            <br><span>PERFORMANCE</span>
+          </a></div></li>
+          <li><div class="user-view center side-text-color"><a href="#!">
+            <i class="material-icons medium">star_half</i>
+            <br><span>ACHIEVEMENTS</span>
+          </a></div></li>
+        </ul>
         <div class="row">
           <div class="col s12 m3 center no-right-pad">
             <div class="card-border operator-balance card">
@@ -325,7 +346,7 @@
 </template>
 
 <template name="userInfo">
- <span class="left"> Hi {{firstName}} {{lastName}},</span>
+ <span class="center">{{firstName}} {{lastName}}</span>
  <br>
- <span class="left"> Your phone number is {{phone}}. If that's not true please change it in <a href="settings">settings</a>.</span>
+ <span class="center">{{phone}}</span>
 </template>

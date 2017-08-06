@@ -69,6 +69,14 @@ nav {
   height: 150px;
 }
 
+.side-color{
+	background-color: #454969;
+}
+
+.side-text-color{
+	color: white;
+}
+
 .message-padding{
   padding: 5px;
   color: white;
