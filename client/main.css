@@ -104,6 +104,18 @@ nav {
   margin-top: 0;
 }
 
+.userButton{
+  margin-top: 20px;
+}
+
+.texting{
+  margin-top: 10px;
+}
+
+.send-txt{
+  margin-top: 4px;
+}
+
 .vertical-center{
   margin-top: 3px;
 }
@@ -341,7 +353,7 @@ nav {
 .find-user-box{
   height: 75px;
   padding-left: 5px;
-  padding-top: 5px;
+  padding-top: 8px;
 }
 
 .containerLeft{
