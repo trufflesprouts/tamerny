@@ -72,6 +72,39 @@ AutoForm.hooks({
     },
   },
 
+  insertTopUpSadadForm: {
+    before: {
+      insert: function (doc) {
+        console.log(doc)
+        var paymentTest = moyasar.payment.create({
+          // Convert from Riyals to Halalas
+          amount: (100*doc.amount),
+          currency: doc.currency,
+          description: doc.description,
+          source: {
+           type: "sadad",
+           username: doc.username
+          }
+          })
+        .then( function(payment){
+
+          console.log("payment status")
+          if (payment.status == "paid"){
+            console.log("accepted")
+             correct = true;
+             updateTopUp(true, doc.id, doc.amount, payment.source.type + " " + payment.source.username)
+           }
+        });
+
+          // setTimeout(updateTopUp(false, doc.id, false), 10000); // check again in a second
+          return doc;
+      },
+      onError: function(formType, error) {
+        Materialize.toast(error, 4000)
+      },
+    },
+  },
+
   userUpdateForm: {
     onError: function(formType, error) {
       Materialize.toast(error, 4000)
@@ -127,13 +160,13 @@ AutoForm.hooks({
      Materialize.toast("Perfect, you've edited an address!", 4000)
      $('#editAddress').modal('close');
     },
-    /*  Ensures that edit button in the edit address 
-        collapsable opens the correct modal once the first 
+    /*  Ensures that edit button in the edit address
+        collapsable opens the correct modal once the first
         update is done without a new page render  */
-    formToModifier: function(modifier) {      
+    formToModifier: function(modifier) {
       var mod = modifier['$set'];
       var arr = Object.values(mod);
-      
+
       if (Object.keys(modifier).length == 1)
         FlowRouter.setQueryParams({editAddress: arr[0]})
 
@@ -146,8 +179,8 @@ AutoForm.hooks({
         var arr = Object.values(parseMe);
 
         var unique = Addresses.findOne(
-          {'$and' :[ 
-            {"userId": customerId}, 
+          {'$and' :[
+            {"userId": customerId},
             {"address": {$elemMatch: {title: arr[0]}}}
           ]}
         )

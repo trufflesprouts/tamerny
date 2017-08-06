@@ -20,6 +20,7 @@ import { History } from '../../collections/history.js'
 
 Template.transactions.onRendered(function () {
   $(document).ready(function(){
+    $('ul.tabs').tabs();
     $('.collapsible').collapsible();
   });
 })

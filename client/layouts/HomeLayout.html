@@ -5,9 +5,8 @@
     {{#if currentUser }}
 			<!-- Logged in -->
 
-      <!-- Balance Updating is not functional -->
-			<!-- <div class="balance_main center">{{balance}} <a class="currency_main">(SAR)</a></div> -->
-      <div class="balance_main center">120 <a class="currency_main">(SAR)</a></div>
+      <!-- Balance Updating is functional -->
+			<div class="balance_main center">{{balance}} <a class="currency_main">(SAR)</a></div>
 			<br>
 			<br>
 
@@ -58,43 +57,66 @@
 	      </div>
 	      <div class="col s6 center">
 	      	<h4>Add Money</h4>
+          <div class="row">
+            <ul class="tabs">
+              <li class="tab col s6"><a href="#creditcard">Credit Card</a></li>
+              <li class="tab col s6"><a href="#sadad">Sadad</a></li>
+            </ul>
+          </div>
+          <div id="creditcard" class="col s12">
+  	      	{{#autoForm collection="TopUp" id="insertTopUpForm" type="insert"}}
 
-	      	{{#autoForm collection="TopUp" id="insertTopUpForm" type="insert"}}
+  	          <div class="input-field col s12">
+  	            {{>afFieldInput name="amount" id="amount" type="number"}}
+  	            <label>Amount (SAR)</label>
+  	          </div>
 
-	          <div class="input-field col s12">
-	            {{>afFieldInput name="amount" id="amount" type="number"}}
-	            <label>Amount (SAR)</label>
-	          </div>
+  	          <div class="input-field col s12">
+  	            {{>afFieldInput name="name" id="name" type="text"}}
+  	            <label>Name</label>
+  	          </div>
 
-	          <div class="input-field col s12">
-	            {{>afFieldInput name="name" id="name" type="text"}}
-	            <label>Name</label>
-	          </div>
+  		        <div class="input-field col s12">
+  		            {{>afFieldInput name="number" id="number" type="number"}}
+  		          <label>Card Number</label>
+  		        </div>
 
-		        <div class="input-field col s12">
-		            {{>afFieldInput name="number" id="number" type="number"}}
-		          <label>Card Number</label>
-		        </div>
+  		        <div class="input-field col s12">
+  		            {{>afFieldInput name="cvs" id="cvs" type="number"}}
+  		            <label>CVS</label>
+  		        </div>
 
-		        <div class="input-field col s12">
-		            {{>afFieldInput name="cvs" id="cvs" type="number"}}
-		            <label>CVS</label>
-		        </div>
+  		        <div class="input-field col s6">
+  		            {{>afFieldInput name="month" id="month" type="number"}}
+  		          <label>Expiration Month</label>
+  		        </div>
 
-		        <div class="input-field col s6">
-		            {{>afFieldInput name="month" id="month" type="number"}}
-		          <label>Expiration Month</label>
-		        </div>
+  		        <div class="input-field col s6">
+  		            {{>afFieldInput name="year" id="year" type="number"}}
+  		          <label >Expiration Year</label>
+  		        </div>
 
-		        <div class="input-field col s6">
-		            {{>afFieldInput name="year" id="year" type="number"}}
-		          <label >Expiration Year</label>
-		        </div>
+  		        <br>
+  		        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
+  		    	{{/autoForm}}
+          </div>
+          <div id="sadad" class="col s12">
+            {{#autoForm collection="TopUp" id="insertTopUpSadadForm" type="insert"}}
 
-		        <br>
-		        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
-		    	{{/autoForm}}
+  	          <div class="input-field col s12">
+  	            {{>afFieldInput name="amount" id="amount" type="number"}}
+  	            <label>Amount (SAR)</label>
+  	          </div>
 
+  	          <div class="input-field col s12">
+  	            {{>afFieldInput name="username" id="username" type="text"}}
+  	            <label>Username</label>
+  	          </div>
+
+  		        <br>
+  		        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
+  		    	{{/autoForm}}
+          </div>
 	      </div>
 	    </div>
 
