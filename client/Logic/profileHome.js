@@ -22,6 +22,7 @@ Template.transactions.onRendered(function () {
   $(document).ready(function(){
     $('ul.tabs').tabs();
     $('.collapsible').collapsible();
+    $('.modal').modal();
   });
 })
 

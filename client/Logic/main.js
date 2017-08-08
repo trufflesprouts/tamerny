@@ -51,11 +51,15 @@ AutoForm.hooks({
            cvc: doc.cvs,
            month: doc.month,
            year: doc.year
+         },
+         callback_url: "http://localhost:3000"
+        }).then( function(payment){
+          if (payment.source.transaction_url != null){
+            $('#3dsecurity_frame').modal('open');
+            document.getElementById('3dsecurity').src = payment.source.transaction_url;
           }
-          })
-        .then( function(payment){
+          console.log(payment.source)
 
-          console.log("payment status")
           if (payment.status == "paid"){
             console.log("accepted")
              correct = true;
@@ -83,12 +87,14 @@ AutoForm.hooks({
           description: doc.description,
           source: {
            type: "sadad",
-           username: doc.username
-          }
-          })
-        .then( function(payment){
-
+           username: doc.username,
+           success_url: "http://localhost:3000/",
+           fail_url: "http://localhost:3000/",
+          },
+          callback_url: "http://localhost:3000/",
+        }).then( function(payment){
           console.log("payment status")
+          console.log(payment)
           if (payment.status == "paid"){
             console.log("accepted")
              correct = true;
@@ -97,7 +103,7 @@ AutoForm.hooks({
         });
 
           // setTimeout(updateTopUp(false, doc.id, false), 10000); // check again in a second
-          return doc;
+        return doc;
       },
       onError: function(formType, error) {
         Materialize.toast(error, 4000)
