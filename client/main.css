@@ -18,10 +18,14 @@ nav {
   line-height: 50px;
 }
 
+.become-margins{
+  margin-bottom: 4px;
+}
+
 .email-alert{
-  /*position: sticky;
-  top:0;*/
-  /*z-index:0;*/
+  position:fixed;
+  z-index: 10;
+  width: 70%
 }
 
 .nav {
@@ -116,6 +120,18 @@ nav {
   margin-top: 0;
 }
 
+.userButton{
+  margin-top: 20px;
+}
+
+.texting{
+  margin-top: 10px;
+}
+
+.send-txt{
+  margin-top: 4px;
+}
+
 .vertical-center{
   margin-top: 3px;
 }
@@ -139,6 +155,7 @@ nav {
   height: 80px;
 }
 
+
 .operator-sales-1{
   height: 275px;
 }
@@ -147,14 +164,37 @@ nav {
   height: 175px;
 }
 
+.margins-valign{
+  margin-top: 50px;
+}
+
 .card-border{
    border:0.5px solid;
    border-color: #E0DBDA;
 }
 
-.balance_main{
-	color: #6495ed;
-	font-size: 100px;
+.balance_card{
+  height: 150px;
+}
+
+.scrollable-profile-history {
+  height: 279px;
+  overflow: scroll;
+}
+
+.topup-card{
+  height: 500px;
+  /*height: calc(100vh - 78px);*/
+}
+
+.balance-number{
+  color: #6495ed;
+  font-size: 70px;
+}
+
+.transactions-card{
+  height: 327px;
+  /*height: calc(100vh - 250px);*/
 }
 
 .balance_side{
@@ -165,7 +205,7 @@ nav {
 .logo {
   width: 60px;
   height: auto;
-  margin-top:5px;
+  margin-top:4px;
   margin-left:10px;
 }
 
@@ -231,7 +271,7 @@ nav {
 }
 
 .scrollable {
-  max-height:600px;
+  max-height:1000px;
   overflow: scroll;
 }
 
@@ -298,11 +338,6 @@ nav {
   font-size: 40px;
 }
 
-.white-tabs-cover {
-  background-color: black;
-  width: 100%;
-  height: 48px;
-}
 
 .settings-background {
   background-color: #c5cae9;
@@ -326,10 +361,6 @@ nav {
 
 .service-title{
   font-size: 30px;
-}
-
-.float-over {
-  position: fixed;
 }
 
 .half-grey{
@@ -384,8 +415,8 @@ nav {
 
 .find-user-box{
   height: 75px;
-  padding-left: 5px;
-  padding-top: 5px;
+  padding-left: 9px;
+  padding-top: 9px;
 }
 
 .containerLeft{

@@ -18,7 +18,7 @@
 
 				  {{#if currentUser }}
             {{#if notOperator }}
-						  <li><a class="waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
+						  <li><a class="become-margins waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
               {{else}}
               <li><a href={{dashboardLink}}>Dashboard</a></li> 
             {{/if}}
@@ -28,7 +28,7 @@
             {{> navbarAccount}}
 
 						{{else}}
-              <li><a class=" open-modal waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
+              <li><a class="become-margins open-modal waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
 
               <!-- Now open login modal automatically  -->
   						<li><a class="waves-effect waves-light" href="#login">Login</a>
