@@ -8,7 +8,6 @@
         <ul id="slide-out" class="side-nav fixed side-color">
           <li><div class="user-view center">
             <div class="background">
-              <!-- <img src="images/office.jpg"> -->
             </div>
             {{> userInfo user}}
           </div></li>
@@ -26,6 +25,8 @@
             <br><span>ACHIEVEMENTS</span>
           </a></div></li>
         </ul>
+
+        <!-- SALES -->
         <div id="sales">
           <div class="row operator-padding">
             <div class="col s12 m6 center">
@@ -51,6 +52,8 @@
             </div>
           </div>
         </div>
+
+        <!-- PERFORMANCE -->
         <div id="performance">
           <div class="row operator-padding">
             <div class="col s12 m3 center">
@@ -82,6 +85,8 @@
             </div>
           </div>
         </div>
+
+        <!-- ACHIEVEMENTS -->
         <div id="achievement">
           <div class="row operator-padding">
             <div class="col s12 m3 center">
@@ -125,6 +130,7 @@
             </div>
           </div>
         </div>
+
       {{else}}
       <!-- Balance Updating is functional -->
 			<div class="balance_main center">{{balance}} <a class="currency_main">(SAR)</a></div>
@@ -174,19 +180,19 @@
               </li>
             </ul>
 
-<!-- 			<!-- isUSER -->
-      <div class="row margins-valign">
+			<!-- isUSER, Jamjoom -->
+      <!-- <div class="row margins-valign">
         
         <div class="col s12 m6">
       
-          <!-- BALANCE CARD -->
+          
           <div class=" col s12">
             <div class="card-border z-depth-0 card balance_card white">
               {{> userBalance}}
             </div>
           </div>
 
-          <!-- TOP-UP CARD -->
+         
           <div class="col s12">
             <div class="card-border z-depth-0 card  transactions-card white">
               {{> transactions}}
@@ -195,17 +201,17 @@
 
         </div>
 
-        <!-- HISTORY CARD -->
         <div class=" col s12 m6">
           <div class="card-border z-depth-0 card topup-card white">
             {{> topUp}}
           </div>
-        </div> -->
+        </div> 
 
-      </div>
+      </div> -->
 
 	      </div>
 	    </div>
+      </div>
       {{/if}}
 
 		{{else}}
