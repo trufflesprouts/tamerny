@@ -69,6 +69,22 @@ nav {
   height: 250px;
 }
 
+.operator-balance{
+  height: 150px;
+}
+
+.side-color{
+	background-color: #454969;
+}
+
+.side-text-color{
+	color: white;
+}
+
+.operator-padding{
+	padding-left: 120px;
+}
+
 .message-padding{
   padding: 5px;
   color: white;
@@ -139,12 +155,17 @@ nav {
   height: 80px;
 }
 
-.margins-valign{
-  margin-top: 50px;
+
+.operator-sales-1{
+  height: 275px;
 }
 
-.no-right-padding{
-  padding-right: 100px;
+.operator-sales-2{
+  height: 175px;
+}
+
+.margins-valign{
+  margin-top: 50px;
 }
 
 .card-border{
@@ -174,6 +195,11 @@ nav {
 .transactions-card{
   height: 327px;
   /*height: calc(100vh - 250px);*/
+}
+
+.balance_side{
+	color: #6495ed;
+	font-size: 82px;
 }
 
 .logo {
@@ -254,6 +280,11 @@ nav {
   overflow: scroll;
 }
 
+.scrollable-operator-profile {
+	height: 595px;
+  overflow: scroll;
+}
+
 .scrollable-history {
   overflow: scroll;
   height:200px;
@@ -285,6 +316,11 @@ nav {
 .currency_main{
 	color: #6495ed;
 	font-size: 20px;
+}
+
+.currency_side{
+	color: #6495ed;
+	font-size: 12px;
 }
 
 .current-email {
