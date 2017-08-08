@@ -12,210 +12,135 @@
             </div>
             {{> userInfo user}}
           </div></li>
-          <li><div class="user-view center side-text-color"><a href="#!">
+          <li><div class="user-view center side-text-color"><a href="#sales">
             <i class="material-icons medium">equalizer</i>
             <br>
             SALES
           </a></div></li>
-          <li><div class="user-view center side-text-color"><a href="#!">
+          <li><div class="user-view center side-text-color"><a href="#performance">
             <i class="material-icons medium">multiline_chart</i>
             <br><span>PERFORMANCE</span>
           </a></div></li>
-          <li><div class="user-view center side-text-color"><a href="#!">
+          <li><div class="user-view center side-text-color"><a href="#achievement">
             <i class="material-icons medium">star_half</i>
             <br><span>ACHIEVEMENTS</span>
           </a></div></li>
         </ul>
-        <div class="row">
-          <div class="col s12 m3 center no-right-pad">
-            <div class="card-border operator-balance card">
-              <h4>Balance</h4>
-              <div class="balance_side center">
-                {{balance}}
-                <a class="currency_side">(SAR)</a>
+        <div id="sales">
+          <div class="row operator-padding">
+            <div class="col s12 m6 center">
+              <div class="card-border operator-sales-1 card">
+
               </div>
             </div>
-            <div class="left card-border operator-chat card">
-              {{> userInfo user}}
+            <div class="col s12 m6 center">
+              <div class="card-border operator-sales-1 card">
+                <h1>Balance</h1>
+                <div class="balance_side center">
+                  {{balance}}
+                  <a class="currency_side">(SAR)</a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col s12 m9 center">
-            <div class="card-border operator-profile card">
-              <div class="col s12">
-                <ul class="tabs tabs-fixed-width">
-                  <li class="tab"><a class="active" href="#home">Home</a></li>
-                  <li class="tab"><a href="#hist">History</a></li>
-                  <li class="tab"><a href="#topup">Top Up</a></li>
-                </ul>
+          <div class="row operator-padding">
+            <div class="col s12 m12 center">
+              <div class="card-border operator-sales-1 card">
+
               </div>
-              <div id="home" class="col s12">
-                <div class="col s12 m4">
-                  <div class="card horizontal">
-                    <div class="card-stacked">
-                      <div class="card-content">
-                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s12 m4">
-                  <div class="card horizontal">
-                    <div class="card-stacked">
-                      <div class="card-content">
-                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s12 m4">
-                  <div class="card horizontal">
-                    <div class="card-stacked">
-                      <div class="card-content">
-                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s12 m4">
-                  <div class="card horizontal">
-                    <div class="card-stacked">
-                      <div class="card-content">
-                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s12 m4">
-                  <div class="card horizontal">
-                    <div class="card-stacked">
-                      <div class="card-content">
-                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s12 m4">
-                  <div class="card horizontal">
-                    <div class="card-stacked">
-                      <div class="card-content">
-                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s12 m4">
-                  <div class="card horizontal">
-                    <div class="card-stacked">
-                      <div class="card-content">
-                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s12 m4">
-                  <div class="card horizontal">
-                    <div class="card-stacked">
-                      <div class="card-content">
-                        <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s12 m4">
-                  <div class="card horizontal">
-                    <div class="card-stacked">
-                      <div class="card-content">
-                        <br>
-                        <i class="large material-icons">add</i>
-                        <br>
-                      </div>
-                    </div>
+            </div>
+          </div>
+        </div>
+        <div id="performance">
+          <div class="row operator-padding">
+            <div class="col s12 m3 center">
+              <div class="card-border operator-sales-2 card horizontal">
+
+              </div>
+            </div>
+            <div class="col s12 m3 center">
+              <div class="card-border operator-sales-2 card horizontal">
+
+              </div>
+            </div>
+            <div class="col s12 m3 center">
+              <div class="card-border operator-sales-2 card horizontal">
+
+              </div>
+            </div>
+            <div class="col s12 m3 center">
+              <div class="card-border operator-sales-2 card horizontal">
+
+              </div>
+            </div>
+          </div>
+          <div class="row operator-padding">
+            <div class="col s12 m12 center">
+              <div class="card-border operator-sales-1 card">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="achievement">
+          <div class="row operator-padding">
+            <div class="col s12 m3">
+              <div class="card horizontal">
+                <div class="card-stacked">
+                  <div class="card-content">
+                    <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
                   </div>
                 </div>
               </div>
-              <div id="hist" class="col s12">
-                <div class="scrollable-operator-profile container col s12">
-                  <ul class="collapsible" data-collapsible="accordion">
-                    {{#each transaction in userHistory customerId}}
-                        {{> transactions transaction}}
-                    {{/each}}
-                    <li>
-                      <div class="collapsible-header">
-                        <span class="left">Al Baik</span>
-                        <span class="right">3 days ago</span>
-                      </div>
-                      <div class="collapsible-body">
-                        <span class="left">٢ مسحب حراق</span>
-                        <span class="right">SAR23.00</span>
-                        <span> (dummy)</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="collapsible-header">
-                        <span class="left">Jarir Book Store</span>
-                        <span class="right">5 days ago</span>
-                      </div>
-                      <div class="collapsible-body">
-                        <span class="left">2 Five Star Grid Notebooks</span>
-                        <span class="right">SAR50.00</span>
-                        <span> (done)</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="collapsible-header">
-                        <span class="left">Transportation: Careem</span>
-                        <span class="right">6 days ago</span>
-                      </div>
-                      <div class="collapsible-body">
-                        <span class="left">From your house to your office</span>
-                        <span class="right">SAR20.00</span>
-                        <span> (done)</span>
-                      </div>
-                    </li>
-                  </ul>
+            </div>
+            <div class="col s12 m3">
+              <div class="card horizontal">
+                <div class="card-stacked">
+                  <div class="card-content">
+                    <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
+                  </div>
                 </div>
               </div>
-              <div id="topup" class="tab col s12">
-                <div class="col s12 center">
-        	      	<h4>Add Money</h4>
+            </div>
+            <div class="col s12 m3">
+              <div class="card horizontal">
+                <div class="card-stacked">
+                  <div class="card-content">
+                    <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m3">
+              <div class="card horizontal">
+                <div class="card-stacked">
+                  <div class="card-content">
+                    <p>I am a very sexy card with many information. I am good at containing small bits of information.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row operator-padding">
+            <div class="col s12 m6 center">
+              <div class="card-border operator-sales-1 card">
 
-        	      	{{#autoForm collection="TopUp" id="insertTopUpForm" type="insert"}}
+              </div>
+            </div>
+            <div class="col s12 m6 center">
+              <div class="card-border operator-sales-1 card">
+                <h1>Balance</h1>
+                <div class="balance_side center">
+                  {{balance}}
+                  <a class="currency_side">(SAR)</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row operator-padding">
+            <div class="col s12 m12 center">
+              <div class="card-border operator-sales-1 card">
 
-        	          <div class="input-field col s12">
-        	            {{>afFieldInput name="amount" id="amount" type="number"}}
-        	            <label>Amount (SAR)</label>
-        	          </div>
-
-        	          <div class="input-field col s12">
-        	            {{>afFieldInput name="name" id="name" type="text"}}
-        	            <label>Name</label>
-        	          </div>
-
-        		        <div class="input-field col s12">
-        		            {{>afFieldInput name="number" id="number" type="number"}}
-        		          <label>Card Number</label>
-        		        </div>
-
-        		        <div class="input-field col s12">
-        		            {{>afFieldInput name="cvs" id="cvs" type="number"}}
-        		            <label>CVS</label>
-        		        </div>
-
-        		        <div class="input-field col s6">
-        		            {{>afFieldInput name="month" id="month" type="number"}}
-        		          <label>Expiration Month</label>
-        		        </div>
-
-        		        <div class="input-field col s6">
-        		            {{>afFieldInput name="year" id="year" type="number"}}
-        		          <label >Expiration Year</label>
-        		        </div>
-
-        		        <br>
-        		        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
-        		    	{{/autoForm}}
-
-        	      </div>
               </div>
             </div>
           </div>
@@ -225,7 +150,6 @@
 			<div class="balance_main center">{{balance}} <a class="currency_main">(SAR)</a></div>
 			<br>
 			<br>
-
 			<div class="row">
 	      <div class=" col s6 center">
 	      	<!-- Print all transactions here -->
@@ -346,7 +270,9 @@
 </template>
 
 <template name="userInfo">
- <span class="center">{{firstName}} {{lastName}}</span>
- <br>
- <span class="center">{{phone}}</span>
+  <div class="side-text-color">
+   <span class="center">{{firstName}} {{lastName}}</span>
+   <br>
+   <span class="center">{{phone}}</span>
+ </div>
 </template>

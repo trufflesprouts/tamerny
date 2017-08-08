@@ -77,6 +77,10 @@ nav {
 	color: white;
 }
 
+.operator-padding{
+	padding-left: 120px;
+}
+
 .message-padding{
   padding: 5px;
   color: white;
@@ -135,8 +139,12 @@ nav {
   height: 80px;
 }
 
-.operator-profile{
-  height: 650px;
+.operator-sales-1{
+  height: 275px;
+}
+
+.operator-sales-2{
+  height: 175px;
 }
 
 .card-border{
@@ -151,7 +159,7 @@ nav {
 
 .balance_side{
 	color: #6495ed;
-	font-size: 48px;
+	font-size: 82px;
 }
 
 .logo {
