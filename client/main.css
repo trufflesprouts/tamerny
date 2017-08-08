@@ -139,14 +139,41 @@ nav {
   height: 80px;
 }
 
+.margins-valign{
+  margin-top: 50px;
+}
+
+.no-right-padding{
+  padding-right: 100px;
+}
+
 .card-border{
    border:0.5px solid;
    border-color: #E0DBDA;
 }
 
-.balance_main{
-	color: #6495ed;
-	font-size: 100px;
+.balance_card{
+  height: 150px;
+}
+
+.scrollable-profile-history {
+  height: 279px;
+  overflow: scroll;
+}
+
+.topup-card{
+  height: 500px;
+  /*height: calc(100vh - 78px);*/
+}
+
+.balance-number{
+  color: #6495ed;
+  font-size: 70px;
+}
+
+.transactions-card{
+  height: 327px;
+  /*height: calc(100vh - 250px);*/
 }
 
 .logo {
@@ -352,8 +379,8 @@ nav {
 
 .find-user-box{
   height: 75px;
-  padding-left: 5px;
-  padding-top: 8px;
+  padding-left: 9px;
+  padding-top: 9px;
 }
 
 .containerLeft{

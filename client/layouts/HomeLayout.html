@@ -3,100 +3,36 @@
   <main>
 
     {{#if currentUser }}
-			<!-- Logged in -->
-
-      <!-- Balance Updating is not functional -->
-			<!-- <div class="balance_main center">{{balance}} <a class="currency_main">(SAR)</a></div> -->
-      <div class="balance_main center">120 <a class="currency_main">(SAR)</a></div>
-			<br>
-			<br>
-
-			<div class="row">
-	      <div class=" col s6 center">
-	      	<!-- Print all transactions here -->
-	      	<h4>Transaction History</h4>
-          <div class="scrollable-profile container col s12">
-            <ul class="collapsible" data-collapsible="accordion">
-              {{#each transaction in userHistory customerId}}
-                  {{> transactions transaction}}
-              {{/each}}
-              <li>
-                <div class="collapsible-header">
-                  <span class="left">Al Baik</span>
-                  <span class="right">3 days ago</span>
-                </div>
-                <div class="collapsible-body">
-                  <span class="left">٢ مسحب حراق</span>
-                  <span class="right">SAR23.00</span>
-                  <span> (dummy)</span>
-                </div>
-              </li>
-              <li>
-                <div class="collapsible-header">
-                  <span class="left">Jarir Book Store</span>
-                  <span class="right">5 days ago</span>
-                </div>
-                <div class="collapsible-body">
-                  <span class="left">2 Five Star Grid Notebooks</span>
-                  <span class="right">SAR50.00</span>
-                  <span> (done)</span>
-                </div>
-              </li>
-              <li>
-                <div class="collapsible-header">
-                  <span class="left">Transportation: Careem</span>
-                  <span class="right">6 days ago</span>
-                </div>
-                <div class="collapsible-body">
-                  <span class="left">From your house to your office</span>
-                  <span class="right">SAR20.00</span>
-                  <span> (done)</span>
-                </div>
-              </li>
-            </ul>
+			<!-- isUSER -->
+      <div class="row margins-valign">
+        
+        <div class="col s12 m6">
+      
+          <!-- BALANCE CARD -->
+          <div class=" col s12">
+            <div class="card-border z-depth-0 card balance_card white">
+              {{> userBalance}}
+            </div>
           </div>
-	      </div>
-	      <div class="col s6 center">
-	      	<h4>Add Money</h4>
 
-	      	{{#autoForm collection="TopUp" id="insertTopUpForm" type="insert"}}
+          <!-- TOP-UP CARD -->
+          <div class="col s12">
+            <div class="card-border z-depth-0 card  transactions-card white">
+              {{> transactions}}
+            </div>
+          </div>
 
-	          <div class="input-field col s12">
-	            {{>afFieldInput name="amount" id="amount" type="number"}}
-	            <label>Amount (SAR)</label>
-	          </div>
+        </div>
 
-	          <div class="input-field col s12">
-	            {{>afFieldInput name="name" id="name" type="text"}}
-	            <label>Name</label>
-	          </div>
+        <!-- HISTORY CARD -->
+        <div class=" col s12 m6">
+          <div class="card-border z-depth-0 card topup-card white">
+            {{> topUp}}
+          </div>
+        </div>
 
-		        <div class="input-field col s12">
-		            {{>afFieldInput name="number" id="number" type="number"}}
-		          <label>Card Number</label>
-		        </div>
+      </div>
 
-		        <div class="input-field col s12">
-		            {{>afFieldInput name="cvs" id="cvs" type="number"}}
-		            <label>CVS</label>
-		        </div>
-
-		        <div class="input-field col s6">
-		            {{>afFieldInput name="month" id="month" type="number"}}
-		          <label>Expiration Month</label>
-		        </div>
-
-		        <div class="input-field col s6">
-		            {{>afFieldInput name="year" id="year" type="number"}}
-		          <label >Expiration Year</label>
-		        </div>
-
-		        <br>
-		        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
-		    	{{/autoForm}}
-
-	      </div>
-	    </div>
 
 		{{else}}
 			<!-- Not Logged in -->
@@ -116,8 +52,73 @@
   </main>
 </template>
 
+<template name="userBalance">
+  
+  <div class="no-bottom-margin">
+    <div class="col s12 operator-dash-title valign-wrapper">
+      <div class="auto-width center-align ellipsis">Balance</div>
+    </div>
+    <div class="col s12 divider "></div>
+  </div>
+
+  <!-- SAYYARI: Change this to balance from the database -->
+  <div class="col s12 balance-number ellipsis center-align">
+    120 <a class="currency_main">(SAR)</a>
+  </div>
+
+</template>
+
+<template name="topUp">
+  <div class="no-bottom-margin">
+    <div class="col s12 operator-dash-title valign-wrapper">
+      <div class="auto-width center-align ellipsis">Top-Up</div>
+    </div>
+    <div class="col s12 divider "></div>
+  </div>
+
+  <!-- SAYYARI: Make sure this works and integrate it with the Sadad func you already implemented -->
+  {{#autoForm collection="TopUp" id="insertTopUpForm" type="insert"}}
+
+    <div class="input-field col s12">
+      {{>afFieldInput name="amount" id="amount" type="number"}}
+      <label>Amount (SAR)</label>
+    </div>
+
+    <div class="input-field col s12">
+      {{>afFieldInput name="name" id="name" type="text"}}
+      <label>Name</label>
+    </div>
+
+    <div class="input-field col s12">
+        {{>afFieldInput name="number" id="number" type="number"}}
+      <label>Card Number</label>
+    </div>
+
+    <div class="input-field col s12">
+        {{>afFieldInput name="cvs" id="cvs" type="number"}}
+        <label>CVS</label>
+    </div>
+
+    <div class="input-field col s6">
+        {{>afFieldInput name="month" id="month" type="number"}}
+      <label>Expiration Month</label>
+    </div>
+
+    <div class="input-field col s6">
+        {{>afFieldInput name="year" id="year" type="number"}}
+      <label >Expiration Year</label>
+    </div>
+
+    <br>
+    <div class=" col s12">
+    <button type="submit" class=" col s12 btn btn-primary center">Top Up</button>
+    </div>
+  {{/autoForm}}
+</template>
+
 <template name="transactions">
-  <li>
+
+  <!-- <li>
     <div class="collapsible-header">
       <span class="left">{{title}}</span>
       <span class="right">{{since time}}</span>
@@ -127,5 +128,85 @@
       <span> ({{status}})</span>
       <span class="right">SAR{{price}}</span>
     </div>
-  </li>
+  </li> -->
+
+  <div class=" no-bottom-margin">
+    <div class="col s12 operator-dash-title valign-wrapper">
+      <div class="auto-width center-align ellipsis">History</div>
+    </div>
+    <div class="col s12 divider "></div>
+  </div>
+
+  <!-- SAYYARI: Change this to print the actual user history -->
+  <div class="scrollable-profile-history container col s12">
+    <ul class="collapsible z-depth-0" data-collapsible="accordion" >
+
+      <li>
+        <div class="collapsible-header">
+          <span class="left">Al Baik</span>
+          <span class="right">3 days ago</span>
+        </div>
+        <div class="collapsible-body">
+          <span class="left">٢ مسحب حراق</span>
+          <span class="right">SAR23.00</span>
+          <span> (dummy)</span>
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header">
+          <span class="left">Jarir Book Store</span>
+          <span class="right">5 days ago</span>
+        </div>
+        <div class="collapsible-body">
+          <span class="left">2 Five Star Grid Notebooks</span>
+          <span class="right">SAR50.00</span>
+          <span> (done)</span>
+        </div>
+      </li>
+       <li>
+        <div class="collapsible-header">
+          <span class="left">Al Baik</span>
+          <span class="right">3 days ago</span>
+        </div>
+        <div class="collapsible-body">
+          <span class="left">٢ مسحب حراق</span>
+          <span class="right">SAR23.00</span>
+          <span> (dummy)</span>
+        </div>
+      </li>
+       <li>
+        <div class="collapsible-header">
+          <span class="left">Al Baik</span>
+          <span class="right">3 days ago</span>
+        </div>
+        <div class="collapsible-body">
+          <span class="left">٢ مسحب حراق</span>
+          <span class="right">SAR23.00</span>
+          <span> (dummy)</span>
+        </div>
+      </li>
+       <li>
+        <div class="collapsible-header">
+          <span class="left">Al Baik</span>
+          <span class="right">3 days ago</span>
+        </div>
+        <div class="collapsible-body">
+          <span class="left">٢ مسحب حراق</span>
+          <span class="right">SAR23.00</span>
+          <span> (dummy)</span>
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header">
+          <span class="left">Transportation: Careem</span>
+          <span class="right">6 days ago</span>
+        </div>
+        <div class="collapsible-body">
+          <span class="left">From your house to your office</span>
+          <span class="right">SAR20.00</span>
+          <span> (done)</span>
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
