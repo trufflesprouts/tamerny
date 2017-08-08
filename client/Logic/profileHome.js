@@ -45,6 +45,13 @@ Template.HomeLayout.events({
 
 // Section IIII: Helpers
 
+Template.userBalance.helpers({
+  balance(){
+    var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
+    return userProfileDoc.balance;
+  },
+})
+
 Template.HomeLayout.helpers({
   isOperator (){
     var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
@@ -58,14 +65,14 @@ Template.HomeLayout.helpers({
     }
     return status
   },
-  balance(){
-    var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
-    return userProfileDoc.balance;
-  },
-  userHistory (){
-    var userHistory = History.findOne({userId: Meteor.userId()}).transactions.reverse();
-    return userHistory
-  },
+  // balance(){
+  //   var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
+  //   return userProfileDoc.balance;
+  // },
+  // userHistory (){
+  //   var userHistory = History.findOne({userId: Meteor.userId()}).transactions.reverse();
+  //   return userHistory
+  // },
   user (){
     var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
     return userProfileDoc
@@ -94,5 +101,10 @@ Template.transactions.helpers({
       var difference = parseInt(diff/(1000*60*60*24*365)) + "y"
     }
     return difference
-  }
+  },
+  userHistory (){
+    var userHistory = History.findOne({userId: Meteor.userId()}).transactions.reverse();
+    return userHistory
+  },
+
 })
