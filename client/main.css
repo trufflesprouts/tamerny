@@ -82,9 +82,29 @@ nav {
 }
 
 .operator-padding{
-	padding-left: 120px;
+	padding-left: 80px;
 }
 
+.orange-divider{
+  background-color: orange;
+}
+
+.scroll-padding{
+  padding-top: 55px;
+}
+
+.section-title{
+  border-bottom-left-radius: 10px;
+  width: 105px;
+  margin-left: -40px;
+  margin-top:-1px;
+  float:left;
+  border: 1px solid orange;
+}
+
+.first-divider{
+  margin-top: 10px;
+}
 .message-padding{
   padding: 5px;
   color: white;
@@ -239,6 +259,11 @@ nav {
 .color-right{
   background-color: green;
 }*/
+
+.side-width{
+  width: 80px;
+  margin-top: 50px;
+}
 
 .hidden {
   display: none;

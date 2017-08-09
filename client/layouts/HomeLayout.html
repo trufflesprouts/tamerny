@@ -8,39 +8,42 @@
 
       <!-- OPERATOR -->
 
-        <ul id="slide-out" class="side-nav fixed side-color">
+        <!-- SIDE-NAV -->
+        <ul id="slide-out" class="side-nav fixed side-color side-width">
           <li><div class="user-view center">
             <div class="background">
             </div>
             {{> userInfo user}}
           </div></li>
-          <li><div class="user-view center side-text-color"><a href="#sales">
-            <i class="material-icons medium">equalizer</i>
-            <br>
-            SALES
+          <li><div class="user-view center side-text-color">
+            <a href="#sales"><i class="material-icons small">equalizer</i>
           </a></div></li>
           <li><div class="user-view center side-text-color"><a href="#performance">
-            <i class="material-icons medium">multiline_chart</i>
-            <br><span>PERFORMANCE</span>
+            <i class="material-icons small">multiline_chart</i>
           </a></div></li>
           <li><div class="user-view center side-text-color"><a href="#achievement">
-            <i class="material-icons medium">star_half</i>
-            <br><span>ACHIEVEMENTS</span>
+            <i class="material-icons small">star_half</i>
           </a></div></li>
         </ul>
 
         <!-- SALES -->
-        <div id="sales">
+        <div class="scroll-padding" id="sales">
+          <div class="col s12 divider orange-divider"></div>
+          <div class="section-title center-align">Sales</div>
           {{> sales}}
         </div>
 
         <!-- PERFORMANCE -->
-        <div id="performance">
+        <div class="scroll-padding" id="performance">
+          <div class="col s12 divider orange-divider"></div>
+          <div class="section-title center-align">Performance</div>
           {{> performance}}
         </div>
 
         <!-- ACHIEVEMENTS -->
-        <div id="achievement">
+        <div class="scroll-padding" id="achievement">
+          <div class="col s12 divider orange-divider"></div>
+          <div class="section-title center-align">Achievements</div>
           {{> achievements}}
         </div>
 
@@ -322,8 +325,7 @@
 
 <template name="userInfo">
   <div class="side-text-color">
-   <span class="center">{{firstName}} {{lastName}}</span>
-   <br>
-   <span class="center">{{phone}}</span>
+   <span class="center">{{initials firstName lastName}}</span>
+  
  </div>
 </template>

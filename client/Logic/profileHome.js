@@ -23,6 +23,7 @@ Template.HomeLayout.onRendered(function () {
     $('ul.tabs').tabs();
     $(".button-collapse").sideNav();
     $('.collapsible').collapsible();
+    $('.tooltipped').tooltip({delay: 50});
   });
 });
 
@@ -65,17 +66,15 @@ Template.HomeLayout.helpers({
     }
     return status
   },
-  // balance(){
-  //   var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
-  //   return userProfileDoc.balance;
-  // },
-  // userHistory (){
-  //   var userHistory = History.findOne({userId: Meteor.userId()}).transactions.reverse();
-  //   return userHistory
-  // },
   user (){
     var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
     return userProfileDoc
+  }
+})
+
+Template.userInfo.helpers({
+  initials(first, last){
+    return first.charAt(0) + last.charAt(0)
   }
 })
 
