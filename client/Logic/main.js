@@ -31,7 +31,7 @@ window.Addresses = Addresses
 // Section II: AutoForm Manual Validations
 
 // Moyasar payment system init - the ID is only for testing and must be changed before production
-var moyasar = new (require('moyasar'))('pk_test_aFqrpMm9qbzf7WxwvWfToDYiBJMt8foU5aDnGSWH');
+var moyasar = new (require('moyasar'))('sk_test_DJDn2MPWZuinhXxhWjwXVsBGtVQouFLnnAmuQpL2');
 
 var correct = false;
 
@@ -58,11 +58,12 @@ AutoForm.hooks({
               $('#3dsecurity_frame').modal('open');
               document.getElementById('3dsecurity').src = payment.source.transaction_url;
           }
-          console.log(payment.source)
 
           if (payment.status == "paid"){
-            console.log("accepted")
+             console.log("accepted")
              correct = true;
+
+             // call the Meteor function to update Payments instead
              updateTopUp(true, doc.id, doc.amount, payment.source.company + " " + payment.source.number)
            }
         });

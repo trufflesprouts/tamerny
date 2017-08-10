@@ -39,27 +39,55 @@ Template.HomeLayout.events({
   'load iframe': function (event){
     if (self.location.href.indexOf("?") > 0){
       var callback_url = self.location.href;
-      console.log(callback_url)
 
-      var start = callback_url.indexOf("=") + 1;
-      var end = callback_url.indexOf("&");
-      var id = callback_url.slice(start,end);
+      var id = null;
+      var status = null;
+      var message = null;
 
-      var start = callback_url.indexOf("=",start) + 1;
-      var end = callback_url.indexOf("&",end + 1);
-      var status = callback_url.slice(start,end);
+      if (callback_url.indexOf("=") > 0){
+        var start = callback_url.indexOf("=") + 1;
+        var end = callback_url.indexOf("&");
+        var id = callback_url.slice(start,end);
+      }
 
-      var start = callback_url.indexOf("=",start) + 1;
-      var end = callback_url.indexOf("%");
-      var message = callback_url.slice(start,end);
+      if (callback_url.indexOf("=",start) > 0){
+        var start = callback_url.indexOf("=",start) + 1;
+        var end = callback_url.indexOf("&",end + 1);
+        var status = callback_url.slice(start,end);
+      }
 
-      console.log(id)
-      console.log(status)
-      console.log(message)
+      if (callback_url.indexOf("=",start) > 0){
+        var start = callback_url.indexOf("=",start) + 1;
+        var end = callback_url.indexOf("%");
+        var message = callback_url.slice(start,end);
+      }
 
       window.parent.$("#3dsecurity_frame").modal("close");
 
-      // grab moyasar
+      if (id != null && status != null && message != null){
+        if (status == "paid"){
+
+          // grab moyasar
+          var moyasar = new (require('moyasar'))('sk_test_DJDn2MPWZuinhXxhWjwXVsBGtVQouFLnnAmuQpL2');
+
+          var payment = moyasar.payment.fetch(id).then( function(payment){
+            console.log(payment)
+
+            Meteor.call('addPayment', payment);
+
+            var user = UserProfiles.findOne({userId: Meteor.userId()});
+            var newbalance = payment.amount/100 + user.balance;
+            Meteor.call('updateBalance', newbalance);
+
+            var desc = payment.source.type;
+            Meteor.call('addTransaction', "Top Up", payment.amount/100, desc, "accepted");
+          });
+        } else {
+          Materialize.toast("Authentication " + message, 4000)
+        }
+      } else {
+        Materialize.toast("No response", 4000)
+      }
     }
   }
 });
