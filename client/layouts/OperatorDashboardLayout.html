@@ -2,7 +2,7 @@
   {{#if isOperator}}
   <div class="row">
 
-    <div class=" col s12 m2 no-right-pad">
+    <div class=" col s12 m12 l2 no-right-pad">
       <div class="operator-customers card-border z-depth-0 card ">
         <!-- FORCE SPAN TO BE RESTRICTED BY WEB-BROWSER AUTOSIZE -->
         <span class="black-text">{{> usersTab }}
@@ -12,7 +12,7 @@
 
     <!-- MAKE THIS MORE EFFICIENT BY HAVING A WITH STATEMENT FOR USERPROFILES AND THEN PASS IT DOWN...BECAUSE THERE ARE SOME MANY CALLS FROM THIS PAGE FOR IT -->
     {{#with SecureDashboardLink}}
-      <div class=" col s12 m5 no-right-pad">
+      <div class=" col s12 m12 l5 no-right-pad">
         <div class="operator-info card-border z-depth-0 card ">
           <span class="black-text">{{> userInfoCard customerId=this}}
           </span>
@@ -22,7 +22,7 @@
           </span>
         </div>
       </div>
-      <div class="col s12 m5">
+      <div class="col s12 m12 l5">
         <div class="operator-api card-border z-depth-0 card ">
           <span class="black-text">{{> apiCard customerId=this}}
           </span>
@@ -36,7 +36,7 @@
         </div>
       </div>
       {{else}}
-      <div class=" col s12 m5 no-right-pad">
+      <div class=" col s12 m12 l5 no-right-pad">
         <div class="operator-info card-border z-depth-0 card ">
           <span class="black-text">
             {{> userInfoCard}}
@@ -48,7 +48,7 @@
           </span>
         </div>
       </div>
-      <div class="col s12 m5">
+      <div class="col s12 m12 l5">
         <div class="operator-api card-border z-depth-0 card ">
           <span class="black-text">{{> apiCard}}
           </span>

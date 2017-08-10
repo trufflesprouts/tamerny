@@ -51,49 +51,53 @@
   <br>
 
   <!-- Operator Registration Forms -->
-  <div class="scrollable">
+  <!-- <div class="scrollable"> -->
     
     <!-- Update Basic information -->
     <div class="row">
       {{> Template.dynamic template=currentForm}}
 
     </div>
-  </div>
+  <!-- </div> -->
 
 </template>
 
 <template name="BasicsInfo">
+  
   {{#autoForm collection="UserProfiles" doc=basicInfo id="userUpdateForm" type="update"}}
-          <div class="input-field col s12">
-            {{>afFieldInput name="firstName" id="firstName" type="text"}}
-            <label class="active">First Name</label>
-            <br>
-          </div>
+    <div class="scrollable">
+      <div class="input-field col s12">
+        {{>afFieldInput name="firstName" id="firstName" type="text"}}
+        <label class="active">First Name</label>
+        <br>
+      </div>
 
-          <div class="input-field col s12">
-            {{>afFieldInput name="lastName" id="lastName" type="text"}}
-            <label class="active">Last Name</label>
-            <br>
-          </div>
+      <div class="input-field col s12">
+        {{>afFieldInput name="lastName" id="lastName" type="text"}}
+        <label class="active">Last Name</label>
+        <br>
+      </div>
 
-          <div class="input-field col s12">
-            {{>afFieldInput name="phone" id="phone" type="number"}}
-            <label class="active">Phone Number</label>
-          </div>
+      <div class="input-field col s12">
+        {{>afFieldInput name="phone" id="phone" type="number"}}
+        <label class="active">Phone Number</label>
+      </div>
+    </div>
 
-          <!-- Operator Registration Navigation -->
-          <div class="backNext">
-            <hr>
-            <button type="submit" class="btn right btn-primary">Save</button>
-          </div>
+    <!-- Operator Registration Navigation -->
+    <div class="col s12 backNext">
+      <hr>
+      <button type="submit" class="btn right btn-primary">Save</button>
+    </div>
 
       {{/autoForm}}
   </template>
 
   <template name="OperatorInfo">
     {{#autoForm collection="OperatorProfile" doc= updoc id="upsertOperatorForm" type=upsert}}
-          
+         
       <div class="eduEmp" id="">
+        <div class="scrollable"> 
         <div class="row">
           <div class="col s5">            
             <br>
@@ -123,15 +127,17 @@
             {{>afFieldInput name="affiliation" type="text"}}
           </div>
         </div>
+        </div>
+        
 
-        <div class="backNext">
+        <div class="col s12 backNext">
           <hr>
           <button  class="next right waves-effect waves-light btn ">Next</button>
         </div>
-
-      </div>
+        </div>
 
       <div class="workSettings">
+        <div class="scrollable"> 
         <div class="row">
           <div class="col s5">
             <br>
@@ -172,11 +178,12 @@
             {{>afFieldInput name="seeking" value="false" type="hidden"}}
           </div>
         </div>
+        </div>
 
-        <div class="backNext">
+        <div class="col s12 backNext">
           <hr>
           <button type="submit" class="btn right btn-primary">Save</button>
-          <a class="back left waves-effect waves-light btn">Back</a>
+          <a class="back left  waves-effect waves-light btn">Back</a>
         </div>
       
       </div>

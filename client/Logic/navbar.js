@@ -46,6 +46,10 @@ Template.Navbar.events({
     FlowRouter.go('/op-registration');
     $('#login').modal('open');
   },
+  'click .side': function(){
+    
+    $('.button-collapse').sideNav('hide');
+  }
 });
 
 

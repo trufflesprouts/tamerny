@@ -301,7 +301,8 @@ nav.navbar-fixed {
 }
 
 .scrollable {
-  max-height:1000px;
+  /*max-height:1000px;*/
+  height:calc(100vh - 250px);
   overflow: scroll;
 }
 
@@ -407,10 +408,10 @@ nav.navbar-fixed {
 }
 
 .backNext {
-  position: absolute;
+  /*position: absolute;*/
   padding-bottom:30px;
   bottom: 0px;
-  width:500px;
+  /*idth:500px;*/
   background-color: white;
 }
 

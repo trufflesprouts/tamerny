@@ -23,16 +23,18 @@
 		  </div>
 		</nav>
   </div> 
-  
+
   <ul id="slide-out" class="side-nav">
     {{#if currentUser }}
       {{#if notOperator }}
-        <li><a class="become-margins waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
+        <li><a class="side become-margins waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
         {{else}}
-        <li><a href={{dashboardLink}}>Dashboard</a></li> 
+        <li><a class="side" href={{dashboardLink}}>Dashboard</a></li> 
       {{/if}}
-      <li><a href="/">Profile</a></li>
-      {{> navbarAccount}}
+      <li><a class="side" href="/">Profile</a></li>
+      <li><a class="side" href="/settings">Settings</a></li>
+      <li class="divider"></li>
+      <li><a href="/" class="logout side waves-effect waves-light">Logout</a></li>
       {{else}}
         <li><a class="become-margins open-modal waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
         <li><a class="waves-effect waves-light" href="#login">Login</a>
