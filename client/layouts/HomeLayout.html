@@ -266,44 +266,35 @@
       {{#each transaction in userHistory customerId}}
           <li>
             <div class="collapsible-header">
-              <span class="left">{{transaction.title}}</span>
-              <span class="right">{{since transaction.time}}</span>
+              <div class="left s10 ellipsis">{{transaction.title}}</div>
+              <div class="right s2 ellipsis">{{since transaction.time}}</div>
             </div>
             <div class="collapsible-body">
-              <span class="left">{{transaction.description}}</span>
-              <span class="right">{{transaction.price}}</span>
-              <span>{{transaction.status}}</span>
+              <div class="left ">{{transaction.description}}</div>
+              <div class="right">{{transaction.price}}</div>
+              <br>
+              <div>{{transaction.status}}</div>
             </div>
           </li>
       {{/each}}
 
       <!-- START DELETE (AFTER TESTING) -->
       <li>
-        <div class="collapsible-header">
-          <span class="left">Jarir Book Store (TEST)</span>
-          <span class="right">5 days ago</span>
+        <div class="collapsible-header ">
+          <div class="left col s10 ellipsis">Jarir Book Store (TEST)</div>
+          <div class="right col s2 ellipsis">5 days ago</div>
         </div>
-        <div class="collapsible-body">
-          <span class="left">2 Five Star Grid Notebooks</span>
-          <span class="right">SAR50.00</span>
-          <span> (done)</span>
-        </div>
-      </li>
-       <li>
-        <div class="collapsible-header">
-          <span class="left">Al Baik (TEST)</span>
-          <span class="right">3 days ago</span>
-        </div>
-        <div class="collapsible-body">
-          <span class="left">٢ مسحب حراق</span>
-          <span class="right">SAR23.00</span>
-          <span> (dummy)</span>
+        <div class="collapsible-body row">
+          <div class="left">2 Five Star Grid Notebooks</div>
+          <div class="right ">SAR50.00</div>
+          <br>
+          <div> (done)</div>
         </div>
       </li>
        <li>
         <div class="collapsible-header">
-          <span class="left">Al Baik (TEST)</span>
-          <span class="right">3 days ago</span>
+          <div class="left col s10 ellipsis">Jarir Book Store (TEST)</div>
+          <div class="right col s2 ellipsis">5 days ago</div>
         </div>
         <div class="collapsible-body">
           <span class="left">٢ مسحب حراق</span>
@@ -313,8 +304,19 @@
       </li>
        <li>
         <div class="collapsible-header">
-          <span class="left">Al Baik (TEST)</span>
-          <span class="right">3 days ago</span>
+          <div class="left col s10 ellipsis">Jarir Book Store (TEST)</div>
+          <div class="right col s2 ellipsis">5 days ago</div>
+        </div>
+        <div class="collapsible-body">
+          <span class="left">٢ مسحب حراق</span>
+          <span class="right">SAR23.00</span>
+          <span> (dummy)</span>
+        </div>
+      </li>
+       <li>
+        <div class="collapsible-header">
+          <div class="left col s10 ellipsis">Jarir Book Store (TEST)</div>
+          <div class="right col s2 ellipsis">5 days ago</div>
         </div>
         <div class="collapsible-body">
           <span class="left">٢ مسحب حراق</span>
@@ -324,8 +326,8 @@
       </li>
       <li>
         <div class="collapsible-header">
-          <span class="left">Transportation: Careem (TEST)</span>
-          <span class="right">6 days ago</span>
+          <div class="left col s10 ellipsis">Jarir Book Store (TEST)</div>
+          <div class="right col s2 ellipsis">5 days ago</div>
         </div>
         <div class="collapsible-body">
           <span class="left">From your house to your office</span>

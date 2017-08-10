@@ -294,6 +294,16 @@ nav.navbar-fixed {
   display: block;
 }
 
+.nav-name{
+  max-width: 150px;
+}
+
+.ellipsis-settings{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .ellipsis{
   white-space: nowrap;
   overflow: hidden;
