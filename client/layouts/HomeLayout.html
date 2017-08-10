@@ -25,7 +25,13 @@
           </a></div></li>
         </ul>
 
-        {{> userCardsPage }}
+        <!-- {{> userCardsPage }} -->
+        <!-- USER -->
+        <div class="scroll-padding" id="user-profile">
+          <div class="col s12 divider orange-divider"></div>
+          <div class="section-title center-align">User Profile</div>
+          {{> userCardsPage padding="operator-padding"}}
+        </div>
 
         <!-- SALES -->
         <div class="scroll-padding" id="sales">
@@ -50,7 +56,7 @@
 
       {{else}}
         <!-- USER -->
-        {{> userCardsPage }}
+        {{> userCardsPage padding="margins-valign"}}
       {{/if}}
 
 		{{else}}
@@ -72,7 +78,8 @@
 
 <template name="userCardsPage">
   <!-- USER -->
-  <div class="row margins-valign">
+  <div class="row ">
+    <div class={{padding}}>
     <div class="col s12 m12 l6">
       <!-- BALANCE CARD -->
       <div class=" col s12">
@@ -94,6 +101,8 @@
       </div>
     </div> 
   </div>
+  </div>
+
 </template>
 
 <template name="sales">
