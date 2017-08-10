@@ -196,7 +196,8 @@
     <ul class="collapsible z-depth-0" data-collapsible="accordion">
       <!-- Change Education Level -->
       <li>
-        <div class="collapsible-header"><i class="material-icons">school</i>Education Level  &nbsp;&nbsp; ({{operatorInfo.educationLevel}}) <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">school</i>Education Level  &nbsp;&nbsp; ({{operatorInfo.educationLevel}})</div>
+        <div class="col s2"> <i class="material-icons right">mode_edit</i></div></div>
         <div class="collapsible-body">
           <div class="row">
             {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" class="operator" type="update"}}

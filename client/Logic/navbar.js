@@ -47,9 +47,13 @@ Template.Navbar.events({
     $('#login').modal('open');
   },
   'click .side': function(){
-    
     $('.button-collapse').sideNav('hide');
-  }
+  },
+  'click .logout': function(event) {
+      event.preventDefault();
+      Meteor.logout();
+      FlowRouter.go('/');
+    }
 });
 
 
