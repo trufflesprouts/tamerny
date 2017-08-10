@@ -14,8 +14,6 @@ Templates:
 
 import { History } from '../../collections/history.js'
 
-
-
 // Section II: onRendered
 
 Template.transactions.onRendered(function () {
@@ -28,7 +26,7 @@ Template.transactions.onRendered(function () {
 
 Template.HomeLayout.onRendered(function () {
   $('#3dsecurity').load(function (){
-    console.log(document.getElementById('3dsecurity').src)
+
   })
 })
 
@@ -37,6 +35,32 @@ Template.HomeLayout.onRendered(function () {
 Template.HomeLayout.events({
   'submit form': function(event) {
     event.preventDefault();
+  },
+  'load iframe': function (event){
+    if (self.location.href.indexOf("?") > 0){
+      var callback_url = self.location.href;
+      console.log(callback_url)
+
+      var start = callback_url.indexOf("=") + 1;
+      var end = callback_url.indexOf("&");
+      var id = callback_url.slice(start,end);
+
+      var start = callback_url.indexOf("=",start) + 1;
+      var end = callback_url.indexOf("&",end + 1);
+      var status = callback_url.slice(start,end);
+
+      var start = callback_url.indexOf("=",start) + 1;
+      var end = callback_url.indexOf("%");
+      var message = callback_url.slice(start,end);
+
+      console.log(id)
+      console.log(status)
+      console.log(message)
+
+      window.parent.$("#3dsecurity_frame").modal("close");
+
+      // grab moyasar
+    }
   }
 });
 
@@ -79,11 +103,3 @@ Template.transactions.helpers({
     return difference
   }
 })
-
-window.callbackHandler = function (callback_url){
-  console.log(callback_url)
-  // var pos = callback_url.locate("http://localhost:3000/");
-  // if ( pos == 0 ){
-  //   $("3dsecurity_frame").modal("close");
-  // }
-}
