@@ -10,11 +10,10 @@
 
         <!-- SIDE-NAV -->
         <ul id="slide-out" class="side-nav fixed side-color side-width">
-          <li><div class="user-view center">
-            <div class="background">
-            </div>
-            {{> userInfo user}}
-          </div></li>
+          <li><div class="user-view center side-text-color">
+            <a href="#user-profile"><i class="material-icons small">account_circle</i>
+          </a></div></li>
+          <div class="col s12 divider"></div>
           <li><div class="user-view center side-text-color">
             <a href="#sales"><i class="material-icons small">equalizer</i>
           </a></div></li>
@@ -25,6 +24,8 @@
             <i class="material-icons small">star_half</i>
           </a></div></li>
         </ul>
+
+        {{> userCardsPage }}
 
         <!-- SALES -->
         <div class="scroll-padding" id="sales">
@@ -48,38 +49,17 @@
         </div>
 
       {{else}}
-  			<!-- USER -->
-        <div class="row margins-valign">
-          <div class="col s12 m6">
-            <!-- BALANCE CARD -->
-            <div class=" col s12">
-              <div class="card-border z-depth-0 card balance_card white">
-                {{> userBalance}}
-              </div>
-            </div>
-           <!-- HISTORY CARD -->
-            <div class="col s12">
-              <div class="card-border z-depth-0 card  transactions-card white">
-                {{> transactions}}
-              </div>
-            </div>
-          </div>
-          <!-- TOPUP CARD -->
-          <div class=" col s12 m6">
-            <div class="card-border z-depth-0 card topup-card white">
-              {{> topUp}}
-            </div>
-          </div> 
-        </div>
+        <!-- USER -->
+        {{> userCardsPage }}
       {{/if}}
 
 		{{else}}
 			<!-- Not Logged in -->
       <div class="row">
-        <div class=" col m9 hide-on-small-only">
+        <div class=" col m9 hide-on-med-and-down">
           <img class="landing-pic" src="/images/landing.png" alt="Pgone">
         </div>
-        <div class="landing-text col s12 m3">
+        <div class="landing-text col s12 m12 l3">
           <div class="landing-motto">Anything, one text away.</div>
           <p class="landing-info">Order anything with a simple text to 0508512034 and Tamerny will get it for you.</p>
           <center><a href="#login" class="col s12 #9fa8da indigo lighten-3 waves-effect waves-light btn center-align">Register</a></center>
@@ -88,6 +68,32 @@
 	{{/if}}
 
   </main>
+</template>
+
+<template name="userCardsPage">
+  <!-- USER -->
+  <div class="row margins-valign">
+    <div class="col s12 m6">
+      <!-- BALANCE CARD -->
+      <div class=" col s12">
+        <div class="card-border z-depth-0 card balance_card white">
+          {{> userBalance}}
+        </div>
+      </div>
+     <!-- HISTORY CARD -->
+      <div class="col s12">
+        <div class="card-border z-depth-0 card  transactions-card white">
+          {{> transactions}}
+        </div>
+      </div>
+    </div>
+    <!-- TOPUP CARD -->
+    <div class=" col s12 m6">
+      <div class="card-border z-depth-0 card topup-card white">
+        {{> topUp}}
+      </div>
+    </div> 
+  </div>
 </template>
 
 <template name="sales">
@@ -323,9 +329,9 @@
   </div>
 </template>
 
-<template name="userInfo">
+<!-- <template name="userInfo">
   <div class="side-text-color">
    <span class="center">{{initials firstName lastName}}</span>
   
  </div>
-</template>
+</template> -->

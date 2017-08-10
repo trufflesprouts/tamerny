@@ -72,11 +72,11 @@ Template.HomeLayout.helpers({
   }
 })
 
-Template.userInfo.helpers({
-  initials(first, last){
-    return first.charAt(0) + last.charAt(0)
-  }
-})
+// Template.userInfo.helpers({
+//   initials(first, last){
+//     return first.charAt(0) + last.charAt(0)
+//   }
+// })
 
 Template.transactions.helpers({
   since (then){

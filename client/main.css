@@ -13,7 +13,12 @@ a {
   color: inherit;
 }
 
-nav {
+nav.navbar-fixed {
+  height: 50px;
+  line-height: 50px;
+}
+
+.side-nave {
   height: 50px;
   line-height: 50px;
 }

@@ -1,44 +1,44 @@
 	
 <template name="Navbar">
 	<div class="navbar-fixed">
-  	<!-- Dropdown Structure -->
-    <ul id='dropdown1' class='dropdown-content'>
-      <li><a href="#!">two</a></li>
-      <li class="divider"></li>
-      <li><a href="#!">three</a></li>
-      <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
-      <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-    </ul>
-
-    <nav class="#9fa8da indigo lighten-3 z-depth-0">
+    <nav class=" navbar-fixed #9fa8da indigo lighten-3 z-depth-0">
 		  <div class="nav-wrapper">
 		    <a href="/"><img class="logo brand-logo" src="/images/logo.png" alt="Logo"></a>
-		    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-		    <ul id="nav-mobile" class="right valign-wrapper hide-on-med-and-down">
-
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right valign-wrapper hide-on-med-and-down">
 				  {{#if currentUser }}
             {{#if notOperator }}
 						  <li><a class="become-margins waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
               {{else}}
               <li><a href={{dashboardLink}}>Dashboard</a></li> 
             {{/if}}
-
             <li><a href="/">Profile</a></li>
-
             {{> navbarAccount}}
-
 						{{else}}
               <li><a class="become-margins open-modal waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
-
-              <!-- Now open login modal automatically  -->
   						<li><a class="waves-effect waves-light" href="#login">Login</a>
               </li>
 					{{/if}}		
 				</ul>
 		  </div>
 		</nav>
-
-	</div>
+  </div> 
+  
+  <ul id="slide-out" class="side-nav">
+    {{#if currentUser }}
+      {{#if notOperator }}
+        <li><a class="become-margins waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
+        {{else}}
+        <li><a href={{dashboardLink}}>Dashboard</a></li> 
+      {{/if}}
+      <li><a href="/">Profile</a></li>
+      {{> navbarAccount}}
+      {{else}}
+        <li><a class="become-margins open-modal waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
+        <li><a class="waves-effect waves-light" href="#login">Login</a>
+        </li>
+    {{/if}} 
+  </ul>
 
   <!-- Modal Structure -->
   <div id="login" class="modal">
