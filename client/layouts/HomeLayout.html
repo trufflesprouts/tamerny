@@ -28,27 +28,27 @@
         <!-- {{> userCardsPage }} -->
         <!-- USER -->
         <div class="scroll-padding" id="user-profile">
-          <div class="col s12 divider orange-divider"></div>
-          <div class="section-title center-align">User Profile</div>
-          {{> userCardsPage padding="operator-padding"}}
+          <div class="col s12 divider orange-divider hide-on-small-only"></div>
+          <div class="section-title center-align hide-on-small-only">User Profile</div>
+          <div clas="hide-on-small-only">{{> userCardsPage padding="operator-padding"}}</div>
         </div>
 
         <!-- SALES -->
-        <div class="scroll-padding" id="sales">
+        <div class="scroll-padding hide-on-small-only" id="sales">
           <div class="col s12 divider orange-divider"></div>
           <div class="section-title center-align">Sales</div>
           {{> sales}}
         </div>
 
         <!-- PERFORMANCE -->
-        <div class="scroll-padding" id="performance">
+        <div class="scroll-padding hide-on-small-only" id="performance">
           <div class="col s12 divider orange-divider"></div>
           <div class="section-title center-align">Performance</div>
           {{> performance}}
         </div>
 
         <!-- ACHIEVEMENTS -->
-        <div class="scroll-padding" id="achievement">
+        <div class="scroll-padding hide-on-small-only" id="achievement">
           <div class="col s12 divider orange-divider"></div>
           <div class="section-title center-align">Achievements</div>
           {{> achievements}}
