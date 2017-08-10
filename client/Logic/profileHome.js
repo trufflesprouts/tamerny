@@ -26,15 +26,19 @@ Template.transactions.onRendered(function () {
   });
 })
 
-
+Template.HomeLayout.onRendered(function () {
+  $('#3dsecurity').load(function (){
+    console.log(document.getElementById('3dsecurity').src)
+  })
+})
 
 // Section III: Events
 
 Template.HomeLayout.events({
-    'submit form': function(event) {
-      event.preventDefault();
-    }
-  });
+  'submit form': function(event) {
+    event.preventDefault();
+  }
+});
 
 
 
@@ -75,3 +79,11 @@ Template.transactions.helpers({
     return difference
   }
 })
+
+window.callbackHandler = function (callback_url){
+  console.log(callback_url)
+  // var pos = callback_url.locate("http://localhost:3000/");
+  // if ( pos == 0 ){
+  //   $("3dsecurity_frame").modal("close");
+  // }
+}

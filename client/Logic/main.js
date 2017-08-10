@@ -55,8 +55,8 @@ AutoForm.hooks({
          callback_url: "http://localhost:3000"
         }).then( function(payment){
           if (payment.source.transaction_url != null){
-            $('#3dsecurity_frame').modal('open');
-            document.getElementById('3dsecurity').src = payment.source.transaction_url;
+              $('#3dsecurity_frame').modal('open');
+              document.getElementById('3dsecurity').src = payment.source.transaction_url;
           }
           console.log(payment.source)
 
