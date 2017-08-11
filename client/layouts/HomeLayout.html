@@ -75,37 +75,48 @@
                 </div>
               </div>
               <div class="row">
+                <div class="col s12">
                 <div class="input-field col s12">
                   <i class="material-icons prefix">call_to_action</i>
                   <input placeholder="XXXXXXXXXXXXXXXX" id="number" type="text" class="validate">
                   <label class="active" for="number">Card Number</label>
                 </div>
               </div>
-              <div class="row">
+              <!-- </div>
+              <div class="row"> -->
+              <div class="col s12">
                 <div class="input-field col s12">
                   <i class="material-icons prefix">account_circle</i>
                   <input id="name" type="text" class="validate">
                   <label class="active" for="name">Full Name</label>
                 </div>
               </div>
-              <div class="row">
+              <!-- </div>
+              <div class="row"> -->
+              <div class="col s12">
                 <div class="input-field col s4">
                   <i class="material-icons prefix">credit_card</i>
-                  <input placeholder="XXX" id="cvv" type="text" data-length="3" class="validate">
+                  <input placeholder="XXX" id="cvv" type="text" maxlength="3" class="validate">
                   <label class="active" for="cvv">CVV</label>
                 </div>
                 <div class="col s8">
                   <br>
                   At the back of your card.
+                  <br>
                 </div>
               </div>
-              <div class="row">
-                <div class="col s2">
-                  <i class="material-icons small">date_range</i>
-                </div>
-                <div class="input-field col s5">
+              <!-- </div>
+              <div class="row"> -->
+                <!-- <div class="col s2">
+
+                </div> -->
+                <div class="col s12">
+                  <div class="col s2">
+                    <i class="material-icons prefix">date_range</i>
+                  </div>
+                <div class="input-field col s6">
                   <select id="month">
-                    <option value="" disabled selected></option>
+                    <option value="0" disabled selected>Month</option>
                     <option value="1">1 January</option>
                     <option value="2">2 February</option>
                     <option value="3">3 March</option>
@@ -119,12 +130,13 @@
                     <option value="11">11 November</option>
                     <option value="12">12 December</option>
                   </select>
-                  <label>Month</label>
+                  <label>Expiration</label>
                 </div>
-                <div class="input-field col s5">
-                  <input id="year" type="text" class="validate">
-                  <label class="active" for="year">Year</label>
+                <div class="input-field col s4">
+                  <input placeholder="Year" id="year" type="text" class="validate">
+                  <!-- <label class="active" for="year">Year</label> -->
                 </div>
+              </div>
               </div>
               <br>
   		        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>

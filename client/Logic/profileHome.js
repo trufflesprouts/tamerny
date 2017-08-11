@@ -43,6 +43,11 @@ Template.HomeLayout.events({
     var month = $('#month').val();
     var year = document.getElementById('year').value;
 
+    year = parseInt(year);
+    if (year < 2000){
+      year = year + 2000;
+    }
+
     $('#amount').val('');
     $('#number').val('');
     $('#name').val('');
