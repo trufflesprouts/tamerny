@@ -21,6 +21,7 @@ Template.transactions.onRendered(function () {
     $('ul.tabs').tabs();
     $('.collapsible').collapsible();
     $('.modal').modal();
+    $('select').material_select();
   });
 })
 
@@ -33,6 +34,61 @@ Template.HomeLayout.onRendered(function () {
 // Section III: Events
 
 Template.HomeLayout.events({
+  'submit .safe': function (event){
+    event.preventDefault();
+    var amount = document.getElementById('amount').value;
+    var number = document.getElementById('number').value;
+    var name = document.getElementById('name').value;
+    var cvv = document.getElementById('cvv').value;
+    var month = $('#month').val();
+    var year = document.getElementById('year').value;
+
+    $('#amount').val('');
+    $('#number').val('');
+    $('#name').val('');
+    $('#cvv').val('');
+    $('#month').val('');
+    $('#year').val('');
+
+    // grab moyasar
+    var moyasar = new (require('moyasar'))('sk_test_DJDn2MPWZuinhXxhWjwXVsBGtVQouFLnnAmuQpL2');
+
+    var paymentTest = moyasar.payment.create({
+      // Convert from Riyals to Halalas
+      amount: (100*amount),
+      currency: 'SAR',
+      description: '',
+      source: {
+       type: 'creditcard',
+       name: name,
+       number: number,
+       cvc: cvv,
+       month: month,
+       year: year
+     },
+     callback_url: "http://localhost:3000"
+    }).then( function(payment){
+
+      if (payment.source.transaction_url != null){
+          $('#3dsecurity_frame').modal('open');
+          document.getElementById('3dsecurity').src = payment.source.transaction_url;
+      }
+
+      if (payment.status == "paid"){
+        var payment = moyasar.payment.fetch(payment.id).then( function(payment){
+
+          Meteor.call('addPayment', payment);
+
+          var user = UserProfiles.findOne({userId: Meteor.userId()});
+          var newbalance = payment.amount/100 + user.balance;
+          Meteor.call('updateBalance', newbalance);
+
+          var desc = payment.source.type;
+          Meteor.call('addTransaction', "Top Up", payment.amount/100, desc, "accepted");
+        });
+       }
+    });
+  },
   'submit form': function(event) {
     event.preventDefault();
   },
@@ -71,7 +127,6 @@ Template.HomeLayout.events({
           var moyasar = new (require('moyasar'))('sk_test_DJDn2MPWZuinhXxhWjwXVsBGtVQouFLnnAmuQpL2');
 
           var payment = moyasar.payment.fetch(id).then( function(payment){
-            console.log(payment)
 
             Meteor.call('addPayment', payment);
 
@@ -80,7 +135,7 @@ Template.HomeLayout.events({
             Meteor.call('updateBalance', newbalance);
 
             var desc = payment.source.type;
-            Meteor.call('addTransaction', "Top Up", payment.amount/100, desc, "accepted");
+            Meteor.call('addTransaction', "Top Up", (payment.amount/100), desc, "accepted");
           });
         } else {
           Materialize.toast("Authentication " + message, 4000)

@@ -128,12 +128,18 @@ Meteor.methods({
     History.update({userId: uId},{$push: {transactions: {"title": title, "description": desc, time: new Date(), "price": amount, "status": status}}})
   },
   addPayment: function(payment){
-    var uID = Meteor.userId();
+    var uId = Meteor.userId();
     Payments.update({'userId': uId}, {$push: {'payment': payment}})
   },
   updatePayment: function(paymentId, payment){
     var uId = Meteor.userId();
-    console.log("Feature not implemented yet")
+    Payments.update({userId: uId, "payment.id": paymentId}, {$set: {"payment.$": payment}})
+  },
+  addCustomerPayment: function(customerId, payment){
+    Payments.update({'userId': customerId}, {$push: {'payment': payment}})
+  },
+  updateUCustomerPayment: function(customerId,paymentId, payment){
+    Payments.update({userId: customerId, "payment.id": paymentId}, {$set: {"payment.$": payment}})
   },
   fetchUsers: function(){
     var waitingUsers = WaitingUsers.find().limit(3);

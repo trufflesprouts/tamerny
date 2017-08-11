@@ -40,7 +40,8 @@ UserProfilesSchema = new SimpleSchema({
   balance: {
     type: Number,
     label: "Balance",
-    optional: true
+    optional: true,
+    decimal: true
   },
 
   roles: {
