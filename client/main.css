@@ -18,6 +18,11 @@ nav {
   line-height: 50px;
 }
 
+.payment-page{
+	width: 400px;
+	margin: auto;
+}
+
 .email-alert{
   /*position: sticky;
   top:0;*/
@@ -207,7 +212,7 @@ nav {
 }
 
 .scrollable-profile {
-	height: 445px;
+	height: 585px;
   overflow: scroll;
 }
 
