@@ -11,11 +11,12 @@
 		</div>
 
 		<div class="container">
-			{{#if showAlert}}
+      <!-- Uncomment once click on phone is fixed -->
+			<!-- {{#if showAlert}}
         {{#if emailNotVerified}}
           <div class="email-alert">{{>verify}}</div>
         {{/if}}
-      {{/if}}
+      {{/if}} -->
 
 			{{> Template.dynamic template=main}}
 			{{this.url}}
