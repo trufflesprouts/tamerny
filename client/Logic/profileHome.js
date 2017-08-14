@@ -16,6 +16,15 @@ import { History } from '../../collections/history.js'
 
 // Section II: onRendered
 
+Template.HomeLayout.onRendered(function () {
+  $(document).ready(function(){
+    $('ul.tabs').tabs();
+    $(".button-collapse").sideNav();
+    $('.collapsible').collapsible();
+    $('.tooltipped').tooltip({delay: 50});
+  });
+});
+
 Template.transactions.onRendered(function () {
   $(document).ready(function(){
     $('ul.tabs').tabs();
@@ -33,7 +42,7 @@ Template.HomeLayout.onRendered(function () {
 
 // Section III: Events
 
-Template.HomeLayout.events({
+Template.topUp.events({
   'submit .safe': function (event){
     event.preventDefault();
     var amount = document.getElementById('amount').value;
@@ -93,10 +102,10 @@ Template.HomeLayout.events({
         });
        }
     });
-  },
-  'submit form': function(event) {
-    event.preventDefault();
-  },
+  }
+})
+
+Template.HomeLayout.events({
   'load iframe': function (event){
     if (self.location.href.indexOf("?") > 0){
       var callback_url = self.location.href;
@@ -156,16 +165,37 @@ Template.HomeLayout.events({
 
 // Section IIII: Helpers
 
-Template.HomeLayout.helpers({
+Template.userBalance.helpers({
   balance(){
     var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
     return userProfileDoc.balance;
   },
-  userHistory (){
-    var userHistory = History.findOne({userId: Meteor.userId()}).transactions.reverse();
-    return userHistory
+})
+
+Template.HomeLayout.helpers({
+  isOperator (){
+    var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
+    var roles = userProfileDoc.roles
+    var rolesLength = roles.length
+    var status = false;
+
+    for (var i = 0; i < rolesLength; i++){
+      if (roles[i] == "operator")
+        status = true;
+    }
+    return status
+  },
+  user (){
+    var userProfileDoc = UserProfiles.findOne({userId: Meteor.userId()});
+    return userProfileDoc
   }
 })
+
+// Template.userInfo.helpers({
+//   initials(first, last){
+//     return first.charAt(0) + last.charAt(0)
+//   }
+// })
 
 Template.transactions.helpers({
   since (then){
@@ -189,5 +219,10 @@ Template.transactions.helpers({
       var difference = parseInt(diff/(1000*60*60*24*365)) + "y"
     }
     return difference
-  }
+  },
+  userHistory (){
+    var userHistory = History.findOne({userId: Meteor.userId()}).transactions.reverse();
+    return userHistory
+  },
+
 })

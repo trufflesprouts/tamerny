@@ -18,6 +18,7 @@ import { TopUp } from '../../collections/topup.js'
 import { OperatorProfile } from '../../collections/operatorProfile.js'
 import { Pairings } from '../../collections/pairedUsers.js'
 import { Addresses } from '../../collections/addresses.js'
+import { Session } from 'meteor/session'
 
 window.UserProfiles = UserProfiles
 window.TopUp = TopUp
@@ -369,6 +370,16 @@ Template.MainLayout.helpers({
       var emailStatus = true
     return !emailStatus
   },
+   showAlert(){
+    var status = Session.get('emailAlert')
+    if(status == undefined)
+      return true
+    else
+      return status
+  }
+})
+
+Template.verify.helpers({
   emailVar(){
     var doc = Meteor.users.findOne({_id: Meteor.userId()});
     if (doc != undefined)
@@ -379,9 +390,8 @@ Template.MainLayout.helpers({
   }
 })
 
-
-
 // Section IV: Mainlayout Events
+
 
 Template.MainLayout.events({
   'click .resend-email': function(){
@@ -389,7 +399,9 @@ Template.MainLayout.events({
     var emailVar = Meteor.users.findOne({_id: Meteor.userId()}).emails[0].address
     Meteor.call('sendVerificationLink', Meteor.userId(), emailVar);
     Materialize.toast('Verification email was sent to ' + emailVar , 4000)
-
+  },
+  'click .close-modal': function(){
+    Session.set({emailAlert: false})
   }
 })
 

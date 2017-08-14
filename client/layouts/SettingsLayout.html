@@ -24,12 +24,13 @@
 	<div class="settings-background">
 		<div class="container">
   		<div class="center settings-main-text">
+        <!-- TAKE CARE OF OVER FLOW... TWO LINE ELLIPSIS -->
   			{{basicInfo.firstName}}, configure your account as you wish
   		</div>
   		<div class="row settings-sub-text">
   			<div class="col l6 m6 s6 ">
   				<div class="row">
-    				<div class="col l10 m10 s10 ">
+    				<div class="col l10 m10 s10 ellipsis">
 	      			{{basicInfo.firstName}} {{basicInfo.lastName}}
 	      			<br>
 	      			{{basicInfo.phone}}
@@ -71,8 +72,17 @@
   <div id="account" class="col s12">
     <ul class="collapsible z-depth-0" data-collapsible="accordion">
     <li>
-    <!-- Change Name -->
-      <div class="collapsible-header"><i class="material-icons">person_outline</i>Name  &nbsp;&nbsp; ({{basicInfo.firstName}} {{basicInfo.lastName}}) <i class="material-icons right">mode_edit</i></div>
+      <!-- Change Name -->
+      <div class="collapsible-header ">
+        <div class="col s10 ellipsis">
+        <i class="material-icons">person_outline</i>
+            Name  &nbsp;&nbsp; ({{basicInfo.firstName}} {{basicInfo.lastName}}) 
+        </div>
+        <div class="col s2">
+          <i class="material-icons right">mode_edit</i>
+        </div>
+      </div>
+
       <div class="collapsible-body">
         <div class="row">
           {{#autoForm collection="UserProfiles" doc=basicInfo id="updateNameForm" type="update"}}
@@ -99,7 +109,15 @@
     </li>
     <li>
     <!-- Change Phone Number -->
-      <div class="collapsible-header"><i class="material-icons">perm_phone_msg</i>Phone Number  &nbsp;&nbsp; ({{basicInfo.phone}}) <i class="material-icons right">mode_edit</i></div>
+      <div class="collapsible-header">
+        <div class="col s10 ellipsis">
+          <i class="material-icons">perm_phone_msg</i>
+          Phone Number  &nbsp;&nbsp; ({{basicInfo.phone}}) 
+        </div>
+        <div class="col s2">
+          <i class="material-icons right">mode_edit</i>
+        </div>
+      </div>
         <div class="collapsible-body">
           <div class="row">
             {{#autoForm collection="UserProfiles" doc=basicInfo id="updatePhoneForm" type="update"}}
@@ -117,7 +135,8 @@
       </li>
     <li>
     <!-- Change Email -->
-      <div class="collapsible-header"><i class="material-icons">mail_outline</i>Change Email  &nbsp;&nbsp; ({{userEmail}}) <i class="material-icons right">mode_edit</i></div>
+      <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">mail_outline</i>Change Email  &nbsp;&nbsp; ({{userEmail}}) </div>
+        <div class="col s2"><i class="material-icons right">mode_edit</i></div></div>
       <div class="collapsible-body">
         <div class="row">
           <form class="changeEmail">
@@ -134,20 +153,21 @@
     </li>
     <li>
     <!-- Change Password -->
-      <div class="collapsible-header"><i class="material-icons">fingerprint</i>Change Password <i class="material-icons right">mode_edit</i></div>
+      <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">fingerprint</i>Change Password </div>
+        <div class="col s2"><i class="material-icons right">mode_edit</i></div></div>
       <div class="collapsible-body">
         <div class="row">
           <form class="changePassword">
               <div class="container center">
-                <div class="input-field col s4">
+                <div class="input-field col s12 m12 l4">
                   <input id="oldPass" name="oldPass" type="password" class="validate">
                   <label for="password">Old Password</label>
                 </div>
-                <div class="input-field col s4">
+                <div class="input-field col s12 m12 l4">
                   <input id="newPass" name="newPass" type="password" class="validate">
                   <label for="password">New Password</label>
                 </div>
-                <div class="input-field col s4">
+                <div class="input-field col s12 m12 l4">
                   <button type="submit" class=" btn right btn-primary">Change</button>
                 </div>
               </div>
@@ -158,7 +178,7 @@
     </li>
     <li>
     <!-- Deactivate Account -->
-      <div class="collapsible-header"><i class="material-icons">clear</i>Deactivate Account</div>
+      <div class="collapsible-header ellipsis"><div class="col s10 ellipsis"><i class="material-icons">clear</i>Deactivate Account</div></div>
       <div class="collapsible-body">
         <div class="row">
           <form class="deactivateAccount">
@@ -176,7 +196,8 @@
     <ul class="collapsible z-depth-0" data-collapsible="accordion">
       <!-- Change Education Level -->
       <li>
-        <div class="collapsible-header"><i class="material-icons">school</i>Education Level  &nbsp;&nbsp; ({{operatorInfo.educationLevel}}) <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">school</i>Education Level  &nbsp;&nbsp; ({{operatorInfo.educationLevel}})</div>
+        <div class="col s2"> <i class="material-icons right">mode_edit</i></div></div>
         <div class="collapsible-body">
           <div class="row">
             {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" class="operator" type="update"}}
@@ -196,7 +217,8 @@
       </li>
       <!-- Change Employment Status -->
       <li>
-        <div class="collapsible-header"><i class="material-icons">business_center</i>Employment Status  &nbsp;&nbsp; ({{operatorInfo.empStatus}}) <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">business_center</i>Employment Status  &nbsp;&nbsp; ({{operatorInfo.empStatus}}) </div>
+        <div class="col s2"><i class="material-icons right">mode_edit</i></div></div>
         <div class="collapsible-body">
           <div class="row">
             {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" class="operator" type="update"}}
@@ -214,7 +236,8 @@
       </li>
       <!-- Change Affiliation -->
       <li>
-        <div class="collapsible-header"><i class="material-icons">domain</i>Affiliation  &nbsp;&nbsp; ({{operatorInfo.affiliation}}) <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">domain</i>Affiliation  &nbsp;&nbsp; ({{operatorInfo.affiliation}})</div>
+        <div class="col s2"> <i class="material-icons right">mode_edit</i></div></div>
         <div class="collapsible-body">
           <div class="row">
             {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" type="update"}}
@@ -232,7 +255,8 @@
       </li>
       <!-- Change Operator time Commitement -->
       <li>
-        <div class="collapsible-header"><i class="material-icons">alarm</i>Time Commitment  &nbsp;&nbsp; ({{operatorInfo.operateTime}}) <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">alarm</i>Time Commitment  &nbsp;&nbsp; ({{operatorInfo.operateTime}}) </div>
+        <div class="col s2"><i class="material-icons right">mode_edit</i></div></div>
         <div class="collapsible-body">
           <div class="row">
             {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" class="operator" type="update"}}
@@ -250,11 +274,12 @@
       </li>
       <!-- Change Languages -->
       <li>
-        <div class="collapsible-header"><i class="material-icons">language</i>Language Proficiency  &nbsp;&nbsp; 
+        <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">language</i>Language Proficiency  &nbsp;&nbsp; 
           ({{#each lang in operatorInfo.langs}}
             {{lang }}
-          {{/each}}) 
-          <i class="material-icons right">mode_edit</i></div>
+          {{/each}}) </div>
+        <div class="col s2">
+          <i class="material-icons right">mode_edit</i></div></div>
         <div class="collapsible-body">
           <div class="row">
             {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" class="operator" type="update"}}
@@ -272,11 +297,12 @@
       </li>
       <!-- Change Expertise -->
       <li>
-        <div class="collapsible-header"><i class="material-icons">lightbulb_outline</i>Expertise &nbsp;&nbsp; 
+        <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">lightbulb_outline</i>Expertise &nbsp;&nbsp; 
         ({{#each exp in operatorInfo.expertise}}
             {{exp }}
-          {{/each}}) 
-           <i class="material-icons right">mode_edit</i></div>
+          {{/each}}) </div>
+        <div class="col s2">
+           <i class="material-icons right">mode_edit</i></div></div>
         <div class="collapsible-body">
           <div class="row">
             {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" class="operator" type="update"}}
@@ -294,7 +320,8 @@
       </li>
       <!-- Change Location-->
       <li>
-        <div class="collapsible-header"><i class="material-icons">location_on</i>Location  &nbsp;&nbsp; ({{operatorInfo.location}}) <i class="material-icons right">mode_edit</i></div>
+        <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">location_on</i>Location  &nbsp;&nbsp; ({{operatorInfo.location}}) </div>
+        <div class="col s2"><i class="material-icons right">mode_edit</i></div></div>
         <div class="collapsible-body">
           <div class="row">
             {{#autoForm collection="OperatorProfile" doc=operatorInfo id="profileOperatorUpdate" class="operator" type="update"}}

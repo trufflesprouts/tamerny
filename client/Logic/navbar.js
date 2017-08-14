@@ -17,6 +17,7 @@ Template.Navbar.onRendered(function () {
   $(document).ready(function(){
     $('.modal').modal();
     $('ul.tabs').tabs();
+    $(".button-collapse").sideNav();
   });
 });
 
@@ -34,6 +35,7 @@ Template.navbarAccount.events({
     'click .logout': function(event) {
       event.preventDefault();
       Meteor.logout();
+      FlowRouter.go('/');
     }
   });
 
@@ -44,6 +46,14 @@ Template.Navbar.events({
     FlowRouter.go('/op-registration');
     $('#login').modal('open');
   },
+  'click .side': function(){
+    $('.button-collapse').sideNav('hide');
+  },
+  'click .logout': function(event) {
+      event.preventDefault();
+      Meteor.logout();
+      FlowRouter.go('/');
+    }
 });
 
 

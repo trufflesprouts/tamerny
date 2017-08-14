@@ -4,173 +4,71 @@
 
     {{#if currentUser }}
 			<!-- Logged in -->
+      {{#if isOperator}}
 
-      <!-- Balance Updating is functional -->
-			<div class="balance_main center">{{balance}} <a class="currency_main">(SAR)</a></div>
-			<br>
-			<br>
+      <!-- OPERATOR -->
 
-			<div class="row">
-	      <div class=" col s6 center">
-	      	<!-- Print all transactions here -->
-	      	<h4>Transaction History</h4>
-          <div class="scrollable-profile container col s12">
-            <ul class="collapsible" data-collapsible="accordion">
-              {{#each transaction in userHistory customerId}}
-                  {{> transactions transaction}}
-              {{/each}}
-              <li>
-                <div class="collapsible-header">
-                  <span class="left">Al Baik</span>
-                  <span class="right">3 days ago</span>
-                </div>
-                <div class="collapsible-body">
-                  <span class="left">٢ مسحب حراق</span>
-                  <span class="right">SAR23.00</span>
-                  <span> (dummy)</span>
-                </div>
-              </li>
-              <li>
-                <div class="collapsible-header">
-                  <span class="left">Jarir Book Store</span>
-                  <span class="right">5 days ago</span>
-                </div>
-                <div class="collapsible-body">
-                  <span class="left">2 Five Star Grid Notebooks</span>
-                  <span class="right">SAR50.00</span>
-                  <span> (done)</span>
-                </div>
-              </li>
-              <li>
-                <div class="collapsible-header">
-                  <span class="left">Transportation: Careem</span>
-                  <span class="right">6 days ago</span>
-                </div>
-                <div class="collapsible-body">
-                  <span class="left">From your house to your office</span>
-                  <span class="right">SAR20.00</span>
-                  <span> (done)</span>
-                </div>
-              </li>
-            </ul>
-          </div>
-	      </div>
-	      <div class="col s6 center">
-	      	<h4>Add Money</h4>
-          <div class="row">
-            <div class="input-field col s12">
-              <i class="material-icons prefix">attach_money</i>
-              <input placeholder="0.00" id="amount" type="number" min="0.00" max="10000.00" step="0.01" class="validate">
-              <label class="active" for="amount">Amount</label>
-            </div>
-          </div>
-          <div class="row">
-            <ul class="tabs">
+        <!-- SIDE-NAV -->
+        <ul id="slide-out" class="side-nav fixed side-color side-width">
+          <li><div class="user-view center side-text-color">
+            <a href="#user-profile"><i class="material-icons small">account_circle</i>
+          </a></div></li>
+          <div class="col s12 divider"></div>
+          <li><div class="user-view center side-text-color">
+            <a href="#sales"><i class="material-icons small">equalizer</i>
+          </a></div></li>
+          <li><div class="user-view center side-text-color"><a href="#performance">
+            <i class="material-icons small">multiline_chart</i>
+          </a></div></li>
+          <li><div class="user-view center side-text-color"><a href="#achievement">
+            <i class="material-icons small">star_half</i>
+          </a></div></li>
+        </ul>
 
-              <li class="tab col s6"><a href="#creditcard-safe">Credit Card</a></li>
-              <li class="tab col s6"><a href="#sadad">Sadad</a></li>
+        <!-- {{> userCardsPage }} -->
+        <!-- USER -->
+        <div class="scroll-padding" id="user-profile">
+          <div class="col s12 divider orange-divider hide-on-small-only"></div>
+          <div class="section-title center-align hide-on-small-only">User Profile</div>
+          <div clas="hide-on-small-only">{{> userCardsPage padding="operator-padding"}}</div>
+        </div>
 
-            </ul>
-          </div>
-          <div id="creditcard-safe" class="col s12">
-            <form class="safe col s12">
-              <div class="row">
-                <div class="col s12">
-                <div class="input-field col s12">
-                  <i class="material-icons prefix">call_to_action</i>
-                  <input placeholder="XXXXXXXXXXXXXXXX" id="number" type="text" class="validate">
-                  <label class="active" for="number">Card Number</label>
-                </div>
-              </div>
-              <!-- </div>
-              <div class="row"> -->
-              <div class="col s12">
-                <div class="input-field col s12">
-                  <i class="material-icons prefix">account_circle</i>
-                  <input placeholder="XXXX XXXX" id="name" type="text" class="validate">
-                  <label class="active" for="name">Full Name</label>
-                </div>
-              </div>
-              <!-- </div>
-              <div class="row"> -->
-              <div class="col s12">
-                <div class="input-field col s4">
-                  <i class="material-icons prefix">credit_card</i>
-                  <input placeholder="XXX" id="cvv" type="text" maxlength="3" class="validate">
-                  <label class="active" for="cvv">CVV</label>
-                </div>
-                <div class="col s8">
-                  <br>
-                  At the back of your card.
-                  <br>
-                </div>
-              </div>
-              <!-- </div>
-              <div class="row"> -->
-                <!-- <div class="col s2">
+        <!-- SALES -->
+        <div class="scroll-padding hide-on-small-only" id="sales">
+          <div class="col s12 divider orange-divider"></div>
+          <div class="section-title center-align">Sales</div>
+          {{> sales}}
+        </div>
 
-                </div> -->
-                <div class="col s12">
-                  <div class="col s2">
-                    <i class="material-icons prefix">date_range</i>
-                  </div>
-                <div class="input-field col s6">
-                  <select id="month">
-                    <option value="0" disabled selected>Month</option>
-                    <option value="1">1 January</option>
-                    <option value="2">2 February</option>
-                    <option value="3">3 March</option>
-                    <option value="4">4 April</option>
-                    <option value="5">5 May</option>
-                    <option value="6">6 June</option>
-                    <option value="7">7 July</option>
-                    <option value="8">8 August</option>
-                    <option value="9">9 September</option>
-                    <option value="10">10 October</option>
-                    <option value="11">11 November</option>
-                    <option value="12">12 December</option>
-                  </select>
-                  <label>Expiration</label>
-                </div>
-                <div class="input-field col s4">
-                  <input placeholder="Year" id="year" type="text" class="validate">
-                  <!-- <label class="active" for="year">Year</label> -->
-                </div>
-              </div>
-              </div>
-              <br>
-  		        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
-            </form>
-          </div>
-          <div id="sadad" class="col s12">
-            <form class="sadad col s12">
+        <!-- PERFORMANCE -->
+        <div class="scroll-padding hide-on-small-only" id="performance">
+          <div class="col s12 divider orange-divider"></div>
+          <div class="section-title center-align">Performance</div>
+          {{> performance}}
+        </div>
 
-  	          <div class="input-field col s12">
-                <div class="input-field col s12">
-                  <i class="material-icons prefix">account_circle</i>
-                  <input placeholder="XXXXX" id="username" type="text" class="validate">
-                  <label class="active" for="name">User Name</label>
-                </div>
-  	          </div>
+        <!-- ACHIEVEMENTS -->
+        <div class="scroll-padding hide-on-small-only" id="achievement">
+          <div class="col s12 divider orange-divider"></div>
+          <div class="section-title center-align">Achievements</div>
+          {{> achievements}}
+        </div>
 
-  		        <br>
-  		        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
-            </form>
-          </div>
-	      </div>
-	    </div>
+      {{else}}
+        <!-- USER -->
+        {{> userCardsPage padding="margins-valign"}}
+      {{/if}}
 
 		{{else}}
 			<!-- Not Logged in -->
       <div class="row">
-        <!-- height="auto" width="100%" -->
-        <div class=" col m9 hide-on-small-only">
+        <div class=" col m9 hide-on-med-and-down">
           <img class="landing-pic" src="/images/landing.png" alt="Pgone">
         </div>
-        <div class="landing-text col s12 m3">
-          <p class="landing-motto">Anything, one text away.</p>
+        <div class="landing-text col s12 m12 l3">
+          <div class="landing-motto">Anything, one text away.</div>
           <p class="landing-info">Order anything with a simple text to 0508512034 and Tamerny will get it for you.</p>
-          <center><a href="#login" class="#9fa8da indigo lighten-3 waves-effect waves-light btn center-align">Register</a></center>
+          <center><a href="#login" class="col s12 #9fa8da indigo lighten-3 waves-effect waves-light btn center-align">Register</a></center>
         </div>
       </div>
 	{{/if}}
@@ -186,16 +84,340 @@
   </main>
 </template>
 
-<template name="transactions">
-  <li>
-    <div class="collapsible-header">
-      <span class="left">{{title}}</span>
-      <span class="right">{{since time}}</span>
+<template name="userCardsPage">
+  <!-- USER -->
+  <div class="row ">
+    <div class={{padding}}>
+    <div class="col s12 m12 l6">
+      <!-- BALANCE CARD -->
+      <div class=" col s12">
+        <div class="card-border z-depth-0 card balance_card white">
+          {{> userBalance}}
+        </div>
+      </div>
+     <!-- HISTORY CARD -->
+      <div class="col s12">
+        <div class="card-border z-depth-0 card  transactions-card white">
+          {{> transactions}}
+        </div>
+      </div>
     </div>
-    <div class="collapsible-body">
-      <span class="left">{{description}}</span>
-      <span> ({{status}})</span>
-      <span class="right">SAR{{price}}</span>
+    <!-- TOPUP CARD -->
+    <div class=" col s12 m12 l6">
+      <div class="card-border z-depth-0 card topup-card white">
+        {{> topUp}}
+      </div>
     </div>
-  </li>
+  </div>
+  </div>
+
 </template>
+
+<template name="sales">
+  <div class="row operator-padding">
+    <div class="col s12 m12 l6 center">
+      <div class="card-border operator-sales-1 card">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+    <div class="col s12 m12 l6 center">
+      <div class="card-border operator-sales-1 card">
+        {{> userBalance}}
+      </div>
+    </div>
+  </div>
+  <div class="row operator-padding">
+    <div class="col s12 m12 center">
+      <div class="card-border operator-sales-1 card">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="performance">
+  <div class="row operator-padding">
+    <div class="col s12 m12 l3 center">
+      <div class="card-border operator-sales-2 card horizontal">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+    <div class="col s12 m12 l3 center">
+      <div class="card-border operator-sales-2 card horizontal">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+    <div class="col s12 m12 l3 center">
+      <div class="card-border operator-sales-2 card horizontal">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+    <div class="col s12 m12 l3 center">
+      <div class="card-border operator-sales-2 card horizontal">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+  </div>
+  <div class="row operator-padding">
+    <div class="col s12 m12 center">
+      <div class="card-border operator-sales-1 card">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="achievements">
+  <div class="row operator-padding">
+    <div class="col s12 m12 l3 center">
+      <div class="card-border operator-sales-2 card horizontal">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+    <div class="col s12 m12 l3 center">
+      <div class="card-border operator-sales-2 card horizontal">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+    <div class="col s12 m12 l3 center">
+      <div class="card-border operator-sales-2 card horizontal">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+    <div class="col s12 m12 l3 center">
+      <div class="card-border operator-sales-2 card horizontal">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+  </div>
+  <div class="row operator-padding">
+    <div class="col s12 m12 l6 center">
+      <div class="card-border operator-sales-1 card">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+    <div class="col s12 m12 l6 center">
+      <div class="card-border operator-sales-1 card">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+  </div>
+  <div class="row operator-padding">
+    <div class="col s12 m12 center">
+      <div class="card-border operator-sales-1 card">
+        <span class="soon center-align ellipsis">Coming Soon.</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="userBalance">
+  <div class="no-bottom-margin">
+    <div class="col s12 operator-dash-title valign-wrapper">
+      <div class="auto-width center-align ellipsis">Balance</div>
+    </div>
+    <div class="col s12 divider "></div>
+  </div>
+  <div class="col s12 balance-number ellipsis center-align">
+    {{balance}} <a class="currency_main">(SAR)</a>
+  </div>
+</template>
+
+<template name="topUp">
+  <div class="col s12 center">
+    <h4>Add Money</h4>
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">attach_money</i>
+        <input placeholder="0.00" id="amount" type="number" min="0.00" max="10000.00" step="0.01" class="validate">
+        <label class="active" for="amount">Amount</label>
+      </div>
+    </div>
+    <div class="row">
+      <ul class="tabs">
+
+        <li class="tab col s6"><a href="#creditcard-safe">Credit Card</a></li>
+        <li class="tab col s6"><a href="#sadad">Sadad</a></li>
+
+      </ul>
+    </div>
+    <div id="creditcard-safe" class="col s12 scrollable-topup">
+      <form class="safe col s12">
+        <div class="row">
+          <div class="col s12">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">call_to_action</i>
+            <input placeholder="XXXXXXXXXXXXXXXX" id="number" type="text" class="validate">
+            <label class="active" for="number">Card Number</label>
+          </div>
+        </div>
+        <!-- </div>
+        <div class="row"> -->
+        <div class="col s12">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input placeholder="XXXX XXXX" id="name" type="text" class="validate">
+            <label class="active" for="name">Full Name</label>
+          </div>
+        </div>
+        <!-- </div>
+        <div class="row"> -->
+        <div class="col s12">
+          <div class="input-field col s4">
+            <i class="material-icons prefix">credit_card</i>
+            <input placeholder="XXX" id="cvv" type="text" maxlength="3" class="validate">
+            <label class="active" for="cvv">CVV</label>
+          </div>
+          <div class="col s8">
+            <br>
+            At the back of your card.
+            <br>
+          </div>
+        </div>
+        <!-- </div>
+        <div class="row"> -->
+          <!-- <div class="col s2">
+
+          </div> -->
+          <div class="col s12">
+            <div class="col s2">
+              <i class="material-icons prefix">date_range</i>
+            </div>
+          <div class="input-field col s6">
+            <select id="month">
+              <option value="0" disabled selected>Month</option>
+              <option value="1">1 January</option>
+              <option value="2">2 February</option>
+              <option value="3">3 March</option>
+              <option value="4">4 April</option>
+              <option value="5">5 May</option>
+              <option value="6">6 June</option>
+              <option value="7">7 July</option>
+              <option value="8">8 August</option>
+              <option value="9">9 September</option>
+              <option value="10">10 October</option>
+              <option value="11">11 November</option>
+              <option value="12">12 December</option>
+            </select>
+            <label>Expiration</label>
+          </div>
+          <div class="input-field col s4">
+            <input placeholder="Year" id="year" type="text" class="validate">
+            <!-- <label class="active" for="year">Year</label> -->
+          </div>
+        </div>
+        </div>
+        <br>
+        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
+      </form>
+    </div>
+    <div id="sadad" class="col s12">
+      <form class="sadad col s12">
+
+        <div class="input-field col s12">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input placeholder="XXXXX" id="username" type="text" class="validate">
+            <label class="active" for="name">User Name</label>
+          </div>
+        </div>
+
+        <br>
+        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
+      </form>
+    </div>
+  </div>
+</template>
+
+<template name="transactions">
+  <div class=" no-bottom-margin">
+    <div class="col s12 operator-dash-title valign-wrapper">
+      <div class="auto-width center-align ellipsis">History</div>
+    </div>
+    <div class="col s12 divider "></div>
+  </div>
+  <div class="scrollable-profile-history container col s12">
+    <ul class="collapsible z-depth-0" data-collapsible="accordion" >
+      {{#each transaction in userHistory customerId}}
+          <li>
+            <div class="collapsible-header">
+              <div class="left s10 ellipsis">{{transaction.title}}</div>
+              <div class="right s2 ellipsis">{{since transaction.time}}</div>
+            </div>
+            <div class="collapsible-body">
+              <div class="left ">{{transaction.description}}</div>
+              <div class="right">{{transaction.price}}</div>
+              <br>
+              <div>{{transaction.status}}</div>
+            </div>
+          </li>
+      {{/each}}
+
+      <!-- START DELETE (AFTER TESTING) -->
+      <li>
+        <div class="collapsible-header ">
+          <div class="left col s10 ellipsis">Jarir Book Store (TEST)</div>
+          <div class="right col s2 ellipsis">5 days ago</div>
+        </div>
+        <div class="collapsible-body row">
+          <div class="left">2 Five Star Grid Notebooks</div>
+          <div class="right ">SAR50.00</div>
+          <br>
+          <div> (done)</div>
+        </div>
+      </li>
+       <li>
+        <div class="collapsible-header">
+          <div class="left col s10 ellipsis">Jarir Book Store (TEST)</div>
+          <div class="right col s2 ellipsis">5 days ago</div>
+        </div>
+        <div class="collapsible-body">
+          <span class="left">٢ مسحب حراق</span>
+          <span class="right">SAR23.00</span>
+          <span> (dummy)</span>
+        </div>
+      </li>
+       <li>
+        <div class="collapsible-header">
+          <div class="left col s10 ellipsis">Jarir Book Store (TEST)</div>
+          <div class="right col s2 ellipsis">5 days ago</div>
+        </div>
+        <div class="collapsible-body">
+          <span class="left">٢ مسحب حراق</span>
+          <span class="right">SAR23.00</span>
+          <span> (dummy)</span>
+        </div>
+      </li>
+       <li>
+        <div class="collapsible-header">
+          <div class="left col s10 ellipsis">Jarir Book Store (TEST)</div>
+          <div class="right col s2 ellipsis">5 days ago</div>
+        </div>
+        <div class="collapsible-body">
+          <span class="left">٢ مسحب حراق</span>
+          <span class="right">SAR23.00</span>
+          <span> (dummy)</span>
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header">
+          <div class="left col s10 ellipsis">Jarir Book Store (TEST)</div>
+          <div class="right col s2 ellipsis">5 days ago</div>
+        </div>
+        <div class="collapsible-body">
+          <span class="left">From your house to your office</span>
+          <span class="right">SAR20.00</span>
+          <span> (done)</span>
+        </div>
+      </li>
+      <!-- END DELETE -->
+    </ul>
+  </div>
+</template>
+
+<!-- <template name="userInfo">
+  <div class="side-text-color">
+   <span class="center">{{initials firstName lastName}}</span>
+
+ </div>
+</template> -->
