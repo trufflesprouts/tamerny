@@ -1,5 +1,5 @@
-
 <template name="HomeLayout">
+
   <main>
 
     {{#if currentUser }}
@@ -73,6 +73,14 @@
       </div>
 	{{/if}}
 
+  <!-- Modal Structure -->
+  <div id="3dsecurity_frame" class="modal">
+    <div class="modal-content center">
+      <h4>Please Authenticate</h4>
+      <iframe id="3dsecurity" class="frame-container" height="500"></iframe>
+    </div>
+  </div>
+
   </main>
 </template>
 
@@ -99,7 +107,7 @@
       <div class="card-border z-depth-0 card topup-card white">
         {{> topUp}}
       </div>
-    </div> 
+    </div>
   </div>
   </div>
 
@@ -190,7 +198,7 @@
     </div>
     <div class="col s12 m12 l6 center">
       <div class="card-border operator-sales-1 card">
-        <span class="soon center-align ellipsis">Coming Soon.</span>  
+        <span class="soon center-align ellipsis">Coming Soon.</span>
       </div>
     </div>
   </div>
@@ -216,42 +224,109 @@
 </template>
 
 <template name="topUp">
-  <div class="no-bottom-margin">
-    <div class="col s12 operator-dash-title valign-wrapper">
-      <div class="auto-width center-align ellipsis">Top-Up</div>
+  <div class="col s12 center">
+    <h4>Add Money</h4>
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">attach_money</i>
+        <input placeholder="0.00" id="amount" type="number" min="0.00" max="10000.00" step="0.01" class="validate">
+        <label class="active" for="amount">Amount</label>
+      </div>
     </div>
-    <div class="col s12 divider "></div>
+    <div class="row">
+      <ul class="tabs">
+
+        <li class="tab col s6"><a href="#creditcard-safe">Credit Card</a></li>
+        <li class="tab col s6"><a href="#sadad">Sadad</a></li>
+
+      </ul>
+    </div>
+    <div id="creditcard-safe" class="col s12 scrollable-topup">
+      <form class="safe col s12">
+        <div class="row">
+          <div class="col s12">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">call_to_action</i>
+            <input placeholder="XXXXXXXXXXXXXXXX" id="number" type="text" class="validate">
+            <label class="active" for="number">Card Number</label>
+          </div>
+        </div>
+        <!-- </div>
+        <div class="row"> -->
+        <div class="col s12">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input placeholder="XXXX XXXX" id="name" type="text" class="validate">
+            <label class="active" for="name">Full Name</label>
+          </div>
+        </div>
+        <!-- </div>
+        <div class="row"> -->
+        <div class="col s12">
+          <div class="input-field col s4">
+            <i class="material-icons prefix">credit_card</i>
+            <input placeholder="XXX" id="cvv" type="text" maxlength="3" class="validate">
+            <label class="active" for="cvv">CVV</label>
+          </div>
+          <div class="col s8">
+            <br>
+            At the back of your card.
+            <br>
+          </div>
+        </div>
+        <!-- </div>
+        <div class="row"> -->
+          <!-- <div class="col s2">
+
+          </div> -->
+          <div class="col s12">
+            <div class="col s2">
+              <i class="material-icons prefix">date_range</i>
+            </div>
+          <div class="input-field col s6">
+            <select id="month">
+              <option value="0" disabled selected>Month</option>
+              <option value="1">1 January</option>
+              <option value="2">2 February</option>
+              <option value="3">3 March</option>
+              <option value="4">4 April</option>
+              <option value="5">5 May</option>
+              <option value="6">6 June</option>
+              <option value="7">7 July</option>
+              <option value="8">8 August</option>
+              <option value="9">9 September</option>
+              <option value="10">10 October</option>
+              <option value="11">11 November</option>
+              <option value="12">12 December</option>
+            </select>
+            <label>Expiration</label>
+          </div>
+          <div class="input-field col s4">
+            <input placeholder="Year" id="year" type="text" class="validate">
+            <!-- <label class="active" for="year">Year</label> -->
+          </div>
+        </div>
+        </div>
+        <br>
+        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
+      </form>
+    </div>
+    <div id="sadad" class="col s12">
+      <form class="sadad col s12">
+
+        <div class="input-field col s12">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input placeholder="XXXXX" id="username" type="text" class="validate">
+            <label class="active" for="name">User Name</label>
+          </div>
+        </div>
+
+        <br>
+        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
+      </form>
+    </div>
   </div>
-  {{#autoForm collection="TopUp" id="insertTopUpForm" type="insert"}}
-    <div class="input-field col s12">
-      {{>afFieldInput name="amount" id="amount" type="number"}}
-      <label>Amount (SAR)</label>
-    </div>
-    <div class="input-field col s12">
-      {{>afFieldInput name="name" id="name" type="text"}}
-      <label>Name</label>
-    </div>
-    <div class="input-field col s12">
-        {{>afFieldInput name="number" id="number" type="number"}}
-      <label>Card Number</label>
-    </div>
-    <div class="input-field col s12">
-        {{>afFieldInput name="cvs" id="cvs" type="number"}}
-        <label>CVS</label>
-    </div>
-    <div class="input-field col s6">
-        {{>afFieldInput name="month" id="month" type="number"}}
-      <label>Expiration Month</label>
-    </div>
-    <div class="input-field col s6">
-        {{>afFieldInput name="year" id="year" type="number"}}
-      <label >Expiration Year</label>
-    </div>
-    <br>
-    <div class=" col s12">
-    <button type="submit" class=" col s12 btn btn-primary center">Top Up</button>
-    </div>
-  {{/autoForm}}
 </template>
 
 <template name="transactions">
@@ -343,6 +418,6 @@
 <!-- <template name="userInfo">
   <div class="side-text-color">
    <span class="center">{{initials firstName lastName}}</span>
-  
+
  </div>
 </template> -->
