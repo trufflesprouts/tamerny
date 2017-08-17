@@ -124,7 +124,7 @@ Meteor.methods({
     UserProfiles.update({userId: uId}, {$set: {balance: amount}},false,true);
   },
   updateCustomerBalance: function(customerId, amount){
-    UserProfiles.update({userId: customerId}, {$set: {balance: amount}},false,true);
+    UserProfiles.update({"userId": customerId}, {$set: {"balance": amount}});
   },
   addTransaction: function(title, amount, desc, status){
     var uId = Meteor.userId();
