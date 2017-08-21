@@ -26,9 +26,6 @@ window.OperatorProfile = OperatorProfile
 window.Pairings = Pairings
 window.Addresses = Addresses
 
-
-
-
 // Section II: AutoForm Manual Validations
 
 // Moyasar payment system init - the ID is only for testing and must be changed before production
@@ -356,8 +353,8 @@ Template.verify.helpers({
 Template.MainLayout.events({
   'click .resend-email': function(){
     event.preventDefault();
-    var emailVar = Meteor.users.findOne({_id: Meteor.userId()}).emails[0].address
-    Meteor.call('sendVerificationLink', Meteor.userId(), emailVar);
+    //var emailVar = Meteor.users.findOne({_id: Meteor.userId()}).emails[0].address
+    Meteor.call('sendVerificationLink', Meteor.userId(), Meteor.users.findOne({_id: Meteor.userId()}).emails[0].address);
     Materialize.toast('Verification email was sent to ' + emailVar , 4000)
   },
   'click .close-modal': function(){

@@ -1,7 +1,11 @@
 
 <template name="MainLayout">
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <head>
+    <!-- Favicon -->
+    <link rel='icon' href='/images/favicon.ico'>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	</head>
 	<body>
@@ -12,11 +16,11 @@
 
 		<div class="container">
       <!-- Uncomment once click on phone is fixed -->
-			<!-- {{#if showAlert}}
+			{{#if showAlert}}
         {{#if emailNotVerified}}
           <div class="email-alert">{{>verify}}</div>
         {{/if}}
-      {{/if}} -->
+      {{/if}}
 
 			{{> Template.dynamic template=main}}
 			{{this.url}}
@@ -31,7 +35,6 @@
 </template>
 
 <template name="verify">
- <!--  <div class="float-over"> -->
     <div class="card yellow lighten-3 z-depth-1 transparent">
       <div class="card-content black-text row">
         
@@ -43,5 +46,4 @@
 
       </div>
     </div>
-  <!-- </div> -->
 </template>
