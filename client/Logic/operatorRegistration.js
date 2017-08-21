@@ -50,8 +50,8 @@ Template.OperatorInfo.events({
 Template.BasicsInfo.events({
   'submit': function(){
     event.preventDefault();
-    if (AutoForm.validateForm("userUpdateForm"))
-      FlowRouter.go('/op-registration');
+    // if (AutoForm.validateForm("userUpdateBasicForm"))
+    //   FlowRouter.go('/op-registration');
   }
 })
 
