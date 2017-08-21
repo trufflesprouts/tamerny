@@ -75,11 +75,22 @@ Template.SettingTabs.events({
     var newEmail = document.getElementById('newEmail').value
     if(newEmail != "")
     {
-      var account = Meteor.users.findOne({_id: Meteor.userId()})
-      var oldEmail = account.emails[0].address
-      Meteor.call('removeEmail', Meteor.userId(), oldEmail)
-      Meteor.call('addEmail', Meteor.userId(), newEmail)
-      Meteor.call('sendVerificationLink', Meteor.userId(), newEmail);
+
+      Meteor.call('isEmailValid', newEmail,
+        function(error, result){
+          var emailValid = true
+          if (result != undefined)
+            emailValid = result
+          
+          if (emailValid == true){ // email is valid
+            var account = Meteor.users.findOne({_id: Meteor.userId()})
+            var oldEmail = account.emails[0].address
+            Meteor.call('removeEmail', Meteor.userId(), oldEmail)
+            Meteor.call('addEmail', Meteor.userId(), newEmail)
+            Meteor.call('sendVerificationLink', Meteor.userId(), newEmail);
+          } else
+          Materialize.toast("Please enter a valid email!"  , 4000)
+        })
     } else
     Materialize.toast("Email can't be empty!"  , 4000)
   }
