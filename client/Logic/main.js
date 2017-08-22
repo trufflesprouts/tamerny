@@ -116,6 +116,51 @@ AutoForm.hooks({
     }
   },
 
+  userUpdateBasicForm: {
+    onError: function(formType, error) {
+      Materialize.toast(error, 4000)
+    },
+    before: {
+      update: function (doc) {
+        var num = doc.$set.phone
+        console.log(num)
+        console.log(validPhone(num))
+        if (validPhone(num) && AutoForm.validateForm("userUpdateBasicForm")){ 
+          num = formatNumber(num)
+          doc.$set.phone = num
+          FlowRouter.go('/op-registration');
+          return doc
+        } else {
+          Materialize.toast("Please enter a correct Saudi phone number!", 4000)
+          return false
+        }    
+      },
+    },
+  },
+
+// if (AutoForm.validateForm("userUpdateBasicForm"))
+//       FlowRouter.go('/op-registration');
+  // updatePhoneForm: {
+  //   before: {
+  //     update: function (doc) {
+  //       console.log("UPDATING PHONE")
+  //       if (doc.$set != undefined){
+  //         var phone = doc.$set.phone
+  //         if (validPhone(phone) && AutoForm.validateForm("userUpdateBasicForm")){
+  //           doc.$set.phone = formatNumber(phone)
+  //           FlowRouter.go('/op-registration');
+  //           return doc
+  //         } else {
+  //           Materialize.toast("The new phone number is incorrect. Please enter a Saudi number", 1000)
+  //           return false;
+  //         }
+  //       } else{
+  //         Materialize.toast("Phone is made up of digits with no empty spaced", 1000)
+  //       }
+  //     }
+  //   },
+
+
   upsertOperatorForm: {
     onError: function(formType, error) {
       Materialize.toast(error, 4000)

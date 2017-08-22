@@ -18,12 +18,43 @@ Meteor.startup(function() {
       //       html: mailFields.html
       //   });
       // },
-      isEmailValid: function(address) {
-        console.log("VERIFY EMAIL FROM SERVER")
-        console.log(address)
-        // check(address, String);
 
-        // modify this with your key
+      sendForgotPassLink: function(email){
+        var options = {};
+        options.email = email;
+
+        Accounts.emailTemplates.siteName = "Tamerny";
+        Accounts.emailTemplates.from     = "Tamerny Accounts <accounts@tamerny.com>";
+
+        Accounts.emailTemplates.resetPassword = {
+          subject() {
+            return "[Tamerny] Reset your password";
+          },
+          text( user, url ) {
+            let emailAddress   = email,
+                urlWithoutHash = url.replace( '#/', '' ).replace('tamerneyapp.herokuapp', 'tamerny'),
+                supportEmail   = "accounts@tamerny.com",
+                emailBody      = `To reset your Tamerny password please visit the following link: \n\n${urlWithoutHash}\n\n . If you did not request to reset your password, please ignore this email. If you feel something is wrong, please contact our support team: ${supportEmail}.`;
+            return emailBody;
+          }
+        };
+
+        var user = Accounts.findUserByEmail(email)
+
+        if (user != null){
+          Accounts.sendResetPasswordEmail(user._id, email);
+          Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast',
+            ['Perfect, a link was sent to your email to reset your password !', 4000], function(error, result) {
+            });
+        } else {
+          Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast',
+            ["The email you entered is incorrect", 4000], function(error, result) {
+            });
+        }
+
+      },
+      isEmailValid: function(address) {
+
         var result = HTTP.get('https://api.mailgun.net/v3/address/validate', {
           auth: 'api:pubkey-80156cf58a2f3d876d8780785e49fbfe',
           params: {address: address.trim()}
