@@ -49,6 +49,7 @@ var sendTextRegistrationLink = function(recipientPhone){
 
 Picker.route('/api/webhooks/:provider', function(params, req, res, next) {
   
+  // Enable registartion by text
  var query = req._parsedUrl.query
  var message = getParameterByName("message", query)
  var userPhone = getParameterByName("recipient", query)
