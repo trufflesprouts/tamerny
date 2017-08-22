@@ -1,0 +1,105 @@
+<template name="Payment">
+  <head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <div class="payment-page center col s12">
+    {{#if paymentRecieved}}
+      <h4 id="status">{{paymentStatus}}</h4>
+    {{else}}
+      {{#with userInfo}}
+      <h4>Add Money</h4>
+        <p>Hi {{firstName}} {{lastName}}, please add money to your account with phone {{phone}}.</p>
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">attach_money</i>
+          {{#if fixedAmount}}
+            <input disabled value="{{amount}}" id="amount" type="number" class="validate">
+          {{else}}
+            <input placeholder="0.00" id="amount" type="number" min="0.00" max="10000.00" step="0.01" class="validate">
+          {{/if}}
+          <label class="active" for="amount">Amount</label>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <ul class="tabs">
+
+          <li class="tab col s6"><a href="#creditcard-safe">Credit Card</a></li>
+          <li class="tab col s6"><a href="#sadad">Sadad</a></li>
+
+        </ul>
+      </div> -->
+      <div id="creditcard-safe" class="col s12">
+        <form class="safe col s12">
+          <div class="row">
+            <div class="col s12">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">call_to_action</i>
+              <input placeholder="XXXXXXXXXXXXXXXX" id="number" type="tel" pattern="\d*" class="validate">
+              <label class="active" for="number">Card Number</label>
+            </div>
+          </div>
+          <!-- </div>
+          <div class="row"> -->
+          <div class="col s12">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">account_circle</i>
+              <input placeholder="XXXX XXXX" id="name" type="text" class="validate">
+              <label class="active" for="name">Full Name</label>
+            </div>
+          </div>
+          <!-- </div>
+          <div class="row"> -->
+          <div class="col s12">
+            <div class="input-field col s4">
+              <i class="material-icons prefix">credit_card</i>
+              <input placeholder="XXX" id="cvv" type="tel" maxlength="3" pattern="\d*" class="validate">
+              <label class="active" for="cvv">CVV</label>
+            </div>
+            <div class="col s8">
+              <br>
+              At the back of your card.
+              <br>
+            </div>
+          </div>
+          <!-- </div>
+          <div class="row"> -->
+            <!-- <div class="col s2">
+
+            </div> -->
+            <div class="col s12">
+              <div class="col s2">
+                <i class="material-icons prefix">date_range</i>
+              </div>
+            <div class="input-field col s6">
+              <select id="month">
+                <option value="0" disabled selected>Month</option>
+                <option value="1">1 January</option>
+                <option value="2">2 February</option>
+                <option value="3">3 March</option>
+                <option value="4">4 April</option>
+                <option value="5">5 May</option>
+                <option value="6">6 June</option>
+                <option value="7">7 July</option>
+                <option value="8">8 August</option>
+                <option value="9">9 September</option>
+                <option value="10">10 October</option>
+                <option value="11">11 November</option>
+                <option value="12">12 December</option>
+              </select>
+              <label>Expiration</label>
+            </div>
+            <div class="input-field col s4">
+              <input placeholder="Year" id="year" type="tel" class="validate">
+              <!-- <label class="active" for="year">Year</label> -->
+            </div>
+          </div>
+          </div>
+          <br>
+          <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
+        </form>
+      </div>
+      {{/with}}
+    {{/if}}
+  </div>
+</template>

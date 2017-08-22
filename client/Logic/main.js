@@ -29,7 +29,7 @@ window.Addresses = Addresses
 // Section II: AutoForm Manual Validations
 
 // Moyasar payment system init - the ID is only for testing and must be changed before production
-var moyasar = new (require('moyasar'))('pk_test_aFqrpMm9qbzf7WxwvWfToDYiBJMt8foU5aDnGSWH');
+var moyasar = new (require('moyasar'))('sk_test_DJDn2MPWZuinhXxhWjwXVsBGtVQouFLnnAmuQpL2');
 
 var correct = false;
 
@@ -49,20 +49,60 @@ AutoForm.hooks({
            cvc: doc.cvs,
            month: doc.month,
            year: doc.year
+         },
+         callback_url: "http://localhost:3000"
+        }).then( function(payment){
+          if (payment.source.transaction_url != null){
+              $('#3dsecurity_frame').modal('open');
+              document.getElementById('3dsecurity').src = payment.source.transaction_url;
           }
-          })
-        .then( function(payment){
 
-          console.log("payment status")
           if (payment.status == "paid"){
-            console.log("accepted")
+             console.log("accepted")
              correct = true;
+
+             // call the Meteor function to update Payments instead
              updateTopUp(true, doc.id, doc.amount, payment.source.company + " " + payment.source.number)
            }
         });
 
           // setTimeout(updateTopUp(false, doc.id, false), 10000); // check again in a second
           return doc;
+      },
+      onError: function(formType, error) {
+        Materialize.toast(error, 4000)
+      },
+    },
+  },
+
+  insertTopUpSadadForm: {
+    before: {
+      insert: function (doc) {
+        console.log(doc)
+        var paymentTest = moyasar.payment.create({
+          // Convert from Riyals to Halalas
+          amount: (100*doc.amount),
+          currency: doc.currency,
+          description: doc.description,
+          source: {
+           type: "sadad",
+           username: doc.username,
+           success_url: "http://localhost:3000/",
+           fail_url: "http://localhost:3000/",
+          },
+          callback_url: "http://localhost:3000/",
+        }).then( function(payment){
+          console.log("payment status")
+          console.log(payment)
+          if (payment.status == "paid"){
+            console.log("accepted")
+             correct = true;
+             updateTopUp(true, doc.id, doc.amount, payment.source.type + " " + payment.source.username)
+           }
+        });
+
+          // setTimeout(updateTopUp(false, doc.id, false), 10000); // check again in a second
+        return doc;
       },
       onError: function(formType, error) {
         Materialize.toast(error, 4000)
@@ -125,13 +165,13 @@ AutoForm.hooks({
      Materialize.toast("Perfect, you've edited an address!", 4000)
      $('#editAddress').modal('close');
     },
-    /*  Ensures that edit button in the edit address 
-        collapsable opens the correct modal once the first 
+    /*  Ensures that edit button in the edit address
+        collapsable opens the correct modal once the first
         update is done without a new page render  */
-    formToModifier: function(modifier) {      
+    formToModifier: function(modifier) {
       var mod = modifier['$set'];
       var arr = Object.values(mod);
-      
+
       if (Object.keys(modifier).length == 1)
         FlowRouter.setQueryParams({editAddress: arr[0]})
 
@@ -144,8 +184,8 @@ AutoForm.hooks({
         var arr = Object.values(parseMe);
 
         var unique = Addresses.findOne(
-          {'$and' :[ 
-            {"userId": customerId}, 
+          {'$and' :[
+            {"userId": customerId},
             {"address": {$elemMatch: {title: arr[0]}}}
           ]}
         )

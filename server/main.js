@@ -17,6 +17,7 @@ import { Favorites } from '../collections/favorites.js'
 import { Addresses } from '../collections/addresses.js'
 import { Pairings } from '../collections/pairedUsers.js'
 import { WaitingUsers } from '../collections/waitingUsers.js'
+import { Payments } from '../collections/payments.js'
 
 
 
@@ -60,13 +61,13 @@ function findCutomer (operatorId){
 Meteor.methods({
   newUser: function(email, pass){
     console.log("Before Accounts.creatUser")
-    
+
     try {
           Accounts.createUser({
             email: email,
             password: pass
           });
-        
+
           if(response){
             console.log("newUser response")
             console.log(response)
@@ -97,10 +98,10 @@ Meteor.methods({
     Addresses.update({userId : customerId},{$push: {address: {"title": title, "line1": line1, "line2": line2, "city": city, province: prov, zipCode: zip}}});
   },
   editAddress: function(customerId, oldtitle, line1, line2, city, prov, zip){
-    
+
     var unique = Addresses.findOne(
-      {'$and' :[ 
-        {"userId": customerId}, 
+      {'$and' :[
+        {"userId": customerId},
         {"address": {$elemMatch: {title: oldtitle}}}
       ]}
     )
@@ -112,7 +113,7 @@ Meteor.methods({
     if (unique == undefined)
       Addresses.update({userId: customerId, "address.title": oldtitle}, {$set: {"address.$": {"title": oldtitle, "line1": line1, "line2": line2, "city":city, "province": prov, "zipCode":zip}}});
     else
-      Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast', ['Title must be unique !', 4000]); 
+      Meteor.ClientCall.apply(Meteor.userId(), 'materializeToast', ['Title must be unique !', 4000]);
   },
   deleteAddress: function(customerId, title){
     Addresses.update({userId : customerId},{$pull: {"address" : {"title": title}}});
@@ -125,6 +126,20 @@ Meteor.methods({
   addTransaction: function(title, amount, desc, status){
     var uId = Meteor.userId();
     History.update({userId: uId},{$push: {transactions: {"title": title, "description": desc, time: new Date(), "price": amount, "status": status}}})
+  },
+  addPayment: function(payment){
+    var uId = Meteor.userId();
+    Payments.update({'userId': uId}, {$push: {'payment': payment}})
+  },
+  updatePayment: function(paymentId, payment){
+    var uId = Meteor.userId();
+    Payments.update({userId: uId, "payment.id": paymentId}, {$set: {"payment.$": payment}})
+  },
+  addCustomerPayment: function(customerId, payment){
+    Payments.update({'userId': customerId}, {$push: {'payment': payment}})
+  },
+  updateUCustomerPayment: function(customerId,paymentId, payment){
+    Payments.update({userId: customerId, "payment.id": paymentId}, {$set: {"payment.$": payment}})
   },
   fetchUsers: function(){
     var waitingUsers = WaitingUsers.find().limit(3);
@@ -209,10 +224,11 @@ UserProfiles.before.insert(function (userId, doc) {
 });
 
 
-UserProfiles.after.insert(function (userId, doc) { 
+UserProfiles.after.insert(function (userId, doc) {
    var Id = doc.userId
   Chats.insert({userId: Id});
   History.insert({userId: Id});
   Favorites.insert({userId: Id});
-  Addresses.insert({userId: Id}); 
+  Addresses.insert({userId: Id});
+  Payments.insert({userId: Id, payment: []});
 });

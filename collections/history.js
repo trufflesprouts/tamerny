@@ -24,7 +24,8 @@ TansactionsSchema = new SimpleSchema({
   price: {
     type: Number,
     label: "price",
-    optional: true
+    optional: true,
+    decimal: true
   },
 
   status: {

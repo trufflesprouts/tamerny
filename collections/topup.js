@@ -49,43 +49,45 @@ TopUpSchema = new SimpleSchema({
   type: {
     type: String,
     label: "Amount",
-    optional: false,
-    autoValue: function() {
-      return 'creditcard'
-    }
+    optional: true
+  },
+
+  username: {
+    type: String,
+    label: "Sadad Username",
+    optional: true
   },
 
   name: {
     type: String,
     label: "Card Holder's Name",
-    optional: false
+    optional: true
   },
 
   number: {
     type: Number,
     label: "Card Number",
-    optional: false
+    optional: true
   },
 
   cvs: {
     type: Number,
     label: "CVS",
-    optional: false
+    optional: true
   },
 
   month: {
     type: Number,
     label: "Expiration Month",
-    optional: false
+    optional: true
   },
 
   year: {
     type: Number,
     label: "Expiration Year",
-    optional: false
+    optional: true
   },
-  
+
 });
 
 TopUp.attachSchema(TopUpSchema);
-
