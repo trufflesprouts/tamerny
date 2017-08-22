@@ -282,8 +282,31 @@ nav.navbar-fixed {
   padding: 0px;
 }
 
+.title_reset{
+  font-size: 20px;
+}
+
+.forgot_pass_button{
+  margin-top: 20px;
+}
+
+.reset_pass_margins{
+  margin-top: 20px;
+}
+
+.subtitle_reset{
+  font-size: 15px;
+}
+
 .chat-title-hieght{
   margin-top: 10px;
+}
+
+.forgotPass{
+  font-size: 12px;
+  color: #90caf9;
+  margin: 0px;
+  padding: 0px;
 }
 
 .workSettings {

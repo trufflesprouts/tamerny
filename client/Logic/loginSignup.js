@@ -63,6 +63,9 @@ Template.login.events({
       else
         $('#login').modal('close');
     });
+  },
+  'click .forgotPass': function(event) {
+      $('#login').modal('close');
   }
 });
 
