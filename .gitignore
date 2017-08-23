@@ -1,1 +1,21 @@
-node_modules/
+### Meteor ###
+# default meteor build and local packages
+.meteor/local
+
+# meteor build output files
+*.tar.gz
+
+# general swp files from vim
+*.swp
+
+
+
+### Node ###
+/node_modules
+npm-debug.log*
+
+
+
+### Misc ###
+.DS_Store
+.env
