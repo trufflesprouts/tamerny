@@ -85,8 +85,6 @@ function textRegistration(message, phone){
               return false
               } else {
                 var tempPassword = Random.secret(15)
-
-                // take out of textRegistration once everything works
           
                 Meteor.call('newUser', email, tempPassword, function(err, response) {
                 if (response.error != undefined) // meteor user not created
