@@ -54,40 +54,6 @@ function addTextToChat(message, Id){
         }})
 }
 
-// function correctEmail(email){
-  
-//   var user = Accounts.findUserByEmail(email)
-
- 
-
-//   var validEmail = // check if email is valid
-
-//   if (user != null){
-//     sendText(userPhone, "The email you sent is already registred with another phone number. Login to www.tamerny.com to change your phone number.")
-//     return false
-//   } else {
-    
-//     Meteor.call('isEmailValid', email,
-//       function(error, result){
-//         var emailValid = true
-//           if (result != undefined)
-//             emailValid = result
-          
-//           if (emailValid == true){
-//             // valid
-//             //return true
-//           } else {
-//             //not valid
-//             sendText(userPhone, "The email you sent is not valid, please resend us your correct credentials.")
-//             // return false
-//           }
-//       }
-
-
-
-//   }
-// }
-
 // check if the txt is in the correct format
 function textRegistration(message, phone){
   
@@ -100,7 +66,7 @@ function textRegistration(message, phone){
     var lastName = txtArr[1].replace(/\s/g, '');
     var email = txtArr[2].replace(/\s/g, '');
 
-    if (firstName != null && lastName != null){ // Name is correct
+    if (firstName != null && lastName != null && firstName != " " && lastName != " "){ // Name is correct
 
       Meteor.call('isEmailValid', email, // Validating email
         function(error, result){
@@ -118,22 +84,48 @@ function textRegistration(message, phone){
               sendText(phone, "[Email already in use] The email you sent is already registred with another phone number. Login to www.tamerny.com to change your phone number.")
               return false
               } else {
-                sendText(phone, "[Good stuff] Registration is working (TESTING)")
-                // register user, send temp pass to that email
-                // var tempPassword = Random.secret(15)
-                // Send txt saying registration is set
-                // take out of textRegistration once everything works
-                // send temp pass to user's email
-                // delete unifonic hook after testing this
-                
-              }  
+                var tempPassword = Random.secret(15)
 
+                // take out of textRegistration once everything works
+          
+                Meteor.call('newUser', email, tempPassword, function(err, response) {
+                if (response.error != undefined) // meteor user not created
+                  sendText(phone, "Shoot! we couldn't sign you up for some reason, please try again in a bit. Sorry :(") 
+                else {
+            
+                  var doc = Meteor.call('getUserIdWithEmail', email, 
+                    function(error, response) {
+                      if (error == undefined){
+                        var userId = response
+                        var newUserProfile = {
+                          userId: userId,
+                          firstName: firstName,
+                          lastName: lastName,
+                          phone: phone,
+                        }
+                        UserProfiles.insert(newUserProfile, function(err, result){
+                          if(err){
+                            Meteor.call('clearUser', userId);
+                            sendText(phone, "Shoot! we couldn't sign you up for some reason, please try again in a bit. Sorry :(") 
+                          }
+                          else {
+                            TextRegistration.remove({phone: parseInt(phone)})
+                            Meteor.call('sendVerificationLinkWithPass', userId, email, tempPassword);
+                            sendText(phone, "Amazing! We've successfully setup your Tamerny account. I'm going to be your personal assistant from now on. I’ve sent you an email with your temporary password which you can use to login to your account at www.tamerny.com")                  
+                          }
+                        })
+                      } else {
+                        sendText(phone, "Shoot! we couldn't sign you up for some reason, please try again in a bit. Sorry :(") 
+                      }
+                    })
+                  }
+                })
+              }  
           } else //not valid
             sendText(phone, "[Invalid Email] The email you sent is not valid, please resend us your correct credentials.")
         }
       ) 
     }
-
   } else // Wrong format
     sendText(phone, "[Wrong format] To start using Tamerny either reply with the following information in this format [Firstname, lastname, email] or register through our website at www.tamerny.com")
 }

@@ -92,6 +92,27 @@ Meteor.startup(function() {
         };
         Accounts.sendVerificationEmail(userId, email)
       },
+      sendVerificationLinkWithPass: function(userId, email, pass, err) {
+        Accounts.emailTemplates.siteName = "Tamerny";
+        Accounts.emailTemplates.from     = "Tamerny Verification <verify@tamerny.com>";
+
+        Accounts.emailTemplates.verifyEmail = {
+          subject() {
+            return "[Tamerny] Verify Your Email";
+          },
+          text( user, url ) {
+            let emailAddress   = email,
+                tempPass       = pass,
+                urlWithoutHash = url.replace( '#/', '' ).replace('tamerneyapp.herokuapp', 'tamerny'),
+                supportEmail   = "tech@tamerny.com", // Change this to the Tamerny support email
+                emailBody      = `To verify your email (${emailAddress}) visit the following link:\n\n${urlWithoutHash}\n\n 
+                                  If you did not request this verification, please ignore this email. If you feel something is wrong, 
+                                  please contact our support team: ${supportEmail}. Your temporary password is: ${tempPass} `;
+            return emailBody;
+          }
+        };
+        Accounts.sendVerificationEmail(userId, email)
+      },
       addEmail: function(userId, newEmail){
         Accounts.addEmail(userId, newEmail)
       },
