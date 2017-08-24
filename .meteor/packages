@@ -54,3 +54,4 @@ lbee:moment-helpers
 momentjs:moment
 http
 random
+meteorhacks:ssr
