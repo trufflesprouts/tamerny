@@ -1,15 +1,5 @@
 
 <template name="MainLayout">
-
-  <head>
-    <!-- Favicon -->
-    <link rel='icon' href='/images/favicon.ico'>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	</head>
-	<body>
-
     <div class="nav">
 			{{> Template.dynamic template=nav}}
 		</div>
@@ -25,23 +15,20 @@
 			{{> Template.dynamic template=main}}
 			{{this.url}}
 		</div>
-		
+
 		<!-- No Container, used only for Stylistic reasons -->
 		{{> Template.dynamic template=nocont}}
-		{{this.url}}
-		
-
-   	</body>
+		{{this.url}}	
 </template>
 
 <template name="verify">
     <div class="card yellow lighten-3 z-depth-1 transparent">
       <div class="card-content black-text row">
-        
+
         <div class="col s10">
           <p>Please verify your email address ({{emailVar}}). <a class="resend-email" >Resend verification link</a></p>
         </div>
-        
+
         <i class="col s2 close-modal material-icons Small right-align">clear</i>
 
       </div>
