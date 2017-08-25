@@ -1,0 +1,26 @@
+svg {
+  transform: rotateX(35deg);
+}
+
+#lines > * {
+  stroke-width: 4px;
+}
+
+#lines > * {
+  stroke-dasharray: 1000px;
+  stroke-dashoffset: 1000px;
+}
+
+#lines.animateMap > * {
+  animation-name: draw;
+  animation-duration: 30s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
