@@ -117,7 +117,7 @@ Meteor.methods({
   },
   deleteAddress: function(customerId, title){
     Addresses.update({userId : customerId},{$pull: {"address" : {"title": title}}});
-
+    
   },
   updateBalance: function(amount){
     var uId = Meteor.userId();
