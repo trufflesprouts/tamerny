@@ -309,25 +309,20 @@ nav ul a{
   max-width: 100%;
   width: auto;
   height: auto;
-  animation: float 6s ease-in-out infinite;
+  -webkit-filter: drop-shadow(-5px 25px 10px rgba(23, 40, 48, 0.1));
+  filter:         drop-shadow(-5px 25px 10px rgba(23, 40, 48, 0.1));
+  animation-name: delay-shadow;
+  animation-duration: 1.5s;
+  animation-delay: 1.2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
 }
 
-@keyframes float {
-	0% {
+@keyframes delay-shadow {
+	to {
     -webkit-filter: drop-shadow(-15px 35px 25px rgba(23, 40, 48, 0.22));
     filter:         drop-shadow(-15px 35px 25px rgba(23, 40, 48, 0.22));
-		transform: translatey(0px);
-    transform: translate(0,0);
-	}
-	50% {
-    -webkit-filter: drop-shadow(-20px 40px 32px rgba(23, 40, 48, 0.15));
-    filter:         drop-shadow(-20px 40px 32px rgba(23, 40, 48, 0.15));
-    transform: translate(5px,-5px);
-	}
-	100% {
-    -webkit-filter: drop-shadow(-15px 35px 25px rgba(23, 40, 48, 0.22));
-    filter:         drop-shadow(-15px 35px 25px rgba(23, 40, 48, 0.22));
-    transform: translate(0,0);
 	}
 }
 
@@ -385,7 +380,7 @@ nav ul a{
   }
 
   .vertical-section {
-    margin-top: 300px;
+    margin-top: 175px;
   }
 
   .landing-section-1 {

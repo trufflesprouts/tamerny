@@ -13,7 +13,8 @@ svg {
 
 #lines.animateMap > * {
   animation-name: draw;
-  animation-duration: 30s;
+  animation-duration: 12s;
+  animation-delay: 1s;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
   animation-timing-function: linear;
