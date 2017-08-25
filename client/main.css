@@ -279,7 +279,7 @@ nav ul a{
 
 .delay-1 {
   opacity: 0;
-  animation-name: delay-1;
+  animation-name: delay-opacity;
   animation-duration: 1.5s;
   animation-delay: 1.2s;
   animation-fill-mode: forwards;
@@ -287,7 +287,17 @@ nav ul a{
   animation-timing-function: ease-in-out;
 }
 
-@keyframes delay-1 {
+.delay-2 {
+  opacity: 0;
+  animation-name: delay-opacity;
+  animation-duration: 1.5s;
+  animation-delay: 2.2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes delay-opacity {
   to {
     opacity: 1;
   }
@@ -299,30 +309,31 @@ nav ul a{
   max-width: 100%;
   width: auto;
   height: auto;
-  animation-name: delay-shadow;
-  animation-duration: 1.5s;
-  animation-delay: 1.2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in-out;
-  -webkit-filter: drop-shadow(-5px 10px 10px rgba(23, 40, 48, 0.1));
-  filter:         drop-shadow(-5px 10px 10px rgba(23, 40, 48, 0.1));
-
+  animation: float 6s ease-in-out infinite;
 }
 
-@keyframes delay-shadow {
-  to {
-    -webkit-filter: drop-shadow(-10px 25px 25px rgba(23, 40, 48, 0.22));
-    filter:         drop-shadow(-10px 25px 25px rgba(23, 40, 48, 0.22));
-  }
+@keyframes float {
+	0% {
+    -webkit-filter: drop-shadow(-15px 35px 25px rgba(23, 40, 48, 0.22));
+    filter:         drop-shadow(-15px 35px 25px rgba(23, 40, 48, 0.22));
+		transform: translatey(0px);
+    transform: translate(0,0);
+	}
+	50% {
+    -webkit-filter: drop-shadow(-20px 40px 32px rgba(23, 40, 48, 0.15));
+    filter:         drop-shadow(-20px 40px 32px rgba(23, 40, 48, 0.15));
+    transform: translate(5px,-5px);
+	}
+	100% {
+    -webkit-filter: drop-shadow(-15px 35px 25px rgba(23, 40, 48, 0.22));
+    filter:         drop-shadow(-15px 35px 25px rgba(23, 40, 48, 0.22));
+    transform: translate(0,0);
+	}
 }
+
 
 .landing-text{
   margin-top: 10%;
-}
-
-.landing-text .btn {
-  color: black;
 }
 
 .landing-section-1 {
@@ -354,7 +365,7 @@ nav ul a{
 
 .landing-map {
   width: 100%;
-  transform: scale(1.5);
+  transform: scale(2.5);
   max-width: 100vw;
   overflow: hidden;
 }
@@ -384,6 +395,11 @@ nav ul a{
   .landing-text{
     max-width: 340px;
   }
+
+  .landing-map {
+    transform: scale(1.5);
+  }
+
 }
 
 .resend-email{
@@ -541,7 +557,8 @@ nav ul a{
 
 
 .settings-background {
-  background-color: #c5cae9;
+  /*background-color: #c5cae9;*/
+  background-color: #d0d0d0;
   height: 250px;
   width: 100%;
 }
