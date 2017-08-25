@@ -255,16 +255,25 @@
 </template>
 
 <template name="topUp">
-  <div class="col s12 center">
-    <h4>Add Money</h4>
+  
+    <div class="no-bottom-margin">
+    <div class="col s12 operator-dash-title valign-wrapper">
+      <div class="auto-width center-align ellipsis">Add Money</div>
+    </div>
+    <div class="col s12 divider "></div>
+  </div>
+
     <div class="row">
-      <div class="input-field col s12">
-        <i class="material-icons prefix">attach_money</i>
+      <div class=" col s12 ">
+      <div class="input-field col s12 ">
+        <i class="material-icons icon-center-form prefix">attach_money</i>
         <input placeholder="0.00" id="amount" type="number" min="0.00" max="10000.00" step="0.01" class="validate">
         <label class="active" for="amount">Amount</label>
       </div>
+      </div>
     </div>
-    <div class="row">
+    <div class="col s12 center">
+    <div class="row no-bottom-margin">
       <ul class="tabs">
 
         <li class="tab col s6"><a href="#creditcard-safe">Credit Card</a></li>
@@ -272,47 +281,50 @@
 
       </ul>
     </div>
+    </div>
+<div class="row no-bottom-margin">
     <div id="creditcard-safe" class="col s12 scrollable-topup">
-      <form class="safe col s12">
-        <div class="row">
+      <form class="safe">
           <div class="col s12">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">call_to_action</i>
-            <input placeholder="XXXXXXXXXXXXXXXX" id="number" type="text" class="validate">
+          <div class="input-field">
+            <i class="material-icons icon-center-form  prefix">call_to_action</i>
+            <input placeholder="XXXX XXXX XXXX XXXX" id="number" type="text" class="validate">
             <label class="active" for="number">Card Number</label>
           </div>
         </div>
         <!-- </div>
         <div class="row"> -->
         <div class="col s12">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">account_circle</i>
-            <input placeholder="XXXX XXXX" id="name" type="text" class="validate">
+          <div class="input-field">
+            <i class="material-icons icon-center-form  prefix">account_circle</i>
+            <input placeholder="Abdul Jamjoom" id="name" type="text" class="validate">
             <label class="active" for="name">Full Name</label>
           </div>
         </div>
-        <!-- </div>
-        <div class="row"> -->
+        <!-- </div> -->
+     
         <div class="col s12">
-          <div class="input-field col s4">
-            <i class="material-icons prefix">credit_card</i>
-            <input placeholder="XXX" id="cvv" type="text" maxlength="3" class="validate">
+          <div class="input-field ">
+            <i class="material-icons icon-center-form prefix">credit_card</i>
+            <input placeholder="XXX (*At the back of your card.)" id="cvv" type="text" maxlength="3" class="validate">
             <label class="active" for="cvv">CVV</label>
+
           </div>
-          <div class="col s8">
-            <br>
-            At the back of your card.
-            <br>
-          </div>
+          <!-- <div class="col s8"> -->
+            
+            <!-- At the back of your card . -->
+            
+          <!-- </div> -->
+
         </div>
         <!-- </div>
         <div class="row"> -->
           <!-- <div class="col s2">
 
           </div> -->
-          <div class="col s12">
+         <!--  <div class=" col s12"> -->
             <div class="col s2">
-              <i class="material-icons prefix">date_range</i>
+              <i class="material-icons icon-center-form small prefix">date_range</i>
             </div>
           <div class="input-field col s6">
             <select id="month">
@@ -336,28 +348,34 @@
             <input placeholder="Year" id="year" type="text" class="validate">
             <!-- <label class="active" for="year">Year</label> -->
           </div>
-        </div>
-        </div>
+        <!-- </div> -->
+      
         <br>
-        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
+        <div class=" col s12">
+          <button type="submit" class=" col s12 button-bottom-margin extend_button btn btn-primary center">Top Up</button>
+        </div>
+
       </form>
     </div>
     <div id="sadad" class="col s12">
       <form class="sadad col s12">
 
-        <div class="input-field col s12">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">account_circle</i>
-            <input placeholder="XXXXX" id="username" type="text" class="validate">
+        <!-- <div class="input-field col s12"> -->
+          <div class="input-field">
+            <i class="material-icons icon-center-form prefix">account_circle</i>
+            <input placeholder="Moe Jam" id="username" type="text" class="validate">
             <label class="active" for="name">User Name</label>
           </div>
-        </div>
+       <!--  </div> -->
 
         <br>
+        <div class="topup-top-margin">
         <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
+      </div>
       </form>
     </div>
-  </div>
+    </div>
+  <!-- </div> -->
 </template>
 
 <template name="transactions">

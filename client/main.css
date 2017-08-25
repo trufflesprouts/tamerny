@@ -229,17 +229,25 @@ nav ul a{
 }
 
 .scrollable-profile-history {
-  height: 279px;
+  height: 339px;
   overflow: scroll;
 }
 
+.icon-center-form{
+  margin-top: 11px;
+}
+
 .scrollable-topup{
-	height: 265px;
+	height: 368px;
 	overflow: scroll;
 }
 
+.button-bottom-margin{
+  margin-bottom: 10px;
+}
+
 .topup-card{
-  height: 500px;
+  height: 565px;
   /*height: calc(100vh - 78px);*/
 }
 
@@ -249,7 +257,7 @@ nav ul a{
 }
 
 .transactions-card{
-  height: 327px;
+  height: 392px;
   /*height: calc(100vh - 250px);*/
 }
 
@@ -464,8 +472,12 @@ nav ul a{
   overflow: scroll;
 }
 
+.topup-top-margin{
+  margin-top: 218px;
+}
+
 .scrollable-profile {
-	height: 585px;
+	height: 590px;
   overflow: scroll;
 }
 
