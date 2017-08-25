@@ -117,15 +117,21 @@ Meteor.methods({
   },
   deleteAddress: function(customerId, title){
     Addresses.update({userId : customerId},{$pull: {"address" : {"title": title}}});
-
+    
   },
   updateBalance: function(amount){
     var uId = Meteor.userId();
     UserProfiles.update({userId: uId}, {$set: {balance: amount}},false,true);
   },
+  updateCustomerBalance: function(customerId, amount){
+    UserProfiles.update({"userId": customerId}, {$set: {"balance": amount}});
+  },
   addTransaction: function(title, amount, desc, status){
     var uId = Meteor.userId();
     History.update({userId: uId},{$push: {transactions: {"title": title, "description": desc, time: new Date(), "price": amount, "status": status}}})
+  },
+  addCustomerTransaction: function(customerId ,title, amount, desc, status){
+    History.update({userId: customerId},{$push: {transactions: {"title": title, "description": desc, time: new Date(), "price": amount, "status": status}}})
   },
   addPayment: function(payment){
     var uId = Meteor.userId();

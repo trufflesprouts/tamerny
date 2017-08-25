@@ -68,6 +68,7 @@ Template.userChatCard.onRendered(function () {
     $('input#input_text').characterCounter();
     var elmnt = document.getElementById("messageBody");
     elmnt.scrollTop = elmnt.scrollHeight; // Scroll to bottom of page
+    $('.modal').modal();
   });
 });
 
@@ -88,7 +89,7 @@ Template.editAddress.events({
     event.preventDefault();
     var title = FlowRouter.getQueryParam('editAddress');
     var customerId = FlowRouter.getParam('customer');
-    Meteor.call('deleteAddress', customerId, title, 
+    Meteor.call('deleteAddress', customerId, title,
       function(error, result){
         if (error == undefined){
           $('#editAddress').modal('close');
@@ -97,7 +98,7 @@ Template.editAddress.events({
           Materialize.toast("You have deleted an address", 4000)
         } else {
           Materialize.toast("Shoot, couldn't delete the address", 4000)
-        }  
+        }
       });
   },
   'click .edit-close-modal': function(){
@@ -115,6 +116,25 @@ Template.userChatCard.events({
     Meteor.call('sendTxt',phoneNumber, customerId, txt, (Meteor.userId()));
     $('#input_text').val('') // Clear texting form
   },
+  'submit .send-payment-link':function(){
+    event.preventDefault();
+    var amount = document.getElementById('payment_amount').value;
+    var customerId = document.getElementById('customerId').value;
+    var doc = UserProfiles.findOne({userId: customerId})
+    var phoneNumber = doc.phone
+    var txt = "https://tamerny.com/payment/?uid=" + customerId;
+    if (amount >= 1.00){
+      txt = txt + "&amount=" + amount;
+    }
+    console.log(txt)
+    $('#payment-modal').modal('close');
+    Meteor.call('sendTxt',phoneNumber, customerId, txt, (Meteor.userId()));
+    $('#payment_amount').val('') // Clear texting form
+  },
+  'click .payment-modal-button': function(){
+    event.preventDefault();
+    $('#payment-modal').modal('open');
+  }
 })
 
 Template.statusCard.events({
@@ -180,7 +200,7 @@ Template.userInfoCard.events({
     var title = document.getElementById('address_to_edit').value;
     console.log("title session to edit")
     console.log(title)
-    
+
     Session.set({
       address_title: title
     });
@@ -198,10 +218,10 @@ Template.addFavorite.events({
   'click .addFavorite' (){
     event.preventDefault();
     var txt = document.getElementById('favorite').value;
-    
+
     var doc = Favorites.findOne({
-      '$and' :[ 
-        {"userId": this.customerId}, 
+      '$and' :[
+        {"userId": this.customerId},
         {"key": {$elemMatch: {keyWord: txt}}}
       ]})
 
@@ -212,7 +232,7 @@ Template.addFavorite.events({
     } else {
       Meteor.call('addFavorite', this.customerId, txt, function(err, resp){
       if (err)
-         Materialize.toast("Sorry couldn't add a favorite", 4000) 
+         Materialize.toast("Sorry couldn't add a favorite", 4000)
       else {
         Materialize.toast("A new favorite has been added", 4000)
         $('#addFavorite').modal('close');
@@ -238,7 +258,7 @@ Template.editFavorite.events({
     event.preventDefault();
     var key = FlowRouter.getQueryParam('editFavorite');
     var customerId = FlowRouter.getParam('customer');
-    Meteor.call('deleteFavorite', customerId, key, 
+    Meteor.call('deleteFavorite', customerId, key,
       function(error, result){
         console.log(error)
         console.log(result)
@@ -247,7 +267,7 @@ Template.editFavorite.events({
           Materialize.toast("You have deleted a comment", 4000)
         } else {
           Materialize.toast("Shoot, couldn't delete the comment", 4000)
-        }  
+        }
       });
   },
 })
@@ -263,8 +283,8 @@ Template.addAddress.events({
     var zip = document.getElementById('addzipcode').value;
 
     var unique = Addresses.findOne(
-      {'$and' :[ 
-        {"userId": this.customerId}, 
+      {'$and' :[
+        {"userId": this.customerId},
         {"address": {$elemMatch: {title: title}}}
       ]}
     )
@@ -273,9 +293,9 @@ Template.addAddress.events({
     // Hack-around to make unique title work (simple schema unique isn't working)
     if (unique == undefined){
       if (!title || !line1 || !city || !prov){
-        Materialize.toast("Please fill in title, line1, city, province, and zip!", 4000) 
+        Materialize.toast("Please fill in title, line1, city, province, and zip!", 4000)
       } else {
-          Meteor.call('addAddress', this.customerId, title, line1, line2, city, prov, zip, 
+          Meteor.call('addAddress', this.customerId, title, line1, line2, city, prov, zip,
           function(error, result) {
             if (error == undefined) {
               $('#addAddress').modal('close');
@@ -286,15 +306,15 @@ Template.addAddress.events({
               $('#addzipcode').val('') // Clear texting form
               $('#addtitle').val('') // Clear texting form
               Materialize.toast("You've added a new address!", 4000)
-            } 
+            }
             else {
               Materialize.toast(error.reason, 4000)
             }
         })
-      } 
+      }
     } else {
       Materialize.toast("Title must be unique", 4000)
-    }  
+    }
   },
   'click .add-close-modal': function(){
     $('#addAddress').modal('close');
@@ -493,15 +513,3 @@ Template.OperatorDashboardLayout.helpers({
       FlowRouter.go('/'); // redirect, not an operator
   },
 })
-
-
-
-
-
-
-
-
-
-
-
-
