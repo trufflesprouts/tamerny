@@ -14,14 +14,12 @@ Templates:
 // Section I: Imported collections from MongoDB
 
 import { UserProfiles } from '../../collections/userProfiles.js'
-import { TopUp } from '../../collections/topup.js'
 import { OperatorProfile } from '../../collections/operatorProfile.js'
 import { Pairings } from '../../collections/pairedUsers.js'
 import { Addresses } from '../../collections/addresses.js'
 import { Session } from 'meteor/session'
 
 window.UserProfiles = UserProfiles
-window.TopUp = TopUp
 window.OperatorProfile = OperatorProfile
 window.Pairings = Pairings
 window.Addresses = Addresses
@@ -34,81 +32,6 @@ var moyasar = new (require('moyasar'))('sk_test_DJDn2MPWZuinhXxhWjwXVsBGtVQouFLn
 var correct = false;
 
 AutoForm.hooks({
-  insertTopUpForm: {
-    before: {
-      insert: function (doc) {
-        var paymentTest = moyasar.payment.create({
-          // Convert from Riyals to Halalas
-          amount: (100*doc.amount),
-          currency: doc.currency,
-          description: doc.description,
-          source: {
-           type: 'creditcard',
-           name: doc.name,
-           number: doc.number,
-           cvc: doc.cvs,
-           month: doc.month,
-           year: doc.year
-         },
-         callback_url: "http://localhost:3000"
-        }).then( function(payment){
-          if (payment.source.transaction_url != null){
-              $('#3dsecurity_frame').modal('open');
-              document.getElementById('3dsecurity').src = payment.source.transaction_url;
-          }
-
-          if (payment.status == "paid"){
-             console.log("accepted")
-             correct = true;
-
-             // call the Meteor function to update Payments instead
-             updateTopUp(true, doc.id, doc.amount, payment.source.company + " " + payment.source.number)
-           }
-        });
-
-          // setTimeout(updateTopUp(false, doc.id, false), 10000); // check again in a second
-          return doc;
-      },
-      onError: function(formType, error) {
-        Materialize.toast(error, 4000)
-      },
-    },
-  },
-
-  insertTopUpSadadForm: {
-    before: {
-      insert: function (doc) {
-        console.log(doc)
-        var paymentTest = moyasar.payment.create({
-          // Convert from Riyals to Halalas
-          amount: (100*doc.amount),
-          currency: doc.currency,
-          description: doc.description,
-          source: {
-           type: "sadad",
-           username: doc.username,
-           success_url: "http://localhost:3000/",
-           fail_url: "http://localhost:3000/",
-          },
-          callback_url: "http://localhost:3000/",
-        }).then( function(payment){
-          console.log("payment status")
-          console.log(payment)
-          if (payment.status == "paid"){
-            console.log("accepted")
-             correct = true;
-             updateTopUp(true, doc.id, doc.amount, payment.source.type + " " + payment.source.username)
-           }
-        });
-
-          // setTimeout(updateTopUp(false, doc.id, false), 10000); // check again in a second
-        return doc;
-      },
-      onError: function(formType, error) {
-        Materialize.toast(error, 4000)
-      },
-    },
-  },
 
   userUpdateForm: {
     onError: function(formType, error) {
@@ -313,19 +236,6 @@ function formatNumber(phoneNumber){
     return parseInt('966' + str)
   }
 }
-
-function updateTopUp(status, id, amount, desc){
-  console.log('top up called at client (' + status + ',' + id + ',' + amount + ')')
-  if (correct == false){
-    TopUp.remove({_id: id});
-  } else {
-    var user = UserProfiles.findOne({userId: Meteor.userId()});
-    var newbalance = amount + user.balance;
-    Meteor.call('updateBalance', newbalance);
-    Meteor.call('addTransaction', "Top Up", amount, desc, "accepted");
-  }
-}
-
 
 
 // Section IIII: Global Helpers

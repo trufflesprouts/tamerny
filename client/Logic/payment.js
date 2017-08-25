@@ -95,14 +95,13 @@ Template.Payment.events({
       if (payment.status == "paid"){
         var payment = moyasar.payment.fetch(payment.id).then( function(payment){
 
-          Meteor.call('addPayment', payment);
+          Meteor.call('addCustomerPayment', user.userId, payment);
 
-          var user = UserProfiles.findOne({userId: Meteor.userId()});
           var newbalance = payment.amount/100 + user.balance;
-          Meteor.call('updateBalance', newbalance);
+          Meteor.call('updateCustomerBalance', user.userId, newbalance);
 
           var desc = payment.source.type;
-          Meteor.call('addTransaction', "Top Up", payment.amount/100, desc, "accepted");
+          Meteor.call('addCustomerTransaction', user.userId, "Top Up", payment.amount/100, desc, "accepted");
         });
        }
     });
@@ -153,13 +152,13 @@ Template.Payment.events({
             var duplicate = Payments.findOne({'userId': user.userId, 'payment.id': id});
             console.log(duplicate)
             if (duplicate == null){
-              Meteor.call('addPayment', payment);
+              Meteor.call('addCustomerPayment', user.userId, payment);
 
               var newbalance = payment.amount/100 + user.balance;
-              Meteor.call('updateBalance', newbalance);
+              Meteor.call('updateCustomerBalance', user.userId, newbalance);
 
               var desc = payment.source.type;
-              Meteor.call('addTransaction', "Top Up", (payment.amount/100), desc, "accepted");
+              Meteor.call('addCustomerTransaction', user.userId, "Top Up", (payment.amount/100), desc, "accepted");
             } else {
               console.log("Already")
               Materialize.toast("Already Paid!", 4000)

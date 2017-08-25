@@ -185,7 +185,7 @@
         </div>
 
         <div id="favorites" class="card-scrollable col s12">
-            
+
             <div class="row">
               <div class="col s12 center-align">
                 <a class="vertical-center btn btn-floating waves-effect waves-light z-depth-1" href="#addFavorite">
@@ -221,10 +221,10 @@
             <ul class="collapsible z-depth-0" data-collapsible="accordion">
               {{#each address in addresses customerId}}
                 <li>
-                 <a href={{addAddressQuery address.title}} class="collapsible-header"> 
+                 <a href={{addAddressQuery address.title}} class="collapsible-header">
                     {{address.title}}<i class="material-icons right">expand_more</i>
                 </a>
-                  <div class="collapsible-body">        
+                  <div class="collapsible-body">
                     <a href="#editAddress" ><i class="material-icons Small right">mode_edit</i></a>
                     <span class="left">{{address.line1}}</span><br>
                     {{# if notEmpty address.line2}}
@@ -292,7 +292,7 @@
 </template>
 
 <template name="editFavorite">
-  
+
   {{#with favoriteCollection}}
     {{#autoForm collection="Favorites" doc=this id="updateFavorite" type="update" setArrayItems=true}}
       {{#with favoriteEdit this}}
@@ -319,7 +319,7 @@
 </template>
 
 <template name="addFavorite">
-  
+
   <div class="row">
     <div class="col s10 ">What does your user like?</div>
     <div class="input-field col s2"><i class="add-close-modal material-icons Small right">clear</i></div>
@@ -393,14 +393,14 @@
         <label class="active" for="line1">Line 1</label>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="input-field col s12">
         {{>afFieldInput name=this.line2 id="line2" type="text"}}
         <label class="active" for="line2">Line 2</label>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="input-field col s5">
         {{>afFieldInput name=this.city id="city" type="text"}}
@@ -459,12 +459,14 @@
     <div class="chat-send input-field col s12">
       <div class="row texting">
 
-        <div class="col s10">
+        <div class="col s8">
           <input id="input_text" placeholder="Text Message..." type="text" class="validate" data-length="160" maxlength="160">
           <!-- This might be insecure... need to investigate more -->
           <input id="customerId" value={{../customerId}} type="hidden">
         </div>
-
+        <div class="col s2 payment-modal-button">
+          <a class="vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">attach_money</i></a>
+        </div>
         <div class="col s2 send-txt">
           <a class="vertical-center btn btn-floating waves-effect waves-light z-depth-1"><i class="material-icons">send</i></a>
         </div>
@@ -500,6 +502,14 @@
       </div>
     </div>
   {{/with}}
+  <div id="payment-modal" class="modal">
+    <form class="send-payment-link">
+      <div class="modal-content">
+        <input value="0.00" id="payment_amount" type="number" min="0.00" max="10000.00" step="0.01" class="validate">
+      </div>
+      <button type="submit" class=" col s12 extend_button btn btn-primary center">Send Payment</button>
+    </form>
+  </div>
 </template>
 
 <template name="user">
@@ -603,7 +613,7 @@
           </div>
         </div>
       </div>
-    </div>  
+    </div>
   </div>
 </template>
 
