@@ -3,10 +3,9 @@ a text-based platform that optimizes on-demand services
 
 Mac Download/Compile instructions:
 1. Download meteor on your computer (https://www.meteor.com/install)
-2. Download ngrok (https://ngrok.com/)
-3. Download git (https://git-scm.com/download/mac)
-4. Clone ajamjoom/tamerny to your computer (Open "Terminal" then 'cd Desktop' then 'git clone [repository link]')
-5. Install Dependancies from your terminal.
+2. Download git (https://git-scm.com/download/mac)
+3. Clone ajamjoom/tamerny to your computer (Open "Terminal" then 'cd Desktop' then 'git clone [repository link]')
+4. Install Dependancies from your terminal.
   - cd to the tamerny directory from your terminal and install the following dependancies:
       - meteor npm install --save request
       - meteor npm install --save bcrypt  

@@ -61,16 +61,49 @@
 
 		{{else}}
 			<!-- Not Logged in -->
-      <div class="row">
-        <div class=" col m9 hide-on-med-and-down">
-          <img class="landing-pic" src="/images/landing.png" alt="Pgone">
+      <div class="row vertical-section landing-section-1">
+        <div class=" col l6 hide-on-med-and-down">
+          <img class="landing-pic " src="/images/iphone.png" alt="Pgone">
         </div>
-        <div class="landing-text col s12 m12 l3">
-          <div class="landing-motto">Anything, one text away.</div>
-          <p class="landing-info">Order anything with a simple text to 0508512034 and Tamerny will get it for you.</p>
-          <center><a href="#login" class="col s12 #9fa8da indigo lighten-3 waves-effect waves-light btn center-align">Register</a></center>
+        <div class="landing-text col s12 m8 push-m2 l6 push-l1">
+          <h3 style="text-align: left;">Anything<span class="delay-1">, one text away.</span></h3>
+          <p class="delay-1">Order anything with a simple text to 0508512034 and Tamerny will get it for you.</p>
+          <center><a href="#login" class="delay-2 col s12 waves-effect waves-light btn center-align">Register</a></center>
         </div>
       </div>
+      <div class="row vertical-section landing-section-2">
+        <div class="col s12 m8 push-m2 l12 xl6 push-xl3 landing-section-2-text">
+          <h3>Tamerny is Your<br>
+            <span id="is-word"></span><span class="blinker">|</span>
+          </h3>
+          <p>Carving sushi from your favorite restaurant? Tamerny will get it for you. Don’t know how to fix your AC? Just let Tamerny know. Want to book the cheapest flight tomorrow night? You know it.</p>
+        </div>
+        <div class="col s12">
+          <object id="landing-map" class="landing-map z-depth-0" data="/svg/map.svg" type="image/svg+xml">
+          </object>
+        </div>
+      </div>
+      <div class="row vertical-section landing-section-3">
+        <div class="col s12 m8 push-m2 l12 landing-section-2-text">
+          <h3>How Tamerny Works?</h3>
+          <h4 class="col s12 l4">1. Text Tamerny</h4>
+          <h4 class="col s12 l4">2. Hear Back</h4>
+          <h4 class="col s12 l4">3. Confirm</h4>
+          <img class="hide-on-med-and-down" src="/images/how-works.jpg" alt="">
+          <img class="hide-on-large-only" src="/images/how-works-mobile.jpg" alt="">
+        </div>
+      </div>
+      <div class="row vertical-section landing-section-4">
+        <div class="col s12 l5">
+          <h4>Tamerny © 2017</h4>
+          <h4><a href="mailto:help@tamerny.com">help@tamerny.com</a></h4>
+        </div>
+        <div class="col s12 l7">
+          <p>Anything you want, wherever you are, is just a text message away.
+              With Tamerny, this will be the reality, as we will provide you anything you might need through our platform. We help you save time, effort, and even money so you can stop worrying and start living!</p>
+        </div>
+      </div>
+      <script type="text/javascript" src="/js/home.js"></script>
 	{{/if}}
 
   <!-- Modal Structure -->
@@ -224,16 +257,25 @@
 </template>
 
 <template name="topUp">
-  <div class="col s12 center">
-    <h4>Add Money</h4>
+
+    <div class="no-bottom-margin">
+    <div class="col s12 operator-dash-title valign-wrapper">
+      <div class="auto-width center-align ellipsis">Add Money</div>
+    </div>
+    <div class="col s12 divider "></div>
+  </div>
+
     <div class="row">
-      <div class="input-field col s12">
-        <i class="material-icons prefix">attach_money</i>
+      <div class=" col s12 ">
+      <div class="input-field col s12 ">
+        <i class="material-icons icon-center-form prefix">attach_money</i>
         <input placeholder="0.00" id="amount" type="number" min="0.00" max="10000.00" step="0.01" class="validate">
         <label class="active" for="amount">Amount</label>
       </div>
+      </div>
     </div>
-    <div class="row">
+    <div class="col s12 center">
+    <div class="row no-bottom-margin">
       <ul class="tabs">
 
         <li class="tab col s6"><a href="#creditcard-safe">Credit Card</a></li>
@@ -241,47 +283,50 @@
 
       </ul>
     </div>
+    </div>
+<div class="row no-bottom-margin">
     <div id="creditcard-safe" class="col s12 scrollable-topup">
-      <form class="safe col s12">
-        <div class="row">
+      <form class="safe">
           <div class="col s12">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">call_to_action</i>
-            <input placeholder="XXXXXXXXXXXXXXXX" id="number" type="text" class="validate">
+          <div class="input-field">
+            <i class="material-icons icon-center-form  prefix">call_to_action</i>
+            <input placeholder="XXXX XXXX XXXX XXXX" id="number" type="text" class="validate">
             <label class="active" for="number">Card Number</label>
           </div>
         </div>
         <!-- </div>
         <div class="row"> -->
         <div class="col s12">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">account_circle</i>
-            <input placeholder="XXXX XXXX" id="name" type="text" class="validate">
+          <div class="input-field">
+            <i class="material-icons icon-center-form  prefix">account_circle</i>
+            <input placeholder="Abdul Jamjoom" id="name" type="text" class="validate">
             <label class="active" for="name">Full Name</label>
           </div>
         </div>
-        <!-- </div>
-        <div class="row"> -->
+        <!-- </div> -->
+
         <div class="col s12">
-          <div class="input-field col s4">
-            <i class="material-icons prefix">credit_card</i>
-            <input placeholder="XXX" id="cvv" type="text" maxlength="3" class="validate">
+          <div class="input-field ">
+            <i class="material-icons icon-center-form prefix">credit_card</i>
+            <input placeholder="XXX (*At the back of your card.)" id="cvv" type="text" maxlength="3" class="validate">
             <label class="active" for="cvv">CVV</label>
+
           </div>
-          <div class="col s8">
-            <br>
-            At the back of your card.
-            <br>
-          </div>
+          <!-- <div class="col s8"> -->
+
+            <!-- At the back of your card . -->
+
+          <!-- </div> -->
+
         </div>
         <!-- </div>
         <div class="row"> -->
           <!-- <div class="col s2">
 
           </div> -->
-          <div class="col s12">
+         <!--  <div class=" col s12"> -->
             <div class="col s2">
-              <i class="material-icons prefix">date_range</i>
+              <i class="material-icons icon-center-form small prefix">date_range</i>
             </div>
           <div class="input-field col s6">
             <select id="month">
@@ -305,28 +350,34 @@
             <input placeholder="Year" id="year" type="text" class="validate">
             <!-- <label class="active" for="year">Year</label> -->
           </div>
-        </div>
-        </div>
+        <!-- </div> -->
+
         <br>
-        <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
+        <div class=" col s12">
+          <button type="submit" class=" col s12 button-bottom-margin extend_button btn btn-primary center">Top Up</button>
+        </div>
+
       </form>
     </div>
     <div id="sadad" class="col s12">
       <form class="sadad col s12">
 
-        <div class="input-field col s12">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">account_circle</i>
-            <input placeholder="XXXXX" id="username" type="text" class="validate">
+        <!-- <div class="input-field col s12"> -->
+          <div class="input-field">
+            <i class="material-icons icon-center-form prefix">account_circle</i>
+            <input placeholder="Moe Jam" id="username" type="text" class="validate">
             <label class="active" for="name">User Name</label>
           </div>
-        </div>
+       <!--  </div> -->
 
         <br>
+        <div class="topup-top-margin">
         <button type="submit" class=" col s12 extend_button btn btn-primary center">Top Up</button>
+      </div>
       </form>
     </div>
-  </div>
+    </div>
+  <!-- </div> -->
 </template>
 
 <template name="transactions">
