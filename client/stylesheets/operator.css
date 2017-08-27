@@ -1,0 +1,43 @@
+.operator-chart {
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.performance-icon {
+  /*float: left;*/
+  /*width: 30%;*/
+  /*margin-top: 40px;*/
+  /*padding: 20px;*/
+}
+
+.performance-icon i {
+  padding: 10px;
+  border: 3px solid;
+  border-radius: 100%;
+  margin: 20px 20px 0 20px;
+}
+
+.performance-stat {
+  padding-top: 60px;
+}
+
+.performance-stat h4 {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+
+#average-rating-chart .c3-text {
+  position: relative;
+  transform: translateY(50px);
+  fill: white !important;
+  font-size: 25px;
+}
+
+.c3-chart-bar path {
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.c3-axis-y path, .c3-axis-y line {
+  opacity: 0.1;
+}

@@ -14,15 +14,27 @@
             <a href="#user-profile"><i class="material-icons small">account_circle</i>
           </a></div></li>
           <div class="col s12 divider"></div>
-          <li><div class="user-view center side-text-color">
-            <a href="#sales"><i class="material-icons small">equalizer</i>
-          </a></div></li>
-          <li><div class="user-view center side-text-color"><a href="#performance">
-            <i class="material-icons small">multiline_chart</i>
-          </a></div></li>
-          <li><div class="user-view center side-text-color"><a href="#achievement">
-            <i class="material-icons small">star_half</i>
-          </a></div></li>
+          <li>
+            <div class="user-view center side-text-color">
+              <a href="#sales" title="Sales">
+                <i class="material-icons small">equalizer</i>
+              </a>
+            </div>
+          </li>
+          <li>
+            <div class="user-view center side-text-color">
+              <a href="#performance" title="Performance">
+                <i class="material-icons small">multiline_chart</i>
+              </a>
+            </div>
+          </li>
+          <li>
+            <div class="user-view center side-text-color">
+              <a href="#achievement" title="Achievement">
+                <i class="material-icons small">star_half</i>
+              </a>
+            </div>
+          </li>
         </ul>
 
         <!-- {{> userCardsPage }} -->
@@ -147,22 +159,41 @@
 </template>
 
 <template name="sales">
+  <link href="/css/" rel="stylesheet">
   <div class="row operator-padding">
     <div class="col s12 m12 l6 center">
-      <div class="card-border operator-sales-1 card">
-        <span class="soon center-align ellipsis">Coming Soon.</span>
+      <div class="card-border card">
+        <div class="col s12 operator-dash-title valign-wrapper">
+          <div class="auto-width center-align ellipsis">Sales Per Category</div>
+        </div>
+        <div class="col s12 divider"></div>
+        <div class="operator-chart">
+          <div id="category-sales-chart"></div>
+        </div>
       </div>
     </div>
     <div class="col s12 m12 l6 center">
-      <div class="card-border operator-sales-1 card">
-        {{> userBalance}}
+      <div class="card-border card">
+        <div class="col s12 operator-dash-title valign-wrapper">
+          <div class="auto-width center-align ellipsis">Monthly Sales</div>
+        </div>
+        <div class="col s12 divider"></div>
+        <div class="operator-chart">
+          <div id="monthly-sales-chart"></div>
+        </div>
       </div>
     </div>
   </div>
   <div class="row operator-padding">
     <div class="col s12 m12 center">
-      <div class="card-border operator-sales-1 card">
-        <span class="soon center-align ellipsis">Coming Soon.</span>
+      <div class="card-border card">
+        <div class="col s12 operator-dash-title valign-wrapper">
+          <div class="auto-width center-align ellipsis">Daily Sales</div>
+        </div>
+        <div class="col s12 divider"></div>
+        <div class="operator-chart">
+          <div id="daily-sales-chart"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -171,30 +202,93 @@
 <template name="performance">
   <div class="row operator-padding">
     <div class="col s12 m12 l3 center">
-      <div class="card-border operator-sales-2 card horizontal">
-        <span class="soon center-align ellipsis">Coming Soon.</span>
+      <div class="card-border card">
+        <div class="col s12 operator-dash-title valign-wrapper">
+          <div class="auto-width center-align ellipsis">Completed Orders</div>
+        </div>
+        <div class="col s12 divider"></div>
+        <div class="row">
+          <div class="performance-icon col m5 l12 xl5">
+            <i class="material-icons small" style="color: #20AC74; border-color: #20AC74;">done</i>
+          </div>
+          <div class="performance-stat m7 l12 xl7">
+            <h4 style="color: #20AC74;">{{completedOrders}}</h4><span style="color: #20AC74;">%</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col s12 m12 l3 center">
-      <div class="card-border operator-sales-2 card horizontal">
-        <span class="soon center-align ellipsis">Coming Soon.</span>
+      <div class="card-border card">
+        <div class="col s12 operator-dash-title valign-wrapper">
+          <div class="auto-width center-align ellipsis">Number of Users Served </div>
+        </div>
+        <div class="col s12 divider"></div>
+        <div class="row">
+          <div class="performance-icon col m5 l12 xl5">
+            <i class="material-icons small" style="color: #FF9505; border-color: #FF9505;">person_outline</i>
+          </div>
+          <div class="performance-stat m7 l12 xl7">
+            <h4 style="color: #FF9505;">{{usersServed}}</h4>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col s12 m12 l3 center">
-      <div class="card-border operator-sales-2 card horizontal">
-        <span class="soon center-align ellipsis">Coming Soon.</span>
+      <div class="card-border card">
+        <div class="col s12 operator-dash-title valign-wrapper">
+          <div class="auto-width center-align ellipsis">Average Profit Per Day</div>
+        </div>
+        <div class="col s12 divider"></div>
+        <div class="row">
+          <div class="performance-icon col m5 l12 xl5">
+            <i class="material-icons small" style="color: #419FF7; border-color: #419FF7;">attach_money</i>
+          </div>
+          <div class="performance-stat m7 l12 xl7">
+            <h4 style="color: #419FF7;">{{profitPerDay}}</h4><span style="color: #419FF7;">SAR</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col s12 m12 l3 center">
-      <div class="card-border operator-sales-2 card horizontal">
-        <span class="soon center-align ellipsis">Coming Soon.</span>
+      <div class="card-border card">
+        <div class="col s12 operator-dash-title valign-wrapper">
+          <div class="auto-width center-align ellipsis">Average Rating</div>
+        </div>
+        <div class="col s12 divider"></div>
+        <div class="row">
+          <div class="performance-icon col m5 l12 xl5">
+            <i class="material-icons small" style="color: #FDCC0B; border-color: #FDCC0B;">star_border</i>
+          </div>
+          <div class="performance-stat m7 l12 xl7">
+            <h4 style="color: #FDCC0B;">{{averageRating}}</h4><span style="color: #FDCC0B;">/5</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="row operator-padding">
     <div class="col s12 m12 center">
-      <div class="card-border operator-sales-1 card">
-        <span class="soon center-align ellipsis">Coming Soon.</span>
+      <div class="card-border card">
+        <div class="col s12 operator-dash-title valign-wrapper">
+          <div class="auto-width center-align ellipsis">Calendar Activity</div>
+        </div>
+        <div class="col s12 divider"></div>
+        <div class="operator-chart">
+          <div id="calendar-activity-chart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row operator-padding">
+    <div class="col s12 m12 center">
+      <div class="card-border card">
+        <div class="col s12 operator-dash-title valign-wrapper">
+          <div class="auto-width center-align ellipsis">Average Rating Per Category</div>
+        </div>
+        <div class="col s12 divider"></div>
+        <div class="operator-chart">
+          <div id="average-rating-chart"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -203,41 +297,41 @@
 <template name="achievements">
   <div class="row operator-padding">
     <div class="col s12 m12 l3 center">
-      <div class="card-border operator-sales-2 card horizontal">
+      <div class="card-border card horizontal">
         <span class="soon center-align ellipsis">Coming Soon.</span>
       </div>
     </div>
     <div class="col s12 m12 l3 center">
-      <div class="card-border operator-sales-2 card horizontal">
+      <div class="card-border card horizontal">
         <span class="soon center-align ellipsis">Coming Soon.</span>
       </div>
     </div>
     <div class="col s12 m12 l3 center">
-      <div class="card-border operator-sales-2 card horizontal">
+      <div class="card-border card horizontal">
         <span class="soon center-align ellipsis">Coming Soon.</span>
       </div>
     </div>
     <div class="col s12 m12 l3 center">
-      <div class="card-border operator-sales-2 card horizontal">
+      <div class="card-border card horizontal">
         <span class="soon center-align ellipsis">Coming Soon.</span>
       </div>
     </div>
   </div>
   <div class="row operator-padding">
     <div class="col s12 m12 l6 center">
-      <div class="card-border operator-sales-1 card">
+      <div class="card-border card">
         <span class="soon center-align ellipsis">Coming Soon.</span>
       </div>
     </div>
     <div class="col s12 m12 l6 center">
-      <div class="card-border operator-sales-1 card">
+      <div class="card-border card">
         <span class="soon center-align ellipsis">Coming Soon.</span>
       </div>
     </div>
   </div>
   <div class="row operator-padding">
     <div class="col s12 m12 center">
-      <div class="card-border operator-sales-1 card">
+      <div class="card-border card">
         <span class="soon center-align ellipsis">Coming Soon.</span>
       </div>
     </div>
@@ -249,7 +343,7 @@
     <div class="col s12 operator-dash-title valign-wrapper">
       <div class="auto-width center-align ellipsis">Balance</div>
     </div>
-    <div class="col s12 divider "></div>
+    <div class="col s12 divider"></div>
   </div>
   <div class="col s12 balance-number ellipsis center-align">
     {{balance}} <a class="currency_main">(SAR)</a>
@@ -262,7 +356,7 @@
     <div class="col s12 operator-dash-title valign-wrapper">
       <div class="auto-width center-align ellipsis">Add Money</div>
     </div>
-    <div class="col s12 divider "></div>
+    <div class="col s12 divider"></div>
   </div>
 
     <div class="row">
@@ -385,7 +479,7 @@
     <div class="col s12 operator-dash-title valign-wrapper">
       <div class="auto-width center-align ellipsis">History</div>
     </div>
-    <div class="col s12 divider "></div>
+    <div class="col s12 divider"></div>
   </div>
   <div class="scrollable-profile-history container col s12">
     <ul class="collapsible z-depth-0" data-collapsible="accordion" >
@@ -406,7 +500,7 @@
 
       <!-- START DELETE (AFTER TESTING) -->
       <li>
-        <div class="collapsible-header ">
+        <div class="collapsible-header">
           <div class="left col s10 ellipsis">Jarir Book Store (TEST)</div>
           <div class="right col s2 ellipsis">5 days ago</div>
         </div>

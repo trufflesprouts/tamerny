@@ -8,7 +8,8 @@ Templates:
 
 */
 
-
+import d3 from 'd3';
+import c3 from 'c3';
 
 // Section I: Importing collections from MongoDB
 
@@ -39,6 +40,172 @@ Template.HomeLayout.onRendered(function () {
 
   })
 })
+
+var serviceCategories = [
+    ['Flights', '#79BEEF'],
+    ['Food Delivery', '#F77F55'],
+    ['Hotels', '#7FCB6F'],
+    ['Transportation', '#6273F4'],
+    ['Shipment', '#7d858a'],
+    ['Delivery', '#F8B856'],
+    ['Events/Tickets', '#CD7EF0'],
+    ['General Info', '#6e7acb']
+  ];
+
+
+Template.sales.onRendered(function() {
+  categorySalesData = [
+    ['Transportation', 240],
+    ['Food', 150],
+    ['E-Commerce', 470],
+    ['Home Maintenance', 140]
+  ]
+
+  monthlySalesData = [
+    ['x','2017-01','2017-02','2017-03','2017-04','2017-05','2017-06','2017-07','2017-08'],
+    ['Sales', 1250, 2100, 1920, 2892, 3102, 3301, 3791, 4709]
+  ];
+
+  dailySalesData = [
+    [ 'x',
+      '2017-08-10','2017-08-11','2017-08-12','2017-08-13','2017-08-14','2017-08-15',
+      '2017-08-16','2017-08-17','2017-08-18','2017-08-19','2017-08-20','2017-08-21',
+      '2017-08-22','2017-08-23','2017-08-24','2017-08-25'
+    ],
+    ['Sales', 250, 100, 120, 292, 102, 91, 191, 309 , 250, 201, 220, 192, 202, 301, 291, 409]
+  ];
+
+  var categorySalesChart = c3.generate({
+    bindto: '#category-sales-chart',
+    data: {
+      columns: categorySalesData,
+      type: 'donut'
+    },
+    color: {
+      pattern: ['#F8B856','#FF7B7B','#79BEEF','#7FCB6F']
+    },
+    legend: {
+      position: 'right'
+    }
+  });
+
+  var monthlySalesChart = c3.generate({
+    bindto: '#monthly-sales-chart',
+    data: {
+      x: 'x',
+      xFormat: '%Y-%m',
+      columns: monthlySalesData
+    },
+    legend: {show: false},
+    grid: {y: {show: true}},
+    color: {pattern: ['#79BEEF']},
+    padding: {right: 30,},
+    axis: {
+      x: {
+        label: 'Day',
+        type: 'timeseries',
+        tick: {
+          format: '%Y-%m'
+        }
+      },
+      y: {
+        label: 'SAR'
+      }
+    }
+  });
+
+  var dailySalesChart = c3.generate({
+    bindto: '#daily-sales-chart',
+    data: {
+      x: 'x',
+      xFormat: '%Y-%m-%d',
+      columns: dailySalesData
+    },
+    legend: {show: false},
+    grid: {y: {show: true}},
+    color: {pattern: ['#7FCB6F']},
+    padding: {right: 30,},
+    axis: {
+      x: {
+        label: 'Day',
+        type: 'timeseries',
+        tick: {
+          format: '%Y-%m-%d'
+        }
+      },
+      y: {
+        label: 'SAR'
+      }
+    }
+  });
+});
+
+Template.performance.onRendered(function() {
+  calendarActivityData = [
+    [ 'x',
+      '2017-08-10','2017-08-11','2017-08-12','2017-08-13','2017-08-14','2017-08-15',
+      '2017-08-16','2017-08-17','2017-08-18','2017-08-19','2017-08-20','2017-08-21',
+      '2017-08-22','2017-08-23','2017-08-24','2017-08-25'
+    ],
+    ['Hours', 5, 4, 3, 5, 4, 6, 4, 5 , 6, 5, 4, 4, 6, 4, 5, 7]
+  ];
+
+  averageRatingData = {
+    data: [['Average Rating', 4, 3, 5, 4, 3, 4]],
+    categories: serviceCategories.map(service => service[0]),
+    colors: serviceCategories.map(service => service[1])
+  };
+
+  var calendarActivityChart = c3.generate({
+    bindto: '#calendar-activity-chart',
+    data: {
+      x: 'x',
+      xFormat: '%Y-%m-%d',
+      columns: calendarActivityData
+    },
+    legend: {show: false},
+    grid: {y: {show: true}},
+    color: {pattern: ['#F87272']},
+    padding: {right: 30,},
+    axis: {
+      x: {
+        label: 'Day',
+        type: 'timeseries',
+        tick: {
+          format: '%Y-%m-%d'
+        }
+      },
+      y: {
+        label: 'Hours'
+      }
+    }
+  });
+
+  var averageRatingChart = c3.generate({
+      bindto: '#average-rating-chart',
+      data: {
+          columns: averageRatingData.data,
+          type: 'bar',
+          labels: true,
+          color: function(color, d) {
+            return averageRatingData.colors[d.index];
+          }
+      },
+      axis: {
+          x: {
+            label: 'Category',
+            type: 'category',
+            categories: averageRatingData.categories
+          },
+          y: {
+            tick : {values: [0,1,2,3,4,5]},
+            label: 'Rating',
+            padding: {top:0, bottom:0}
+          }
+      }
+  });
+});
+
 
 // Section III: Events
 
@@ -163,7 +330,7 @@ Template.HomeLayout.events({
 
 
 
-// Section IIII: Helpers
+// Section IV: Helpers
 
 Template.userBalance.helpers({
   balance(){
@@ -225,4 +392,24 @@ Template.transactions.helpers({
     return userHistory
   },
 
+})
+
+
+Template.performance.helpers({
+  completedOrders(){
+    var num = 98.412;
+    return parseInt(num);
+  },
+  usersServed(){
+    var num = 132;
+    return parseInt(num);
+  },
+  profitPerDay(){
+    var num = 542.923;
+    return parseInt(num);
+  },
+  averageRating(){
+    var num = 4.2;
+    return parseInt(num);
+  },
 })
