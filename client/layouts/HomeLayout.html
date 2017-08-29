@@ -160,39 +160,99 @@
 
 <template name="sales">
   <link href="/css/" rel="stylesheet">
+
   <div class="row operator-padding">
+
     <div class="col s12 m12 l6 center">
       <div class="card-border card">
-        <div class="col s12 operator-dash-title valign-wrapper">
-          <div class="auto-width center-align ellipsis">Sales Per Category</div>
+        <div class="row">
+          <div class="col s12 operator-dash-title valign-wrapper">
+            <div class="auto-width center-align ellipsis">Sales Per Category</div>
+          </div>
+          <div class="col s12">
+            <div class="col s12 divider"></div>
+            <div id="category-sales-preloader" class="chart-preloader active progress">
+              <div class="indeterminate"></div>
+            </div>
+          </div>
         </div>
-        <div class="col s12 divider"></div>
-        <div class="operator-chart">
-          <div id="category-sales-chart"></div>
+        <div class="row">
+          <div class="operator-chart col s12">
+            <div id="category-sales-chart"></div>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="col s12 m12 l6 center">
       <div class="card-border card">
-        <div class="col s12 operator-dash-title valign-wrapper">
-          <div class="auto-width center-align ellipsis">Monthly Sales</div>
+        <div class="row">
+          <div class="col m6 l12 xl6 operator-dash-title valign-wrapper">
+            <div class="auto-width center-align ellipsis">Monthly Sales</div>
+          </div>
+          <div class="col m6 l12 xl6">
+            <div class="monthly-sales-form">
+              <select id="monthly-sales-form">
+                <option value="12">12 Months</option>
+                <option value="11">11 Months</option>
+                <option value="10">10 Months</option>
+                <option value="9">9 Months</option>
+                <option value="8" selected>8 Months</option>
+                <option value="7">7 Months</option>
+                <option value="6">6 Months</option>
+                <option value="5">5 Months</option>
+                <option value="4">4 Months</option>
+              </select>
+            </div>
+          </div>
+          <div class="col s12">
+            <div class="col s12 divider"></div>
+            <div id="monthly-sales-preloader" class="chart-preloader active progress">
+              <div class="indeterminate"></div>
+            </div>
+          </div>
         </div>
-        <div class="col s12 divider"></div>
-        <div class="operator-chart">
-          <div id="monthly-sales-chart"></div>
+        <div class="row">
+          <div class="operator-chart col s12">
+            <div id="monthly-sales-chart"></div>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
+
   <div class="row operator-padding">
     <div class="col s12 m12 center">
       <div class="card-border card">
-        <div class="col s12 operator-dash-title valign-wrapper">
-          <div class="auto-width center-align ellipsis">Daily Sales</div>
+        <div class="row">
+          <div class="col m12 l5 operator-dash-title title-with-options valign-wrapper">
+            <div class="auto-width center-align ellipsis">Daily Sales</div>
+          </div>
+          <div class="col m12 l7">
+            <form class="options-form daily-sales-form" action="index.html" method="post">
+              <div class="input-field">
+                <input type="text" id="daily-sales-start-date">
+                <label class="active" for="daily-sales-start-date">Start Date</label>
+              </div>
+              <div class="input-field">
+                <input type="text" id="daily-sales-end-date">
+                <label class="active" for="daily-sales-end-date">End Date</label>
+              </div>
+              <button class="waves-effect waves-light btn center-align" type="submit" name="button">Update</button>
+            </form>
+          </div>
+          <div class="col s12">
+            <div class="col s12 divider"></div>
+            <div id="daily-sales-preloader" class="chart-preloader active progress">
+              <div class="indeterminate"></div>
+            </div>
+          </div>
         </div>
-        <div class="col s12 divider"></div>
-        <div class="operator-chart">
-          <div id="daily-sales-chart"></div>
+        <div class="row">
+          <div class="operator-chart col s12">
+            <div id="daily-sales-chart"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -269,12 +329,34 @@
   <div class="row operator-padding">
     <div class="col s12 m12 center">
       <div class="card-border card">
-        <div class="col s12 operator-dash-title valign-wrapper">
-          <div class="auto-width center-align ellipsis">Calendar Activity</div>
+        <div class="row">
+          <div class="col m12 l5 operator-dash-title title-with-options valign-wrapper">
+            <div class="auto-width center-align ellipsis">Calendar Activity</div>
+          </div>
+          <div class="col m12 l7">
+            <form class="options-form calendar-activity-form" action="index.html" method="post">
+              <div class="input-field">
+                <input type="text" id="calendar-activity-start-date">
+                <label class="active" for="calendar-activity-start-date">Start Date</label>
+              </div>
+              <div class="input-field">
+                <input type="text" id="calendar-activity-end-date">
+                <label class="active" for="calendar-activity-end-date">End Date</label>
+              </div>
+              <button class="waves-effect waves-light btn center-align" type="submit" name="button">Update</button>
+            </form>
+          </div>
+          <div class="col s12">
+            <div class="col s12 divider"></div>
+            <div id="calendar-activity-preloader" class="chart-preloader active progress">
+              <div class="indeterminate"></div>
+            </div>
+          </div>
         </div>
-        <div class="col s12 divider"></div>
-        <div class="operator-chart">
-          <div id="calendar-activity-chart"></div>
+        <div class="row">
+          <div class="operator-chart col s12">
+            <div id="calendar-activity-chart"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -286,6 +368,9 @@
           <div class="auto-width center-align ellipsis">Average Rating Per Category</div>
         </div>
         <div class="col s12 divider"></div>
+        <div id="average-rating-preloader" class="chart-preloader active progress">
+          <div class="indeterminate"></div>
+        </div>
         <div class="operator-chart">
           <div id="average-rating-chart"></div>
         </div>

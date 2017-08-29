@@ -1,13 +1,20 @@
+.operator-dash-title{
+  margin-bottom: 0px;
+  height: 45px;
+  color: #e57373;
+}
+
 .operator-chart {
-  margin-top: 40px;
   padding: 20px;
 }
 
-.performance-icon {
-  /*float: left;*/
-  /*width: 30%;*/
-  /*margin-top: 40px;*/
-  /*padding: 20px;*/
+.chart-preloader {
+  visibility: hidden;
+  margin: 0;
+}
+
+.chart-preloader.active {
+  visibility: visible;
 }
 
 .performance-icon i {
@@ -40,4 +47,40 @@
 
 .c3-axis-y path, .c3-axis-y line {
   opacity: 0.1;
+}
+
+.title-with-options {
+  height: 95px;
+}
+
+.monthly-sales-form {
+  background-color: rgba(212, 212, 212, 0.1);
+  padding: 0 40px;
+}
+
+.monthly-sales-form input {
+  margin: 0 !important;
+  border-bottom: 0 !important;
+}
+
+.options-form {
+  padding-top: 15px;
+  background-color: rgba(212, 212, 212, 0.1);
+}
+
+.options-form > * {
+  margin-left: 2%;
+  width: 28%;
+  display: inline-block;
+}
+
+.datepicker {
+  width: 200px;
+  height: 45px;
+  background-color: rgba(147, 147, 147, 0.05);
+  margin: 0 10px;
+}
+
+.datepicker input {
+  padding-left: 15px !important;
 }

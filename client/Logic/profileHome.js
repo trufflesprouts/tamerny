@@ -10,6 +10,9 @@ Templates:
 
 import d3 from 'd3';
 import c3 from 'c3';
+import Pikaday from 'pikaday';
+import fakeServer from './fakeServer.js';
+
 
 // Section I: Importing collections from MongoDB
 
@@ -41,44 +44,12 @@ Template.HomeLayout.onRendered(function () {
   })
 })
 
-var serviceCategories = [
-    ['Flights', '#79BEEF'],
-    ['Food Delivery', '#F77F55'],
-    ['Hotels', '#7FCB6F'],
-    ['Transportation', '#6273F4'],
-    ['Shipment', '#7d858a'],
-    ['Delivery', '#F8B856'],
-    ['Events/Tickets', '#CD7EF0'],
-    ['General Info', '#6e7acb']
-  ];
-
-
 Template.sales.onRendered(function() {
-  categorySalesData = [
-    ['Transportation', 240],
-    ['Food', 150],
-    ['E-Commerce', 470],
-    ['Home Maintenance', 140]
-  ]
-
-  monthlySalesData = [
-    ['x','2017-01','2017-02','2017-03','2017-04','2017-05','2017-06','2017-07','2017-08'],
-    ['Sales', 1250, 2100, 1920, 2892, 3102, 3301, 3791, 4709]
-  ];
-
-  dailySalesData = [
-    [ 'x',
-      '2017-08-10','2017-08-11','2017-08-12','2017-08-13','2017-08-14','2017-08-15',
-      '2017-08-16','2017-08-17','2017-08-18','2017-08-19','2017-08-20','2017-08-21',
-      '2017-08-22','2017-08-23','2017-08-24','2017-08-25'
-    ],
-    ['Sales', 250, 100, 120, 292, 102, 91, 191, 309 , 250, 201, 220, 192, 202, 301, 291, 409]
-  ];
-
+  // Category Sales Chart
   var categorySalesChart = c3.generate({
     bindto: '#category-sales-chart',
     data: {
-      columns: categorySalesData,
+      columns: [],
       type: 'donut'
     },
     color: {
@@ -88,13 +59,22 @@ Template.sales.onRendered(function() {
       position: 'right'
     }
   });
+  var categorySalesPreloader = $('#category-sales-preloader');
+  fakeServer('categorySales', null, null, updateCSChart)
+  function updateCSChart(data) {
+    categorySalesPreloader.removeClass('active');
+    categorySalesChart.load({
+        columns: data
+    });
+  }
 
+  // Monthly Sales Chart
   var monthlySalesChart = c3.generate({
     bindto: '#monthly-sales-chart',
     data: {
       x: 'x',
       xFormat: '%Y-%m',
-      columns: monthlySalesData
+      columns: []
     },
     legend: {show: false},
     grid: {y: {show: true}},
@@ -113,13 +93,29 @@ Template.sales.onRendered(function() {
       }
     }
   });
+  var monthlySalesPreloader = $('#monthly-sales-preloader');
+  fakeServer('monthlySales', null, 8, updateMSChart);
+  $('#monthly-sales-form').on('change',function (){
+    var months = $('#monthly-sales-form').val();
+    monthlySalesPreloader.addClass('active');
+    fakeServer('monthlySales', null, months, updateMSChart);
+  });
+  function updateMSChart(data) {
+    monthlySalesPreloader.removeClass('active');
+    monthlySalesChart.load({
+        columns: data
+    });
+  }
 
+  // Daily Sales Chart
+  var picker = new Pikaday({ field: $('#daily-sales-start-date')[0] });
+  var picker = new Pikaday({ field: $('#daily-sales-end-date')[0] });
   var dailySalesChart = c3.generate({
     bindto: '#daily-sales-chart',
     data: {
       x: 'x',
       xFormat: '%Y-%m-%d',
-      columns: dailySalesData
+      columns: []
     },
     legend: {show: false},
     grid: {y: {show: true}},
@@ -138,30 +134,39 @@ Template.sales.onRendered(function() {
       }
     }
   });
+  var dailySalesPreloader = $('#daily-sales-preloader');
+  fakeServer('dailySales', '2017-08-12', '2017-08-29', updateDSChart);
+  $('.daily-sales-form').submit(function() {
+    event.preventDefault();
+    var startDate = $('#daily-sales-start-date').val();
+    var endDate = $('#daily-sales-end-date').val();
+
+    function loadNewData() {
+      dailySalesPreloader.addClass('active');
+      fakeServer('dailySales', startDate, endDate, updateDSChart);
+    }
+
+    validDates(startDate, endDate, 60, loadNewData);
+  });
+  function updateDSChart(data) {
+    dailySalesPreloader.removeClass('active');
+    dailySalesChart.load({
+        columns: data
+    });
+  }
 });
 
 Template.performance.onRendered(function() {
-  calendarActivityData = [
-    [ 'x',
-      '2017-08-10','2017-08-11','2017-08-12','2017-08-13','2017-08-14','2017-08-15',
-      '2017-08-16','2017-08-17','2017-08-18','2017-08-19','2017-08-20','2017-08-21',
-      '2017-08-22','2017-08-23','2017-08-24','2017-08-25'
-    ],
-    ['Hours', 5, 4, 3, 5, 4, 6, 4, 5 , 6, 5, 4, 4, 6, 4, 5, 7]
-  ];
-
-  averageRatingData = {
-    data: [['Average Rating', 4, 3, 5, 4, 3, 4]],
-    categories: serviceCategories.map(service => service[0]),
-    colors: serviceCategories.map(service => service[1])
-  };
-
+  // Calendar Activity Chart
+  var picker = new Pikaday({ field: $('#calendar-activity-start-date')[0] });
+  var picker = new Pikaday({ field: $('#calendar-activity-end-date')[0] });
   var calendarActivityChart = c3.generate({
     bindto: '#calendar-activity-chart',
     data: {
       x: 'x',
+      // type: 'spline',
       xFormat: '%Y-%m-%d',
-      columns: calendarActivityData
+      columns: []
     },
     legend: {show: false},
     grid: {y: {show: true}},
@@ -176,34 +181,83 @@ Template.performance.onRendered(function() {
         }
       },
       y: {
+        min: 0,
+        tick: {
+          format: function(x) { return x % 1 === 0 ? x : '';}
+        },
         label: 'Hours'
       }
     }
   });
+  var calendarActivityPreloader = $('#calendar-activity-preloader');
+  fakeServer('calendarActivity', '2017-08-12', '2017-08-29', updateCAChart);
+  $('.calendar-activity-form').submit(function() {
+    event.preventDefault();
+    var startDate = $('#calendar-activity-start-date').val();
+    var endDate = $('#calendar-activity-end-date').val();
 
-  var averageRatingChart = c3.generate({
-      bindto: '#average-rating-chart',
-      data: {
-          columns: averageRatingData.data,
-          type: 'bar',
-          labels: true,
-          color: function(color, d) {
-            return averageRatingData.colors[d.index];
-          }
-      },
-      axis: {
-          x: {
-            label: 'Category',
-            type: 'category',
-            categories: averageRatingData.categories
-          },
-          y: {
-            tick : {values: [0,1,2,3,4,5]},
-            label: 'Rating',
-            padding: {top:0, bottom:0}
-          }
-      }
+    function loadNewData() {
+      calendarActivityPreloader.addClass('active');
+      fakeServer('calendarActivity', startDate, endDate, updateCAChart);
+    }
+
+    validDates(startDate, endDate, 60, loadNewData);
   });
+  function updateCAChart(data) {
+    calendarActivityPreloader.removeClass('active');
+    calendarActivityChart.load({
+        columns: data
+    });
+  }
+
+  // Average Rating Chart
+  var averageRatingChart = c3.generate({
+    bindto: '#average-rating-chart',
+    data: {
+      columns: [],
+      type: 'bar',
+      labels: true,
+      color: function(color, d) {
+        var colors = [
+          '#79BEEF',
+          '#F77F55',
+          '#7FCB6F',
+          '#6273F4',
+          '#7d858a',
+          '#F8B856',
+          '#CD7EF0',
+          '#6e7acb'
+        ];
+        return colors[d.index];
+      }
+    },
+    legend: {show: false},
+    axis: {
+      x: {
+        label: 'Category',
+        type: 'category',
+        categories: []
+      },
+      y: {
+        max: 5,
+        min: 0,
+        tick: {
+          values: [0, 1, 2, 3, 4, 5]
+        },
+        label: 'Rating',
+        padding: { top: 0, bottom: 0 }
+      }
+    }
+  });
+  var averageRatingPreloader = $('#average-rating-preloader');
+  fakeServer('averageRating', null, null, loadARChart);
+  function loadARChart(data) {
+    averageRatingPreloader.removeClass('active');
+    averageRatingChart.load({
+      columns: data.ratingData,
+      categories: data.categories
+    });
+  }
 });
 
 
@@ -328,8 +382,6 @@ Template.HomeLayout.events({
   }
 });
 
-
-
 // Section IV: Helpers
 
 Template.userBalance.helpers({
@@ -413,3 +465,25 @@ Template.performance.helpers({
     return parseInt(num);
   },
 })
+
+// Section V: Functions
+
+function validDates(startDate, endDate, maxRange = 15, cb) {
+  var validPresentDate = moment().diff(startDate) >= 0 && moment().diff(endDate) >= 0;
+  var validSD = moment(startDate, 'YYYY-MM-DD', true).isValid();
+  var validED = moment(endDate, 'YYYY-MM-DD', true).isValid();
+  var validRange = moment(startDate).isBefore(endDate);
+  var validRangeLength = moment(endDate).diff(startDate, 'days') <= maxRange;
+
+  if (validSD && validED && validRange && validRangeLength && validPresentDate) {
+    cb();
+  } else if (!validSD || !validED) {
+    Materialize.toast('Please input a valid start and end date.', 4000);
+  } else if (!validPresentDate) {
+    Materialize.toast('Marty! you can\'t choose a date in the future.', 4000);
+  } else if (!validRangeLength) {
+    Materialize.toast('Max date range is ' + maxRange + ' days.', 4000);
+  } else {
+    Materialize.toast('End date must be after start date.', 3000);
+  }
+}
