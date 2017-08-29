@@ -93,7 +93,7 @@ export default function fakeServer(type, startDate, endDate, cb) {
     };
 
     for (var i = 0; i < (Math.random() * (8-5) + 5); i++) {
-      data.ratingData[0].push(Math.floor(Math.random() * 4 + 1));
+      data.ratingData[0].push(Math.ceil(Math.random() * 3 + 2));
     }
 
     cb(data);

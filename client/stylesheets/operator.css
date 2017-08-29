@@ -42,8 +42,16 @@
   font-size: 25px;
 }
 
-.c3-chart-bar path {
-  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
+#average-rating-chart .c3-axis .tick line, #average-rating-chart .c3-axis path {
+  display: none;
+}
+
+#average-rating-chart .c3-axis g.tick::after {
+  position: absolute;
+  left: 0;
+  content: "hooo";
+  color: black;
+  background-color: black;
 }
 
 .c3-axis-y path, .c3-axis-y line {

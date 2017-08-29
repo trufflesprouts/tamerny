@@ -235,11 +235,12 @@ Template.performance.onRendered(function() {
     legend: {show: false},
     axis: {
       x: {
-        label: 'Category',
+        // show:false,
         type: 'category',
         categories: []
       },
       y: {
+        show:false,
         max: 5,
         min: 0,
         tick: {
