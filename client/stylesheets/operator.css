@@ -22,15 +22,16 @@
   border: 3px solid;
   border-radius: 100%;
   margin: 20px 20px 0 20px;
+  font-size: 45px;
 }
 
 .performance-stat {
   padding-top: 60px;
 }
 
-.performance-stat h4 {
+.performance-stat h3 {
   display: inline-block;
-  margin-right: 5px;
+  margin: 20px 5px 0 0;
 }
 
 

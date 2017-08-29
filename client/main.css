@@ -64,6 +64,10 @@ nav ul a{
   line-height: 50px;
 }
 
+.side-nav .user-view, .side-nav .userView {
+	padding: 25px 0;
+}
+
 .no-right-pad{
   padding-right: 0;
 }

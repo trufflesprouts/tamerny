@@ -133,23 +133,23 @@
   <!-- USER -->
   <div class="row ">
     <div class={{padding}}>
-    <div class="col s12 m12 l6">
+    <div class="col s12 m12 l6" style="padding: 0;">
       <!-- BALANCE CARD -->
-      <div class=" col s12">
-        <div class="card-border z-depth-0 card balance_card white">
+      <div class="col s12">
+        <div class="card-border balance_card white card" style="z-index: 0;">
           {{> userBalance}}
         </div>
       </div>
      <!-- HISTORY CARD -->
       <div class="col s12">
-        <div class="card-border z-depth-0 card  transactions-card white">
+        <div class="card-border  transactions-card white card" style="z-index: 0;">
           {{> transactions}}
         </div>
       </div>
     </div>
     <!-- TOPUP CARD -->
-    <div class=" col s12 m12 l6">
-      <div class="card-border z-depth-0 card topup-card white">
+    <div class="col s12 m12 l6">
+      <div class="card-border topup-card white card" style="z-index: 0;">
         {{> topUp}}
       </div>
     </div>
@@ -193,14 +193,10 @@
           <div class="col m6 l12 xl6">
             <div class="monthly-sales-form">
               <select id="monthly-sales-form">
-                <option value="12">12 Months</option>
-                <option value="11">11 Months</option>
+                <option value="12">1 Year</option>
                 <option value="10">10 Months</option>
-                <option value="9">9 Months</option>
                 <option value="8" selected>8 Months</option>
-                <option value="7">7 Months</option>
                 <option value="6">6 Months</option>
-                <option value="5">5 Months</option>
                 <option value="4">4 Months</option>
               </select>
             </div>
@@ -261,7 +257,7 @@
 
 <template name="performance">
   <div class="row operator-padding">
-    <div class="col s12 m12 l3 center">
+    <div class="col s6 l3 center">
       <div class="card-border card">
         <div class="col s12 operator-dash-title valign-wrapper">
           <div class="auto-width center-align ellipsis">Completed Orders</div>
@@ -272,12 +268,12 @@
             <i class="material-icons small" style="color: #20AC74; border-color: #20AC74;">done</i>
           </div>
           <div class="performance-stat m7 l12 xl7">
-            <h4 style="color: #20AC74;">{{completedOrders}}</h4><span style="color: #20AC74;">%</span>
+            <h3 style="color: #20AC74;">{{completedOrders}}</h3><span style="color: #20AC74;">%</span>
           </div>
         </div>
       </div>
     </div>
-    <div class="col s12 m12 l3 center">
+    <div class="col s6 l3 center">
       <div class="card-border card">
         <div class="col s12 operator-dash-title valign-wrapper">
           <div class="auto-width center-align ellipsis">Number of Users Served </div>
@@ -288,12 +284,12 @@
             <i class="material-icons small" style="color: #FF9505; border-color: #FF9505;">person_outline</i>
           </div>
           <div class="performance-stat m7 l12 xl7">
-            <h4 style="color: #FF9505;">{{usersServed}}</h4>
+            <h3 style="color: #FF9505;">{{usersServed}}</h3>
           </div>
         </div>
       </div>
     </div>
-    <div class="col s12 m12 l3 center">
+    <div class="col s6 l3 center">
       <div class="card-border card">
         <div class="col s12 operator-dash-title valign-wrapper">
           <div class="auto-width center-align ellipsis">Average Profit Per Day</div>
@@ -304,12 +300,12 @@
             <i class="material-icons small" style="color: #419FF7; border-color: #419FF7;">attach_money</i>
           </div>
           <div class="performance-stat m7 l12 xl7">
-            <h4 style="color: #419FF7;">{{profitPerDay}}</h4><span style="color: #419FF7;">SAR</span>
+            <h3 style="color: #419FF7;">{{profitPerDay}}</h3><span style="color: #419FF7;">SAR</span>
           </div>
         </div>
       </div>
     </div>
-    <div class="col s12 m12 l3 center">
+    <div class="col s6 l3 center">
       <div class="card-border card">
         <div class="col s12 operator-dash-title valign-wrapper">
           <div class="auto-width center-align ellipsis">Average Rating</div>
@@ -320,7 +316,7 @@
             <i class="material-icons small" style="color: #FDCC0B; border-color: #FDCC0B;">star_border</i>
           </div>
           <div class="performance-stat m7 l12 xl7">
-            <h4 style="color: #FDCC0B;">{{averageRating}}</h4><span style="color: #FDCC0B;">/5</span>
+            <h3 style="color: #FDCC0B;">{{averageRating}}</h3><span style="color: #FDCC0B;">/5</span>
           </div>
         </div>
       </div>

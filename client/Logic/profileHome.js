@@ -52,11 +52,12 @@ Template.sales.onRendered(function() {
       columns: [],
       type: 'donut'
     },
+    padding: {bottom: 30,},
     color: {
       pattern: ['#F8B856','#FF7B7B','#79BEEF','#7FCB6F']
     },
     legend: {
-      position: 'right'
+      position: 'bottom'
     }
   });
   var categorySalesPreloader = $('#category-sales-preloader');
