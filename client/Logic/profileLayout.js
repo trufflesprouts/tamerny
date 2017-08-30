@@ -1,7 +1,7 @@
 
 
 /*
-This client side JS file contains the logic for User/Operato profile which is called Home in ProfileLayout.html
+This client side JS file contains the logic for User/Operato profile which is called ProfileLayout in ProfileLayout.html
 
 Templates:
   1. ProfileLayout
