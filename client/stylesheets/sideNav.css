@@ -12,7 +12,9 @@
 }
 
 .side-nav > *, .side-nav a, .side-nav i {
-  font-weight: 100 !important;
+  font-weight: 500 !important;
+  -webkit-font-smoothing: antialiased;
+  font-kerning: none;
   color: white !important;
 }
 

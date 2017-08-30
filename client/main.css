@@ -76,7 +76,8 @@ nav ul a {
 .email-alert {
   position: fixed;
   z-index: 10;
-  width: 70%
+  width: 70%;
+  right: 5%;
 }
 
 .modal-content {
