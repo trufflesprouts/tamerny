@@ -36,7 +36,7 @@
   margin: 30px 0 30px 0;
 }
 
-.side-nav .info p, h4 {
+.side-nav .info p, .side-nav .info h4 {
   margin: 0;
   line-height: 35px;
 }

@@ -79,6 +79,10 @@ nav ul a {
   width: 70%
 }
 
+.modal-content {
+  line-height: 50px;
+}
+
 .nav {
   height: 50px;
   line-height: 50px;
