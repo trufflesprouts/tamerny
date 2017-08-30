@@ -1,6 +1,6 @@
 .operator-dash-title{
   margin-bottom: 0px;
-  height: 45px;
+  height: 65px;
   color: #e57373;
 }
 
@@ -31,7 +31,7 @@
 
 .performance-stat h3 {
   display: inline-block;
-  margin: 20px 5px 0 0;
+  margin: 34px 5px 0 0;
 }
 
 
@@ -64,7 +64,8 @@
 
 .monthly-sales-form {
   background-color: rgba(212, 212, 212, 0.1);
-  padding: 0 40px;
+  height: 65px;
+  padding: 13px 40px 0;
 }
 
 .monthly-sales-form input {
@@ -92,4 +93,32 @@
 
 .datepicker input {
   padding-left: 15px !important;
+}
+
+@media screen and (min-width: 993px) {
+  .operator-dashboard {
+    padding-left: 250px;
+    margin-top: -50px;
+    margin-bottom: 0;
+  }
+}
+
+.content-container .operator-dashboard .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.operator-dashboard .divider {
+  margin-bottom: 18px;
+}
+
+.op-reg-form-title {
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+#upsertOperatorForm .row {
+  margin-left: 0;
+  margin-right: 0;
 }

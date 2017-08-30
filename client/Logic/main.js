@@ -48,7 +48,7 @@ AutoForm.hooks({
         var num = doc.$set.phone
         console.log(num)
         console.log(validPhone(num))
-        if (validPhone(num) && AutoForm.validateForm("userUpdateBasicForm")){ 
+        if (validPhone(num) && AutoForm.validateForm("userUpdateBasicForm")){
           num = formatNumber(num)
           doc.$set.phone = num
           FlowRouter.go('/op-registration');
@@ -56,7 +56,7 @@ AutoForm.hooks({
         } else {
           Materialize.toast("Please enter a correct Saudi phone number!", 4000)
           return false
-        }    
+        }
       },
     },
   },

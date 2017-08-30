@@ -3,27 +3,27 @@ export default function fakeServer(type, startDate, endDate, cb) {
     case 'categorySales':
       setTimeout(function () {
         getCategorySalesData(cb);
-      }, 4000);
+      }, 1120);
       break;
     case 'monthlySales':
       setTimeout(function () {
         getMonthlySalesData(endDate, cb);
-      }, 2500);
+      }, 1001);
       break;
     case 'dailySales':
       setTimeout(function () {
         getDailySalesData(startDate, endDate, cb);
-      }, 4500);
+      }, 942);
       break;
     case 'calendarActivity':
       setTimeout(function () {
         getCalendarActivityData(startDate, endDate, cb);
-      }, 6000);
+      }, 1350);
       break;
     case 'averageRating':
       setTimeout(function () {
         getAverageRatingData(cb);
-      }, 3500);
+      }, 900);
       break;
     default:
 
@@ -69,8 +69,6 @@ export default function fakeServer(type, startDate, endDate, cb) {
       data[0].push(moment(startDate).add(i, 'd').format('YYYY-MM-DD'));
       data[1].push(Math.floor(Math.random() * (500-90)+90));
     }
-    console.log("HOOOOOOOOOOOOOO");
-    console.log(data);
     cb(data)
   }
 

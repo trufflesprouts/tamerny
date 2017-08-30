@@ -1,0 +1,102 @@
+
+<template name="SalesLayout">
+  <h2 class="page-title">Sales</h2>
+  <div class="col s12 divider"></div>
+  
+  <div class="content-container">
+
+    <div class="row">
+
+      <div class="col s12 m12 l6 center">
+        <div class="card-border card">
+          <div class="row">
+            <div class="col s12 operator-dash-title valign-wrapper">
+              <div class="auto-width center-align ellipsis">Sales Per Category</div>
+            </div>
+            <div class="col s12">
+              <div class="col s12 divider"></div>
+              <div id="category-sales-preloader" class="chart-preloader active progress">
+                <div class="indeterminate"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="operator-chart col s12">
+              <div id="category-sales-chart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 m12 l6 center">
+        <div class="card-border card">
+          <div class="row">
+            <div class="col m6 l12 xl6 operator-dash-title valign-wrapper">
+              <div class="auto-width center-align ellipsis">Monthly Sales</div>
+            </div>
+            <div class="col m6 l12 xl6">
+              <div class="monthly-sales-form">
+                <select id="monthly-sales-form">
+                  <option value="12">1 Year</option>
+                  <option value="10">10 Months</option>
+                  <option value="8" selected>8 Months</option>
+                  <option value="6">6 Months</option>
+                  <option value="4">4 Months</option>
+                </select>
+              </div>
+            </div>
+            <div class="col s12">
+              <div class="col s12 divider"></div>
+              <div id="monthly-sales-preloader" class="chart-preloader active progress">
+                <div class="indeterminate"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="operator-chart col s12">
+              <div id="monthly-sales-chart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 center">
+      <div class="card-border card">
+        <div class="row">
+          <div class="col m12 l5 operator-dash-title title-with-options valign-wrapper">
+            <div class="auto-width center-align ellipsis">Daily Sales</div>
+          </div>
+          <div class="col m12 l7">
+            <form class="options-form daily-sales-form" action="index.html" method="post">
+              <div class="input-field">
+                <input type="text" id="daily-sales-start-date">
+                <label class="active" for="daily-sales-start-date">Start Date</label>
+              </div>
+              <div class="input-field">
+                <input type="text" id="daily-sales-end-date">
+                <label class="active" for="daily-sales-end-date">End Date</label>
+              </div>
+              <button class="waves-effect waves-light btn center-align" type="submit" name="button">Update</button>
+            </form>
+          </div>
+          <div class="col s12">
+            <div class="col s12 divider"></div>
+            <div id="daily-sales-preloader" class="chart-preloader active progress">
+              <div class="indeterminate"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="operator-chart col s12">
+            <div id="daily-sales-chart"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </div>
+</template>

@@ -1,24 +1,21 @@
 
 <template name="MainLayout">
     <div class="nav">
-			{{> Template.dynamic template=nav}}
-		</div>
+        {{> Template.dynamic template=nav}}
+    </div>
 
-		<div class="container">
-      <!-- Uncomment once click on phone is fixed -->
-			{{#if showAlert}}
+    <!-- Uncomment once click on phone is fixed -->
+    {{#if showAlert}}
         {{#if emailNotVerified}}
           <div class="email-alert">{{>verify}}</div>
         {{/if}}
       {{/if}}
 
-			{{> Template.dynamic template=main}}
-			{{this.url}}
-		</div>
+    {{> Template.dynamic template=main}}
+    {{this.url}}
 
-		<!-- No Container, used only for Stylistic reasons -->
-		{{> Template.dynamic template=nocont}}
-		{{this.url}}	
+    {{> Template.dynamic template=dashboardCont}}
+    {{this.url}}
 </template>
 
 <template name="verify">

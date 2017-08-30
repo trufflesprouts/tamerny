@@ -1,7 +1,7 @@
 
 /*
-This client side JS file contains the logic for 
-the Settings page for both the User and the 
+This client side JS file contains the logic for
+the Settings page for both the User and the
 Operator in SettingsLayout.html
 
 Templates:
@@ -66,9 +66,15 @@ Template.SettingTabs.events({
   },
   'submit .deactivateAccount': function(){
     event.preventDefault();
-    var user = UserProfiles.findOne({userId: Meteor.userId()})
-    Meteor.call('clearUser', Meteor.userId())
-    UserProfiles.remove({_id: user._id})
+    if (confirm('Are you sure you want to delete your account? this action can\'t be reversed.')) {
+      var user = UserProfiles.findOne({userId: Meteor.userId()})
+      Meteor.call('clearUser', Meteor.userId())
+      UserProfiles.remove({_id: user._id}, function() {
+        FlowRouter.go('/');
+      })
+    } else {
+        // Do nothing!
+    }
   },
   'submit .changeEmail': function(){
     event.preventDefault();
@@ -81,7 +87,7 @@ Template.SettingTabs.events({
           var emailValid = true
           if (result != undefined)
             emailValid = result
-          
+
           if (emailValid == true){ // email is valid
             var account = Meteor.users.findOne({_id: Meteor.userId()})
             var oldEmail = account.emails[0].address
@@ -167,4 +173,3 @@ Template.SettingsCard.helpers({
     return status
   },
 })
-
