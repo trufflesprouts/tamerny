@@ -11,7 +11,7 @@
 }
 
 .landing-navbar .button-collapse i {
-  margin-top: 18px;
+  margin-top: 12px;
 }
 
 @media screen and (max-width: 993px) {
@@ -84,6 +84,7 @@
 }
 
 .landing-section-3 img {
+  margin-top: 50px;
   width: 100%;
 }
 
@@ -113,4 +114,7 @@
     transform: scale(1.5);
   }
 
+  .landing-section-3 img {
+    margin-top: 0;
+  }
 }
