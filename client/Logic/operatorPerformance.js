@@ -1,5 +1,3 @@
-
-
 /*
 This client side JS file contains the logic for the Operator Sales page which is called Sales in PerformanceLayout.html
 
@@ -12,7 +10,7 @@ import d3 from 'd3';
 import c3 from 'c3';
 import Pikaday from 'pikaday';
 import fakeServer from './fakeServer.js';
-import {validDates} from './helpers.js';
+import { validDates } from './helpers.js';
 
 Template.PerformanceLayout.onRendered(function() {
   // Calendar Activity Chart
@@ -21,34 +19,36 @@ Template.PerformanceLayout.onRendered(function() {
   var calendarActivityChart = c3.generate({
     bindto: '#calendar-activity-chart',
     size: {
-        height: 400
+      height: 400,
     },
     data: {
       x: 'x',
       // type: 'spline',
       xFormat: '%Y-%m-%d',
-      columns: []
+      columns: [],
     },
-    legend: {show: false},
-    grid: {y: {show: true}},
-    color: {pattern: ['#F87272']},
-    padding: {right: 30,},
+    legend: { show: false },
+    grid: { y: { show: true } },
+    color: { pattern: ['#F87272'] },
+    padding: { right: 30 },
     axis: {
       x: {
         label: 'Day',
         type: 'timeseries',
         tick: {
-          format: '%Y-%m-%d'
-        }
+          format: '%Y-%m-%d',
+        },
       },
       y: {
         min: 0,
         tick: {
-          format: function(x) { return x % 1 === 0 ? x : '';}
+          format: function(x) {
+            return x % 1 === 0 ? x : '';
+          },
         },
-        label: 'Hours'
-      }
-    }
+        label: 'Hours',
+      },
+    },
   });
   var calendarActivityPreloader = $('#calendar-activity-preloader');
   fakeServer('calendarActivity', '2017-08-12', '2017-08-29', updateCAChart);
@@ -67,7 +67,7 @@ Template.PerformanceLayout.onRendered(function() {
   function updateCAChart(data) {
     calendarActivityPreloader.removeClass('active');
     calendarActivityChart.load({
-        columns: data
+      columns: data,
     });
   }
 
@@ -75,7 +75,7 @@ Template.PerformanceLayout.onRendered(function() {
   var averageRatingChart = c3.generate({
     bindto: '#average-rating-chart',
     size: {
-        height: 400
+      height: 400,
     },
     data: {
       columns: [],
@@ -90,29 +90,29 @@ Template.PerformanceLayout.onRendered(function() {
           '#7d858a',
           '#F8B856',
           '#CD7EF0',
-          '#6e7acb'
+          '#6e7acb',
         ];
         return colors[d.index];
-      }
+      },
     },
-    legend: {show: false},
+    legend: { show: false },
     axis: {
       x: {
         // show:false,
         type: 'category',
-        categories: []
+        categories: [],
       },
       y: {
-        show:false,
+        show: false,
         max: 5,
         min: 0,
         tick: {
-          values: [0, 1, 2, 3, 4, 5]
+          values: [0, 1, 2, 3, 4, 5],
         },
         label: 'Rating',
-        padding: { top: 0, bottom: 0 }
-      }
-    }
+        padding: { top: 0, bottom: 0 },
+      },
+    },
   });
   var averageRatingPreloader = $('#average-rating-preloader');
   fakeServer('averageRating', null, null, loadARChart);
@@ -120,26 +120,26 @@ Template.PerformanceLayout.onRendered(function() {
     averageRatingPreloader.removeClass('active');
     averageRatingChart.load({
       columns: data.ratingData,
-      categories: data.categories
+      categories: data.categories,
     });
   }
 });
 
 Template.PerformanceLayout.helpers({
-  completedOrders(){
+  completedOrders() {
     var num = 98.412;
     return parseInt(num);
   },
-  usersServed(){
+  usersServed() {
     var num = 132;
     return parseInt(num);
   },
-  profitPerDay(){
+  profitPerDay() {
     var num = 542.923;
     return parseInt(num);
   },
-  averageRating(){
+  averageRating() {
     var num = 4.2;
     return parseInt(num);
   },
-})
+});

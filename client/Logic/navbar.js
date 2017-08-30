@@ -1,5 +1,3 @@
-
-
 /*
 This client side JS file contains the logic for the Navbar in Navbar.html
 
@@ -8,22 +6,20 @@ Templates:
 
 */
 
-
-
 // SECTION I: onRendered
 
-Template.Navbar.onRendered(function () {
-  $(document).ready(function(){
+Template.Navbar.onRendered(function() {
+  $(document).ready(function() {
     $('.modal').modal();
     $('ul.tabs').tabs();
-    $(".button-collapse").sideNav();
+    $('.button-collapse').sideNav();
   });
 });
 
 // Section II: Events
 
 Template.Navbar.events({
-  'click .side': function(){
+  'click .side': function() {
     $('.button-collapse').sideNav('hide');
-  }
+  },
 });

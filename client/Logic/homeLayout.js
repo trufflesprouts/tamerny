@@ -8,27 +8,22 @@ Templates:
 
 import Typed from 'typed.js';
 
-Template.HomeLayout.onRendered(function () {
-  $(document).ready(function(){
+Template.HomeLayout.onRendered(function() {
+  $(document).ready(function() {
     $('.modal').modal();
 
-    var words = [
-      'Assistant',
-      'Driver',
-      'Pilot',
-      'Chef',
-      'Friend',
-      'Concierge',
-    ]
+    var words = ['Assistant', 'Driver', 'Pilot', 'Chef', 'Friend', 'Concierge'];
 
     var typedOptions = {
       strings: words,
       showCursor: false,
+      shuffle: true,
+      loop: true,
       typeSpeed: 150,
       backSpeed: 150,
-      backDelay: 2700
-    }
+      backDelay: 2700,
+    };
 
-    var typed = new Typed("#is-word", typedOptions);
+    var typed = new Typed('#is-word', typedOptions);
   });
 });

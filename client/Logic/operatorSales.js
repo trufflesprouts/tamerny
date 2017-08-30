@@ -1,5 +1,3 @@
-
-
 /*
 This client side JS file contains the logic for the Operator Sales page which is called Sales in SalesLayout.html
 
@@ -12,7 +10,7 @@ import d3 from 'd3';
 import c3 from 'c3';
 import Pikaday from 'pikaday';
 import fakeServer from './fakeServer.js';
-import {validDates} from './helpers.js';
+import { validDates } from './helpers.js';
 
 Template.SalesLayout.onRendered(function() {
   $('select').material_select();
@@ -21,26 +19,26 @@ Template.SalesLayout.onRendered(function() {
   var categorySalesChart = c3.generate({
     bindto: '#category-sales-chart',
     size: {
-        height: 400
+      height: 400,
     },
     data: {
       columns: [],
-      type: 'donut'
+      type: 'donut',
     },
-    padding: {bottom: 30,},
+    padding: { bottom: 30 },
     color: {
-      pattern: ['#F8B856','#FF7B7B','#79BEEF','#7FCB6F']
+      pattern: ['#F8B856', '#FF7B7B', '#79BEEF', '#7FCB6F'],
     },
     legend: {
-      position: 'bottom'
-    }
+      position: 'bottom',
+    },
   });
   var categorySalesPreloader = $('#category-sales-preloader');
-  fakeServer('categorySales', null, null, updateCSChart)
+  fakeServer('categorySales', null, null, updateCSChart);
   function updateCSChart(data) {
     categorySalesPreloader.removeClass('active');
     categorySalesChart.load({
-        columns: data
+      columns: data,
     });
   }
 
@@ -48,33 +46,33 @@ Template.SalesLayout.onRendered(function() {
   var monthlySalesChart = c3.generate({
     bindto: '#monthly-sales-chart',
     size: {
-        height: 400
+      height: 400,
     },
     data: {
       x: 'x',
       xFormat: '%Y-%m',
-      columns: []
+      columns: [],
     },
-    legend: {show: false},
-    grid: {y: {show: true}},
-    color: {pattern: ['#79BEEF']},
-    padding: {right: 30,},
+    legend: { show: false },
+    grid: { y: { show: true } },
+    color: { pattern: ['#79BEEF'] },
+    padding: { right: 30 },
     axis: {
       x: {
         label: 'Day',
         type: 'timeseries',
         tick: {
-          format: '%Y-%m'
-        }
+          format: '%Y-%m',
+        },
       },
       y: {
-        label: 'SAR'
-      }
-    }
+        label: 'SAR',
+      },
+    },
   });
   var monthlySalesPreloader = $('#monthly-sales-preloader');
   fakeServer('monthlySales', null, 8, updateMSChart);
-  $('#monthly-sales-form').on('change',function (){
+  $('#monthly-sales-form').on('change', function() {
     var months = $('#monthly-sales-form').val();
     monthlySalesPreloader.addClass('active');
     fakeServer('monthlySales', null, months, updateMSChart);
@@ -82,7 +80,7 @@ Template.SalesLayout.onRendered(function() {
   function updateMSChart(data) {
     monthlySalesPreloader.removeClass('active');
     monthlySalesChart.load({
-        columns: data
+      columns: data,
     });
   }
 
@@ -92,29 +90,29 @@ Template.SalesLayout.onRendered(function() {
   var dailySalesChart = c3.generate({
     bindto: '#daily-sales-chart',
     size: {
-        height: 400
+      height: 400,
     },
     data: {
       x: 'x',
       xFormat: '%Y-%m-%d',
-      columns: []
+      columns: [],
     },
-    legend: {show: false},
-    grid: {y: {show: true}},
-    color: {pattern: ['#7FCB6F']},
-    padding: {right: 30,},
+    legend: { show: false },
+    grid: { y: { show: true } },
+    color: { pattern: ['#7FCB6F'] },
+    padding: { right: 30 },
     axis: {
       x: {
         label: 'Day',
         type: 'timeseries',
         tick: {
-          format: '%Y-%m-%d'
-        }
+          format: '%Y-%m-%d',
+        },
       },
       y: {
-        label: 'SAR'
-      }
-    }
+        label: 'SAR',
+      },
+    },
   });
   var dailySalesPreloader = $('#daily-sales-preloader');
   fakeServer('dailySales', '2017-08-12', '2017-08-29', updateDSChart);
@@ -133,7 +131,7 @@ Template.SalesLayout.onRendered(function() {
   function updateDSChart(data) {
     dailySalesPreloader.removeClass('active');
     dailySalesChart.load({
-        columns: data
+      columns: data,
     });
   }
 });
