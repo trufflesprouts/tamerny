@@ -22,22 +22,33 @@
   border: 3px solid;
   border-radius: 100%;
   margin: 20px 20px 0 20px;
-  font-size: 45px;
+  /*font-size: 45px;*/
 }
 
 .performance-stat {
   padding-top: 60px;
 }
 
-.performance-stat h3 {
+.performance-stat h4 {
   display: inline-block;
-  margin: 34px 5px 0 0;
+  margin: 32px 5px 0 0;
+}
+
+@media screen and (min-width: 1400px) {
+  .performance-icon i {
+    font-size: 45px;
+  }
+
+  .performance-stat h4 {
+    font-size: 48px;
+    margin: 34px 5px 0 0;
+  }
 }
 
 
 #average-rating-chart .c3-text {
   position: relative;
-  transform: translateY(50px);
+  transform: translateY(70px);
   fill: white !important;
   font-size: 25px;
 }
@@ -62,13 +73,13 @@
   height: 95px;
 }
 
-.monthly-sales-form {
+.overall-sales-form {
   background-color: rgba(212, 212, 212, 0.1);
   height: 65px;
   padding: 13px 40px 0;
 }
 
-.monthly-sales-form input {
+.overall-sales-form input {
   margin: 0 !important;
   border-bottom: 0 !important;
 }

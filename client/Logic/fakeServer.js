@@ -5,10 +5,15 @@ export default function fakeServer(type, startDate, endDate, cb) {
         getCategorySalesData(cb);
       }, 1120);
       break;
+    case 'overallSales':
+      setTimeout(function() {
+        getOverallSalesData(endDate, cb);
+      }, 1001);
+      break;
     case 'monthlySales':
       setTimeout(function() {
-        getMonthlySalesData(endDate, cb);
-      }, 1001);
+        getMonthlySalesData(startDate, endDate, cb);
+      }, 942);
       break;
     case 'dailySales':
       setTimeout(function() {
@@ -49,7 +54,7 @@ export default function fakeServer(type, startDate, endDate, cb) {
     cb(data);
   }
 
-  function getMonthlySalesData(months, cb) {
+  function getOverallSalesData(months, cb) {
     var data = [['x'], ['Sales']];
 
     for (var i = 0; i < months; i++) {
@@ -59,6 +64,23 @@ export default function fakeServer(type, startDate, endDate, cb) {
       data[0].push(date);
       data[1].push(Math.floor(Math.random() * (6000 - 1300) + 1300));
     }
+    cb(data);
+  }
+
+  function getMonthlySalesData(startDate, endDate, cb) {
+    var data = [['x'], ['Sales']];
+    var dateRange = moment(endDate).diff(startDate, 'months');
+    console.log(dateRange);
+
+    for (var i = 0; i < dateRange; i++) {
+      data[0].push(
+        moment(startDate)
+          .add(i, 'M')
+          .format('YYYY-MM')
+      );
+      data[1].push(Math.floor(Math.random() * (9000 - 3000) + 3000));
+    }
+    console.log(data);
     cb(data);
   }
 
@@ -100,7 +122,8 @@ export default function fakeServer(type, startDate, endDate, cb) {
     };
 
     for (var i = 0; i < Math.random() * (8 - 5) + 5; i++) {
-      data.ratingData[0].push(Math.ceil(Math.random() * 3 + 2));
+      var randomRating = (Math.random() * 2 + 3).toFixed(1);
+      data.ratingData[0].push(randomRating);
     }
 
     cb(data);

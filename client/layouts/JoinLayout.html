@@ -1,10 +1,22 @@
 <template name="JoinLayout">
 
-  <main>
+  {{> Navbar }}
 
-    <object id="landing-map" class="landing-map z-depth-0" data="/svg/map.svg" type="image/svg+xml">
-    </object>
-
-  </main>
-
+  <div class="container">
+    <main>
+      <h2>Tamerny needs partners like you.</h2>
+      <p>
+        Work with Tamerny and earn great money as an operator.
+      </p>
+      <p>How?</p>
+      <ol>
+        <li>Register as a user</li>
+        <li>Click "Become an Operator" on the left</li>
+        <li>Fill the form</li>
+        <li>Publish!</li>
+      </ol>
+      <br>
+      <a href="#login" class="col s12 waves-effect waves-light btn center-align">Register</a>
+    </main>
+  </div>
 </template>

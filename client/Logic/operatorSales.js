@@ -11,6 +11,7 @@ import c3 from 'c3';
 import Pikaday from 'pikaday';
 import fakeServer from './fakeServer.js';
 import { validDates } from './helpers.js';
+import 'monthpicker';
 
 Template.SalesLayout.onRendered(function() {
   $('select').material_select();
@@ -42,9 +43,9 @@ Template.SalesLayout.onRendered(function() {
     });
   }
 
-  // Monthly Sales Chart
-  var monthlySalesChart = c3.generate({
-    bindto: '#monthly-sales-chart',
+  // Overall Sales Chart
+  var overallSalesChart = c3.generate({
+    bindto: '#overall-sales-chart',
     size: {
       height: 400,
     },
@@ -70,12 +71,73 @@ Template.SalesLayout.onRendered(function() {
       },
     },
   });
+  var overallSalesPreloader = $('#overall-sales-preloader');
+  fakeServer('overallSales', null, 8, updateOSChart);
+  $('#overall-sales-form').on('change', function() {
+    var months = $('#overall-sales-form').val();
+    overallSalesPreloader.addClass('active');
+    fakeServer('overallSales', null, months, updateOSChart);
+  });
+  function updateOSChart(data) {
+    overallSalesPreloader.removeClass('active');
+    overallSalesChart.load({
+      columns: data,
+    });
+  }
+
+  $('#yearpicker').monthpicker();
+
+  // Monthly Sales Chart
+  var monthlySalesStartDatePicker = new Pikaday({
+    field: $('#monthly-sales-start-date')[0],
+    format: 'YYYY-MM'
+  });
+  var monthlySalesEndDatePicker   = new Pikaday({
+    field: $('#monthly-sales-end-date')[0],
+    format: 'YYYY-MM'
+  });
+
+  var monthlySalesChart = c3.generate({
+    bindto: '#monthly-sales-chart',
+    size: {
+      height: 400,
+    },
+    data: {
+      x: 'x',
+      xFormat: '%Y-%m',
+      columns: [],
+    },
+    legend: { show: false },
+    grid: { y: { show: true } },
+    color: { pattern: ['#7FCB6F'] },
+    padding: { right: 30 },
+    axis: {
+      x: {
+        label: 'Day',
+        type: 'timeseries',
+        tick: {
+          format: '%Y-%m',
+        },
+      },
+      y: {
+        label: 'SAR',
+      },
+    },
+  });
   var monthlySalesPreloader = $('#monthly-sales-preloader');
-  fakeServer('monthlySales', null, 8, updateMSChart);
-  $('#monthly-sales-form').on('change', function() {
-    var months = $('#monthly-sales-form').val();
-    monthlySalesPreloader.addClass('active');
-    fakeServer('monthlySales', null, months, updateMSChart);
+  fakeServer('monthlySales', '2017-04', '2017-08', updateMSChart);
+  $('.monthly-sales-form').submit(function() {
+    event.preventDefault();
+    var startDate = $('#monthly-sales-start-date').val();
+    var endDate = $('#monthly-sales-end-date').val();
+
+    function loadNewData() {
+      monthlySalesPreloader.addClass('active');
+      fakeServer('monthlySales', startDate, endDate, updateMSChart);
+    }
+
+    loadNewData(startDate, endDate)
+    // validDates(startDate, endDate, 60, loadNewData);
   });
   function updateMSChart(data) {
     monthlySalesPreloader.removeClass('active');
@@ -85,8 +147,8 @@ Template.SalesLayout.onRendered(function() {
   }
 
   // Daily Sales Chart
-  var picker = new Pikaday({ field: $('#daily-sales-start-date')[0] });
-  var picker = new Pikaday({ field: $('#daily-sales-end-date')[0] });
+  var dailySalesStartDatePicker = new Pikaday({ field: $('#daily-sales-start-date')[0] });
+  var dailySalesEndDatePicker   = new Pikaday({ field: $('#daily-sales-end-date')[0] });
   var dailySalesChart = c3.generate({
     bindto: '#daily-sales-chart',
     size: {

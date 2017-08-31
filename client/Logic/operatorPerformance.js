@@ -14,8 +14,8 @@ import { validDates } from './helpers.js';
 
 Template.PerformanceLayout.onRendered(function() {
   // Calendar Activity Chart
-  var picker = new Pikaday({ field: $('#calendar-activity-start-date')[0] });
-  var picker = new Pikaday({ field: $('#calendar-activity-end-date')[0] });
+  var calendarActivityStartDatePicker = new Pikaday({ field: $('#calendar-activity-start-date')[0] });
+  var calendarActivityEndDatePicker   = new Pikaday({ field: $('#calendar-activity-end-date')[0] });
   var calendarActivityChart = c3.generate({
     bindto: '#calendar-activity-chart',
     size: {
