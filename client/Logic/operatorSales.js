@@ -10,7 +10,7 @@ import d3 from 'd3';
 import c3 from 'c3';
 import Pikaday from 'pikaday';
 import fakeServer from './fakeServer.js';
-import { validDates } from './helpers.js';
+import { validDates, validMonths } from './helpers.js';
 
 Template.SalesLayout.onRendered(function() {
   $('select').material_select();
@@ -66,6 +66,7 @@ Template.SalesLayout.onRendered(function() {
         },
       },
       y: {
+        min: 0,
         label: 'SAR',
       },
     },
@@ -117,6 +118,7 @@ Template.SalesLayout.onRendered(function() {
         },
       },
       y: {
+        min: 0,
         label: 'SAR',
       },
     },
@@ -133,8 +135,7 @@ Template.SalesLayout.onRendered(function() {
       fakeServer('monthlySales', startDate, endDate, updateMSChart);
     }
 
-    loadNewData(startDate, endDate)
-    // validDates(startDate, endDate, 60, loadNewData);
+    validMonths(startDate, endDate, loadNewData);
   });
   function updateMSChart(data) {
     monthlySalesPreloader.removeClass('active');
@@ -169,6 +170,7 @@ Template.SalesLayout.onRendered(function() {
         },
       },
       y: {
+        min: 0,
         label: 'SAR',
       },
     },
@@ -185,7 +187,7 @@ Template.SalesLayout.onRendered(function() {
       fakeServer('dailySales', startDate, endDate, updateDSChart);
     }
 
-    validDates(startDate, endDate, 60, loadNewData);
+    validDates(startDate, endDate, 100, loadNewData);
   });
   function updateDSChart(data) {
     dailySalesPreloader.removeClass('active');

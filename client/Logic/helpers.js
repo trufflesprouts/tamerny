@@ -1,4 +1,4 @@
-export function validDates(startDate, endDate, maxRange = 15, cb) {
+export function validDates(startDate, endDate, maxRange = 60, cb) {
   var validPresentDate =
     moment().diff(startDate) >= 0 && moment().diff(endDate) >= 0;
   var validSD = moment(startDate, 'YYYY-MM-DD', true).isValid();
@@ -22,5 +22,28 @@ export function validDates(startDate, endDate, maxRange = 15, cb) {
     Materialize.toast('Max date range is ' + maxRange + ' days.', 4000);
   } else {
     Materialize.toast('End date must be after start date.', 3000);
+  }
+
+}
+export function validMonths(startDate, endDate, cb) {
+  var validPresentDate =
+    moment().diff(startDate) >= 0 && moment().diff(endDate) >= 0;
+  var validSD = moment(startDate, 'YYYY-MM', true).isValid();
+  var validED = moment(endDate, 'YYYY-MM', true).isValid();
+  var validRange = moment(startDate).isBefore(endDate);
+
+  if (
+    validSD &&
+    validED &&
+    validRange &&
+    validPresentDate
+  ) {
+    cb();
+  } else if (!validSD || !validED) {
+    Materialize.toast('Please input a valid start and end date.', 4000);
+  } else if (!validPresentDate) {
+    Materialize.toast("Marty! you can't choose a date in the future.", 4000);
+  } else {
+    Materialize.toast('End month must be after start month.', 3000);
   }
 }

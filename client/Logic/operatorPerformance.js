@@ -62,7 +62,7 @@ Template.PerformanceLayout.onRendered(function() {
       fakeServer('calendarActivity', startDate, endDate, updateCAChart);
     }
 
-    validDates(startDate, endDate, 60, loadNewData);
+    validDates(startDate, endDate, 100, loadNewData);
   });
   function updateCAChart(data) {
     calendarActivityPreloader.removeClass('active');

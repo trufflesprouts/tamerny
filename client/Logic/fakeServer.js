@@ -70,7 +70,6 @@ export default function fakeServer(type, startDate, endDate, cb) {
   function getMonthlySalesData(startDate, endDate, cb) {
     var data = [['x'], ['Sales']];
     var dateRange = moment(endDate).diff(startDate, 'months');
-    console.log(dateRange);
 
     for (var i = 0; i < dateRange; i++) {
       data[0].push(
@@ -80,7 +79,6 @@ export default function fakeServer(type, startDate, endDate, cb) {
       );
       data[1].push(Math.floor(Math.random() * (9000 - 3000) + 3000));
     }
-    console.log(data);
     cb(data);
   }
 
