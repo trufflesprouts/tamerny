@@ -1,61 +1,41 @@
-
 <template name="SettingsLayout">
+  <h2 class="page-title">Settings</h2>
+  <div class="col s12 divider"></div>
+  <div class="content-container">
   <main>
     {{#if currentUser }}
-		<div class="row">
-			<div class="hide-on-small-only">
-				{{> SettingsTopCard}}
-			</div>
-      <div class="container">
-			 {{> SettingTabs}}
+    <div class="row">
+      <div class="hide-on-small-only">
+        {{> SettingsTopCard}}
       </div>
-		</div>
+      {{> SettingTabs}}
+    </div>
 
 		{{else}}
 			Wrong page :)
 	{{/if}}
-
   </main>
+  </div>
 </template>
 
 
 <!-- TOP CARD -->
 <template name="SettingsTopCard">
-	<div class="settings-background">
-		<div class="container">
-  		<div class="center settings-main-text">
-        <!-- TAKE CARE OF OVER FLOW... TWO LINE ELLIPSIS -->
-  			{{basicInfo.firstName}}, configure your account as you wish
-  		</div>
-  		<div class="row settings-sub-text">
-  			<div class="col l6 m6 s6 ">
-  				<div class="row">
-    				<div class="col l10 m10 s10 ellipsis">
-	      			{{basicInfo.firstName}} {{basicInfo.lastName}}
-	      			<br>
-	      			{{basicInfo.phone}}
-	      		</div>
-      		</div>
-    		</div>
-      	<div class="col l6 m6 s6 right-align">
-      		{{role}}
-      	</div>
-  		</div>
-		</div>
-  </div>
+    <h4>{{basicInfo.firstName}}, configure your account as you wish.</h4>
+    <p>{{basicInfo.firstName}} {{basicInfo.lastName}}, {{role}}.</p>
 </template>
 
 <template name="SettingTabs">
-  <div class="row">
+  <div class="row setting-tabs">
     <!-- <div class=""> -->
       <div class="col s12">
           <ul class="tabs">
             {{#if IsOperator }}
-              <li class="tab col s4"><a  href="#account"><i class="material-icons icon-valign">perm_identity</i> Account</a></li> 
+              <li class="tab col s4"><a  href="#account"><i class="material-icons icon-valign">perm_identity</i> Account</a></li>
               <li class="tab col s4"><a class="active" href="#operator"><i class="material-icons icon-valign">assignment</i> Operator </a></li>
               <li class="tab col s4"><a href="#payment"><i class="material-icons icon-valign">attach_money</i> Payment</a></li>
             {{else}}
-              <li class="tab col s6"><a href="#account"><i class="material-icons icon-valign">perm_identity</i> Account</a></li> 
+              <li class="tab col s6"><a href="#account"><i class="material-icons icon-valign">perm_identity</i> Account</a></li>
               <li class="tab col s6"><a href="#payment"><i class="material-icons icon-valign">attach_money</i> Payment</a></li>
 
             {{/if}}
@@ -76,7 +56,7 @@
       <div class="collapsible-header ">
         <div class="col s10 ellipsis">
         <i class="material-icons">person_outline</i>
-            Name  &nbsp;&nbsp; ({{basicInfo.firstName}} {{basicInfo.lastName}}) 
+            Name  &nbsp;&nbsp; ({{basicInfo.firstName}} {{basicInfo.lastName}})
         </div>
         <div class="col s2">
           <i class="material-icons right">mode_edit</i>
@@ -99,9 +79,9 @@
               <div class="input-field col s6">
                 {{>afFieldInput name="phone" id="phone" type="hidden"}}
               </div>
-              
+
               <br>
-              <button type="submit" class=" col s12 btn center btn-primary ">Change</button>  
+              <button type="submit" class=" col s12 btn center btn-primary ">Change</button>
             </div>
           {{/autoForm}}
         </div>
@@ -112,7 +92,7 @@
       <div class="collapsible-header">
         <div class="col s10 ellipsis">
           <i class="material-icons">perm_phone_msg</i>
-          Phone Number  &nbsp;&nbsp; ({{basicInfo.phone}}) 
+          Phone Number  &nbsp;&nbsp; ({{basicInfo.phone}})
         </div>
         <div class="col s2">
           <i class="material-icons right">mode_edit</i>
@@ -172,7 +152,7 @@
                 </div>
               </div>
             </form>
-          
+
         </div>
       </div>
     </li>
@@ -209,7 +189,7 @@
                 <br>
                 <!-- <a class="operator"> -->
                   <button type="submit" class="col s12 btn center btn-primary ">Change</button>
-                <!-- </a>  --> 
+                <!-- </a>  -->
               </div>
             {{/autoForm}}
           </div>
@@ -228,7 +208,7 @@
                   <label class="active">Employment Status</label>
                 </div>
                 <br>
-                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>  
+                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>
               </div>
             {{/autoForm}}
           </div>
@@ -247,7 +227,7 @@
                   <label class="active">Affiliation</label>
                 </div>
                 <br>
-                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>  
+                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>
               </div>
             {{/autoForm}}
           </div>
@@ -266,7 +246,7 @@
                   <label class="active">Time Commitment</label>
                 </div>
                 <br>
-                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>  
+                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>
               </div>
             {{/autoForm}}
           </div>
@@ -274,7 +254,7 @@
       </li>
       <!-- Change Languages -->
       <li>
-        <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">language</i>Language Proficiency  &nbsp;&nbsp; 
+        <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">language</i>Language Proficiency  &nbsp;&nbsp;
           ({{#each lang in operatorInfo.langs}}
             {{lang }}
           {{/each}}) </div>
@@ -289,7 +269,7 @@
                   <label class="active">Language Proficiency</label>
                 </div>
                 <br>
-                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>  
+                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>
               </div>
             {{/autoForm}}
           </div>
@@ -297,7 +277,7 @@
       </li>
       <!-- Change Expertise -->
       <li>
-        <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">lightbulb_outline</i>Expertise &nbsp;&nbsp; 
+        <div class="collapsible-header"><div class="col s10 ellipsis"><i class="material-icons">lightbulb_outline</i>Expertise &nbsp;&nbsp;
         ({{#each exp in operatorInfo.expertise}}
             {{exp }}
           {{/each}}) </div>
@@ -312,7 +292,7 @@
                   <label class="active">Expertise</label>
                 </div>
                 <br>
-                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>  
+                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>
               </div>
             {{/autoForm}}
           </div>
@@ -331,7 +311,7 @@
                   <label class="active">Location</label>
                 </div>
                 <br>
-                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>  
+                <button type="submit" class=" operator col s12 btn center btn-primary ">Change</button>
               </div>
             {{/autoForm}}
           </div>
@@ -361,10 +341,3 @@
 
 
 </template>
-
-
-
-
-
-
-

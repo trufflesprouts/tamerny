@@ -1,0 +1,135 @@
+.operator-dash-title{
+  margin-bottom: 0px;
+  height: 65px;
+  color: #e57373;
+}
+
+.operator-chart {
+  padding: 20px;
+}
+
+.chart-preloader {
+  visibility: hidden;
+  margin: 0;
+}
+
+.chart-preloader.active {
+  visibility: visible;
+}
+
+.performance-icon i {
+  padding: 10px;
+  border: 3px solid;
+  border-radius: 100%;
+  margin: 20px 20px 0 20px;
+  /*font-size: 45px;*/
+}
+
+.performance-stat {
+  padding-top: 60px;
+}
+
+.performance-stat h4 {
+  display: inline-block;
+  margin: 32px 5px 0 0;
+}
+
+@media screen and (min-width: 1400px) {
+  .performance-icon i {
+    font-size: 45px;
+  }
+
+  .performance-stat h4 {
+    font-size: 48px;
+    margin: 34px 5px 0 0;
+  }
+}
+
+
+#average-rating-chart .c3-text {
+  position: relative;
+  transform: translateY(70px);
+  fill: white !important;
+  font-size: 25px;
+}
+
+#average-rating-chart .c3-axis .tick line, #average-rating-chart .c3-axis path {
+  display: none;
+}
+
+#average-rating-chart .c3-axis g.tick::after {
+  position: absolute;
+  left: 0;
+  content: "hooo";
+  color: black;
+  background-color: black;
+}
+
+.c3-axis-y path, .c3-axis-y line {
+  opacity: 0.1;
+}
+
+.title-with-options {
+  height: 95px;
+}
+
+.overall-sales-form {
+  background-color: rgba(212, 212, 212, 0.1);
+  height: 65px;
+  padding: 13px 40px 0;
+}
+
+.overall-sales-form input {
+  margin: 0 !important;
+  border-bottom: 0 !important;
+}
+
+.options-form {
+  padding-top: 15px;
+  background-color: rgba(212, 212, 212, 0.1);
+}
+
+.options-form > * {
+  margin-left: 2%;
+  width: 28%;
+  display: inline-block;
+}
+
+.datepicker {
+  width: 200px;
+  height: 45px;
+  background-color: rgba(147, 147, 147, 0.05);
+  margin: 0 10px;
+}
+
+.datepicker input {
+  padding-left: 15px !important;
+}
+
+@media screen and (min-width: 993px) {
+  .operator-dashboard {
+    padding-left: 250px;
+    margin-top: -50px;
+    margin-bottom: 0;
+  }
+}
+
+.content-container .operator-dashboard .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.operator-dashboard .divider {
+  margin-bottom: 18px;
+}
+
+.op-reg-form-title {
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+#upsertOperatorForm .row {
+  margin-left: 0;
+  margin-right: 0;
+}

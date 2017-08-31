@@ -1,35 +1,39 @@
 <template name="OpRegStepsLayout">
-  <main>
-    <div class="row">
+  <h2 class="page-title">Become an Operator</h2>
+  <div class="col s12 divider"></div>
 
-        <div class="col l7 hide-on-med-and-down ">
-          <div class="containerLeft">
-            {{> OperatorRegistForms}}
+  <div class="content-container">
+    <main>
+      <div class="row">
+
+          <div class="col l7 hide-on-med-and-down ">
+            <div>
+              {{> OperatorRegistForms}}
+            </div>
           </div>
-        </div>
 
-        <div class="col s12 m12 hide-on-large-only ">
-          <div class="containerLeftSmall">
-            {{> OperatorRegistForms}}
+          <div class="col s12 m12 hide-on-large-only ">
+            <div>
+              {{> OperatorRegistForms}}
+            </div>
           </div>
-        </div>
 
-        <div class="col l5 half-grey hide-on-med-and-down grey lighten-3">
-          <div class="containerRight">
-            {{>StepAdvice}}
+          <div class="col l5 hide-on-med-and-down">
+            <div>
+              {{>StepAdvice}}
+            </div>
           </div>
-        </div>
-        
-      </div>
 
-  </main>
+        </div>
+    </main>
+  </div>
 </template>
 
 <!-- Make unique one on each page by calling a helper and making that decide what gets written in the Advice and what icon shows up -->
 <template name="StepAdvice">
     <br>
     <br>
-    <div class="card grey lighten-5 z-depth-0">
+    <div class="card grey lighten-3 z-depth-0">
       <div class="card-content">
         <i class="small left material-icons prefix blue-text text-darken-2">lightbulb_outline</i>
         <br>
@@ -44,15 +48,14 @@
 
 <template name="OperatorRegistForms">
   <!-- Title Goes here -->
-  <br><br><br>
   <div>
-    <h5>{{title}}</h5>
+    <h4 class="op-reg-form-title">{{title}}</h4>
   </div>
   <br>
 
   <!-- Operator Registration Forms -->
   <!-- <div class="scrollable"> -->
-    
+
     <!-- Update Basic information -->
     <div class="row">
       {{> Template.dynamic template=currentForm}}
@@ -63,7 +66,7 @@
 </template>
 
 <template name="BasicsInfo">
-  
+
   {{#autoForm collection="UserProfiles" doc=basicInfo id="userUpdateBasicForm" type="update"}}
     <div class="scrollable">
       <div class="input-field col s12">
@@ -86,7 +89,6 @@
 
     <!-- Operator Registration Navigation -->
     <div class="col s12 backNext">
-      <hr>
       <button type="submit" class="btn right btn-primary">Save</button>
     </div>
 
@@ -95,11 +97,11 @@
 
   <template name="OperatorInfo">
     {{#autoForm collection="OperatorProfile" doc= updoc id="upsertOperatorForm" type=upsert}}
-         
+
       <div class="eduEmp" id="">
-        <div class="scrollable"> 
+        <div class="scrollable">
         <div class="row">
-          <div class="col s5">            
+          <div class="col s5">
             <br>
             Education Level
           </div>
@@ -128,16 +130,15 @@
           </div>
         </div>
         </div>
-        
+
 
         <div class="col s12 backNext">
-          <hr>
           <button  class="next right waves-effect waves-light btn ">Next</button>
         </div>
         </div>
 
       <div class="workSettings">
-        <div class="scrollable"> 
+        <div class="scrollable">
         <div class="row">
           <div class="col s5">
             <br>
@@ -181,11 +182,10 @@
         </div>
 
         <div class="col s12 backNext">
-          <hr>
           <button type="submit" class="btn right btn-primary">Save</button>
           <a class="back left  waves-effect waves-light btn">Back</a>
         </div>
-      
+
       </div>
 
       {{/autoForm}}
@@ -193,7 +193,7 @@
 
  <!--   <template name="PaymentInfo">
     {{#autoForm collection="OperatorProfile" doc= updoc id="updatePaymentForm" type="update"}}
-    
+
       {{>afFieldInput name="educationLevel" id="educationLevel" type="hidden"}}
       {{>afFieldInput name="empStatus" type="hidden"}}
       {{>afFieldInput name="affiliation" type="hidden"}}
@@ -205,7 +205,7 @@
       Agree on payment stuff:
 
       {{>afFieldInput name="payment" type="boolean-radio"}}
-          
+
 
         <div class="backNext">
           <hr>
@@ -214,18 +214,3 @@
 
       {{/autoForm}}
   </template> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

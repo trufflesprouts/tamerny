@@ -1,36 +1,38 @@
 
 <template name="OpRegistrationLayout">
-  <main>
-    <div class="row no-margins">
+  <h2 class="page-title">Become an Operator</h2>
+  <div class="col s12 divider"></div>
 
-        <div class="col l7 hide-on-med-and-down ">
-          <div class="containerLeft">
-            {{> NewOperator}}
-            {{> publishOperator}}
+  <div class="content-container">
+    <main>
+      <div class="row no-margins">
+
+          <div class="col l7 hide-on-med-and-down ">
+            <div>
+              {{> NewOperator}}
+              {{> publishOperator}}
+            </div>
           </div>
-        </div>
 
-        <div class="col s12 m12 hide-on-large-only ">
-          <div class="containerLeftSmall">
-            {{> NewOperator}}
-            {{> publishOperator}}
+          <div class="col s12 m12 hide-on-large-only ">
+            <div>
+              {{> NewOperator}}
+              {{> publishOperator}}
+            </div>
           </div>
-        </div>
 
-        <div class="col l5 half-grey hide-on-med-and-down grey lighten-3">
-          <div class="containerRight">
-            {{> newOpAdvice}}
+          <div class="col l5 hide-on-med-and-down">
+            <div>
+              {{> newOpAdvice}}
+            </div>
           </div>
-        </div>
-        
-      </div>
 
-  </main>
+        </div>
+    </main>
+  </div>
 </template>
 
 <template name="NewOperator">
-  <br>
-  <h3>Become an Operator</h3>
     <ul class="collection">
         <li class="collection-item">
           <div>
@@ -43,7 +45,7 @@
             {{#unless basicInfoComplete}}
               <a class="waves-effect waves-light btn" href="#login">
                 Continue
-              </a> 
+              </a>
                {{else}}
               <a href="/op-registration/steps/1">
                 <p class="edit">Edit</p>
@@ -55,14 +57,14 @@
           <div>
             <p class="step_number"> STEP 2 </p>
             {{#if operatorProfileComplete}}
-            <i class="small material-icons secondary-content">check_circle</i> 
+            <i class="small material-icons secondary-content">check_circle</i>
             {{/if}}
             <p class="step_main">Showcase yourself</p>
             <p class="step_info">Credentials, Affiliations, and more</p>
             {{#if basicInfoComplete}}
               {{#unless operatorProfileComplete}}
                 <!-- {{#unless paymentComplete}} -->
-              
+
                   <a href="/op-registration/steps/2" class=" waves-effect waves-light btn ">
                     Continue
                   </a>
@@ -77,7 +79,7 @@
         </li>
         <li class="collection-item">
           <div>
-            <p class="step_number"> STEP 3 </p> 
+            <p class="step_number"> STEP 3 </p>
             {{#if operatorProfileComplete}}
               <i class="small material-icons secondary-content">check_circle</i>
             {{/if}}
@@ -104,7 +106,7 @@
   <!-- <div class=" advice"> -->
     <br>
     <br>
-    <div class="card grey lighten-5 z-depth-0">
+    <div class="card grey lighten-3 z-depth-0">
       <div class="card-content">
         <i class="small left material-icons prefix blue-text text-darken-2">lightbulb_outline</i>
         <br>

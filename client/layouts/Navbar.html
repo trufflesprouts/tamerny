@@ -1,45 +1,19 @@
 
 <template name="Navbar">
-	<div class="navbar-fixed">
-    <nav class=" navbar-fixed #eeeeee grey lighten-3 z-depth-0">
-		  <div class="nav-wrapper">
-		    <a href="/"><img class="logo brand-logo" src="/images/logo.png" alt="Logo"></a>
-        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons" style="color: black;">menu</i></a>
-        <ul class="right valign-wrapper hide-on-med-and-down">
-				  {{#if currentUser }}
-            {{#if notOperator }}
-						  <li><a class="become-margins" href="/op-registration">Become an Operator</a></li>
-              {{else}}
-              <li><a class="become-margins" href={{dashboardLink}}>Dashboard</a></li>
-            {{/if}}
-            <li><a class="become-margins" href="/">Profile</a></li>
-            {{> navbarAccount}}
-						{{else}}
-              <li><a class="become-margins open-modal" href="/op-registration">Become an Operator</a></li>
-  						<li><a class="become-margins waves-effect waves-light" href="#login">Login</a>
-              </li>
-					{{/if}}
-				</ul>
-		  </div>
-		</nav>
+  <div class="container">
+    <div class="landing-navbar">
+      <a href="/"><img class="logo brand-logo" src="/svg/logo.svg" alt="Logo"></a>
+      <a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="material-icons" style="color: black;">menu</i></a>
+      <ul class="right valign-wrapper hide-on-med-and-down">
+        <li><a class="become-margins waves-effect waves-light" href="/join">Become an Operator</a></li>
+        <li><a class="become-margins waves-effect waves-light" href="#login">Login</a></li>
+      </ul>
+    </div>
   </div>
 
   <ul id="slide-out" class="side-nav">
-    {{#if currentUser }}
-      {{#if notOperator }}
-        <li><a class="side become-margins waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
-        {{else}}
-        <li><a class="side" href={{dashboardLink}}>Dashboard</a></li>
-      {{/if}}
-      <li><a class="side" href="/">Profile</a></li>
-      <li><a class="side" href="/settings">Settings</a></li>
-      <li class="divider"></li>
-      <li><a href="/" class="logout side waves-effect waves-light">Logout</a></li>
-      {{else}}
-        <li><a class="become-margins open-modal waves-effect waves-light btn" href="/op-registration">Become an Operator</a></li>
-        <li><a class="waves-effect waves-light" href="#login">Login</a>
-        </li>
-    {{/if}}
+    <li style="margin-top: 40px;"><a class="waves-effect waves-light" href="/join">Become an Operator</a></li>
+    <li><a class="waves-effect waves-light" href="#login">Login</a></li>
   </ul>
 
   <!-- Modal Structure -->
@@ -57,16 +31,6 @@
   	</div>
     </div>
   </div>
-</template>
-
-<template name="navbarAccount">
-    <a class="become-margins dropdown-button valign-wrapper nav-name" data-hover="true" data-beloworigin="true" data-activates="accountDropdown"><div class="ellipsis">{{name}}</div></a>
-
-    <ul id="accountDropdown" class="dropdown-content" style='width: auto !important;'>
-      <li><a href="/settings">Settings</a></li>
-      <li class="divider"></li>
-      <li><a href="/" class="logout waves-effect waves-light">Logout</a></li>
-    </ul>
 </template>
 
 <template name="signup">

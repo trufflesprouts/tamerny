@@ -1,7 +1,7 @@
 /* CSS declarations go here */
 
-html{
-	font-family: Avenir Next;
+html {
+  font-family: Avenir Next;
   height: 100%;
 }
 
@@ -35,28 +35,53 @@ nav.navbar-fixed {
   line-height: 50px;
 }
 
-nav ul a{
+nav ul a {
   color: black;
 }
 
-.payment-page{
-	width: 400px;
-	margin: auto;
+.content-container {
+  padding: 20px;
 }
 
-.side-nave {
-  height: 50px;
-  line-height: 50px;
+.content-container .row {
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
 }
 
-.become-margins{
+.page-title {
+  margin: 0 0 20px 0;
+  padding-left: 25px;
+  text-align: left;
+}
+
+@media screen and (min-width: 993px) {
+  .content-container {
+    padding: 75px;
+    margin-left: 250px;
+  }
+  .page-title {
+    padding-left: 325px;
+  }
+}
+
+.payment-page {
+  width: 400px;
+  margin: auto;
+}
+
+.become-margins {
   margin-bottom: 4px;
 }
 
-.email-alert{
-  position:fixed;
+.email-alert {
+  position: fixed;
   z-index: 10;
-  width: 70%
+  width: 70%;
+  right: 5%;
+}
+
+.modal-content {
+  line-height: 50px;
 }
 
 .nav {
@@ -64,168 +89,146 @@ nav ul a{
   line-height: 50px;
 }
 
-.no-right-pad{
+.no-right-pad {
   padding-right: 0;
 }
 
-.operator-customers{
-  height:calc(100vh - 75px);
+.operator-customers {
+  height: calc(100vh - 24px);
   min-height: 565px;
 }
 
-.customer-names{
+.customer-names {
   width: 100%;
   height: 100%;
 }
 
-.no-bottom-margin{
+.no-bottom-margin {
   margin-bottom: 0px;
 }
 
-.status-size{
+.status-size {
   height: 100%;
 }
 
-.operator-dash-title{
-  margin-bottom: 0px;
-  height: 45px;
-  color: #e57373;
-}
-
-.loader-margins{
+.loader-margins {
   margin-right: 10px;
 }
 
-.operator-info{
+.operator-info {
   height: 250px;
 }
 
-.operator-balance{
+.operator-balance {
   height: 150px;
 }
 
-.side-color{
-	background-color: #454969;
+.operator-padding {
+  padding-left: 80px;
 }
 
-.side-text-color{
-	color: white;
-}
-
-.operator-padding{
-	padding-left: 80px;
-}
-
-.orange-divider{
+.orange-divider {
   background-color: orange;
 }
 
-.scroll-padding{
+.scroll-padding {
   padding-top: 55px;
 }
 
-.section-title{
+.section-title {
   border-bottom-left-radius: 10px;
   width: 105px;
   margin-left: -40px;
-  margin-top:-1px;
-  float:left;
+  margin-top: -1px;
+  float: left;
   border: 1px solid orange;
 }
 
-.first-divider{
+.first-divider {
   margin-top: 10px;
 }
-.message-padding{
+
+.message-padding {
   padding: 5px;
   color: white;
 }
 
-.chat-size{
+.chat-size {
   font-size: 12px;
 }
 
-.message-margins{
+.message-margins {
   margin-top: 3px;
   margin-bottom: 3px;
 }
 
-.chat-start{
+.chat-start {
   font-size: 12px;
 }
 
-.chat-prev{
+.chat-prev {
   height: 250px;
 }
 
-.transparent{
+.transparent {
   opacity: 0.8;
 }
 
-.margs{
+.margs {
   padding-right: 100px;
 }
 
-.chat-send{
+.chat-send {
   height: 50px;
   margin-top: 0;
 }
 
-.userButton{
+.userButton {
   margin-top: 20px;
 }
 
-.texting{
+.texting {
   margin-top: 10px;
 }
 
-.send-txt{
+.send-txt {
   margin-top: 4px;
 }
 
-.vertical-center{
+.vertical-center {
   margin-top: 3px;
 }
 
-.auto-width{
+.auto-width {
   width: 100%
 }
 
 .scrollable-api {
-  height:calc(100vh - 218px);
+  height: calc(100vh - 218px);
   min-height: 423px;
   overflow: scroll;
 }
 
-.operator-api{
-  height:calc(100vh - 170px);
+.operator-api {
+  height: calc(100vh - 120px);
   min-height: 471px;
 }
 
-.operator-status{
+.operator-status {
   height: 80px;
 }
 
-
-.operator-sales-1{
-  height: 275px;
-}
-
-.operator-sales-2{
-  height: 175px;
-}
-
-.margins-valign{
+.margins-valign {
   margin-top: 50px;
 }
 
-.card-border{
-   border:0.5px solid;
-   border-color: #E0DBDA;
+.card-border {
+  border: 0.5px solid;
+  border-color: #E0DBDA;
 }
 
-.balance_card{
-  height: 150px;
+.balance_card {
+  /*height: 150px;*/
 }
 
 .scrollable-profile-history {
@@ -233,44 +236,39 @@ nav ul a{
   overflow: scroll;
 }
 
-.icon-center-form{
+.icon-center-form {
   margin-top: 11px;
 }
 
-.scrollable-topup{
-	height: 368px;
-	overflow: scroll;
+.scrollable-topup {
+  /*height: 368px;*/
+  overflow: scroll;
 }
 
-.button-bottom-margin{
+.button-bottom-margin {
   margin-bottom: 10px;
 }
 
-.topup-card{
-  height: 565px;
-  /*height: calc(100vh - 78px);*/
-}
-
-.balance-number{
+.balance-number {
   color: #6495ed;
   font-size: 70px;
 }
 
-.transactions-card{
-  height: 392px;
+.transactions-card {
+  height: 458px;
   /*height: calc(100vh - 250px);*/
 }
 
-.balance_side{
-	color: #6495ed;
-	font-size: 82px;
+.balance_side {
+  color: #6495ed;
+  font-size: 82px;
 }
 
 .logo {
   width: 60px;
   height: auto;
-  margin-top:4px;
-  margin-left:10px;
+  margin-top: 4px;
+  margin-left: 10px;
 }
 
 .vertical-section {
@@ -303,103 +301,10 @@ nav ul a{
   }
 }
 
-.landing-pic{
-  display: block;
-  max-height: 615px;
-  max-width: 100%;
-  width: auto;
-  height: auto;
-  -webkit-filter: drop-shadow(-5px 25px 10px rgba(23, 40, 48, 0.1));
-  filter:         drop-shadow(-5px 25px 10px rgba(23, 40, 48, 0.1));
-  animation-name: delay-shadow;
-  animation-duration: 1.5s;
-  animation-delay: 1.2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in-out;
+.resend-email {
+  color: #64b5f6;
 }
 
-@keyframes delay-shadow {
-	to {
-    -webkit-filter: drop-shadow(-15px 35px 25px rgba(23, 40, 48, 0.22));
-    filter:         drop-shadow(-15px 35px 25px rgba(23, 40, 48, 0.22));
-	}
-}
-
-
-.landing-text{
-  margin-top: 10%;
-}
-
-.landing-section-1 {
-  margin-top: 50px;
-}
-
-.landing-section-2 {
-  position: relative;
-  perspective: 4000px;
-}
-
-.landing-section-2-text {
-  position: relative;
-  z-index: 3;
-}
-
-.landing-section-2 .blinker {
-  font-weight: 300;
-  color: rgb(217, 217, 217);
-  animation: blink 1s infinite;
-}
-
-@keyframes blink{
-  0%{opacity: 0;}
-  50%{opacity: 0;}
-  51%{opacity: 1;}
-  100%{opacity: 1;}
-}
-
-.landing-map {
-  width: 100%;
-  transform: scale(2.5);
-  max-width: 100vw;
-  overflow: hidden;
-}
-
-.landing-section-3 img {
-  width: 100%;
-}
-
-@media screen and (min-width: 992px) {
-  h3 {
-    text-align: center;
-  }
-
-  .landing-section-3 h4 {
-    text-align: center;
-    margin: 80px 0;
-  }
-
-  .vertical-section {
-    margin-top: 175px;
-  }
-
-  .landing-section-1 {
-    margin-top: 100px;
-  }
-
-  .landing-text{
-    max-width: 340px;
-  }
-
-  .landing-map {
-    transform: scale(1.5);
-  }
-
-}
-
-.resend-email{
-  color: #64b5f6 ;
-}
 
 /*.color-left{
   background-color: red;
@@ -409,44 +314,39 @@ nav ul a{
   background-color: green;
 }*/
 
-.side-width{
-  width: 80px;
-  margin-top: 50px;
-}
-
 .hidden {
   display: none;
 }
 
-.line-margin{
+.line-margin {
   padding-top: 10px;
 }
 
-.no-padding{
+.no-padding {
   padding: 0px;
 }
 
-.title_reset{
+.title_reset {
   font-size: 20px;
 }
 
-.forgot_pass_button{
+.forgot_pass_button {
   margin-top: 20px;
 }
 
-.reset_pass_margins{
+.reset_pass_margins {
   margin-top: 20px;
 }
 
-.subtitle_reset{
+.subtitle_reset {
   font-size: 15px;
 }
 
-.chat-title-hieght{
+.chat-title-hieght {
   margin-top: 10px;
 }
 
-.forgotPass{
+.forgotPass {
   font-size: 12px;
   color: #90caf9;
   margin: 0px;
@@ -461,17 +361,21 @@ nav ul a{
   display: block;
 }
 
-.nav-name{
+.nav-name {
   max-width: 150px;
 }
 
-.ellipsis-settings{
+.setting-tabs {
+  margin-top: 70px;
+}
+
+.ellipsis-settings {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.ellipsis{
+.ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -479,60 +383,68 @@ nav ul a{
 
 .scrollable {
   /*max-height:1000px;*/
-  height:calc(100vh - 250px);
+  /*height: calc(100vh - 250px);*/
   overflow: scroll;
 }
 
-.topup-top-margin{
+.topup-top-margin {
   margin-top: 218px;
 }
 
+.topup-card .input-field {
+  margin-top: 30px;
+}
+
+.topup-card button {
+  margin: 15px 0 25px;
+}
+
 .scrollable-profile {
-	height: 590px;
+  height: 590px;
   overflow: scroll;
 }
 
 .scrollable-operator-profile {
-	height: 595px;
+  height: 595px;
   overflow: scroll;
 }
 
 .scrollable-history {
   overflow: scroll;
-  height:200px;
+  height: 200px;
 }
 
 .scrollable-info {
-  height:150px;
+  height: 150px;
   overflow: scroll;
   min-height: 100px;
 }
 
 .scrollable-serving {
-  height:calc(100vh - 200px);
+  height: calc(100vh - 200px);
   overflow: scroll;
   min-height: 445px;
 }
 
 .scrollable-chat {
-  height:calc(100vh - 215px - 250px);
+  height: calc(100vh - 215px - 250px);
   overflow: auto;
   min-height: 180px;
 }
 
-.operator-chat{
-  height:calc(100vh - 90px - 250px);
+.operator-chat {
+  height: calc(100vh - 40px - 250px);
   min-height: 300px;
 }
 
-.currency_main{
-	color: #6495ed;
-	font-size: 20px;
+.currency_main {
+  color: #6495ed;
+  font-size: 20px;
 }
 
-.currency_side{
-	color: #6495ed;
-	font-size: 12px;
+.currency_side {
+  color: #6495ed;
+  font-size: 12px;
 }
 
 .current-email {
@@ -550,14 +462,6 @@ nav ul a{
   font-size: 40px;
 }
 
-
-.settings-background {
-  /*background-color: #c5cae9;*/
-  background-color: #d0d0d0;
-  height: 250px;
-  width: 100%;
-}
-
 .settings-main-text {
   padding-top: 50px;
   color: white;
@@ -566,32 +470,26 @@ nav ul a{
 }
 
 .settings-sub-text {
-  padding-top:60px;
-  color: white;
-  font-family: Avenir Next;
+  padding-top: 60px;
   font-size: 13pt;
 }
 
-.service-title{
+.service-title {
   font-size: 30px;
 }
 
-.half-grey{
-  height:100vh;
-}
-
-.no-margins{
+.no-margins {
   margin: 0;
   padding: 0;
 }
 
-.color-test{
+.color-test {
   background-color: red;
 }
 
 .backNext {
   /*position: absolute;*/
-  padding-bottom:30px;
+  padding-bottom: 30px;
   bottom: 0px;
   /*idth:500px;*/
   background-color: white;
@@ -599,75 +497,60 @@ nav ul a{
 
 .backNextSmall {
   position: absolute;
-  padding-bottom:30px;
-  padding-left:5%;
+  padding-bottom: 30px;
+  padding-left: 5%;
   bottom: 0px;
   right: 5%;
-  width:95%;
+  width: 95%;
   background-color: white;
 }
 
-.add-design{
+.add-design {
   color: grey;
 }
 
-.highlight-size{
+.highlight-size {
   height: 40px;
   width: 100%;
 }
 
-.names-padding{
+.names-padding {
   padding-top: 7px;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-#serving{
-  background-color: #f5f5f5  ;
+#serving {
+  background-color: #f5f5f5;
 }
 
-.find-user-box{
+.find-user-box {
   height: 75px;
   padding-left: 9px;
-  padding-top: 9px;
 }
 
-.frame-container{
-	width: 500px;
+.find-user-box span {
+  margin-left: 20px;
 }
 
-.containerLeft{
-  float: right;
-  margin-right: 10px;
-  width:500px;
-}
-
-.containerLeftSmall{
-  margin-right: 5%;
-  margin-left: 5%;
-  width:90%;
-}
-
-.containerRight{
-  margin-right: 23%;
-  margin-top: 80px;
-  width:300px;
+.frame-container {
+  width: 500px;
 }
 
 .step_number {
   color: #D3D3D3;
-  margin:0 ;
+  margin: 0;
 }
 
 .step_main {
-  font-size:150%;
-  margin-top:5px ;
-  margin-bottom:5px ;
+  font-size: 150%;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .step_info {
   color: grey;
-   margin:0 ;
+  margin: 0;
 }
 
 .formsTopMargin {
@@ -675,40 +558,41 @@ nav ul a{
 }
 
 .edit {
-  color:#90caf9 ;
-  padding:0;
-  margin:0;
+  color: #90caf9;
+  padding: 0;
+  margin: 0;
 }
+
 .advice {
-  width:38%;
-  overflow:hidden;
-  margin-left:62%;
+  width: 38%;
+  overflow: hidden;
+  margin-left: 62%;
 }
 
 .left-card {
   width: 60%;
-  float:left;
-  overflow:hidden;
+  float: left;
+  overflow: hidden;
 }
 
 .left-basic {
   width: 60%;
-  float:left;
-  overflow:hidden;
+  float: left;
+  overflow: hidden;
 }
 
 .centerIt {
-  margin-right:0;
+  margin-right: 0;
 }
 
 .basic-advice {
-  width:38%;
-  margin-top:10%;
-  margin-left:62%;
-  overflow:hidden;
+  width: 38%;
+  margin-top: 10%;
+  margin-left: 62%;
+  overflow: hidden;
 }
 
 .newAccompPublish {
-  margin-top:50px;
-  overflow:hidden;
+  margin-top: 50px;
+  overflow: hidden;
 }
