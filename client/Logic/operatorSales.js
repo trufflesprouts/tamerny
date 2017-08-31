@@ -11,7 +11,6 @@ import c3 from 'c3';
 import Pikaday from 'pikaday';
 import fakeServer from './fakeServer.js';
 import { validDates } from './helpers.js';
-import 'monthpicker';
 
 Template.SalesLayout.onRendered(function() {
   $('select').material_select();
@@ -84,8 +83,6 @@ Template.SalesLayout.onRendered(function() {
       columns: data,
     });
   }
-
-  $('#yearpicker').monthpicker();
 
   // Monthly Sales Chart
   var monthlySalesStartDatePicker = new Pikaday({
