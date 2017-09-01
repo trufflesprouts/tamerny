@@ -1,0 +1,77 @@
+
+<template name="HistoryLayout">
+  <h2 class="page-title">Order History</h2>
+  <div class="col s12 divider"></div>
+
+  <div class="content-container order-history">
+    <div class="row">
+      <!-- <div class="col s12 l3 order-history-filtering"></div> -->
+      <div class="col s12 l12 order-history-items">
+        <ul class="collapsible" data-collapsible="expandable">
+          {{#each orders}}
+            {{> order}}
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+
+<template name="order">
+  <li>
+    <div class="collapsible-header">
+      <div class="row">
+        <div class="col s6 header-info">
+          <span class="title">{{title}}</span>
+          <span class="date">{{date}}</span>
+          <span class="cost">{{cost}} SAR</span>
+        </div>
+        <div class="col s5 rating-stars">
+          {{#each fullStars rating }}
+            <i class="material-icons rating-star">star</i>
+          {{/each}}
+          {{#each emptyStars rating }}
+            <i class="material-icons rating-star">star_border</i>
+          {{/each}}
+          <!-- <i class="material-icons rating-star">star</i>
+          <i class="material-icons rating-star">star</i>
+          <i class="material-icons rating-star">star_border</i> -->
+        </div>
+        <div class="col s1"><i class="material-icons collap-arrow">keyboard_arrow_down</i></div>
+      </div>
+    </div>
+    <div class="collapsible-body">
+      <div class="row">
+        <div class="col s12 m6 xl4 order-details">
+          <div class="card cf">
+            <span class="title">Order Time</span>
+            <span class="detail">{{details.time}}</span>
+            <span class="title">Service Provider</span>
+            <span class="detail">{{details.service_provider}}</span>
+            <span class="title">Delivery Fee</span>
+            <span class="detail">{{details.fee}} SAR</span>
+          </div>
+        </div>
+        <div class="col s12 m6 xl4 order-description">
+          <div class="card">
+            <span class="title">Order Details</span>
+            <span class="detail">
+              {{description.text}}
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m12 xl4 location">
+          <div class="card">
+            <a target="_blank" href="https://www.google.com/maps/?q={{location.lat}},{{location.ling}}">
+              <div class="map-btn z-depth-3">
+                See location on map
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+</template>

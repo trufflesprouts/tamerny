@@ -30,6 +30,16 @@ a {
   color: inherit;
 }
 
+.cf:before,
+.cf:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+.cf:after {
+  clear: both;
+}
+
 nav.navbar-fixed {
   height: 50px;
   line-height: 50px;

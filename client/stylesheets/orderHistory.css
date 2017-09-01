@@ -1,0 +1,81 @@
+.order-history .header-info {
+  padding-left: 20px;
+}
+
+.order-history .header-info .title {
+  display: block;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 40px;
+  margin-top: 20px;
+}
+
+.order-history .header-info .date {
+  display: block;
+  line-height: 25px;
+
+}
+
+.order-history .header-info .cost {
+  display: block;
+  line-height: 25px;
+  font-weight: 600;
+}
+
+.order-history .rating-stars {
+  margin-top: 40px;
+}
+
+.order-history .rating-star {
+  font-size: 40px;
+  color: #FFD177;
+}
+
+.order-history .collap-arrow {
+  font-size: 40px;
+  color: rgb(217, 217, 217);
+  margin-top: 40px;
+}
+
+.order-history .collapsible-body {
+  background-color: #f4f4f4;
+}
+
+.order-history .collapsible-body .row {
+  margin-bottom: 0;
+}
+
+.order-history .collapsible-body .card {
+  padding: 10px 20px;
+}
+
+.order-history .order-details .title {
+  display: inline-block;
+  width: 70%;
+  float: left;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.order-history .order-details .detail {
+  display: inline-block;
+  width: 30%;
+  float: right;
+  text-align: right;
+  margin: 10px 0;
+}
+
+.order-history .order-description .title {
+  display: block;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.order-history .map-btn {
+  background-color: #26A599;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 20px;
+  padding: 30px;
+  color: white;
+}
