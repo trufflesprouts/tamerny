@@ -30,11 +30,6 @@ export default function fakeServer(type, startDate, endDate, cb) {
         getAverageRatingData(cb);
       }, 900);
       break;
-    case 'orderHistory':
-      setTimeout(function() {
-        getOrderHistoryData(cb);
-      }, 900);
-      break;
     default:
   }
 
@@ -130,9 +125,5 @@ export default function fakeServer(type, startDate, endDate, cb) {
     }
 
     cb(data);
-  }
-
-  function getOrderHistoryData(cb) {
-    cb();
   }
 }

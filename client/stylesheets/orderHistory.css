@@ -1,3 +1,16 @@
+.order-history .order-history-items .progress-container {
+  display: none;
+  height: 600px;
+}
+
+.order-history .order-history-items .progress-container.active {
+  display: block;
+}
+
+.order-history .order-history-items .progress {
+  margin: 0;
+}
+
 .order-history .header-info {
   padding-left: 20px;
 }
@@ -27,7 +40,7 @@
 }
 
 .order-history .rating-star {
-  font-size: 40px;
+  font-size: 35px;
   color: #FFD177;
 }
 
@@ -78,4 +91,17 @@
   margin: 20px;
   padding: 30px;
   color: white;
+}
+
+.order-history-filtering .card {
+  padding: 20px !important;
+  border: 1px solid rgb(221, 221, 221);
+}
+
+.order-history-filtering h4 {
+  margin-bottom: 0;
+}
+
+.order-history .rating-filter i {
+  font-size: 20px;
 }
