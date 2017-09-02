@@ -1,0 +1,161 @@
+
+<template name="HistoryLayout">
+  <h2 class="page-title">Order History</h2>
+  <div class="col s12 divider"></div>
+
+  <div class="content-container order-history">
+    <div class="row">
+      <div class="col s12 l12 xl3 order-history-filtering">
+        <div class="card col s12">
+          <div class="col s12">
+            <h4>Sort</h4>
+          </div>
+          <div class="input-field col s12">
+            <select id="sort-type">
+              <option value="new_old">Newest to oldest</option>
+              <option value="old_new">Oldest to Newest</option>
+              <option value="high_rating">Highest rating to lowest</option>
+              <option value="low_rating">Lowest rating to highest</option>
+            </select>
+            <!-- <label>Sort</label> -->
+          </div>
+          <div class="col s12">
+            <h4>Rating</h4>
+          </div>
+          <div class="col s12">
+            <form action="#" id="rating-filter" class="rating-filter">
+              <p>
+                <input type="checkbox" class="filled-in" id="stars5" checked="checked" />
+                <label for="stars5">
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star</i>
+                </label>
+              </p>
+              <p>
+                <input type="checkbox" class="filled-in" id="stars4" checked="checked" />
+                <label for="stars4">
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star_border</i>
+                </label>
+              </p>
+              <p>
+                <input type="checkbox" class="filled-in" id="stars3" checked="checked" />
+                <label for="stars3">
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star_border</i>
+                  <i class="material-icons small">star_border</i>
+                </label>
+              </p>
+              <p>
+                <input type="checkbox" class="filled-in" id="stars2" checked="checked" />
+                <label for="stars2">
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star_border</i>
+                  <i class="material-icons small">star_border</i>
+                  <i class="material-icons small">star_border</i>
+                </label>
+              </p>
+              <p>
+                <input type="checkbox" class="filled-in" id="stars1" checked="checked" />
+                <label for="stars1">
+                  <i class="material-icons small">star</i>
+                  <i class="material-icons small">star_border</i>
+                  <i class="material-icons small">star_border</i>
+                  <i class="material-icons small">star_border</i>
+                  <i class="material-icons small">star_border</i>
+                </label>
+              </p>
+              <p>
+                <input type="checkbox" class="filled-in" id="stars0" checked="checked" />
+                <label for="stars0">
+                  <i class="material-icons small">star_border</i>
+                  <i class="material-icons small">star_border</i>
+                  <i class="material-icons small">star_border</i>
+                  <i class="material-icons small">star_border</i>
+                  <i class="material-icons small">star_border</i>
+                </label>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 l12 xl9 order-history-items">
+        <ul class="collapsible" data-collapsible="expandable">
+          <div id="order-history-preloader" class="progress-container active">
+            <div class="progress">
+                <div class="indeterminate"></div>
+            </div>
+          </div>
+          {{#each orders}}
+            {{> order}}
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+
+<template name="order">
+  <li>
+    <div class="collapsible-header">
+      <div class="row">
+        <div class="col s12 m6 header-info">
+          <span class="title">{{title}}</span>
+          <span class="date">{{date}}</span>
+          <span class="cost">{{cost}} SAR</span>
+        </div>
+        <div class="col s10 m5 rating-stars">
+          {{#each fullStars rating }}
+            <i class="material-icons rating-star">star</i>
+          {{/each}}
+          {{#each emptyStars rating }}
+            <i class="material-icons rating-star">star_border</i>
+          {{/each}}
+        </div>
+        <div class="col s2 m1"><i class="material-icons collap-arrow">keyboard_arrow_down</i></div>
+      </div>
+    </div>
+    <div class="collapsible-body">
+      <div class="row">
+        <div class="col s12 m6 xl4 order-details">
+          <div class="card cf">
+            <span class="title">Order Time</span>
+            <span class="detail">{{details.time}}</span>
+            <span class="title">Service Provider</span>
+            <span class="detail">{{details.service_provider}}</span>
+            <span class="title">Delivery Fee</span>
+            <span class="detail">{{details.fee}} SAR</span>
+          </div>
+        </div>
+        <div class="col s12 m6 xl4 order-description">
+          <div class="card">
+            <span class="title">Order Details</span>
+            <span class="detail">
+              {{description.text}}
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m12 xl4 location">
+          <div class="card">
+            <a target="_blank" href="https://www.google.com/maps/?q={{location.lat}},{{location.ling}}">
+              <div class="map-btn z-depth-3">
+                See location on map
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+</template>
