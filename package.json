@@ -10,7 +10,7 @@
   "dependencies": {
     "babel-runtime": "^6.23.0",
     "bcrypt": "^1.0.2",
-    "body-parser": "^1.17.2",
+    "body-parser": "^1.20.1",
     "c3": "^0.4.17",
     "cls-bluebird": "^2.0.1",
     "d3": "^4.10.0",
